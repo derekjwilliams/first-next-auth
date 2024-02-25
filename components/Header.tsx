@@ -8,7 +8,7 @@ export default function Header() {
         Marigold, Communicate, Play, Smile
         
       </p>
-      <img src="/50640508551_e5be07a8ba_o.jpg"/>
+      <img src="/marigold_logo.svg"/>
       <div className="flex gap-8 justify-center items-center">
         <a
           href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
