@@ -6,6 +6,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        figtree: ['Figtree', 'sans-serif'],
+      },
       colors: {
         flower_yellow: '#FFD55F',
         flower_gold: '#FFC200',
