@@ -4,6 +4,21 @@ import SupabaseLogo from "./SupabaseLogo";
 export default function Header() {
   return (
     <div className="flex flex-col gap-16 items-center font-figtree">
+      <img src="/simple_logo.png"/>
+      <div className="flex flex-row">
+        <div className="bg-flower_yellow min-h-16 min-w-16">
+        </div>
+        <div className="bg-flower_gold min-h-16 min-w-16">
+        </div>
+        <div className="bg-flower_red min-h-16 min-w-16">
+        </div>
+        <div className="bg-environment_brown min-h-16 min-w-16">
+        </div>
+        <div className="bg-leaf min-h-16 min-w-16">
+        </div>
+        <div className="bg-pansy min-h-16 min-w-16">
+        </div>
+      </div>
       <p className="text-2xl lg:text-2xl !leading-tight mx-auto max-w-xl text-center">
         Creating collaborative relationships between property owners and tenants.
       </p>

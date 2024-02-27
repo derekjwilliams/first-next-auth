@@ -8,6 +8,7 @@ module.exports = {
     extend: {
       fontFamily: {
         figtree: ['Figtree', 'sans-serif'],
+        abril_fatface: ['Abril Fatface', 'sans-serif'],
       },
       colors: {
         flower_yellow: '#FFD55F',
