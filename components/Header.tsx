@@ -3,7 +3,7 @@ import SupabaseLogo from "./SupabaseLogo";
 
 export default function Header() {
   return (
-    <div className="flex flex-col gap-16 items-center font-figtree">
+    <div className="flex flex-col gap-16 items-center">
       <img src="/simple_logo.png"/>
       <div className="flex flex-row">
         <div className="bg-flower_yellow min-h-16 min-w-16">
