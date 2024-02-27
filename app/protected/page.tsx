@@ -17,9 +17,9 @@ export default async function ProtectedPage() {
   }
 
   return (
-    <div className="flex-1 w-full flex flex-col gap-20 items-center">
+    <div className="flex-1 w-full flex flex-col gap-20 items-center font-figtree">
       <div className="w-full">
-        <div className="py-6 font-bold bg-flower-red text-center text-white">
+        <div className="py-6 font-bold bg-flower_red text-center text-white">
           This is a protected page that you can only see as an authenticated
           user
         </div>

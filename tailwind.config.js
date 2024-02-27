@@ -6,11 +6,14 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        figtree: ['Figtree', 'sans-serif'],
+      },
       colors: {
-        'flower-yellow': '#FFD55F',
-        'flower-gold': '#FFC200',
-        'flower-red': '#F74600',
-        'environment-brown': '#D67A00',
+        flower_yellow: '#FFD55F',
+        flower_gold: '#FFC200',
+        flower_red: '#F74600',
+        environment_brown: '#D67A00',
         leaf: '#005145',
         pansy: '#A800AD',
         background: 'hsl(var(--background))',

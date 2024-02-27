@@ -3,7 +3,7 @@ import SupabaseLogo from "./SupabaseLogo";
 
 export default function Header() {
   return (
-    <div className="flex flex-col gap-16 items-center">
+    <div className="flex flex-col gap-16 items-center font-figtree">
       <p className="text-2xl lg:text-2xl !leading-tight mx-auto max-w-xl text-center">
         Creating collaborative relationships between property owners and tenants.
       </p>
