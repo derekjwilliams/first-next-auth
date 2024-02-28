@@ -40,3 +40,35 @@
     transform: translateY(0);
   }
 }
+
+/* Simple CSS for service request grid, convert to tailwind as needed */
+
+.grid-even-columns {
+  display: grid;
+  gap: 1rem;
+  margin: 0 2rem;
+}
+
+@media (min-width: 40em) {
+  .grid-even-columns {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 70em) {
+  .grid-even-columns {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 100em) {
+  .grid-even-columns {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.service-item {
+  min-width: 15rem;
+  min-height: 15rem;
+  padding: 2rem;
+}
