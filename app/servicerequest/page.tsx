@@ -36,6 +36,7 @@ export default async function ProtectedPage() {
         <div className="grid-even-columns">
             <div className="service-item shadow-md bg-flower_gold">
                 Safety
+                <img src="/safety.svg"/>
             </div>
             <div className="service-item shadow-md bg-flower_gold">
                 Heating and Cooling

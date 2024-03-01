@@ -72,3 +72,9 @@
   min-height: 15rem;
   padding: 2rem;
 }
+
+img {
+  animation: animateIn 0.3s ease 0.15s both;
+  image-rendering: crisp-edges;
+}
+
