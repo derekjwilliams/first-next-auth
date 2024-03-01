@@ -31,12 +31,12 @@ export default async function ProtectedPage() {
         </nav>
       </div>
 
-      <div className="animate-in flex-1 flex flex-col gap-20 opacity-0 font-figtree text-2xl">
+      <div className="w-full animate-in flex-1 flex flex-col gap-20 opacity-0 font-figtree text-2xl">
         <main className="flex-1 flex flex-col gap-6">
-        <div className="grid-even-columns">
-            <div className="service-item shadow-md bg-flower_gold">
-                Safety
+        <div className="basic-grid">
+            <div className="grid place-items-center service-item shadow-md bg-flower_gold">
                 <img src="/safety.svg"/>
+                Safety
             </div>
             <div className="service-item shadow-md bg-flower_gold">
                 Heating and Cooling
