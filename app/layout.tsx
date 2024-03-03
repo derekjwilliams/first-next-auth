@@ -1,4 +1,3 @@
-import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 
 const defaultUrl = process.env.VERCEL_URL
@@ -17,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={GeistSans.className}>
+    <html lang="en">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com"/>
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous"/>
