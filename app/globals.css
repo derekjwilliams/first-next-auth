@@ -50,11 +50,7 @@
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
-.service-item {
-  min-width: 200px;
-  min-height: 200px;
-  padding: 10px;
-}
+
 
 img {
   animation: animateIn 0.3s ease 0.15s both;

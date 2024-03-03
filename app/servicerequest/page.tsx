@@ -2,6 +2,23 @@ import AuthButton from "@/components/AuthButton";
 import { createClient } from "@/utils/supabase/server";
 import Header from "@/components/Header";
 import { redirect } from "next/navigation";
+import * as stylex from "@stylexjs/stylex";
+
+const service_card = stylex.create({
+    base: {
+        fontSize: 16,
+        backgroundColor: colors.yellow4,
+        boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.1) 0px 4px 6px -4px',
+        borderRadius: '0.5rem',
+        placeItems: 'center',
+        display: 'grid',
+        minWidth: '200px',
+        minHeight: '200px',
+        padding: '10px',
+    }
+})
+
+import { colors } from "@stylexjs/open-props/lib/colors.stylex";
 
 export default async function ProtectedPage() {
   const supabase = createClient();
@@ -15,9 +32,6 @@ export default async function ProtectedPage() {
   }
 
   return (
-
-
-    
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
       <div className="w-full">
         <div className="py-6 font-bold bg-flower_red text-center text-white">
@@ -34,47 +48,47 @@ export default async function ProtectedPage() {
       <div className="w-full animate-in flex-1 flex flex-col gap-20 opacity-0 font-figtree text-2xl">
         <main className="flex-1 flex flex-col gap-6">
         <div className="basic-grid">
-            <div className="rounded-lg grid place-items-center service-item shadow-lg border-flower-gold border-1 bg-flower_yellow">
+            <div {...stylex.props(service_card.base)}>
                 <img src="/safety.svg"/>
                 Safety
             </div>
-            <div className="rounded-lg grid place-items-center service-item shadow-lg border-flower-gold border-1 bg-flower_yellow">
+            <div {...stylex.props(service_card.base)}>
                 Heating and Cooling
             </div>
-            <div className="rounded-lg grid place-items-center service-item shadow-lg border-flower-gold border-1 bg-flower_yellow">
+            <div {...stylex.props(service_card.base)}>
                 Pests
             </div>
-            <div className="rounded-lg grid place-items-center service-item shadow-lg border-flower-gold border-1 bg-flower_yellow">
+            <div {...stylex.props(service_card.base)}>
                 Wall, Floors, Doors, Windows
             </div>
-            <div className="rounded-lg grid place-items-center service-item shadow-lg border-flower-gold border-1 bg-flower_yellow">
+            <div {...stylex.props(service_card.base)}>
                 Electrical
             </div>
-            <div className="rounded-lg grid place-items-center service-item shadow-lg border-flower-gold border-1 bg-flower_yellow">
+            <div {...stylex.props(service_card.base)}>
                 Broadband
             </div>
-            <div className="rounded-lg grid place-items-center service-item shadow-lg border-flower-gold border-1 bg-flower_yellow">
+            <div {...stylex.props(service_card.base)}>
                 Laundry
             </div>
-            <div className="rounded-lg grid place-items-center service-item shadow-lg border-flower-gold border-1 bg-flower_yellow">
+            <div {...stylex.props(service_card.base)}>
                 Door and Lock
             </div>
-            <div className="rounded-lg grid place-items-center service-item shadow-lg border-flower-gold border-1 bg-flower_yellow">
+            <div {...stylex.props(service_card.base)}>
                 Garbage Disposal
             </div>
-            <div className="rounded-lg grid place-items-center service-item shadow-lg border-flower-gold border-1 bg-flower_yellow">
+            <div {...stylex.props(service_card.base)}>
                 Faucet
             </div>
-            <div className="rounded-lg grid place-items-center service-item shadow-lg border-flower-gold border-1 bg-flower_yellow">
+            <div {...stylex.props(service_card.base)}>
                 Drain
             </div>
-            <div className="rounded-lg grid place-items-center service-item shadow-lg border-flower-gold border-1 bg-flower_yellow">
+            <div {...stylex.props(service_card.base)}>
                 Roof
             </div>
-            <div className="rounded-lg grid place-items-center service-item shadow-lg border-flower-gold border-1 bg-flower_yellow">
+            <div {...stylex.props(service_card.base)}>
                 Gutters
             </div>
-            <div className="rounded-lg grid place-items-center service-item shadow-lg border-flower-gold border-1 bg-flower_yellow">
+            <div {...stylex.props(service_card.base)}>
                 Trees, Lawn, Landscaping
             </div>
           </div>
