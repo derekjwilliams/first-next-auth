@@ -23,17 +23,17 @@ import { colors } from "@stylexjs/open-props/lib/colors.stylex";
 export default async function ProtectedPage() {
   const supabase = createClient();
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+//   const {
+//     data: { user },
+//   } = await supabase.auth.getUser();
 
-  if (!user) {
-    return redirect("/login");
-  }
+//   if (!user) {
+//     return redirect("/login");
+//   }
 
   return (
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
-      <div className="w-full">
+      {/* <div className="w-full">
         <div className="py-6 font-bold bg-flower_red text-center text-white">
           This is a protected page that you can only see as an authenticated
           user
@@ -43,7 +43,7 @@ export default async function ProtectedPage() {
             <AuthButton />
           </div>
         </nav>
-      </div>
+      </div> */}
 
       <div className="w-full animate-in flex-1 flex flex-col gap-20 opacity-0 font-figtree text-2xl">
         <main className="flex-1 flex flex-col gap-6">
