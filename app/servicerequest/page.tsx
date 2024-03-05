@@ -7,7 +7,7 @@ import * as stylex from "@stylexjs/stylex";
 const service_card = stylex.create({
     base: {
         fontSize: 16,
-        backgroundColor: colors.yellow4,
+        backgroundColor: colors.gray3,
         boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.1) 0px 4px 6px -4px',
         borderRadius: '0.5rem',
         placeItems: 'center',
@@ -21,23 +21,23 @@ const service_card = stylex.create({
 import { colors } from "@stylexjs/open-props/lib/colors.stylex";
 
 export default async function ProtectedPage() {
-  const supabase = createClient();
+//   const supabase = createClient();
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+//   const {
+//     data: { user },
+//   } = await supabase.auth.getUser();
 
-  if (!user) {
-    return redirect("/login");
-  }
+//   if (!user) {
+//     return redirect("/login");
+//   }
 
   return (
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
       <div className="w-full">
-        <div className="py-6 font-bold bg-flower_red text-center text-white">
+        {/* <div className="py-6 font-bold bg-flower_red text-center text-white">
           This is a protected page that you can only see as an authenticated
           user
-        </div>
+        </div> */}
         <nav className="w-full flex justify-end border-b border-b-foreground/10 h-16">
           <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
             <AuthButton />
@@ -53,13 +53,16 @@ export default async function ProtectedPage() {
                 Safety
             </div>
             <div {...stylex.props(service_card.base)}>
+                <img src="/heating_and_cooling.svg"/>
                 Heating and Cooling
             </div>
             <div {...stylex.props(service_card.base)}>
+                <img src="/pests.svg"/>
                 Pests
             </div>
             <div {...stylex.props(service_card.base)}>
-                Wall, Floors, Doors, Windows
+                <img src="/doors_and_windows.svg"/>
+                Floors, Doors, Windows
             </div>
             <div {...stylex.props(service_card.base)}>
                 Electrical
