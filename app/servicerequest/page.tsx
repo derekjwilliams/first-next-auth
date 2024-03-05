@@ -62,7 +62,7 @@ export default async function ProtectedPage() {
             </div>
             <div {...stylex.props(service_card.base)}>
                 <img src="/doors_and_windows.svg"/>
-                Floors, Doors, Windows
+                Walls, Doors, Windows
             </div>
             <div {...stylex.props(service_card.base)}>
                 Electrical
