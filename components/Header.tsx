@@ -1,5 +1,36 @@
 import * as stylex from "@stylexjs/stylex";
-import { marigoldColors } from '../app/marigoldColors.stylex'
+import { marigoldColors } from '../app/tokens.stylex'
+
+const page_wrapper = stylex.create({
+  base: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '4rem',
+    alignItems: 'center',
+    fontFamily: 'Figtree'
+  }
+})
+const header_swatch_wrapper = stylex.create({
+  base: {
+    display: 'flex',
+    flexDirection: 'row',
+  }
+})
+const byline = stylex.create({
+  base: {
+    fontSize: '1.5rem',
+    lineHeight: '2rem',
+    marginLeft: 'auto',
+    marginRight:'auto',
+    maxWidth: '36rem',
+    textAlign: 'center'
+  }
+})
+const logo = stylex.create({
+  base:{
+    maxWidth: '500px'
+  }
+})
 
 const header_swatch = stylex.create({
     base: {
@@ -27,9 +58,9 @@ const header_swatch = stylex.create({
 })
 export default function Header() {
   return (
-    <div className="flex flex-col gap-16 items-center font-figtree">
+    <div {...stylex.props(page_wrapper.base)}>
       <img src="/simple_logo.png"/>
-      <div className="flex flex-row">
+      <div {...stylex.props(header_swatch_wrapper.base)}>
         <div {...stylex.props(header_swatch.base, header_swatch.flower_yellow)}></div>
         <div {...stylex.props(header_swatch.base, header_swatch.flower_gold)}></div>
         <div {...stylex.props(header_swatch.base, header_swatch.flower_red)}></div>
@@ -37,10 +68,10 @@ export default function Header() {
         <div {...stylex.props(header_swatch.base, header_swatch.leaf)}></div>
         <div {...stylex.props(header_swatch.base, header_swatch.pansy)}></div>
       </div>
-      <p className="text-2xl lg:text-2xl !leading-tight mx-auto max-w-xl text-center">
+      <p {...stylex.props(byline.base)}>
         Creating collaborative relationships between property owners and tenants.
       </p>
-      <img src="/marigold_logo.png"/>
+      <img {...stylex.props(logo.base)} src="/marigold_logo.png"/>
     </div>
   );
 }
