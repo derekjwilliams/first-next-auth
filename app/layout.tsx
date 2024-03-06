@@ -22,8 +22,8 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous"/>
         <link href="https://fonts.googleapis.com/css2?family=Figtree&display=swap" rel="stylesheet"/>
       </head>
-      <body>
-        <main>
+      <body className="bg-background text-foreground">
+        <main className="min-h-screen flex flex-col items-center">
           {children}
         </main>
       </body>

@@ -2,6 +2,7 @@ import AuthButton from "@/components/AuthButton";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import * as stylex from "@stylexjs/stylex";
+import { colors } from "@stylexjs/open-props/lib/colors.stylex";
 
 const service_card = stylex.create({
     base: {
@@ -78,7 +79,7 @@ const service_card_grid = stylex.create({
         display: 'grid',
         gap: '2rem',
         margin: '0 2rem',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',     
+        gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))'      
     }
 })
 
@@ -158,7 +159,7 @@ export default async function ProtectedPage() {
         </main>
       </div>
 
-      <footer>
+      <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
       </footer>
     </div>
   );
