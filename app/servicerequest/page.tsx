@@ -2,7 +2,6 @@ import AuthButton from "@/components/AuthButton";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import * as stylex from "@stylexjs/stylex";
-import { colors } from "@stylexjs/open-props/lib/colors.stylex";
 
 const service_card = stylex.create({
     base: {
@@ -159,8 +158,8 @@ export default async function ProtectedPage() {
         </main>
       </div>
 
-      <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
-      </footer>
+      {/* <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
+      </footer> */}
     </div>
   );
 }

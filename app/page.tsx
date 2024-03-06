@@ -3,18 +3,14 @@ import { createClient } from "@/utils/supabase/server";
 import Header from "@/components/Header";
 import * as stylex from "@stylexjs/stylex";
 
-
-const service_card = stylex.create({
+const header_wrapper = stylex.create({
   base: {
-      fontSize: 16,
-      backgroundColor: '#e9ecef',
-      boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.1) 0px 4px 6px -4px',
-      borderRadius: '0.5rem',
-      placeItems: 'center',
-      display: 'grid',
-      minWidth: '200px',
-      minHeight: '200px',
-      padding: '10px',
+    flex: '1 1 0%',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '5rem',
+    maxWidth: '56rem',
+    padding: '0 0.75rem 0 0.75rem'
   }
 })
 
@@ -40,7 +36,7 @@ export default async function Index() {
         </div>
       </nav>
 
-      <div className="animate-in flex-1 flex flex-col gap-20 opacity-0 max-w-4xl px-3">
+      <div {...stylex.props(header_wrapper.base)}>
         <Header />
         <main className="flex-1 flex flex-col gap-6">
           {/* <h2 className="font-bold text-4xl mb-4">Next steps</h2>
