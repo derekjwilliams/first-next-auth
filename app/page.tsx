@@ -1,6 +1,8 @@
 import AuthButton from "../components/AuthButton";
 import { createClient } from "@/utils/supabase/server";
 import Header from "@/components/Header";
+import * as stylex from "@stylexjs/stylex";
+
 
 export default async function Index() {
   const canInitSupabaseClient = () => {
