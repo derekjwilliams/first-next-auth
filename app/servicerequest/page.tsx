@@ -3,16 +3,12 @@ import { createClient } from "@/utils/supabase/server";
 import Header from "@/components/Header";
 import { redirect } from "next/navigation";
 import * as stylex from "@stylexjs/stylex";
-import { colors } from "@stylexjs/open-props/lib/colors.stylex";
-import { shadows } from "@stylexjs/open-props/lib/shadows.stylex";
 
-shadows.shadow2
-
-const servicerequest_card = stylex.create({
+const service_card = stylex.create({
     base: {
         fontSize: 16,
-        backgroundColor: colors.gray10,
-        boxShadow: shadows.shadow6,
+        backgroundColor: '#e9ecef',
+        boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.1) 0px 4px 6px -4px',
         borderRadius: '0.5rem',
         placeItems: 'center',
         display: 'grid',
@@ -21,16 +17,60 @@ const servicerequest_card = stylex.create({
         padding: '10px',
     }
 })
-const servicerequest_container = stylex.create({
+const service_page = stylex.create({
     base: {
+        display: 'flex',
         flex: '1 1 0%',
         width: '100%',
-        display: 'flex',
         flexDirection: 'column',
         gap: '5rem',
-        alignItems: 'center'
+        alignItems: 'center',
     }
 })
+const service_nav_container = stylex.create({
+    base: {
+        width: '100%',
+    }
+})
+const service_nav = stylex.create({
+    base: {
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'flex-end',
+        borderBottom: '1px solid rgba(4, 9, 11, 0.1)',
+        height: '4rem',
+    }
+})
+
+const service_auth_button = stylex.create({
+    base: {
+        width: '100%',
+        maxWidth: '56rem',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: '0.75rem',
+        fontSize: '0.875rem',
+        lineHeight: '1.25rem',
+    }
+})
+
+// import { fonts } from "@stylexjs/open-props/lib/fonts.stylex";
+const service_main_container = stylex.create({
+    base: {
+        display: 'flex',
+        flex: '1 1 0%',
+        width: '100%',
+        flexDirection: 'column',
+        gap: '5rem',
+        fontSize: '1.5rem',
+        lineHeight: '2rem',
+        fontFamily: 'Figtree, sans-serif',
+    }
+})
+
+
+import { colors } from "@stylexjs/open-props/lib/colors.stylex";
 
 export default async function ProtectedPage() {
   const supabase = createClient();
@@ -44,69 +84,65 @@ export default async function ProtectedPage() {
   }
 
   return (
-    <div {...stylex.props(servicerequest_container.base)}>
-      <div className="w-full">
-        {/* <div className="py-6 font-bold bg-flower_red text-center text-white">
-          This is a protected page that you can only see as an authenticated
-          user
-        </div> */}
-        <h1>Make a Service Request</h1>
-        <nav className="w-full flex justify-end border-b border-b-foreground/10 h-16">
-          <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
+    <div {...stylex.props(service_page.base)}>
+      <div {...stylex.props(service_nav_container.base)}>
+        <nav {...stylex.props(service_nav.base)}>
+          <div {...stylex.props(service_auth_button.base)}>
             <AuthButton />
           </div>
         </nav>
       </div>
 
-      <div className="w-full animate-in flex-1 flex flex-col gap-20 opacity-0 font-figtree text-2xl">
+      <div {...stylex.props(service_main_container.base)}>
         <main className="flex-1 flex flex-col gap-6">
-          <div className="basic-grid">
-            <div {...stylex.props(servicerequest_card.base)}>
-                <img src="/safety.svg"/>
-                Safety
-            </div>
-            <div {...stylex.props(servicerequest_card.base)}>
-                <img src="/heating_and_cooling.svg"/>
-                Heating and Cooling
-            </div>
-            <div {...stylex.props(servicerequest_card.base)}>
-                <img src="/pests.svg"/>
-                Pests
-            </div>
-            <div {...stylex.props(servicerequest_card.base)}>
-                <img src="/doors_and_windows.svg"/>
-                Walls, Doors, Windows
-            </div>
-            <div {...stylex.props(servicerequest_card.base)}>
-                Electrical
-            </div>
-            <div {...stylex.props(servicerequest_card.base)}>
-                Broadband
-            </div>
-            <div {...stylex.props(servicerequest_card.base)}>
-                Laundry
-            </div>
-            <div {...stylex.props(servicerequest_card.base)}>
-                Door and Lock
-            </div>
-            <div {...stylex.props(servicerequest_card.base)}>
-                Garbage Disposal
-            </div>
-            <div {...stylex.props(servicerequest_card.base)}>
-                Faucet
-            </div>
-            <div {...stylex.props(servicerequest_card.base)}>
-                Drain
-            </div>
-            <div {...stylex.props(servicerequest_card.base)}>
-                Roof
-            </div>
-            <div {...stylex.props(servicerequest_card.base)}>
-                Gutters
-            </div>
-            <div {...stylex.props(servicerequest_card.base)}>
-                Trees, Lawn, Landscaping
-            </div>
+            <div>Make a Service Request</div>
+            <div className="basic-grid">
+                <div {...stylex.props(service_card.base)}>
+                    <img src="/safety.svg"/>
+                    Safety
+                </div>
+                <div {...stylex.props(service_card.base)}>
+                    <img src="/heating_and_cooling.svg"/>
+                    Heating and Cooling
+                </div>
+                <div {...stylex.props(service_card.base)}>
+                    <img src="/pests.svg"/>
+                    Pests
+                </div>
+                <div {...stylex.props(service_card.base)}>
+                    <img src="/doors_and_windows.svg"/>
+                    Walls, Doors, Windows
+                </div>
+                <div {...stylex.props(service_card.base)}>
+                    Electrical
+                </div>
+                <div {...stylex.props(service_card.base)}>
+                    Broadband
+                </div>
+                <div {...stylex.props(service_card.base)}>
+                    Laundry
+                </div>
+                <div {...stylex.props(service_card.base)}>
+                    Door and Lock
+                </div>
+                <div {...stylex.props(service_card.base)}>
+                    Garbage Disposal
+                </div>
+                <div {...stylex.props(service_card.base)}>
+                    Faucet
+                </div>
+                <div {...stylex.props(service_card.base)}>
+                    Drain
+                </div>
+                <div {...stylex.props(service_card.base)}>
+                    Roof
+                </div>
+                <div {...stylex.props(service_card.base)}>
+                    Gutters
+                </div>
+                <div {...stylex.props(service_card.base)}>
+                    Trees, Lawn, Landscaping
+                </div>
           </div>
         </main>
       </div>
