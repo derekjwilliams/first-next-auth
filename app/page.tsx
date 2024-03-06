@@ -7,10 +7,6 @@ const header_wrapper = stylex.create({
   base: {
     flex: 'flex: 1 1 0%',
     display: 'flex',
-    flexDirection: 'column',
-    gap: '5rem',
-    maxWidth: '56rem',
-    padding: '0 0.75rem 0 0.75rem',
   }
 })
 
