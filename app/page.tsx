@@ -3,10 +3,18 @@ import { createClient } from "@/utils/supabase/server";
 import Header from "@/components/Header";
 import * as stylex from "@stylexjs/stylex";
 
-const header_wrapper = stylex.create({
+
+const service_card = stylex.create({
   base: {
-    flex: 'flex: 1 1 0%',
-    display: 'flex',
+      fontSize: 16,
+      backgroundColor: '#e9ecef',
+      boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.1) 0px 4px 6px -4px',
+      borderRadius: '0.5rem',
+      placeItems: 'center',
+      display: 'grid',
+      minWidth: '200px',
+      minHeight: '200px',
+      padding: '10px',
   }
 })
 
