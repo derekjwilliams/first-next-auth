@@ -7,7 +7,7 @@ const page_wrapper = stylex.create({
     flexDirection: 'column',
     gap: '4rem',
     alignItems: 'center',
-    fontFamily: 'Figtree'
+    fontFamily: 'Figtree',
   }
 })
 const header_swatch_wrapper = stylex.create({
@@ -23,12 +23,12 @@ const byline = stylex.create({
     marginLeft: 'auto',
     marginRight:'auto',
     maxWidth: '36rem',
-    textAlign: 'center'
+    textAlign: 'center',
   }
 })
 const logo = stylex.create({
   base:{
-    maxWidth: '500px'
+    maxWidth: '500px',
   }
 })
 
