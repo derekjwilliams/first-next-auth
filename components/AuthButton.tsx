@@ -1,6 +1,30 @@
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import * as stylex from "@stylexjs/stylex";
+import { colors } from "@stylexjs/open-props/lib/colors.stylex";// todo use imported colors
+
+const auth_button_wrapper = stylex.create({
+  base: {
+      display: 'flex',
+      fontFamily: 'Figtree',
+      alignItems: 'center',
+      color: '#005145',
+      gap: '1rem',
+  }
+})
+const auth_button = stylex.create({
+  base: {
+      padding: '0.5rem 1rem',
+      textDecoration: 'none',
+      borderRadius: '0.375rem',
+      borderColor: '#005145',
+      borderWidth: '1px',
+      backgroundColor: {
+        ':hover': '#e9ecef',
+      }
+  }
+})
 
 export default async function AuthButton() {
   const supabase = createClient();
@@ -18,10 +42,10 @@ export default async function AuthButton() {
   };
 
   return user ? (
-    <div className="flex items-center text-leaf gap-4 font-figtree text-base">
+    <div {...stylex.props(auth_button_wrapper.base)}>
       Hey, {user.email}!
       <form action={signOut}>
-        <button className="py-2 px-4 rounded-md no-underline border-2 text-leaf border-leaf hover:bg-btn-background-hover">
+        <button {...stylex.props(auth_button.base)}>
           Logout
         </button>
       </form>
@@ -29,7 +53,7 @@ export default async function AuthButton() {
   ) : (
     <Link
       href="/login"
-      className="py-2 px-3 flex rounded-md no-underline border-2 text-leaf border-leaf hover:bg-btn-background-hover"
+      {...stylex.props(auth_button.base)}
     >
       Login
     </Link>

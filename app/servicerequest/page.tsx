@@ -1,8 +1,8 @@
 import AuthButton from "@/components/AuthButton";
 import { createClient } from "@/utils/supabase/server";
-import Header from "@/components/Header";
 import { redirect } from "next/navigation";
 import * as stylex from "@stylexjs/stylex";
+import { colors } from "@stylexjs/open-props/lib/colors.stylex";
 
 const service_card = stylex.create({
     base: {
@@ -41,11 +41,10 @@ const service_nav = stylex.create({
         height: '4rem',
     }
 })
-
 const service_auth_button = stylex.create({
     base: {
         width: '100%',
-        maxWidth: '56rem',
+        maxWidth: '20rem',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -54,8 +53,6 @@ const service_auth_button = stylex.create({
         lineHeight: '1.25rem',
     }
 })
-
-// import { fonts } from "@stylexjs/open-props/lib/fonts.stylex";
 const service_main_container = stylex.create({
     base: {
         display: 'flex',
@@ -68,9 +65,24 @@ const service_main_container = stylex.create({
         fontFamily: 'Figtree, sans-serif',
     }
 })
+const service_main = stylex.create({
+    base: {
+        display: 'flex',
+        flex: '1 1 0%',
+        flexDirection: 'column',
+        gap: '1.5rem',
+    }
+})
 
+const service_card_grid = stylex.create({
+    base: {
+        display: 'grid',
+        gap: '1rem',
+        margin: '0 2rem',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))'
+    }
+})
 
-import { colors } from "@stylexjs/open-props/lib/colors.stylex";
 
 export default async function ProtectedPage() {
   const supabase = createClient();
@@ -94,9 +106,9 @@ export default async function ProtectedPage() {
       </div>
 
       <div {...stylex.props(service_main_container.base)}>
-        <main className="flex-1 flex flex-col gap-6">
+        <main {...stylex.props(service_main.base)}>
             <div>Make a Service Request</div>
-            <div className="basic-grid">
+            <div {...stylex.props(service_card_grid.base)}>
                 <div {...stylex.props(service_card.base)}>
                     <img src="/safety.svg"/>
                     Safety
