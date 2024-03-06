@@ -77,9 +77,9 @@ const service_main = stylex.create({
 const service_card_grid = stylex.create({
     base: {
         display: 'grid',
-        gap: '1rem',
+        gap: '2rem',
         margin: '0 2rem',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))'
+        gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))'      
     }
 })
 
