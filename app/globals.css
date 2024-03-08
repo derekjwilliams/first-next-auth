@@ -1,7 +1,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Figtree&display=swap');
 
-@layer base {
+/* @layer base {
   :root {
     --background: 200 20% 98%;
     --btn-background: 200 10% 91%;
@@ -38,11 +38,11 @@
     opacity: 1;
     transform: translateY(0);
   }
-}
+} */
 
 /* Simple CSS for service request grid, convert to tailwind as needed */
 
-.basic-grid {
+/* .basic-grid {
   display: grid;
   gap: 1rem;
   margin: 0 2rem;
@@ -59,6 +59,6 @@ img {
 .logo {
   fill: #d67a00;
   stroke: #d67a00;
-  /* padding: 2px; */
+  padding: 2px;
 }
-
+*/
