@@ -3,8 +3,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "next start"
   },
   "dependencies": {
     "@babel/runtime": "^7.24.0",
@@ -23,12 +22,6 @@
     "@stylexjs/nextjs-plugin": "^0.5.1",
     "@types/node": "20.11.5",
     "@types/react": "18.2.48",
-    "@types/react-dom": "18.2.18",
-    "@typescript-eslint/eslint-plugin": "^7.1.1",
-    "@typescript-eslint/parser": "^7.1.1",
-    "encoding": "^0.1.13",
-    "eslint": "^8.57.0",
-    "eslint-plugin-react": "^7.34.0",
-    "eslint-plugin-react-hooks": "^4.6.0"
+    "@types/react-dom": "18.2.18"
   }
 }
