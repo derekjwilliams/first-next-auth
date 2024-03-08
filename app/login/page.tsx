@@ -10,10 +10,12 @@ const login_page = stylex.create({
       display: 'grid',
       flexDirection: 'column',
       flex: '1 1 0%',
-      width: '100%',
       padding: '0 2rem 0 2rem',
       justifyContent: 'center',
-      '@media (min-width: 640px)': 'max-width: 28rem',
+      width: {
+        default: '100%',
+        '@media (min-width: 640px)': '28rem'
+      }
   }
 })
 const login_form_input = stylex.create({
