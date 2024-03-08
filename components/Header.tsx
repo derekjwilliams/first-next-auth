@@ -1,6 +1,13 @@
 import * as stylex from "@stylexjs/stylex";
-import { marigoldColors } from '../app/tokens.stylex'
-
+// import { marigoldColors } from '../app/tokens.stylex.js'
+const marigoldColors = {
+  flowerYellow: 'rgb(255 213 95)',
+  flowerGold: 'rgb(255 194 0)',
+  flowerRed: 'rgb(247 70 0)',
+  environmentBrown: 'rgb(214 122 0)',
+  leaf: 'rgb(0 81 69)',
+  pansy: 'rgb(168 0 173)'
+}
 const page_wrapper = stylex.create({
   base: {
     display: 'flex',
@@ -26,7 +33,7 @@ const byline = stylex.create({
     textAlign: 'center'
   }
 })
-const logo = stylex.create({
+const header_logo = stylex.create({
   base:{
     maxWidth: '500px'
   }
@@ -71,7 +78,7 @@ export default function Header() {
       <p {...stylex.props(byline.base)}>
         Creating collaborative relationships between property owners and tenants.
       </p>
-      <img {...stylex.props(logo.base)} src="/marigold_logo.png"/>
+      <img {...stylex.props(header_logo.base)} width='500' src="/marigold_logo.png"/>
     </div>
   );
 }
