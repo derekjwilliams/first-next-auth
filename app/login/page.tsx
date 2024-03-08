@@ -18,9 +18,11 @@ const login_page = stylex.create({
       }
   }
 })
+
 const login_form_input = stylex.create({
   base:
   {
+    fontFamily: 'Figtree, sans-serif',
     justifyContent: 'center',
     padding: '0.5rem 1rem 0.5rem 1rem',
     marginBottom: '1.5rem',
@@ -145,7 +147,7 @@ export default function Login({
       </Link>
 
       <form {...stylex.props(login_form.base)} >
-        <label className="text-md" htmlFor="email">
+        <label htmlFor="email">
           Email
         </label>
         <input
