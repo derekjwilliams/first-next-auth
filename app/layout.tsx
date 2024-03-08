@@ -1,23 +1,4 @@
 import "./globals.css";
-import * as stylex from "@stylexjs/stylex";
-
-const layout = stylex.create({
-  base: {
-    fontFamily: 'Figtree, sans-serif',
-    backgroundColor: '#FFFFFF',
-    color: '#000',
-  }
-})
-const layout_main = stylex.create({
-  base: 
-  {
-    display: "flex",
-    flexDirection: 'column',
-    alignItems: 'center',
-    minHeight: '100vh',
-  }
-})
-
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -41,8 +22,8 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous"/>
         <link href="https://fonts.googleapis.com/css2?family=Figtree&display=swap" rel="stylesheet"/>
       </head>
-      <body {...stylex.props(layout.base)}>
-        <main {...stylex.props(layout_main.base)}>
+      <body className="bg-background text-foreground">
+        <main className="min-h-screen flex flex-col items-center">
           {children}
         </main>
       </body>

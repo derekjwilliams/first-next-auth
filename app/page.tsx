@@ -3,16 +3,6 @@ import { createClient } from "@/utils/supabase/server";
 import Header from "@/components/Header";
 import * as stylex from "@stylexjs/stylex";
 
-const header_wrapper = stylex.create({
-  base: {
-    flex: '1 1 0%',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '5rem',
-    maxWidth: '56rem',
-    padding: '0 0.75rem 0 0.75rem'
-  }
-})
 
 export default async function Index() {
   const canInitSupabaseClient = () => {
@@ -36,7 +26,7 @@ export default async function Index() {
         </div>
       </nav>
 
-      <div {...stylex.props(header_wrapper.base)}>
+      <div className="animate-in flex-1 flex flex-col gap-20 opacity-0 max-w-4xl px-3">
         <Header />
         <main className="flex-1 flex flex-col gap-6">
           {/* <h2 className="font-bold text-4xl mb-4">Next steps</h2>

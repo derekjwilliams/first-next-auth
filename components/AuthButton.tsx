@@ -2,6 +2,7 @@ import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import * as stylex from "@stylexjs/stylex";
+import { colors } from "@stylexjs/open-props/lib/colors.stylex";// todo use imported colors
 
 const auth_button_wrapper = stylex.create({
   base: {
