@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Figtree&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Figtree&display=swap');
 
 @layer base {
   :root {
@@ -23,9 +23,9 @@
   * {
     @apply border-foreground/20;
   }
-}
+} */
 
-.animate-in {
+/* .animate-in {
   animation: animateIn 0.3s ease 0.15s both;
 }
 
@@ -38,7 +38,7 @@
     opacity: 1;
     transform: translateY(0);
   }
-}
+} */
 
 /* Simple CSS for service request grid, convert to tailwind as needed */
 
@@ -51,14 +51,13 @@
 
 
 
-img {
+/* img {
   animation: animateIn 0.3s ease 0.15s both;
   image-rendering: crisp-edges;
-}
+} */
 
-.logo {
+/* .logo {
   fill: #d67a00;
   stroke: #d67a00;
-  /* padding: 2px; */
-}
+} */
 

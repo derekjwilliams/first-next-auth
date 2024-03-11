@@ -7,7 +7,6 @@ import { colors } from "@stylexjs/open-props/lib/colors.stylex";// todo use impo
 const auth_button_wrapper = stylex.create({
   base: {
       display: 'flex',
-      fontFamily: 'Figtree',
       alignItems: 'center',
       color: '#005145',
       gap: '1rem',

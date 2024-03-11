@@ -4,13 +4,13 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { SubmitButton } from "./submit-button";
 import * as stylex from "@stylexjs/stylex";
-import { colors } from "@stylexjs/open-props/lib/colors.stylex";
+import { colors } from "../../app/open-props/lib/colors.stylex"
+// import { colors } from "@stylexjs/open-props/lib/colors.stylex";
 
 //{"display":"flex","paddingLeft":"2rem","paddingRight":"2rem","flexDirection":"column","flex":"1 1 0%",
 //"gap":"0.5rem","justifyContent":"center","width":"100%","@media (min-width: 640px)":{"maxWidth":"28rem"}}
 const loginContainer = stylex.create({
   base: {
-    fontFamily: 'Figtree',
     display: 'flex',
     flexDirection: 'column',
     flex: '1 1 0%',
@@ -57,7 +57,7 @@ const loginForm = stylex.create({
     display: 'flex',
     flexDirection: 'column',
     flex: '1 1 0%',
-    gap: '0.5rubyMerge',
+    gap: '0.5rem',
     justifyContent: 'center',
     width: '100%',
     fontSize: '1.2rem',

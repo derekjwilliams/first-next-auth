@@ -9,8 +9,6 @@ const marigoldColors = {
   leaf: 'rgb(0 81 69)',
   pansy: 'rgb(168 0 173)',
 }
-
-
 const headerColors = stylex.create({
   base: {
     display: 'flex',
@@ -25,7 +23,6 @@ const marigoldLogo = stylex.create({
 const headerContainer = stylex.create({
   base: {
     display: 'flex',
-    fontFamily: 'Figtree',
     flexDirection: 'column',
     gap: '4rem',
     alignItems: 'center',
@@ -61,7 +58,7 @@ const headerSwatch = stylex.create({
 export default function Header() {
   return (
     <div {...stylex.props(headerContainer.base)}>
-      <Image alt='simplelogo' src="/simple_logo.png"/>
+      <img src="/simple_logo.png"/>
       <div {...stylex.props(headerColors.base)}>
         <div {...stylex.props(headerSwatch.base, headerSwatch.flower_yellow)}></div>
         <div {...stylex.props(headerSwatch.base, headerSwatch.flower_gold)}></div>
@@ -73,7 +70,7 @@ export default function Header() {
       <p>
         Creating collaborative relationships between property owners and tenants.
       </p>
-      <Image alt='fulllogo' {...stylex.props(marigoldLogo.base)} src="/marigold_logo.png"/>
+      <img {...stylex.props(marigoldLogo.base)} src="/marigold_logo.png"/>
     </div>
   );
 }

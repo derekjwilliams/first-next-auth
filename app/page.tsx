@@ -3,7 +3,6 @@ import { createClient } from "@/utils/supabase/server";
 import Header from "@/components/Header";
 // import * as stylex from "@stylexjs/stylex";
 import stylex from "@stylexjs/stylex";
-
 import { colors } from "@stylexjs/open-props/lib/colors.stylex";
 
 const pageStyle = stylex.create({
@@ -98,7 +97,7 @@ export default async function Index() {
           {isSupabaseConnected && <AuthButton />}
         </div>
       </nav>
-      <div className={'animate-in' + ' ' + stylex(pageHeaderContainer.base)}>
+      <div className={stylex(pageHeaderContainer.base)}>
         <Header />
         <main className={stylex(pageMain.base)}>
           {/* <h2 className="font-bold text-4xl mb-4">Next steps</h2>
