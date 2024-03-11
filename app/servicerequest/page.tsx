@@ -3,6 +3,7 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import * as stylex from "@stylexjs/stylex";
 import { colors } from "@stylexjs/open-props/lib/colors.stylex";
+import Image from 'next/image'
 
 const service_card = stylex.create({
     base: {
@@ -110,19 +111,19 @@ export default async function ProtectedPage() {
             <div>Make a Service Request</div>
             <div {...stylex.props(service_card_grid.base)}>
                 <div {...stylex.props(service_card.base)}>
-                    <img src="/safety.svg"/>
+                    <Image alt='safety' src="/safety.svg"/>
                     Safety
                 </div>
                 <div {...stylex.props(service_card.base)}>
-                    <img src="/heating_and_cooling.svg"/>
+                    <Image alt='hvac' src="/heating_and_cooling.svg"/>
                     Heating and Cooling
                 </div>
                 <div {...stylex.props(service_card.base)}>
-                    <img src="/pests.svg"/>
+                    <Image alt='pests' src="/pests.svg"/>
                     Pests
                 </div>
                 <div {...stylex.props(service_card.base)}>
-                    <img src="/doors_and_windows.svg"/>
+                    <Image alt='doors and windows' src="/doors_and_windows.svg"/>
                     Walls, Doors, Windows
                 </div>
                 <div {...stylex.props(service_card.base)}>
