@@ -109,19 +109,19 @@ export default async function ProtectedPage() {
             <div>Make a Service Request</div>
             <div {...stylex.props(service_card_grid.base)}>
                 <div {...stylex.props(service_card.base)}>
-                    <Image alt="safety" src="/safety.svg"/>
+                    <Image height={160} width={160}  alt="safety" src="/safety.svg"/>
                     Safety
                 </div>
                 <div {...stylex.props(service_card.base)}>
-                    <Image alt="hvac" src="/heating_and_cooling.svg"/>
+                    <Image height={160} width={160}  alt="hvac" src="/heating_and_cooling.svg"/>
                     Heating and Cooling
                 </div>
                 <div {...stylex.props(service_card.base)}>
-                    <Image alt="pests" src="/pests.svg"/>
+                    <Image height={160} width={160}  alt="pests" src="/pests.svg"/>
                     Pests
                 </div>
                 <div {...stylex.props(service_card.base)}>
-                    <Image alt="doors and windows" src="/doors_and_windows.svg"/>
+                    <Image height={160} width={160} alt="doors and windows" src="/doors_and_windows.svg"/>
                     Walls, Doors, Windows
                 </div>
                 <div {...stylex.props(service_card.base)}>

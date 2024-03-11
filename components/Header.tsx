@@ -59,7 +59,7 @@ const headerSwatch = stylex.create({
 export default function Header() {
   return (
     <div {...stylex.props(headerContainer.base)}>
-      <Image alt='simple logo' src="/simple_logo.png"/>
+      <Image alt='simple logo' width={492/4} height={492/4} src="/simple_logo.png"/>
       <div {...stylex.props(headerColors.base)}>
         <div {...stylex.props(headerSwatch.base, headerSwatch.flower_yellow)}></div>
         <div {...stylex.props(headerSwatch.base, headerSwatch.flower_gold)}></div>
@@ -71,7 +71,7 @@ export default function Header() {
       <p>
         Creating collaborative relationships between property owners and tenants.
       </p>
-      <Image alt='logo' {...stylex.props(marigoldLogo.base)} src="/marigold_logo.png"/>
+      <Image alt='logo' width={1322/4} height={365/4} {...stylex.props(marigoldLogo.base)} src="/marigold_logo.png"/>
     </div>
   );
 }
