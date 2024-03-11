@@ -27,6 +27,7 @@ const headerContainer = stylex.create({
     gap: '4rem',
     alignItems: 'center',
     fontSize: '24px',
+    color: 'black'
   }
   // flex flex-col gap-16 items-center font-figtree
 })
@@ -58,7 +59,7 @@ const headerSwatch = stylex.create({
 export default function Header() {
   return (
     <div {...stylex.props(headerContainer.base)}>
-      <img src="/simple_logo.png"/>
+      <Image alt='simple logo' src="/simple_logo.png"/>
       <div {...stylex.props(headerColors.base)}>
         <div {...stylex.props(headerSwatch.base, headerSwatch.flower_yellow)}></div>
         <div {...stylex.props(headerSwatch.base, headerSwatch.flower_gold)}></div>
@@ -70,7 +71,7 @@ export default function Header() {
       <p>
         Creating collaborative relationships between property owners and tenants.
       </p>
-      <img {...stylex.props(marigoldLogo.base)} src="/marigold_logo.png"/>
+      <Image alt='logo' {...stylex.props(marigoldLogo.base)} src="/marigold_logo.png"/>
     </div>
   );
 }
