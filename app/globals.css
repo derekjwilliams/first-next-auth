@@ -42,12 +42,12 @@
 
 /* Simple CSS for service request grid, convert to tailwind as needed */
 
-.basic-grid {
+/* .basic-grid {
   display: grid;
   gap: 1rem;
   margin: 0 2rem;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-}
+} */
 
 
 

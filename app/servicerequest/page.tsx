@@ -6,7 +6,7 @@ import { colors } from "@stylexjs/open-props/lib/colors.stylex";
 
 const service_card = stylex.create({
     base: {
-        fontSize: 16,
+        fontSize: '16px',
         backgroundColor: '#e9ecef',
         boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.1) 0px 4px 6px -4px',
         borderRadius: '0.5rem',

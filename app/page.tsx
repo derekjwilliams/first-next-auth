@@ -1,8 +1,81 @@
 import AuthButton from "../components/AuthButton";
 import { createClient } from "@/utils/supabase/server";
 import Header from "@/components/Header";
-import * as stylex from "@stylexjs/stylex";
+// import * as stylex from "@stylexjs/stylex";
+import stylex from "@stylexjs/stylex";
 
+import { colors } from "@stylexjs/open-props/lib/colors.stylex";
+
+const pageStyle = stylex.create({
+  base: {
+    display: "flex",
+    flexDirection:"column",
+    flex:"1 1 0%",
+    gap:"5rem",
+    alignItems:"center",
+    width:"100%",
+    color: colors.gray9,
+    fontSize: '16px'
+  },
+});
+const pageNav = stylex.create({
+  base: {
+    display: "flex",
+    justifyContent: "flex-end",
+    borderBottomWidth:"1px",
+    width:"100%",
+    height:"4rem"},
+});
+//"padding":"0.75rem","justifyContent":"space-between","maxWidth":"56rem"
+const pageNavContent = stylex.create({
+  base: {
+    display: 'flex',
+    padding: "0.75rem",
+    justifyContent: "space-between",
+    maxWidth: "56rem",
+    alignItems: 'flex-end'
+  }
+});
+
+//{"display":"flex","paddingLeft":"0.75rem","paddingRight":"0.75rem","flexDirection":"column","flex":"1 1 0%","gap":"5rem","maxWidth":"56rem","opacity":0}
+
+const pageHeaderContainer = stylex.create({
+  base: {
+    display: 'flex',
+    paddingLeft: '0.75rem',
+    paddingRight: '0.75rem',
+    flexDirection: 'column',
+    flex: '1 1 0%',
+    gap: '5rem',
+    maxWidth: '56rem',
+    opacity: 0
+  }
+})
+
+//{"display":"flex","flexDirection":"column","flex":"1 1 0%","gap":"1.5rem"}
+
+const pageMain = stylex.create({
+  base: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: '1 1 0%',
+    gap: '1.5rem'
+  }
+})
+//{"display":"flex","padding":"2rem","justifyContent":"center","borderTopWidth":"1px",
+//"width":"100%","fontSize":"0.75rem","lineHeight":"1rem","textAlign":"center"}
+const pageFooter = stylex.create({
+  base: {
+    display: 'flex',
+    padding: '2rem',
+    justifyContent: 'center',
+    borderTopWidth: '1px',
+    width: '100%',
+    fontSize: '0.75rem',
+    lineHeight: '1rem',
+    textAlign : 'center'
+  }
+})
 
 export default async function Index() {
   const canInitSupabaseClient = () => {
@@ -19,22 +92,20 @@ export default async function Index() {
   const isSupabaseConnected = canInitSupabaseClient();
 
   return (
-    <div className="flex-1 w-full flex flex-col gap-20 items-center">
-      <nav className="w-full flex justify-end border-b border-b-foreground/10 h-16">
-        <div className="w-full max-w-4xl flex justify-between items-right p-3 text-sm">
+    <div className={stylex(pageStyle.base)}>
+      <nav className={stylex(pageNav.base)}>
+        <div className={stylex(pageNavContent.base)}>
           {isSupabaseConnected && <AuthButton />}
         </div>
       </nav>
-
-      <div className="animate-in flex-1 flex flex-col gap-20 opacity-0 max-w-4xl px-3">
+      <div className={'animate-in' + ' ' + stylex(pageHeaderContainer.base)}>
         <Header />
-        <main className="flex-1 flex flex-col gap-6">
+        <main className={stylex(pageMain.base)}>
           {/* <h2 className="font-bold text-4xl mb-4">Next steps</h2>
           {isSupabaseConnected ? <SignUpUserSteps /> : <ConnectSupabaseSteps />} */}
         </main>
       </div>
-
-      <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
+      <footer className={stylex(pageFooter.base)}>
       </footer>
     </div>
   );

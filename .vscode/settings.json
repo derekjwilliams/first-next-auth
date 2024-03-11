@@ -6,5 +6,6 @@
     "**/*.less",
     "node_modules/open-props/open-props.min.css"
   ],
-  "cSpell.words": ["stylex"]
+  "cSpell.words": ["stylex"],
+  "cssvar.extensions": ["css", "postcss", "jsx", "tsx"]
 }

@@ -1,5 +1,6 @@
-const stylexPlugin = require('@stylexjs/nextjs-plugin')
+/** @type {import('next').NextConfig} */
 
+const stylexPlugin = require('@stylexjs/nextjs-plugin')
 const nextConfig = {
   pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
 }
