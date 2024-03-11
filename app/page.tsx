@@ -47,7 +47,7 @@ const pageHeaderContainer = stylex.create({
     flex: '1 1 0%',
     gap: '5rem',
     maxWidth: '56rem',
-    opacity: 0
+    // opacity: 0
   }
 })
 
