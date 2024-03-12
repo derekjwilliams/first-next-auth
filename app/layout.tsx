@@ -1,4 +1,7 @@
 import "./globals.css";
+import * as stylex from '@stylexjs/stylex';
+import './globalTokens.stylex';
+import { fonts } from './globalTokens.stylex';
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -9,6 +12,20 @@ export const metadata = {
   title: "Marigold",
   description: "Creating collaborative relationships between property owners and tenants",
 };
+
+const s = stylex.create({
+  html: {
+    colorScheme: 'light dark',
+  },
+  reset: {
+    minHeight: '100%',
+    margin: 0,
+    padding: 0,
+  },
+  body: {
+    fontFamily: fonts.appFont,
+  },
+});
 
 export default function RootLayout({
   children,
@@ -21,7 +38,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com"/>
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous"/>
       </head>
-      <body className="bg-background text-foreground">
+      <body {...stylex.props(s.reset, s.body)}>
         <main className="min-h-screen flex flex-col items-center">
           {children}
         </main>
@@ -29,3 +46,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+
