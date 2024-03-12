@@ -1,6 +1,5 @@
 import "./globals.css";
 import * as stylex from '@stylexjs/stylex';
-import './globalTokens.stylex';
 import { fonts } from './globalTokens.stylex';
 
 const defaultUrl = process.env.VERCEL_URL
