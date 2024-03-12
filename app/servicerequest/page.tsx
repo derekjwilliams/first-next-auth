@@ -125,12 +125,14 @@ export default async function ProtectedPage() {
                     Walls, Doors, Windows
                 </div>
                 <div {...stylex.props(service_card.base)}>
+                    <Image height={160} width={160} alt="electrical" src="/electrical.svg"/>
                     Electrical
                 </div>
                 <div {...stylex.props(service_card.base)}>
                     Broadband
                 </div>
                 <div {...stylex.props(service_card.base)}>
+                    <Image height={160} width={160} alt="laundry" src="/laundry.svg"/>
                     Laundry
                 </div>
                 <div {...stylex.props(service_card.base)}>
