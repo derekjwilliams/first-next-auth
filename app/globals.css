@@ -1,5 +1,13 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Figtree&display=swap');
+
+@font-face {
+  font-family: 'Figtree';
+  src: url('/fonts/Figtree.ttf');
+  font-style: medium;
+  font-weight: normal;
+  font-display: swap;
+}
 /*/
 @layer base {
   :root {
