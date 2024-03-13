@@ -37,7 +37,9 @@ const service_nav = stylex.create({
         width: '100%',
         display: 'flex',
         justifyContent: 'flex-end',
-        borderBottom: '1px solid rgba(4, 9, 11, 0.1)',
+        borderWidth: '1px',
+        borderStyle: 'solid',
+        borderColor: 'rgba(4, 9, 11, 0.1)',
         height: '4rem',
     }
 })
@@ -125,12 +127,14 @@ export default async function ProtectedPage() {
                     Walls, Doors, Windows
                 </div>
                 <div {...stylex.props(service_card.base)}>
+                    <Image height={160} width={160} alt="doors and windows" src="/electrical.svg"/>
                     Electrical
                 </div>
                 <div {...stylex.props(service_card.base)}>
                     Broadband
                 </div>
                 <div {...stylex.props(service_card.base)}>
+                    <Image height={160} width={160} alt="doors and windows" src="/laundry.svg"/>
                     Laundry
                 </div>
                 <div {...stylex.props(service_card.base)}>
