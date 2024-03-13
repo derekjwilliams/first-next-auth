@@ -26,7 +26,6 @@ const pageNav = stylex.create({
     height: '4rem',
   },
 })
-//"padding":"0.75rem","justifyContent":"space-between","maxWidth":"56rem"
 const pageNavContent = stylex.create({
   base: {
     display: 'flex',
@@ -36,8 +35,6 @@ const pageNavContent = stylex.create({
     alignItems: 'flex-end',
   },
 })
-
-//{"display":"flex","paddingLeft":"0.75rem","paddingRight":"0.75rem","flexDirection":"column","flex":"1 1 0%","gap":"5rem","maxWidth":"56rem","opacity":0}
 
 const pageHeaderContainer = stylex.create({
   base: {
@@ -52,8 +49,6 @@ const pageHeaderContainer = stylex.create({
   },
 })
 
-//{"display":"flex","flexDirection":"column","flex":"1 1 0%","gap":"1.5rem"}
-
 const pageMain = stylex.create({
   base: {
     display: 'flex',
@@ -62,8 +57,7 @@ const pageMain = stylex.create({
     gap: '1.5rem',
   },
 })
-//{"display":"flex","padding":"2rem","justifyContent":"center","borderTopWidth":"1px",
-//"width":"100%","fontSize":"0.75rem","lineHeight":"1rem","textAlign":"center"}
+
 const pageFooter = stylex.create({
   base: {
     display: 'flex',

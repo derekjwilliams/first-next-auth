@@ -92,9 +92,9 @@ export default async function ProtectedPage() {
     data: { user },
   } = await supabase.auth.getUser()
 
-  if (!user) {
-    return redirect('/login')
-  }
+  //   if (!user) {
+  //     return redirect('/login')
+  //   }
 
   return (
     <div {...stylex.props(service_page.base)}>
