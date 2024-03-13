@@ -2,6 +2,7 @@
 
 const stylexPlugin = require('@stylexjs/nextjs-plugin')
 const nextConfig = {
+  optimizeFonts: false,
   pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
 }
 
