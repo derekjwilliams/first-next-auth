@@ -1,40 +1,41 @@
-import AuthButton from "../components/AuthButton";
-import { createClient } from "@/utils/supabase/server";
-import Header from "@/components/Header";
+import AuthButton from '../components/AuthButton'
+import { createClient } from '@/utils/supabase/server'
+import Header from '@/components/Header'
 // import * as stylex from "@stylexjs/stylex";
-import stylex from "@stylexjs/stylex";
-import { colors } from "@stylexjs/open-props/lib/colors.stylex";
+import stylex from '@stylexjs/stylex'
+import { colors } from '@stylexjs/open-props/lib/colors.stylex'
 
 const pageStyle = stylex.create({
   base: {
-    display: "flex",
-    flexDirection:"column",
-    flex:"1 1 0%",
-    gap:"5rem",
-    alignItems:"center",
-    width:"100%",
+    display: 'flex',
+    flexDirection: 'column',
+    flex: '1 1 0%',
+    gap: '5rem',
+    alignItems: 'center',
+    width: '100%',
     color: colors.gray9,
-    fontSize: '16px'
+    fontSize: '16px',
   },
-});
+})
 const pageNav = stylex.create({
   base: {
-    display: "flex",
-    justifyContent: "flex-end",
-    borderBottomWidth:"1px",
-    width:"100%",
-    height:"4rem"},
-});
+    display: 'flex',
+    justifyContent: 'flex-end',
+    borderBottomWidth: '1px',
+    width: '100%',
+    height: '4rem',
+  },
+})
 //"padding":"0.75rem","justifyContent":"space-between","maxWidth":"56rem"
 const pageNavContent = stylex.create({
   base: {
     display: 'flex',
-    padding: "0.75rem",
-    justifyContent: "space-between",
-    maxWidth: "56rem",
-    alignItems: 'flex-end'
-  }
-});
+    padding: '0.75rem',
+    justifyContent: 'space-between',
+    maxWidth: '56rem',
+    alignItems: 'flex-end',
+  },
+})
 
 //{"display":"flex","paddingLeft":"0.75rem","paddingRight":"0.75rem","flexDirection":"column","flex":"1 1 0%","gap":"5rem","maxWidth":"56rem","opacity":0}
 
@@ -48,7 +49,7 @@ const pageHeaderContainer = stylex.create({
     gap: '5rem',
     maxWidth: '56rem',
     // opacity: 0
-  }
+  },
 })
 
 //{"display":"flex","flexDirection":"column","flex":"1 1 0%","gap":"1.5rem"}
@@ -58,8 +59,8 @@ const pageMain = stylex.create({
     display: 'flex',
     flexDirection: 'column',
     flex: '1 1 0%',
-    gap: '1.5rem'
-  }
+    gap: '1.5rem',
+  },
 })
 //{"display":"flex","padding":"2rem","justifyContent":"center","borderTopWidth":"1px",
 //"width":"100%","fontSize":"0.75rem","lineHeight":"1rem","textAlign":"center"}
@@ -72,8 +73,8 @@ const pageFooter = stylex.create({
     width: '100%',
     fontSize: '0.75rem',
     lineHeight: '1rem',
-    textAlign : 'center'
-  }
+    textAlign: 'center',
+  },
 })
 
 export default async function Index() {
@@ -81,14 +82,14 @@ export default async function Index() {
     // This function is just for the interactive tutorial.
     // Feel free to remove it once you have Supabase connected.
     try {
-      createClient();
-      return true;
+      createClient()
+      return true
     } catch (e) {
-      return false;
+      return false
     }
-  };
+  }
 
-  const isSupabaseConnected = canInitSupabaseClient();
+  const isSupabaseConnected = canInitSupabaseClient()
 
   return (
     <div className={stylex(pageStyle.base)}>
@@ -104,8 +105,7 @@ export default async function Index() {
           {isSupabaseConnected ? <SignUpUserSteps /> : <ConnectSupabaseSteps />} */}
         </main>
       </div>
-      <footer className={stylex(pageFooter.base)}>
-      </footer>
+      <footer className={stylex(pageFooter.base)}></footer>
     </div>
-  );
+  )
 }

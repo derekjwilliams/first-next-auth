@@ -43,9 +43,7 @@ export default function RootLayout({
         />
       </head>
       <body {...stylex.props(s.reset, s.body)}>
-        <main className='min-h-screen flex flex-col items-center'>
-          {children}
-        </main>
+        <main>{children}</main>
       </body>
     </html>
   )

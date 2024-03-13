@@ -29,7 +29,6 @@ const headerContainer = stylex.create({
     fontSize: '24px',
     color: 'black',
   },
-  // flex flex-col gap-16 items-center font-figtree
 })
 
 const headerSwatch = stylex.create({

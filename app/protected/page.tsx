@@ -2,6 +2,23 @@ import AuthButton from '@/components/AuthButton'
 import { createClient } from '@/utils/supabase/server'
 import Header from '@/components/Header'
 import { redirect } from 'next/navigation'
+import * as stylex from '@stylexjs/stylex'
+import { colors } from '@stylexjs/open-props/lib/colors.stylex'
+import { marigoldColors } from '../../app/customStyles/marigoldColors.stylex'
+
+const message = stylex.create({
+  base: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '4rem',
+    marginBottom: '8px',
+    padding: '4px',
+    alignItems: 'center',
+    fontSize: '1rem',
+    color: colors.gray1,
+    backgroundColor: marigoldColors.flowerRed,
+  },
+})
 
 export default async function ProtectedPage() {
   const supabase = createClient()
@@ -15,9 +32,9 @@ export default async function ProtectedPage() {
   }
 
   return (
-    <div className='flex-1 w-full flex flex-col gap-20 items-center'>
-      <div className='w-full'>
-        <div className='py-6 font-bold bg-flower_red text-center text-white'>
+    <div>
+      <div>
+        <div {...stylex.props(message.base)}>
           This is a protected page that you can only see as an authenticated
           user
         </div>

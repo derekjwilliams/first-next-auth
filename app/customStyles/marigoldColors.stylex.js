@@ -1,6 +1,5 @@
-import * as stylex from '@stylexjs/stylex'
-
-export const marigoldColors = stylex.defineVars({
+import { defineVars } from '@stylexjs/stylex'
+export const marigoldColors = defineVars({
   flowerYellow: 'rgb(255 213 95)',
   flowerGold: 'rgb(255 194 0)',
   flowerRed: 'rgb(247 70 0)',
