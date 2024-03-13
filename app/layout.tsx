@@ -23,7 +23,7 @@ const s = stylex.create({
     padding: 0,
   },
   body: {
-    fontFamily: fonts.appFont,
+    fontFamily: `${fonts.appFont},Arial`,
   },
 })
 
