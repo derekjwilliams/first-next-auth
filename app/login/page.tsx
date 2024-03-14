@@ -8,14 +8,11 @@ import * as stylex from '@stylexjs/stylex'
 const loginContainer = stylex.create({
   base: {
     display: 'flex',
-    fontSize: '20px',
+    fontSize: '1.2rem',
     flexDirection: 'column',
     flex: '1 1 0%',
-    justifyContent: 'center',
-    width: '100%',
-    gap: '0.5rem',
     padding: '0 2rem',
-    maxWidth: '28rem',
+    maxWidth: '20rem',
     fontFamily: 'Verdana, Geneva, Tahoma, sans-serif',
   },
 })
@@ -24,11 +21,10 @@ const loginBackLink = stylex.create({
   base: {
     display: 'flex',
     position: 'absolute',
-    top: '2rem',
-    left: '2rem',
-    padding: '0.5rem 1rem',
+    top: '1rem',
+    left: '1rem',
+    padding: '0.5rem',
     alignItems: 'center',
-    borderRadius: '0.375rem',
     textDecoration: 'none',
   },
 })
@@ -52,7 +48,7 @@ const loginForm = stylex.create({
     justifyContent: 'center',
     width: '100%',
     fontSize: '1.2rem',
-    marginTop: '8rem',
+    marginTop: '4rem',
   },
 })
 
