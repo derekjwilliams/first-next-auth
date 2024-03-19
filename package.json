@@ -13,6 +13,8 @@
     "@stylexjs/stylex": "^0.5.1",
     "@supabase/ssr": "latest",
     "@supabase/supabase-js": "latest",
+    "@tanstack/react-query": "^5.28.4",
+    "@tanstack/react-query-devtools": "^5.28.4",
     "next": "latest",
     "react": "18.2.0",
     "react-dom": "18.2.0",
