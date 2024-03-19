@@ -167,9 +167,11 @@ export default async function ProtectedPage() {
               <Image height={160} width={160} alt='lock' src='/lock.svg' />
               Door and Lock
             </div>
-            <div {...stylex.props(service_card.base)}>Garbage Disposal</div>
-            <div {...stylex.props(service_card.base)}>Faucet</div>
-            <div {...stylex.props(service_card.base)}>Drain</div>
+            <div {...stylex.props(service_card.base)}>Kitchen Plumbing</div>
+            <div {...stylex.props(service_card.base)}>Dishwasher</div>
+            <div {...stylex.props(service_card.base)}>Refrigerator</div>
+            <div {...stylex.props(service_card.base)}>Bathroom Plumbing</div>
+            <div {...stylex.props(service_card.base)}>Water Heater</div>
             <div {...stylex.props(service_card.base)}>Roof</div>
             <div {...stylex.props(service_card.base)}>Gutters</div>
             <div {...stylex.props(service_card.base)}>
