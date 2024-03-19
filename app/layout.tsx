@@ -1,6 +1,7 @@
 import './globals.css'
 import * as stylex from '@stylexjs/stylex'
 import { fonts } from './globalTokens.stylex'
+import { ReactQueryClientProvider } from '@/components/ReactQueryClientProvider'
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -33,18 +34,20 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang='en'>
-      <head>
-        <link rel='preconnect' href='https://fonts.googleapis.com' />
-        <link
-          rel='preconnect'
-          href='https://fonts.gstatic.com'
-          crossOrigin='anonymous'
-        />
-      </head>
-      <body {...stylex.props(s.reset, s.body)}>
-        <main>{children}</main>
-      </body>
-    </html>
+    <ReactQueryClientProvider>
+      <html lang='en'>
+        <head>
+          <link rel='preconnect' href='https://fonts.googleapis.com' />
+          <link
+            rel='preconnect'
+            href='https://fonts.gstatic.com'
+            crossOrigin='anonymous'
+          />
+        </head>
+        <body {...stylex.props(s.reset, s.body)}>
+          <main>{children}</main>
+        </body>
+      </html>
+    </ReactQueryClientProvider>
   )
 }
