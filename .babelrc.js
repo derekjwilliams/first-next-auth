@@ -9,7 +9,7 @@ module.exports = {
       {
         dev: process.env.NODE_ENV === 'development',
         runtimeInjection: false,
-        genConditionalClasses: true,
+        genConditionalClasses: false,
         treeshakeCompensation: true,
         unstable_moduleResolution: {
           type: 'commonJS',
