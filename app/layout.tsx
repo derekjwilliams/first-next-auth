@@ -2,6 +2,7 @@ import './globals.css'
 import * as stylex from '@stylexjs/stylex'
 import { fonts } from './globalTokens.stylex'
 import { ReactQueryClientProvider } from '@/components/ReactQueryClientProvider'
+import { Toaster } from 'react-hot-toast'
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -45,7 +46,10 @@ export default function RootLayout({
           />
         </head>
         <body {...stylex.props(s.reset, s.body)}>
-          <main>{children}</main>
+          <main>
+            <Toaster position='bottom-center' />
+            {children}
+          </main>
         </body>
       </html>
     </ReactQueryClientProvider>

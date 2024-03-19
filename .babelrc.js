@@ -10,7 +10,7 @@ module.exports = {
         dev: process.env.NODE_ENV === 'development',
         runtimeInjection: false,
         genConditionalClasses: false,
-        treeshakeCompensation: true,
+        treeshakeCompensation: false,
         unstable_moduleResolution: {
           type: 'commonJS',
           rootDir: __dirname,
