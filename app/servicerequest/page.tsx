@@ -190,7 +190,7 @@ export default async function ProtectedPage() {
                 height={160}
                 width={160}
                 alt='lock'
-                src='/kitchen_plumbing.svg'
+                src='/kitchen_under_plumbing.svg'
               />
               Kitchen Plumbing
             </div>

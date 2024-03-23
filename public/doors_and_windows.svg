@@ -24,14 +24,14 @@
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
      inkscape:zoom="5.9"
-     inkscape:cx="84.491525"
-     inkscape:cy="-29.830508"
+     inkscape:cx="72.627119"
+     inkscape:cy="70.508475"
      inkscape:window-width="1951"
      inkscape:window-height="922"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="0"
-     inkscape:current-layer="svg2918" />
+     inkscape:current-layer="g27001" />
   <defs
      id="defs2915" />
   <rect
@@ -84,7 +84,8 @@
        height="6.8791695"
        x="2.3812463"
        y="2.3812463"
-       ry="0" />
+       ry="3.4395847"
+       rx="3.1750014" />
     <rect
        style="fill:none;fill-opacity:1;stroke:#d67a00;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
        id="rect989-7-2-0-9"
