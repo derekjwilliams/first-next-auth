@@ -82,6 +82,12 @@ If you wish to just develop locally and not deploy to Vercel, [follow the steps 
 
 > Check out [the docs for Local Development](https://supabase.com/docs/guides/getting-started/local-development) to also run Supabase locally.
 
+### Vercel deployment notes
+
+If there is a rendering issue with fonts, then forcing the build can remedy:
+
+```npx vercel --prod -f```
+
 ## Feedback and issues
 
 Please file feedback and issues over on the [Supabase GitHub org](https://github.com/supabase/supabase/issues/new/choose).
