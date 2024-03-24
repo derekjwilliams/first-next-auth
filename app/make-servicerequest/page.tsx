@@ -1,6 +1,5 @@
 import AuthButton from '@/components/AuthButton'
 import { createClient } from '@/utils/supabase/server'
-import { redirect } from 'next/navigation'
 import * as stylex from '@stylexjs/stylex'
 import Image from 'next/image'
 

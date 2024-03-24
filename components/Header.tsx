@@ -1,14 +1,15 @@
 import * as stylex from '@stylexjs/stylex'
 import Image from 'next/image'
+import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 
-const marigoldColors = {
-  flowerYellow: 'rgb(255 213 95)',
-  flowerGold: 'rgb(255 194 0)',
-  flowerRed: 'rgb(247 70 0)',
-  environmentBrown: 'rgb(214 122 0)',
-  leaf: 'rgb(0 81 69)',
-  pansy: 'rgb(168 0 173)',
-}
+// const marigoldColors = {
+//   flowerYellow: 'rgb(255 213 95)',
+//   flowerGold: 'rgb(255 194 0)',
+//   flowerRed: 'rgb(247 70 0)',
+//   environmentBrown: 'rgb(214 122 0)',
+//   leaf: 'rgb(0 81 69)',
+//   pansy: 'rgb(168 0 173)',
+// }
 const headerColors = stylex.create({
   base: {
     display: 'flex',
