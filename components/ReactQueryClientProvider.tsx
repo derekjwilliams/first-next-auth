@@ -24,7 +24,7 @@ const queryClient = new QueryClient({
             ? 'This can be caused by trying to load a protected page'
             : ''
         }`,
-        { duration: 4000 }
+        { duration: 4000 },
       )
     },
   }),

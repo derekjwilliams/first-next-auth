@@ -28,7 +28,7 @@ const Note = ({ params }: { params: { id: number } }) => {
     }
 
     fetchData()
-  }, [])
+  }, [router])
 
   const { data: note, isLoading, isError } = useNotesQuery(params.id)
   if (isLoading) {

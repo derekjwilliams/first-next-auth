@@ -212,8 +212,12 @@ export default async function ProtectedPage() {
               />
               Water Heater
             </div>
-            <div {...stylex.props(service_card.base)}>Roof and Gutters</div>
             <div {...stylex.props(service_card.base)}>
+              <Image height={160} width={160} alt='lock' src='/roof.svg' />
+              Roof and Gutters
+            </div>
+            <div {...stylex.props(service_card.base)}>
+              <Image height={160} width={160} alt='lock' src='/tree.svg' />
               Trees, Lawn, Landscaping
             </div>
           </div>

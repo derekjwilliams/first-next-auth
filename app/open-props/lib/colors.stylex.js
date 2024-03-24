@@ -4,10 +4,10 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * 
+ *
  */
 
-import { defineVars } from '@stylexjs/stylex';
+import { defineVars } from '@stylexjs/stylex'
 export const colors = defineVars({
   gray0: '#f8f9fa',
   gray1: '#f1f3f5',
@@ -255,5 +255,5 @@ export const colors = defineVars({
   jungle9: '#7a9908',
   jungle10: '#658006',
   jungle11: '#516605',
-  jungle12: '#3d4d04'
-});
+  jungle12: '#3d4d04',
+})

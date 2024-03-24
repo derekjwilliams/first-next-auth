@@ -4,15 +4,15 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * 
+ *
  */
 
-import { defineVars } from '@stylexjs/stylex';
-const gridAdaptMixinViewportContext = '100vw';
-const gridAdaptMixinBreak1 = '1024px';
-const gridAdaptMixinBreak2 = '480px';
-const aboveBreak1Columns = '5';
-const aboveBreak2Columns = '2';
+import { defineVars } from '@stylexjs/stylex'
+const gridAdaptMixinViewportContext = '100vw'
+const gridAdaptMixinBreak1 = '1024px'
+const gridAdaptMixinBreak2 = '480px'
+const aboveBreak1Columns = '5'
+const aboveBreak2Columns = '2'
 export const layouts = defineVars({
   gridCell: '[stack] 1fr / [stack] 1fr',
   gridCellName: 'stack',
@@ -37,5 +37,5 @@ export const layouts = defineVars({
             100%
           ),
         1fr)
-    )`
-});
+    )`,
+})

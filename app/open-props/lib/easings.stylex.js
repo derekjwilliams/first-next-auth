@@ -4,20 +4,20 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * 
+ *
  */
 
-import { defineVars } from '@stylexjs/stylex';
-const elasticOut1 = 'cubic-bezier(.5, .75, .75, 1.25)';
-const elasticOut2 = 'cubic-bezier(.5, 1, .75, 1.25)';
-const elasticOut3 = 'cubic-bezier(.5, 1.25, .75, 1.25)';
-const elasticOut4 = 'cubic-bezier(.5, 1.5, .75, 1.25)';
-const elasticOut5 = 'cubic-bezier(.5, 1.75, .75, 1.25)';
-const elasticInOut1 = 'cubic-bezier(.5, -.1, .1, 1.5)';
-const elasticInOut2 = 'cubic-bezier(.5, -.3, .1, 1.5)';
-const elasticInOut3 = 'cubic-bezier(.5, -.5, .1, 1.5)';
-const elasticInOut4 = 'cubic-bezier(.5, -.7, .1, 1.5)';
-const elasticInOut5 = 'cubic-bezier(.5, -.9, .1, 1.5)';
+import { defineVars } from '@stylexjs/stylex'
+const elasticOut1 = 'cubic-bezier(.5, .75, .75, 1.25)'
+const elasticOut2 = 'cubic-bezier(.5, 1, .75, 1.25)'
+const elasticOut3 = 'cubic-bezier(.5, 1.25, .75, 1.25)'
+const elasticOut4 = 'cubic-bezier(.5, 1.5, .75, 1.25)'
+const elasticOut5 = 'cubic-bezier(.5, 1.75, .75, 1.25)'
+const elasticInOut1 = 'cubic-bezier(.5, -.1, .1, 1.5)'
+const elasticInOut2 = 'cubic-bezier(.5, -.3, .1, 1.5)'
+const elasticInOut3 = 'cubic-bezier(.5, -.5, .1, 1.5)'
+const elasticInOut4 = 'cubic-bezier(.5, -.7, .1, 1.5)'
+const elasticInOut5 = 'cubic-bezier(.5, -.9, .1, 1.5)'
 export const easings = defineVars({
   ease1: 'cubic-bezier(.25, 0, .5, 1)',
   ease2: 'cubic-bezier(.25, 0, .4, 1)',
@@ -117,5 +117,5 @@ export const easings = defineVars({
       0.815, 0.769 56.3%, 0.757, 0.753, 0.757, 0.769 61.3%, 0.815, 0.892, 1 68.8%,
       0.908 72.4%, 0.885, 0.878, 0.885, 0.908 79.4%, 1 83%, 0.954 85.5%, 0.943,
       0.939, 0.943, 0.954 90.5%, 1 93%, 0.977, 0.97, 0.977, 1
-    )`
-});
+    )`,
+})

@@ -4,10 +4,10 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * 
+ *
  */
 
-import { defineVars } from '@stylexjs/stylex';
+import { defineVars } from '@stylexjs/stylex'
 export const sizes = defineVars({
   spacing000: '-.5rem',
   spacing00: '-.25rem',
@@ -65,5 +65,5 @@ export const sizes = defineVars({
   relative12: '10ch',
   relative13: '15ch',
   relative14: '20ch',
-  relative15: '30ch'
-});
+  relative15: '30ch',
+})
