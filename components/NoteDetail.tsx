@@ -11,7 +11,7 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
 const supabase = createBrowserClient(supabaseUrl, supabaseAnonKey)
 
-const Note = ({ params }: { params: { id: number } }) => {
+export default function NoteDetail({ id }: { id: number | null }) {
   const router = useRouter()
   useEffect(() => {
     const fetchData = async () => {
@@ -30,7 +30,7 @@ const Note = ({ params }: { params: { id: number } }) => {
     fetchData()
   }, [router])
 
-  const { data: note, isLoading, isError } = useNotesQuery(params.id)
+  const { data: note, isLoading, isError } = useNotesQuery(id)
   if (isLoading) {
     return <div>Loading...</div>
   }
@@ -42,19 +42,18 @@ const Note = ({ params }: { params: { id: number } }) => {
       </>
     )
   }
-
   return (
-    <>
-      <form>
-        <Checkbox.Root className='CheckboxRoot' defaultChecked id='c1'>
-          <Checkbox.Indicator className='CheckboxIndicator'>
-            <CheckIcon />
-          </Checkbox.Indicator>
-        </Checkbox.Root>
-      </form>
-      <div>{note.title}</div>
-    </>
+    <form>
+      <Checkbox.Root className='CheckboxRoot' defaultChecked id='c1'>
+        {note.title}
+        <Checkbox.Indicator className='CheckboxIndicator'>
+          <CheckIcon />
+        </Checkbox.Indicator>
+      </Checkbox.Root>
+    </form>
   )
 }
 
-export default Note
+// export default function NoteDetail({ title }: { title: string | null }) {
+//   return <div>note title: {title}</div>
+// }

@@ -2,12 +2,13 @@ import { useQuery } from '@tanstack/react-query'
 import useSupabase from './useSupabase'
 import { getNoteById } from '@/queries/getNoteById'
 
-function useNotesQuery(noteId: number) {
+function useNotesQuery(noteId: number | null) {
   const client = useSupabase()
-  const queryKey = ['notes', noteId]
+  const id = !noteId ? 1 : noteId
+  const queryKey = ['notes', id]
 
   const queryFn = async () => {
-    return getNoteById(client, noteId)?.then((result) => result.data)
+    return getNoteById(client, id)?.then((result) => result.data)
   }
   return useQuery({ queryKey, queryFn })
 }
