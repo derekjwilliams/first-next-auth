@@ -82,6 +82,10 @@ If you wish to just develop locally and not deploy to Vercel, [follow the steps 
 
 > Check out [the docs for Local Development](https://supabase.com/docs/guides/getting-started/local-development) to also run Supabase locally.
 
+## Nextjs and StyleX example project
+
+Found here, https://github.com/facebook/stylex/blob/main/apps/nextjs-example/
+
 ## Caching issues with StyleX
 
 This problem is being worked on, but for now make sure to do an `npm run predev` prior to `npm run dev`.  And run `npm run prebuild` prior to running `npm run build`.  This issue is discussed here https://github.com/facebook/stylex/issues/286
