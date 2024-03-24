@@ -5,16 +5,16 @@ import Image from 'next/image'
 
 const service_card = stylex.create({
   base: {
-    fontSize: '16px',
+    fontSize: 18,
     backgroundColor: '#e9ecef',
     boxShadow:
       'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.1) 0px 4px 6px -4px',
     borderRadius: '0.5rem',
     placeItems: 'center',
     display: 'grid',
-    minWidth: '200px',
-    minHeight: '200px',
-    padding: '10px',
+    minWidth: 200,
+    minHeight: 200,
+    padding: 10,
   },
 })
 const service_page = stylex.create({
@@ -23,7 +23,7 @@ const service_page = stylex.create({
     flex: '1 1 0%',
     width: '100%',
     flexDirection: 'column',
-    gap: '5rem',
+    gap: '4rem',
     alignItems: 'center',
   },
 })
@@ -71,7 +71,10 @@ const service_main = stylex.create({
     display: 'flex',
     flex: '1 1 0%',
     flexDirection: 'column',
-    gap: '1.5rem',
+    gap: 1.5,
+  },
+  heading: {
+    padding: '0 0 1rem 2rem',
   },
 })
 
@@ -107,7 +110,9 @@ export default async function ProtectedPage() {
 
       <div {...stylex.props(service_main_container.base)}>
         <main {...stylex.props(service_main.base)}>
-          <div>Make a Service Request</div>
+          <div {...stylex.props(service_main.heading)}>
+            Make a Service Request
+          </div>
           <div {...stylex.props(service_card_grid.base)}>
             <div {...stylex.props(service_card.base)}>
               <Image height={160} width={160} alt='safety' src='/safety.svg' />
@@ -217,7 +222,7 @@ export default async function ProtectedPage() {
             </div>
             <div {...stylex.props(service_card.base)}>
               <Image height={160} width={160} alt='lock' src='/tree.svg' />
-              Trees, Lawn, Landscaping
+              Lawn and Landscaping
             </div>
           </div>
         </main>
