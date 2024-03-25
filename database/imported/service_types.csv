@@ -1,0 +1,16 @@
+service_type_id,service_name
+1,Safety
+2,HVAC
+3,Pests
+4,FloorsWallsDoorsWindows
+5,Electrical
+6,Broadband
+7,Laundry
+8,Locks
+9,Dishwasher
+10,Refrigerator
+11,KitchenPlumbing
+12,BathroomPlumbing
+13,WaterHeater
+14,RoofGutters
+15,TreesLawnLandscaping

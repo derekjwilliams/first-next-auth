@@ -1,0 +1,103 @@
+{
+  "addresses": [
+    {
+      "address1": "2409 Research Boulevard",
+      "address2": "",
+      "city": "Fort Collins",
+      "state": "CO",
+      "postalCode": "80526",
+      "coordinates": {
+        "lat": 40.554586,
+        "lng": -105.087852
+      }
+    },
+    {
+      "address1": "3500 South College Avenue",
+      "address2": "",
+      "city": "Fort Collins",
+      "state": "CO",
+      "postalCode": "80525",
+      "coordinates": {
+        "lat": 40.5392903,
+        "lng": -105.0752914
+      }
+    },
+    {
+      "address1": "320 South Link Lane",
+      "address2": "B",
+      "city": "Fort Collins",
+      "state": "CO",
+      "postalCode": "80524",
+      "coordinates": {
+        "lat": 40.5851762,
+        "lng": -105.0497247
+      }
+    },
+    {
+      "address1": "1010 Hillcrest Drive",
+      "address2": "",
+      "city": "Fort Collins",
+      "state": "CO",
+      "postalCode": "80521",
+      "coordinates": {
+        "lat": 40.574139,
+        "lng": -105.1189987
+      }
+    },
+    {
+      "address1": "3438 Carlton Avenue",
+      "address2": "",
+      "city": "Fort Collins",
+      "state": "CO",
+      "postalCode": "80525",
+      "coordinates": {
+        "lat": 40.5396755,
+        "lng": -105.0444837
+      }
+    },
+    {
+      "address1": "2456 22nd Avenue",
+      "address2": "",
+      "city": "Greeley",
+      "state": "CO",
+      "postalCode": "80631",
+      "coordinates": {
+        "lat": 40.397153,
+        "lng": -104.713982
+      }
+    },
+    {
+      "address1": "5329 A Street",
+      "address2": "",
+      "city": "Greeley",
+      "state": "CO",
+      "postalCode": "80634",
+      "coordinates": {
+        "lat": 40.4347001,
+        "lng": -104.7702805
+      }
+    },
+    {
+      "address1": "523 10th Street",
+      "address2": "",
+      "city": "Greeley",
+      "state": "CO",
+      "postalCode": "80631",
+      "coordinates": {
+        "lat": 40.4229185,
+        "lng": -104.6865623
+      }
+    },
+    {
+      "address1": "3145 19th Avenue Court",
+      "address2": "",
+      "city": "Greeley",
+      "state": "CO",
+      "postalCode": "80631",
+      "coordinates": {
+        "lat": 40.385275,
+        "lng": -104.709985
+      }
+    }
+  ]
+}
