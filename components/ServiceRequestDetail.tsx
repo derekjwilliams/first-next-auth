@@ -7,7 +7,7 @@ import { CheckIcon } from '@radix-ui/react-icons'
 
 import * as stylex from '@stylexjs/stylex'
 
-const note_card = stylex.create({
+const request_card = stylex.create({
   checkbox_root: {
     backgroundColor: 'white',
     width: 25,
@@ -32,11 +32,15 @@ const note_card = stylex.create({
 })
 
 export default function ServiceRequestDetail({ id }: { id: string | null }) {
-  const { data: note, isLoading, isError } = useServiceRequestQuery(id!)
+  const {
+    data: serviceRequest,
+    isLoading,
+    isError,
+  } = useServiceRequestQuery(id!)
   if (isLoading) {
     return <div>Loading...</div>
   }
-  if (isError || !note) {
+  if (isError || !serviceRequest) {
     return (
       <>
         <div>{isError}</div>
@@ -47,16 +51,16 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
   return (
     <form>
       <Checkbox.Root
-        {...stylex.props(note_card.checkbox_root)}
+        {...stylex.props(request_card.checkbox_root)}
         defaultChecked
         id='c1'
       >
-        <Checkbox.Indicator {...stylex.props(note_card.checkbox_indicator)}>
-          <CheckIcon {...stylex.props(note_card.check_icon)} />
+        <Checkbox.Indicator {...stylex.props(request_card.checkbox_indicator)}>
+          <CheckIcon {...stylex.props(request_card.check_icon)} />
         </Checkbox.Indicator>
       </Checkbox.Root>
       <label className='Label' htmlFor='c1'>
-        {note.description}
+        {serviceRequest.description}
       </label>
     </form>
   )

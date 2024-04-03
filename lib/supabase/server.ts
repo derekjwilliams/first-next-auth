@@ -8,17 +8,6 @@ import type { Database } from '@/utils/database.types'
 export type TypedSupabaseClient = SupabaseClient<Database> | undefined
 let supabaseServerClient: TypedSupabaseClient
 
-// export function getSupabaseBrowserClient() {
-//   if (client) {
-//     return client
-//   }
-//   client = createBrowserClient<Database>(
-//     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-//     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-//   )
-//   return client
-// }
-
 export async function createSupabaseServerClientReadOnly() {
   const cookieStore = cookies()
   return createServerClient(

@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { getSupabaseBrowserClient } from '@/utils/supabase/supabase'
+import { getSupabaseBrowserClient } from '@/lib/supabase/supabase'
 
 function useSupabase() {
   return useMemo(getSupabaseBrowserClient, [])
