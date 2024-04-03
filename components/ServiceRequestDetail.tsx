@@ -1,6 +1,7 @@
 'use client'
 
-import useNotesQuery from '@/hooks/useNotesQuery'
+//import useNotesQuery from '@/hooks/useNotesQuery'
+import useServiceRequestQuery from '@/hooks/useServiceRequestQuery'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { CheckIcon } from '@radix-ui/react-icons'
 
@@ -30,8 +31,8 @@ const note_card = stylex.create({
   },
 })
 
-export default function ServiceRequestDetail({ id }: { id: number | null }) {
-  const { data: note, isLoading, isError } = useNotesQuery(id)
+export default function ServiceRequestDetail({ id }: { id: string | null }) {
+  const { data: note, isLoading, isError } = useServiceRequestQuery(id!)
   if (isLoading) {
     return <div>Loading...</div>
   }
@@ -55,7 +56,7 @@ export default function ServiceRequestDetail({ id }: { id: number | null }) {
         </Checkbox.Indicator>
       </Checkbox.Root>
       <label className='Label' htmlFor='c1'>
-        {note.title}
+        {note.description}
       </label>
     </form>
   )

@@ -115,3 +115,9 @@ supabase projects list
 supabase link --project-ref [ref from list]
 supabase gen types typescript --linked --schema=public > utils/database.types.ts
 ```
+## Tanstack React Query
+
+https://www.youtube.com/watch?v=Z4L_UE0hVmo
+
+References:
+https://makerkit.dev/blog/saas/supabase-react-query
