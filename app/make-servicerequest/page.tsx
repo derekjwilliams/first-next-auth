@@ -1,5 +1,6 @@
 import AuthButton from '@/components/AuthButton'
-import createSupabaseServerClient from '@/lib/supabase/server'
+import { createClient } from '@/utils/supabase/server'
+
 import * as stylex from '@stylexjs/stylex'
 import Image from 'next/image'
 
@@ -88,7 +89,7 @@ const service_card_grid = stylex.create({
 })
 
 export default async function ProtectedPage() {
-  const supabase = await createSupabaseServerClient()
+  const supabase = await createClient()
 
   const {
     data: { user },

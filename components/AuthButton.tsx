@@ -1,8 +1,7 @@
-import createSupabaseServerClient from '@/lib/supabase/server'
+import { createClient } from '@/utils/supabase/server'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import * as stylex from '@stylexjs/stylex'
-import { colors } from '@stylexjs/open-props/lib/colors.stylex' // todo use imported colors
 
 const auth_button_wrapper = stylex.create({
   base: {
@@ -26,7 +25,7 @@ const auth_button = stylex.create({
 })
 
 export default async function AuthButton() {
-  const supabase = await createSupabaseServerClient()
+  const supabase = createClient()
 
   const {
     data: { user },
@@ -35,7 +34,7 @@ export default async function AuthButton() {
   const signOut = async () => {
     'use server'
 
-    const supabase = await createSupabaseServerClient()
+    const supabase = createClient()
     await supabase.auth.signOut()
     return redirect('/login')
   }

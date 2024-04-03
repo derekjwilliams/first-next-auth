@@ -1,5 +1,5 @@
 import AuthButton from '@/components/AuthButton'
-import createSupabaseServerClient from '@/lib/supabase/server'
+import { createClient } from '@/utils/supabase/server'
 import Header from '@/components/Header'
 import { redirect } from 'next/navigation'
 import * as stylex from '@stylexjs/stylex'
@@ -21,7 +21,7 @@ const message = stylex.create({
 })
 
 export default async function ProtectedPage() {
-  const supabase = await createSupabaseServerClient()
+  const supabase = await createClient()
 
   const {
     data: { user },

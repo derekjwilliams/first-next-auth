@@ -1,5 +1,5 @@
 import AuthButton from '../components/AuthButton'
-import createSupabaseServerClient from '@/lib/supabase/server'
+import { createClient } from '@/utils/supabase/server'
 import Header from '@/components/Header'
 // import * as stylex from "@stylexjs/stylex";
 import stylex from '@stylexjs/stylex'
@@ -76,7 +76,7 @@ export default async function Index() {
     // This function is just for the interactive tutorial.
     // Feel free to remove it once you have Supabase connected.
     try {
-      createSupabaseServerClient()
+      createClient()
       return true
     } catch (e) {
       return false

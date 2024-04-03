@@ -6,7 +6,6 @@ import CreateForm from './components/CreateForm'
 
 export default async function Page() {
   const { data } = await readUserSession()
-  //   console.log(data)
   if (!data.session) {
     return redirect('/auth-server-action')
   }
@@ -14,7 +13,6 @@ export default async function Page() {
   return (
     <div>
       <CreateForm></CreateForm>
-
       <pre>{JSON.stringify(serviceRequests, null, 2)}</pre>
     </div>
   )
