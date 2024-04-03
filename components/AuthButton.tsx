@@ -1,4 +1,4 @@
-import { createClient } from '@/utils/supabase/server'
+import createSupabaseServerClient from '@/lib/supabase/server'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import * as stylex from '@stylexjs/stylex'
@@ -26,7 +26,7 @@ const auth_button = stylex.create({
 })
 
 export default async function AuthButton() {
-  const supabase = createClient()
+  const supabase = await createSupabaseServerClient()
 
   const {
     data: { user },
@@ -35,7 +35,7 @@ export default async function AuthButton() {
   const signOut = async () => {
     'use server'
 
-    const supabase = createClient()
+    const supabase = await createSupabaseServerClient()
     await supabase.auth.signOut()
     return redirect('/login')
   }

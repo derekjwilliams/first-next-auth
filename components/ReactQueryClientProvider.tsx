@@ -16,7 +16,7 @@ type MyErrorResponse = {
 const queryClient = new QueryClient({
   queryCache: new QueryCache({
     onError: (error) => {
-      console.log(JSON.stringify(error))
+      console.log('error: ', JSON.stringify(error))
       let e: MyErrorResponse = JSON.parse(JSON.stringify(error)) // workaround for Tanstack Query error type issue
       toast.error(
         `Something went wrong: ${error.message}.  ${

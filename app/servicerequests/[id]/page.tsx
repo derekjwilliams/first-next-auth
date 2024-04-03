@@ -1,11 +1,11 @@
-import NoteDetail from '@/components/NoteDetail'
+import ServiceRequestDetail from '@/components/ServiceRequestDetail'
 
-export default async function NoteDetailPage({
+export default async function ServiceRequestPage({
   params,
 }: {
   params: { id: number }
 }) {
   const id = params.id
 
-  return <NoteDetail id={id}></NoteDetail>
+  return <ServiceRequestDetail id={id}></ServiceRequestDetail>
 }
