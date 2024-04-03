@@ -8,9 +8,7 @@ function useServiceRequestQuery(serviceRequestId: string) {
   const queryKey = ['service-request', id]
 
   const queryFn = async () => {
-    return getServiceRequestById(client, id)?.then(
-      (result: { data: any }) => result.data,
-    )
+    return getServiceRequestById(client, id!)?.then((result) => result.data)
   }
   return useQuery({ queryKey, queryFn })
 }
