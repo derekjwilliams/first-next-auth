@@ -1,5 +1,6 @@
 import AuthButton from '@/components/AuthButton'
-import { createClient } from '@/utils/supabase/server'
+import { createClient } from '@/lib/supabase/client'
+// import { createClient } from '@/lib/supabase/client'
 
 import * as stylex from '@stylexjs/stylex'
 import Image from 'next/image'

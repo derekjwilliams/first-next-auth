@@ -1,5 +1,4 @@
-// import createSupabaseServerClient from '@/lib/supabase/server'
-import { createClient } from '@/utils/supabase/server'
+import { createClient } from '@/lib/supabase/client'
 export default async function Page() {
   const supabase = await createClient()
   const { data: serviceTypes } = await supabase.from('service_types').select()

@@ -8,23 +8,6 @@ import type { Database } from '@/utils/database.types'
 export type TypedSupabaseClient = SupabaseClient<Database> | undefined
 let supabaseServerClient: TypedSupabaseClient
 
-export async function createSupabaseServerClientReadOnly() {
-  const cookieStore = cookies()
-  return createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        get(name: string) {
-          return cookieStore.get(name)?.value
-        },
-      },
-    },
-  )
-}
-// for additional insight: https://stackoverflow.com/questions/76080252/error-when-importing-supabase-from-createserverclient-in-generatestaticparams/78177232#78177232
-// and https://github.com/vercel/next.js/issues/45371, though it appears that Vercel and Next most recent versions have resolved those issue, so no change to the code
-// below **should** be needed.
 export default async function createSupabaseServerClient() {
   if (supabaseServerClient) {
     return supabaseServerClient
