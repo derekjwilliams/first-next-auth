@@ -2,6 +2,7 @@ import './globals.css'
 import * as stylex from '@stylexjs/stylex'
 import { fonts } from './globalTokens.stylex'
 import { ReactQueryClientProvider } from '@/components/ReactQueryClientProvider'
+// import { Provider } from '@/utils/Provider'
 import { Toaster } from 'react-hot-toast'
 
 const defaultUrl = process.env.VERCEL_URL
@@ -35,23 +36,23 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <ReactQueryClientProvider>
-      <html lang='en'>
-        <head>
-          <link rel='preconnect' href='https://fonts.googleapis.com' />
-          <link
-            rel='preconnect'
-            href='https://fonts.gstatic.com'
-            crossOrigin='anonymous'
-          />
-        </head>
-        <body {...stylex.props(s.reset, s.body)}>
+    <html lang='en'>
+      <head>
+        <link rel='preconnect' href='https://fonts.googleapis.com' />
+        <link
+          rel='preconnect'
+          href='https://fonts.gstatic.com'
+          crossOrigin='anonymous'
+        />
+      </head>
+      <body {...stylex.props(s.reset, s.body)}>
+        <ReactQueryClientProvider>
           <main>
             <Toaster position='bottom-center' />
             {children}
           </main>
-        </body>
-      </html>
-    </ReactQueryClientProvider>
+        </ReactQueryClientProvider>
+      </body>
+    </html>
   )
 }

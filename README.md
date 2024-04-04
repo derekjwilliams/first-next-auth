@@ -121,3 +121,7 @@ https://www.youtube.com/watch?v=Z4L_UE0hVmo
 
 References:
 https://makerkit.dev/blog/saas/supabase-react-query
+
+## SVG Go
+
+For optimizing SVGs https://github.com/jakearchibald/svgomg/blob/main/README.md

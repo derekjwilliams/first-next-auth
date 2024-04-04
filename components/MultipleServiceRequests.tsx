@@ -135,6 +135,7 @@ export default function MultipleServiceRequests() {
               className='service-request-label'
               htmlFor='{serviceRequest.id}'
             >
+              {/* todo make this a link to request details */}
               {serviceRequest.description} ({serviceRequest.id})
             </label>
           </div>
