@@ -6,6 +6,12 @@
     "**/*.less",
     "node_modules/open-props/open-props.min.css"
   ],
-  "cSpell.words": ["servicerequests", "stylex", "stylexjs", "Supabase"],
+  "cSpell.words": [
+    "openapi",
+    "servicerequests",
+    "stylex",
+    "stylexjs",
+    "Supabase"
+  ],
   "cssvar.extensions": ["css", "postcss", "jsx", "tsx"]
 }
