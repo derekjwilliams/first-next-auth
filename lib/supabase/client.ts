@@ -3,7 +3,6 @@ import { cookies } from 'next/headers'
 
 export const createClient = () => {
   const cookieStore = cookies()
-  //   cookieStore.
 
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -14,6 +13,7 @@ export const createClient = () => {
           return cookieStore.get(name)?.value
         },
         set(name: string, value: string, options: CookieOptions) {
+          options.sameSite = 'Strict'
           try {
             cookieStore.set({ name, value, ...options })
           } catch (error) {
@@ -32,6 +32,6 @@ export const createClient = () => {
           }
         },
       },
-    },
+    }
   )
 }

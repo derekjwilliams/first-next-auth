@@ -5,6 +5,7 @@ import { createClient } from '@/lib/supabase/client'
 import { redirect } from 'next/navigation'
 import { SubmitButton } from './submit-button'
 import * as stylex from '@stylexjs/stylex'
+import OAuthForm from '../auth/componenents/OAuthForm'
 
 const loginContainer = stylex.create({
   base: {
@@ -179,6 +180,10 @@ export default function Login({
           <p {...stylex.props(searchButton.base)}>{searchParams.message}</p>
         )}
       </form>
+      <form>
+        <button {...stylex.props(formButton.base)}>Sign In Using Github</button>
+      </form>
+      <OAuthForm />
     </div>
   )
 }
