@@ -5,7 +5,7 @@ import { createClient } from '@/lib/supabase/client'
 import { redirect } from 'next/navigation'
 import { SubmitButton } from './submit-button'
 import * as stylex from '@stylexjs/stylex'
-import OAuthForm from '../auth/componenents/OAuthForm'
+import OAuthForm from '../auth/components/OAuthForm'
 
 const loginContainer = stylex.create({
   base: {
