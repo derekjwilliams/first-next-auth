@@ -13,6 +13,26 @@ button {
   all: unset;
 }
 
+.compound-grid {
+  display: grid;
+  grid-template-columns: [a1] 6fr [a2] 1fr [b2] 4fr [a3] 3fr [b3] 3fr [a4] 4fr [b4] 1fr [a5] 6fr [a6];
+  gap: 1rem;
+  grid-column-gap: 2vw;
+  grid-row-gap: 5vh;
+  margin: 2rem;
+}
+.a1-b2 {
+  grid-column: a1 / b2;
+}
+.a1-b4 {
+  grid-column: a1 / b4;
+}
+.b2-b4 {
+  grid-column: b2 / b4;
+}
+.a5-a6 {
+  grid-column: a5 / a6; }
+
 /*
 @layer base {
   :root {
