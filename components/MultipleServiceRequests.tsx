@@ -50,7 +50,6 @@ function AddServiceRequest() {
   const mutation = useMutation({
     mutationFn,
     onSuccess: (data) => {
-      debugger
       queryClient.setQueryData(
         ['service-requests'],
         (prevData: Array<ServiceRequest>) => [...prevData, data![0]]

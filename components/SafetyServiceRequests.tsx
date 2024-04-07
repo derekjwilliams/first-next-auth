@@ -38,6 +38,17 @@ const request_button = stylex.create({
   },
 })
 
+const description_input = stylex.create({
+  base: {
+    width: '50%',
+    height: '20rem',
+    marginLeft: '2rem',
+    marginRight: 'auto',
+    fontSize: '1.6rem',
+    fontFamily: 'Figtree',
+  },
+})
+
 const request_card = stylex.create({
   checkbox_root: {
     backgroundColor: 'white',
@@ -78,7 +89,6 @@ function AddServiceRequest({ service_type_id }: ServiceTypeProps) {
   const mutation = useMutation({
     mutationFn,
     onSuccess: (data) => {
-      debugger
       queryClient.setQueryData(
         ['service-requests'],
         (prevData: Array<ServiceRequest>) => [...prevData, data![0]]
@@ -112,11 +122,13 @@ function AddServiceRequest({ service_type_id }: ServiceTypeProps) {
           {mutation.isError ? (
             <div>An error occurred: {mutation.error.message}</div>
           ) : null}
-
-          {mutation.isSuccess ? <div>Todo added!</div> : null}
-
-          <input
-            type='text'
+          {mutation.isSuccess ? <div>Service Request added!</div> : null}
+          <div>
+            <label>Description</label>
+          </div>
+          <textarea
+            {...stylex.props(description_input.base)}
+            name='description'
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
