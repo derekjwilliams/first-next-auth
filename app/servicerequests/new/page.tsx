@@ -1,14 +1,18 @@
 import AuthButton from '@/components/AuthButton'
 import { createClient } from '@/lib/supabase/client'
-// import { createClient } from '@/lib/supabase/client'
-
+import Link from 'next/link'
+import { marigoldColors } from '../../../app/customStyles/marigoldColors.stylex'
+import { colors } from '@stylexjs/open-props/lib/colors.stylex'
 import * as stylex from '@stylexjs/stylex'
 import Image from 'next/image'
 
+const b = colors.gray3
 const service_card = stylex.create({
   base: {
+    cursor: 'pointer',
+    textDecoration: 'none',
+    color: 'black',
     fontSize: 18,
-    backgroundColor: '#e9ecef',
     boxShadow:
       'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.1) 0px 4px 6px -4px',
     borderRadius: '0.5rem',
@@ -17,6 +21,12 @@ const service_card = stylex.create({
     minWidth: 200,
     minHeight: 200,
     padding: 10,
+    backgroundColor: {
+      default: `${colors.gray2}`,
+      ':hover': `${marigoldColors.flowerYellow}`,
+    },
+    transitionDuration: '500ms',
+    transitionProperty: 'backgroundColor',
   },
 })
 const service_page = stylex.create({
@@ -116,11 +126,11 @@ export default async function ProtectedPage() {
             Make a Service Request
           </div>
           <div {...stylex.props(service_card_grid.base)}>
-            <div {...stylex.props(service_card.base)}>
+            <Link href='/servicerequests' {...stylex.props(service_card.base)}>
               <Image height={160} width={160} alt='safety' src='/safety.svg' />
               Safety
-            </div>
-            <div {...stylex.props(service_card.base)}>
+            </Link>
+            <Link href='/servicerequests' {...stylex.props(service_card.base)}>
               <Image
                 height={160}
                 width={160}
@@ -128,12 +138,12 @@ export default async function ProtectedPage() {
                 src='/heating_and_cooling.svg'
               />
               Heating and Cooling
-            </div>
-            <div {...stylex.props(service_card.base)}>
+            </Link>
+            <Link href='/servicerequests' {...stylex.props(service_card.base)}>
               <Image height={160} width={160} alt='pests' src='/pests.svg' />
               Pests
-            </div>
-            <div {...stylex.props(service_card.base)}>
+            </Link>
+            <Link href='/servicerequests' {...stylex.props(service_card.base)}>
               <Image
                 height={160}
                 width={160}
@@ -141,8 +151,8 @@ export default async function ProtectedPage() {
                 src='/doors_and_windows.svg'
               />
               Walls, Doors, Windows
-            </div>
-            <div {...stylex.props(service_card.base)}>
+            </Link>
+            <Link href='/servicerequests' {...stylex.props(service_card.base)}>
               <Image
                 height={160}
                 width={160}
@@ -150,8 +160,8 @@ export default async function ProtectedPage() {
                 src='/electrical.svg'
               />
               Electrical
-            </div>
-            <div {...stylex.props(service_card.base)}>
+            </Link>
+            <Link href='/servicerequests' {...stylex.props(service_card.base)}>
               <Image
                 height={160}
                 width={160}
@@ -159,8 +169,8 @@ export default async function ProtectedPage() {
                 src='/broadband.svg'
               />
               Broadband
-            </div>
-            <div {...stylex.props(service_card.base)}>
+            </Link>
+            <Link href='/servicerequests' {...stylex.props(service_card.base)}>
               <Image
                 height={160}
                 width={160}
@@ -168,12 +178,12 @@ export default async function ProtectedPage() {
                 src='/laundry.svg'
               />
               Laundry
-            </div>
-            <div {...stylex.props(service_card.base)}>
+            </Link>
+            <Link href='/servicerequests' {...stylex.props(service_card.base)}>
               <Image height={160} width={160} alt='lock' src='/lock.svg' />
               Door and Lock
-            </div>
-            <div {...stylex.props(service_card.base)}>
+            </Link>
+            <Link href='/servicerequests' {...stylex.props(service_card.base)}>
               <Image
                 height={160}
                 width={160}
@@ -181,8 +191,8 @@ export default async function ProtectedPage() {
                 src='/dishwasher.svg'
               />
               Dishwasher
-            </div>
-            <div {...stylex.props(service_card.base)}>
+            </Link>
+            <Link href='/servicerequests' {...stylex.props(service_card.base)}>
               <Image
                 height={160}
                 width={160}
@@ -190,8 +200,8 @@ export default async function ProtectedPage() {
                 src='/refrigerator.svg'
               />
               Refrigerator
-            </div>
-            <div {...stylex.props(service_card.base)}>
+            </Link>
+            <Link href='/servicerequests' {...stylex.props(service_card.base)}>
               <Image
                 height={160}
                 width={160}
@@ -199,8 +209,8 @@ export default async function ProtectedPage() {
                 src='/kitchen_under_plumbing.svg'
               />
               Kitchen Plumbing
-            </div>
-            <div {...stylex.props(service_card.base)}>
+            </Link>
+            <Link href='/servicerequests' {...stylex.props(service_card.base)}>
               <Image
                 height={160}
                 width={160}
@@ -208,8 +218,8 @@ export default async function ProtectedPage() {
                 src='/bathroom_plumbing.svg'
               />
               Bathroom Plumbing
-            </div>
-            <div {...stylex.props(service_card.base)}>
+            </Link>
+            <Link href='/servicerequests' {...stylex.props(service_card.base)}>
               <Image
                 height={160}
                 width={160}
@@ -217,15 +227,15 @@ export default async function ProtectedPage() {
                 src='/water_heater.svg'
               />
               Water Heater
-            </div>
-            <div {...stylex.props(service_card.base)}>
+            </Link>
+            <Link href='/servicerequests' {...stylex.props(service_card.base)}>
               <Image height={160} width={160} alt='lock' src='/roof.svg' />
               Roof and Gutters
-            </div>
-            <div {...stylex.props(service_card.base)}>
+            </Link>
+            <Link href='/servicerequests' {...stylex.props(service_card.base)}>
               <Image height={160} width={160} alt='lock' src='/tree.svg' />
               Lawn and Landscaping
-            </div>
+            </Link>
           </div>
         </main>
       </div>

@@ -5,15 +5,38 @@ import useServiceRequestMutation from '@/hooks/useServiceRequestMutation'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { CheckIcon } from '@radix-ui/react-icons'
 import * as stylex from '@stylexjs/stylex'
+import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
+import { colors } from '@stylexjs/open-props/lib/colors.stylex'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import useSupabase from '../hooks/useSupabase'
-import { InferProps } from 'prop-types'
 
 import { addServiceRequest } from '@/queries/addServiceRequest'
 
 import { Database } from '@/utils/database.types'
 type ServiceRequest = Database['public']['Tables']['service_requests']['Row']
+
+const request_button = stylex.create({
+  base: {
+    cursor: 'pointer',
+    textDecoration: 'none',
+    color: 'black',
+    fontSize: 18,
+    boxShadow:
+      'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.1) 0px 4px 6px -4px',
+    borderRadius: '0.5rem',
+    placeItems: 'center',
+    display: 'grid',
+    minWidth: 200,
+    padding: 10,
+    backgroundColor: {
+      default: `${colors.gray2}`,
+      ':hover': `${marigoldColors.flowerYellow}`,
+    },
+    transitionDuration: '500ms',
+    transitionProperty: 'backgroundColor',
+  },
+})
 
 const request_card = stylex.create({
   checkbox_root: {
@@ -39,7 +62,12 @@ const request_card = stylex.create({
   },
 })
 
-function AddServiceRequest() {
+interface ServiceTypeProps {
+  // hack, should be about to use ServiceRequest type with just one param specified
+  service_type_id: string | null
+}
+
+function AddServiceRequest({ service_type_id }: ServiceTypeProps) {
   const [description, setDescription] = useState('')
   const client = useSupabase()
 
@@ -65,7 +93,7 @@ function AddServiceRequest() {
       technician_id: null,
       location_id: null,
       status_id: null,
-      service_type_id: null,
+      service_type_id: service_type_id,
       completed: null,
       date_created: null,
       date_updated: null,
@@ -87,12 +115,14 @@ function AddServiceRequest() {
 
           {mutation.isSuccess ? <div>Todo added!</div> : null}
 
-          <button type='submit'>Create Service Request</button>
           <input
             type='text'
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
+          <button {...stylex.props(request_button.base)} type='submit'>
+            Create Safety Service Request
+          </button>
         </>
       )}
     </form>
@@ -104,7 +134,9 @@ export default function MultipleServiceRequests() {
     data: serviceRequests,
     isLoading,
     isError,
-  } = useMultipleServiceRequestsQuery({ service_type_id: null })
+  } = useMultipleServiceRequestsQuery({
+    service_type_id: '28bc6a2c-3b18-4fba-a954-766c0d7047c5', // hack todo get from supabase
+  })
   if (isLoading) {
     return <div>Loading...</div>
   }
@@ -116,9 +148,13 @@ export default function MultipleServiceRequests() {
       </>
     )
   }
+  const safetyServiceTypeId = '28bc6a2c-3b18-4fba-a954-766c0d7047c5' // todo get from supabase
+
   return (
     <div>
-      <AddServiceRequest></AddServiceRequest>
+      <AddServiceRequest
+        service_type_id={safetyServiceTypeId}
+      ></AddServiceRequest>
       <form>
         {serviceRequests.map((serviceRequest) => (
           <div key={serviceRequest.id}>

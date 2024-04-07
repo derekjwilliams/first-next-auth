@@ -1,10 +1,9 @@
 import React from 'react'
 import { createServiceRequest } from '../actions/'
 // import { redirect } from 'next/navigation'
-// import * as stylex from '@stylexjs/stylex'
-// import { colors } from '@stylexjs/open-props/lib/colors.stylex' // todo use imported colors
+import * as stylex from '@stylexjs/stylex'
+import { colors } from '@stylexjs/open-props/lib/colors.stylex' // todo use imported colors
 
-/*
 const create_service_request_button_wrapper = stylex.create({
   base: {
     display: 'flex',
@@ -25,7 +24,6 @@ const create_service_request_button = stylex.create({
     },
   },
 })
-*/
 
 export default async function AuthButton() {
   //   const supabase = await createSupabaseServerClient()

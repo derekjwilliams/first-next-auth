@@ -1,8 +1,8 @@
 module.exports = {
   extends: 'next/core-web-vitals',
-  plugins: ['@tanstack/query'],
+  plugins: ['@stylexjs', '@tanstack/query'],
   rules: {
-    // '@stylexjs/valid-styles': 'error',
+    '@stylexjs/valid-styles': 'error',
     'no-color-literals': 'off',
     'jsx-quotes': ['error', 'prefer-single'],
     '@tanstack/query/exhaustive-deps': 'error',

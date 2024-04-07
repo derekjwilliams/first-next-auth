@@ -1,10 +1,10 @@
 import './globals.css'
+import * as stylex from '@stylexjs/stylex'
+import { fonts } from './globalTokens.stylex'
 import { ReactQueryClientProvider } from '@/components/ReactQueryClientProvider'
 // import { Provider } from '@/utils/Provider'
-import { Inter } from 'next/font/google'
 import { Toaster } from 'react-hot-toast'
 
-const inter = Inter({ subsets: ['latin'] })
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : 'http://localhost:3000'
@@ -15,6 +15,20 @@ export const metadata = {
   description:
     'Creating collaborative relationships between property owners and tenants',
 }
+
+const s = stylex.create({
+  html: {
+    colorScheme: 'light dark',
+  },
+  reset: {
+    minHeight: '100%',
+    margin: 0,
+    padding: 0,
+  },
+  body: {
+    fontFamily: `${fonts.appFont},Arial`,
+  },
+})
 
 export default function RootLayout({
   children,
@@ -31,7 +45,7 @@ export default function RootLayout({
           crossOrigin='anonymous'
         />
       </head>
-      <body className={inter.className}>
+      <body {...stylex.props(s.reset, s.body)}>
         <ReactQueryClientProvider>
           <main>
             <Toaster position='bottom-center' />

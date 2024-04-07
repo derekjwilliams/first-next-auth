@@ -1,9 +1,8 @@
 import { createClient } from '@/lib/supabase/client'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
-// import * as stylex from '@stylexjs/stylex'
+import * as stylex from '@stylexjs/stylex'
 
-/*
 const auth_button_wrapper = stylex.create({
   base: {
     display: 'flex',
@@ -24,7 +23,6 @@ const auth_button = stylex.create({
     },
   },
 })
-*/
 
 export default async function AuthButton() {
   const supabase = createClient()
@@ -42,13 +40,15 @@ export default async function AuthButton() {
   }
 
   return user ? (
-    <div>
-      {user.email}
+    <div {...stylex.props(auth_button_wrapper.base)}>
+      Hey, {user.email}!
       <form action={signOut}>
-        <button>Logout</button>
+        <button {...stylex.props(auth_button.base)}>Logout</button>
       </form>
     </div>
   ) : (
-    <Link href='/login'>Login</Link>
+    <Link href='/login' {...stylex.props(auth_button.base)}>
+      Login
+    </Link>
   )
 }

@@ -1,11 +1,9 @@
 import AuthButton from '../components/AuthButton'
 import { createClient } from '@/lib/supabase/client'
 import Header from '@/components/Header'
-// import * as stylex from '@stylexjs/stylex'
-// import stylex from '@stylexjs/stylex'
-// import { colors } from '@stylexjs/open-props/lib/colors.stylex'
+import stylex from '@stylexjs/stylex'
+import { colors } from '@stylexjs/open-props/lib/colors.stylex'
 
-/*
 const pageStyle = stylex.create({
   base: {
     display: 'flex',
@@ -71,7 +69,6 @@ const pageFooter = stylex.create({
     textAlign: 'center',
   },
 })
-*/
 
 export default async function Index() {
   const canInitSupabaseClient = () => {
@@ -88,15 +85,20 @@ export default async function Index() {
   const isSupabaseConnected = canInitSupabaseClient()
 
   return (
-    <div>
-      <nav>
-        <div>{isSupabaseConnected && <AuthButton />}</div>
+    <div className={stylex(pageStyle.base)}>
+      <nav className={stylex(pageNav.base)}>
+        <div className={stylex(pageNavContent.base)}>
+          {isSupabaseConnected && <AuthButton />}
+        </div>
       </nav>
-      <div>
+      <div className={stylex(pageHeaderContainer.base)}>
         <Header />
-        <main></main>
+        <main className={stylex(pageMain.base)}>
+          {/* <h2 className="font-bold text-4xl mb-4">Next steps</h2>
+          {isSupabaseConnected ? <SignUpUserSteps /> : <ConnectSupabaseSteps />} */}
+        </main>
       </div>
-      <footer></footer>
+      <footer className={stylex(pageFooter.base)}></footer>
     </div>
   )
 }
