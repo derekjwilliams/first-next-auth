@@ -43,12 +43,12 @@ export default function Login() {
       </div>
       <img
         className='a1-b2'
-        height={460}
-        width={460}
+        height={320}
+        width={320}
         alt='pests'
         src='/images/pests.svg'
       />
-      <div className='b2-b4'>
+      <div className='b2-a6'>
         Dictumst vestibulum rhoncus est pellentesque. Condimentum vitae sapien
         pellentesque habitant. Nunc consequat interdum varius sit amet mattis
         vulputate. Urna nunc id cursus metus aliquam eleifend mi in nulla. Proin
