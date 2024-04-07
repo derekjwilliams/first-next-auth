@@ -78,6 +78,13 @@ export default function Login() {
         Dapibus ultrices in iaculis nunc. Integer enim neque volutpat ac
         tincidunt.
       </div>
+      <img
+        className='a5-a6'
+        height={160}
+        width={160}
+        alt='kitchen_under_plumbing.svg'
+        src='/images/kitchen_under_plumbing.svg'
+      />
       <div className='a5-a6'>
         Ac ut consequat semper viverra nam. Consectetur adipiscing elit ut
         aliquam purus sit amet luctus. Massa enim nec dui nunc mattis enim ut.
