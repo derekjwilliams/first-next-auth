@@ -13,7 +13,7 @@ export const createClient = () => {
           return cookieStore.get(name)?.value
         },
         set(name: string, value: string, options: CookieOptions) {
-          options.sameSite = 'Strict'
+          options.sameSite = 'Lax'
           try {
             cookieStore.set({ name, value, ...options })
           } catch (error) {
