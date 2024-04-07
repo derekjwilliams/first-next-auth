@@ -4,7 +4,7 @@ import useMultipleServiceRequestsQuery from '@/hooks/useMultipleServiceRequestsQ
 import useServiceRequestMutation from '@/hooks/useServiceRequestMutation'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { CheckIcon } from '@radix-ui/react-icons'
-import * as stylex from '@stylexjs/stylex'
+// import * as stylex from '@stylexjs/stylex'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import useSupabase from '../hooks/useSupabase'
@@ -14,7 +14,7 @@ import { addServiceRequest } from '@/queries/addServiceRequest'
 import { Database } from '@/utils/database.types'
 type ServiceRequest = Database['public']['Tables']['service_requests']['Row']
 
-const request_card = stylex.create({
+/*const request_card = stylex.create({
   checkbox_root: {
     backgroundColor: 'white',
     width: 25,
@@ -37,6 +37,7 @@ const request_card = stylex.create({
     width: '100%',
   },
 })
+*/
 
 function AddServiceRequest() {
   const [description, setDescription] = useState('')
@@ -121,14 +122,9 @@ export default function MultipleServiceRequests() {
       <form>
         {serviceRequests.map((serviceRequest) => (
           <div key={serviceRequest.id}>
-            <Checkbox.Root
-              {...stylex.props(request_card.checkbox_root)}
-              id='{serviceRequest.id}'
-            >
-              <Checkbox.Indicator
-                {...stylex.props(request_card.checkbox_indicator)}
-              >
-                <CheckIcon {...stylex.props(request_card.check_icon)} />
+            <Checkbox.Root id='{serviceRequest.id}'>
+              <Checkbox.Indicator>
+                <CheckIcon />
               </Checkbox.Indicator>
             </Checkbox.Root>
             <label

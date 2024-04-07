@@ -5,8 +5,9 @@ import useServiceRequestQuery from '@/hooks/useServiceRequestQuery'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { CheckIcon } from '@radix-ui/react-icons'
 
-import * as stylex from '@stylexjs/stylex'
+// import * as stylex from '@stylexjs/stylex'
 
+/*
 const request_card = stylex.create({
   checkbox_root: {
     backgroundColor: 'white',
@@ -30,6 +31,7 @@ const request_card = stylex.create({
     width: '100%',
   },
 })
+*/
 
 export default function ServiceRequestDetail({ id }: { id: string | null }) {
   const {
@@ -50,13 +52,9 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
   }
   return (
     <form>
-      <Checkbox.Root
-        {...stylex.props(request_card.checkbox_root)}
-        defaultChecked
-        id='c1'
-      >
-        <Checkbox.Indicator {...stylex.props(request_card.checkbox_indicator)}>
-          <CheckIcon {...stylex.props(request_card.check_icon)} />
+      <Checkbox.Root defaultChecked id='c1'>
+        <Checkbox.Indicator>
+          <CheckIcon />
         </Checkbox.Indicator>
       </Checkbox.Root>
       <label className='Label' htmlFor='c1'>

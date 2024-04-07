@@ -1,6 +1,6 @@
-import * as stylex from '@stylexjs/stylex'
+// import * as stylex from '@stylexjs/stylex'
 import Image from 'next/image'
-import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
+// import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 
 // const marigoldColors = {
 //   flowerYellow: 'rgb(255 213 95)',
@@ -10,6 +10,7 @@ import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 //   leaf: 'rgb(0 81 69)',
 //   pansy: 'rgb(168 0 173)',
 // }
+/*
 const headerColors = stylex.create({
   base: {
     display: 'flex',
@@ -57,31 +58,18 @@ const headerSwatch = stylex.create({
     backgroundColor: `${marigoldColors.pansy}`,
   },
 })
+*/
 export default function Header() {
   return (
-    <div {...stylex.props(headerContainer.base)}>
+    <div>
       <Image
         alt='simple logo'
         width={492 / 4}
         height={492 / 4}
         src='/simple_logo.png'
       />
-      <div {...stylex.props(headerColors.base)}>
-        <div
-          {...stylex.props(headerSwatch.base, headerSwatch.flower_yellow)}
-        ></div>
-        <div
-          {...stylex.props(headerSwatch.base, headerSwatch.flower_gold)}
-        ></div>
-        <div
-          {...stylex.props(headerSwatch.base, headerSwatch.flower_red)}
-        ></div>
-        <div
-          {...stylex.props(headerSwatch.base, headerSwatch.environment_brown)}
-        ></div>
-        <div {...stylex.props(headerSwatch.base, headerSwatch.leaf)}></div>
-        <div {...stylex.props(headerSwatch.base, headerSwatch.pansy)}></div>
-      </div>
+      {/* yellow, gold, red, brown, leaf, pansy */}
+      <div>yellow, gold, red, brown, leaf, pansy</div>
       <p>
         Creating collaborative relationships between property owners and
         tenants.
@@ -90,7 +78,6 @@ export default function Header() {
         alt='logo'
         width={1322 / 4}
         height={365 / 4}
-        {...stylex.props(marigoldLogo.base)}
         src='/marigold_logo.png'
       />
     </div>
