@@ -130,7 +130,12 @@ export default async function ProtectedPage() {
               href='/servicerequests/safety'
               {...stylex.props(service_card.base)}
             >
-              <Image height={160} width={160} alt='safety' src='/safety.svg' />
+              <Image
+                height={160}
+                width={160}
+                alt='safety'
+                src='/images/safety.svg'
+              />
               Safety
             </Link>
             <Link href='/servicerequests' {...stylex.props(service_card.base)}>
@@ -138,12 +143,17 @@ export default async function ProtectedPage() {
                 height={160}
                 width={160}
                 alt='hvac'
-                src='/heating_and_cooling.svg'
+                src='/images/heating_and_cooling.svg'
               />
               Heating and Cooling
             </Link>
             <Link href='/servicerequests' {...stylex.props(service_card.base)}>
-              <Image height={160} width={160} alt='pests' src='/pests.svg' />
+              <Image
+                height={160}
+                width={160}
+                alt='pests'
+                src='/images/pests.svg'
+              />
               Pests
             </Link>
             <Link href='/servicerequests' {...stylex.props(service_card.base)}>
@@ -151,7 +161,7 @@ export default async function ProtectedPage() {
                 height={160}
                 width={160}
                 alt='doors and windows'
-                src='/doors_and_windows.svg'
+                src='/images/doors_and_windows.svg'
               />
               Walls, Doors, Windows
             </Link>
@@ -160,7 +170,7 @@ export default async function ProtectedPage() {
                 height={160}
                 width={160}
                 alt='electrical'
-                src='/electrical.svg'
+                src='/images/electrical.svg'
               />
               Electrical
             </Link>
@@ -169,7 +179,7 @@ export default async function ProtectedPage() {
                 height={160}
                 width={160}
                 alt='broadband'
-                src='/broadband.svg'
+                src='/images/broadband.svg'
               />
               Broadband
             </Link>
@@ -178,12 +188,17 @@ export default async function ProtectedPage() {
                 height={160}
                 width={160}
                 alt='laundry'
-                src='/laundry.svg'
+                src='/images/laundry.svg'
               />
               Laundry
             </Link>
             <Link href='/servicerequests' {...stylex.props(service_card.base)}>
-              <Image height={160} width={160} alt='lock' src='/lock.svg' />
+              <Image
+                height={160}
+                width={160}
+                alt='lock'
+                src='/images/lock.svg'
+              />
               Door and Lock
             </Link>
             <Link href='/servicerequests' {...stylex.props(service_card.base)}>
@@ -191,7 +206,7 @@ export default async function ProtectedPage() {
                 height={160}
                 width={160}
                 alt='lock'
-                src='/dishwasher.svg'
+                src='/images/dishwasher.svg'
               />
               Dishwasher
             </Link>
@@ -200,7 +215,7 @@ export default async function ProtectedPage() {
                 height={160}
                 width={160}
                 alt='lock'
-                src='/refrigerator.svg'
+                src='/images/refrigerator.svg'
               />
               Refrigerator
             </Link>
@@ -209,7 +224,7 @@ export default async function ProtectedPage() {
                 height={160}
                 width={160}
                 alt='lock'
-                src='/kitchen_under_plumbing.svg'
+                src='/images/kitchen_under_plumbing.svg'
               />
               Kitchen Plumbing
             </Link>
@@ -218,7 +233,7 @@ export default async function ProtectedPage() {
                 height={160}
                 width={160}
                 alt='lock'
-                src='/bathroom_plumbing.svg'
+                src='/images/bathroom_plumbing.svg'
               />
               Bathroom Plumbing
             </Link>
@@ -227,16 +242,26 @@ export default async function ProtectedPage() {
                 height={160}
                 width={160}
                 alt='lock'
-                src='/water_heater.svg'
+                src='/images/water_heater.svg'
               />
               Water Heater
             </Link>
             <Link href='/servicerequests' {...stylex.props(service_card.base)}>
-              <Image height={160} width={160} alt='lock' src='/roof.svg' />
+              <Image
+                height={160}
+                width={160}
+                alt='lock'
+                src='/images/roof.svg'
+              />
               Roof and Gutters
             </Link>
             <Link href='/servicerequests' {...stylex.props(service_card.base)}>
-              <Image height={160} width={160} alt='lock' src='/tree.svg' />
+              <Image
+                height={160}
+                width={160}
+                alt='lock'
+                src='/images/tree.svg'
+              />
               Lawn and Landscaping
             </Link>
           </div>
