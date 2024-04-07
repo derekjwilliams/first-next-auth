@@ -180,9 +180,6 @@ export default function Login({
           <p {...stylex.props(searchButton.base)}>{searchParams.message}</p>
         )}
       </form>
-      <form>
-        <button {...stylex.props(formButton.base)}>Sign In Using Github</button>
-      </form>
       <OAuthForm />
     </div>
   )
