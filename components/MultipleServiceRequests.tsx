@@ -52,7 +52,7 @@ function AddServiceRequest() {
       debugger
       queryClient.setQueryData(
         ['service-requests'],
-        (prevData: Array<ServiceRequest>) => [...prevData, data![0]],
+        (prevData: Array<ServiceRequest>) => [...prevData, data![0]]
       )
     },
   })
@@ -84,7 +84,7 @@ function AddServiceRequest() {
             <div>An error occurred: {mutation.error.message}</div>
           ) : null}
 
-          {mutation.isSuccess ? <div>Todo added!</div> : null}
+          {mutation.isSuccess ? <div>Service Request Added</div> : null}
 
           <button type='submit'>Create Service Request</button>
           <input

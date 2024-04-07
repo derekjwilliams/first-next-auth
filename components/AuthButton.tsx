@@ -41,7 +41,7 @@ export default async function AuthButton() {
 
   return user ? (
     <div {...stylex.props(auth_button_wrapper.base)}>
-      Hey, {user.email}!
+      {user.email}
       <form action={signOut}>
         <button {...stylex.props(auth_button.base)}>Logout</button>
       </form>
