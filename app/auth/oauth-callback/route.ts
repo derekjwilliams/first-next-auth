@@ -46,7 +46,7 @@ export async function GET(request: Request) {
     console.log('-----------')
     const { error } = await supabase.auth.exchangeCodeForSession(code)
     if (!error) {
-      return NextResponse.redirect(`${requestUrl.origin}/todos`) // from , at https://youtu.be/PdmKlne1gRY?si=A3J-MZvqwV3Oge06&t=1026
+      return NextResponse.redirect(`${requestUrl.origin}/servicerequests`) // from , at https://youtu.be/PdmKlne1gRY?si=A3J-MZvqwV3Oge06&t=1026
       //return NextResponse.redirect(`${origin}${next}`) original
     }
   }
