@@ -16,8 +16,13 @@ button {
 .compound-grid {
   display: grid;
   grid-template-columns: [a1] 4fr [a2] 1fr [b2] 3fr [a3] 2fr [b3] 2fr [a4] 3fr [b4] 1fr [a5] 4fr [a6];
-  /* grid-template-columns: [a1] 6fr [a2] 1fr [b2] 4fr [a3] 3fr [b3] 3fr [a4] 4fr [b4] 1fr [a5] 6fr [a6]; */
-  gap: 1rem;
+                      /*|---------|---------|---------|---------|--------|*/
+                      /*|------------|-----------|-----------|-----------|*/
+                      /*|---------|--|------|----|----|------|--|--------|*/
+
+                      /*a---------a--b------a----b----a------b--a--------a*/
+                      /*1---------2--2------3----3----4------4--5--------6*/
+                      /* note: a1 is also b1 and a6 is also b6*/
   grid-column-gap: 2vw;
   grid-row-gap: 5vh;
   margin: 2rem;
