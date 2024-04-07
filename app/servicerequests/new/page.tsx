@@ -126,7 +126,10 @@ export default async function ProtectedPage() {
             Make a Service Request
           </div>
           <div {...stylex.props(service_card_grid.base)}>
-            <Link href='/servicerequests' {...stylex.props(service_card.base)}>
+            <Link
+              href='/servicerequests/safety'
+              {...stylex.props(service_card.base)}
+            >
               <Image height={160} width={160} alt='safety' src='/safety.svg' />
               Safety
             </Link>
