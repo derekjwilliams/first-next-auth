@@ -31,7 +31,15 @@ button {
   grid-column: b2 / b4;
 }
 .a5-a6 {
-  grid-column: a5 / a6; }
+  grid-column: a5 / a6;
+}
+.a1-b3 {
+  grid-column: a1 / b3;
+}
+.toes {
+  grid-column: a1 / a6;
+}
+
 
 /*
 @layer base {

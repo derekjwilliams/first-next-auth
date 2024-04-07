@@ -39,11 +39,7 @@ export default function Login() {
         integer malesuada. Faucibus interdum posuere lorem ipsum. Duis at tellus
         at urna condimentum mattis pellentesque id nibh. Amet aliquam id diam
         maecenas ultricies mi. Velit scelerisque in dictum non consectetur a
-        erat. Condimentum mattis pellentesque id nibh tortor. Pretium nibh ipsum
-        consequat nisl vel pretium lectus quam id. Condimentum lacinia quis vel
-        eros donec ac odio. Magna fermentum iaculis eu non diam. Urna duis
-        convallis convallis tellus id interdum velit. Vitae congue eu consequat
-        ac felis.
+        erat.
       </div>
       <img
         className='a1-b2'
@@ -52,7 +48,6 @@ export default function Login() {
         alt='pests'
         src='/images/pests.svg'
       />
-
       <div className='b2-b4'>
         Dictumst vestibulum rhoncus est pellentesque. Condimentum vitae sapien
         pellentesque habitant. Nunc consequat interdum varius sit amet mattis
@@ -70,6 +65,19 @@ export default function Login() {
         tortor aliquam nulla facilisi. Dapibus ultrices in iaculis nunc. Integer
         enim neque volutpat ac tincidunt.
       </div>
+      <div className='a1-b3'>
+        Egestas maecenas pharetra convallis posuere morbi. Malesuada fames ac
+        turpis egestas integer eget aliquet nibh praesent. Congue quisque
+        egestas diam in arcu cursus euismod quis. Cursus vitae congue mauris
+        rhoncus aenean vel. Urna neque viverra justo nec ultrices. Donec et odio
+        pellentesque diam volutpat commodo. Ut eu sem integer vitae justo eget
+        magna fermentum. Aliquam faucibus purus in massa tempor nec feugiat
+        nisl. Interdum posuere lorem ipsum dolor sit amet consectetur
+        adipiscing. Luctus venenatis lectus magna fringilla urna porttitor
+        rhoncus dolor. Pellentesque eu tincidunt tortor aliquam nulla facilisi.
+        Dapibus ultrices in iaculis nunc. Integer enim neque volutpat ac
+        tincidunt.
+      </div>
       <div className='a5-a6'>
         Ac ut consequat semper viverra nam. Consectetur adipiscing elit ut
         aliquam purus sit amet luctus. Massa enim nec dui nunc mattis enim ut.
@@ -82,7 +90,7 @@ export default function Login() {
         et ultrices neque. Odio euismod lacinia at quis risus sed vulputate. Nec
         ultrices dui sapien eget mi.
       </div>
-      <div className='a1-b4'>
+      <div className='toes'>
         Mauris vitae ultricies leo integer malesuada. Maecenas volutpat blandit
         aliquam etiam. Adipiscing enim eu turpis egestas pretium aenean.
         Maecenas volutpat blandit aliquam etiam erat. Cursus metus aliquam
