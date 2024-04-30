@@ -6,7 +6,6 @@ import { colors } from '@stylexjs/open-props/lib/colors.stylex'
 import * as stylex from '@stylexjs/stylex'
 import Image from 'next/image'
 
-const b = colors.gray3
 const service_card = stylex.create({
   base: {
     cursor: 'pointer',

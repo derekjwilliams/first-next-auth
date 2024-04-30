@@ -9,9 +9,7 @@
   font-display: swap;
 }
 
-button {
-  all: unset;
-}
+
 
 .compound-grid {
   display: grid;
@@ -49,65 +47,46 @@ button {
   grid-column: a1 / a6;
 }
 
+/* See https://adrianroselli.com/2019/09/under-engineered-text-boxen.html */
 
-/*
-@layer base {
-  :root {
-    --background: 200 20% 98%;
-    --btn-background: 200 10% 91%;
-    --btn-background-hover: 200 10% 89%;
-    --foreground: 200 50% 3%;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --background: 200 50% 3%;
-      --btn-background: 200 10% 9%;
-      --btn-background-hover: 200 10% 12%;
-      --foreground: 200 20% 96%;
-    }
-  }
+textarea,
+input:not([type="checkbox"]):not([type="file"]):not([type="image"]):not([type="radio"]):not([type="range"]) {
+  font: inherit;
+  letter-spacing: inherit;
+  word-spacing: inherit;
+  padding: 0.5rem
 }
 
-@layer base {
-  * {
-    @apply border-foreground/20;
-  }
-} */
-
-/* .animate-in {
-  animation: animateIn 0.3s ease 0.15s both;
+textarea:focus,
+input:not([type="checkbox"]):not([type="file"]):not([type="image"]):not([type="radio"]):not([type="range"]):focus {
+  outline: 0.15em solid #00f;
+  box-shadow: 0 0 0.2em #00f;
 }
 
-@keyframes animateIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
+textarea[aria-invalid="true"],
+textarea[aria-invalid="spelling"],
+textarea[aria-invalid="grammar"],
+input:not([type="checkbox"]):not([type="file"]):not([type="image"]):not([type="radio"]):not([type="range"])[aria-invalid] {
+  background: linear-gradient(135deg, rgba(255,0,0,1) 0, rgba(255,0,0,1) .4em, rgba(255,255,255,1) .4em);
+}
+@media print {
+  body {
+    font-size: 8pt;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-} */
+}
+input[type="text"]:-webkit-autofill,
+input[type="text"]:-webkit-autofill:hover,
+input[type="text"]:-webkit-autofill:focus,
+input[type="password"]:-webkit-autofill,
+input[type="password"]:-webkit-autofill:hover,
+input[type="password"]:-webkit-autofill:focus {
+    zoom: 1.16666;
+}
 
-/* Simple CSS for service request grid, convert to tailwind as needed */
-
-/* .basic-grid {
-  display: grid;
-  gap: 1rem;
-  margin: 0 2rem;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-} */
+input[type="text"]:-webkit-autofill::first-line, input[type="password"]:-webkit-autofill::first-line {
+    font-size: 0.81333rem;
+    line-height: 1.5;
+}
 
 
-
-/* img {
-  animation: animateIn 0.3s ease 0.15s both;
-  image-rendering: crisp-edges;
-} */
-
-/* .logo {
-  fill: #d67a00;
-  stroke: #d67a00;
-} */
 

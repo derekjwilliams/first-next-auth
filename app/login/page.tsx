@@ -10,7 +10,6 @@ import OAuthForm from '../auth/components/OAuthForm'
 const loginContainer = stylex.create({
   base: {
     display: 'flex',
-    fontSize: '1.2rem',
     flexDirection: 'column',
     flex: '1 1 0%',
     padding: '0 2rem',
@@ -35,11 +34,9 @@ const backIcon = stylex.create({
     marginRight: '0.5rem',
     width: '1rem',
     height: '1rem',
-    // transitionProperty: 'transform',
-    // transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
-    // transitionDuration: '300ms',
   },
 })
+
 const loginForm = stylex.create({
   base: {
     display: 'flex',
@@ -49,30 +46,16 @@ const loginForm = stylex.create({
     gap: '0.5rem',
     justifyContent: 'center',
     width: '100%',
-    fontSize: '1.2rem',
     marginTop: '4rem',
   },
-})
-
-const loginFormInput = stylex.create({
-  base: {
-    padding: '0.5rem 1rem',
-    marginBottom: '1.5rem',
-    borderRadius: '-.375rem',
-    borderWidth: '1px',
-  },
-})
-
-const formButton = stylex.create({
-  base: {
+  input: {},
+  button: {
     padding: '0.5rem 1rem',
     borderRadius: '0.375rem',
+    borderWidth: '1px',
     marginBottom: '0.5rem',
   },
-})
-
-const searchButton = stylex.create({
-  base: {
+  searchButton: {
     padding: '1rem',
     marginTop: '1rem',
     textAlign: 'center',
@@ -149,14 +132,15 @@ export default function Login({
       <form {...stylex.props(loginForm.base)}>
         <label htmlFor='email'>Email</label>
         <input
-          {...stylex.props(loginFormInput.base)}
+          {...stylex.props(loginForm.input)}
+          type='text'
           name='email'
           placeholder='you@example.com'
           required
         />
         <label htmlFor='password'>Password</label>
         <input
-          {...stylex.props(loginFormInput.base)}
+          {...stylex.props(loginForm.input)}
           type='password'
           name='password'
           placeholder='••••••••'
@@ -164,20 +148,22 @@ export default function Login({
         />
         <SubmitButton
           formAction={signIn}
-          {...stylex.props(formButton.base)}
+          {...stylex.props(loginForm.button)}
           pendingText='Signing In...'
         >
-          Sign In
+          Login with Email and Password
         </SubmitButton>
         <SubmitButton
           formAction={signUp}
-          {...stylex.props(formButton.base)}
+          {...stylex.props(loginForm.button)}
           pendingText='Signing Up...'
         >
           Sign Up
         </SubmitButton>
         {searchParams?.message && (
-          <p {...stylex.props(searchButton.base)}>{searchParams.message}</p>
+          <p {...stylex.props(loginForm.searchButton)}>
+            {searchParams.message}
+          </p>
         )}
       </form>
       <OAuthForm />
