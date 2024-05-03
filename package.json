@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-private-methods": "^7.24.1",
+    "@playwright/test": "^1.43.1",
     "@stylexjs/eslint-plugin": "^0.6.1",
     "@stylexjs/nextjs-plugin": "^0.6.1",
     "@tanstack/eslint-plugin-query": "^5.28.11",

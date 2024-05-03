@@ -12,7 +12,6 @@ const loginForm = stylex.create({
     gap: '0.5rem',
     justifyContent: 'center',
     width: '100%',
-    fontSize: '1.2rem',
     marginTop: '4rem',
   },
   input: {

@@ -13,6 +13,14 @@ export default async function ServiceRequestPage({
   const {
     data: { user },
   } = await supabase.auth.getUser()
+  // console.log('here1------------------')
+  // console.log(JSON.stringify(user, null, 2))
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession()
+  console.log('here1------------------')
+  console.log(session?.access_token)
 
   if (!user) {
     return redirect('/login')

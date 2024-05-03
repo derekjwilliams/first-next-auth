@@ -4,7 +4,7 @@ import Header from '@/components/Header'
 import { redirect } from 'next/navigation'
 import * as stylex from '@stylexjs/stylex'
 import { colors } from '@stylexjs/open-props/lib/colors.stylex'
-import { marigoldColors } from '../../app/customStyles/marigoldColors.stylex'
+import { marigoldColors } from '../customStyles/marigoldColors.stylex'
 
 const message = stylex.create({
   base: {

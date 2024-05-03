@@ -1,5 +1,5 @@
 import React from 'react'
-import { createServiceRequest } from '../actions/'
+import { createServiceRequest } from '../actions'
 // import { redirect } from 'next/navigation'
 import * as stylex from '@stylexjs/stylex'
 import { colors } from '@stylexjs/open-props/lib/colors.stylex' // todo use imported colors
