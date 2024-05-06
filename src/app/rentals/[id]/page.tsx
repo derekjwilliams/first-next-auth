@@ -1,6 +1,7 @@
 'use server'
 import { createClient } from '@/lib/supabase/client'
 import Image from 'next/image'
+import { getPlaceholderImage } from '@/utils/images'
 import * as stylex from '@stylexjs/stylex'
 import { colors } from '@stylexjs/open-props/lib/colors.stylex'
 import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
@@ -52,6 +53,7 @@ const rental = stylex.create({
     aspectRatio: 1.5,
     objectFit: 'cover',
     // layout: 'fixed',
+    placeholder: 'blur',
     width: '100%',
     height: 'auto',
   },
@@ -103,18 +105,33 @@ export default async function Page({ params }: { params: { id: string } }) {
     .throwOnError()
     .single()
 
-  const listingImages = listing?.listing_images?.map((image) => (
-    <div key={image.id} {...stylex.props(rental.mediaElement)}>
-      <Image
-        {...stylex.props(rental.image)}
-        alt={image.description}
-        width={imageSize * aspectRatio}
-        height={imageSize}
-        src={image.url}
-        loading='lazy'
-      ></Image>
-    </div>
-  ))
+  let imageWithPlaceholder;
+
+  if (listing)
+    imageWithPlaceholder = await Promise.all(
+    listing.listing_images.map(async (image) => {
+      const imageWithPlaceholder = await getPlaceholderImage(image.url)
+      return imageWithPlaceholder
+    }),
+  )  
+
+  console.log(JSON.stringify(imageWithPlaceholder, null, 2))
+
+  const listingImages = listing?.listing_images?.map((image) => {
+    return(
+        <div key={image.id} {...stylex.props(rental.mediaElement)}>
+        <Image
+            {...stylex.props(rental.image)}
+            alt={image.description}
+            width={imageSize * aspectRatio}
+            height={imageSize}
+            src={image.url}
+            // blurDataURL={image.placeholder}
+            loading='lazy'
+        ></Image>
+        </div>
+    )
+  })
 
   const overview = (
     <div {...stylex.props(rental.overview)}>
