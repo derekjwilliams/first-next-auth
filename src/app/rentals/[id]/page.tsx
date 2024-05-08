@@ -105,19 +105,8 @@ export default async function Page({ params }: { params: { id: string } }) {
     .throwOnError()
     .single()
 
-  let imageWithPlaceholder
-
-  if (listing)
-    imageWithPlaceholder = await Promise.all(
-      listing.listing_images.map(async (image) => {
-        const imageWithPlaceholder = await getPlaceholderImage(image.url)
-        return imageWithPlaceholder
-      })
-    )
-
-  // console.log(JSON.stringify(imageWithPlaceholder, null, 2))
-
-  const listingImages = listing?.listing_images?.map((image) => {
+  const listingImages = listing?.listing_images?.map(async (image) => {
+    const blur = await getPlaceholderImage(image.url)
     return (
       <div key={image.id} {...stylex.props(rental.mediaElement)}>
         <Image
@@ -127,7 +116,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           height={imageSize}
           src={image.url}
           placeholder='blur'
-          // blurDataURL={image.placeholder}
+          blurDataURL={blur.placeholder}
           loading='lazy'
         ></Image>
       </div>
@@ -188,6 +177,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           {overview}
         </div>
       </div>
+      {/* <div {...stylex.props(rental.mediaScroller)}>{tinyListingImages}</div> */}
       <div {...stylex.props(rental.mediaScroller)}>{listingImages}</div>
       <p {...stylex.props(rental.legal)}>{listing?.required_legal_statement}</p>
     </div>
