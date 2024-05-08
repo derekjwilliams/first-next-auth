@@ -9,7 +9,7 @@ import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import { colors } from '@stylexjs/open-props/lib/colors.stylex'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
-import useSupabase from '../../hooks/useSupabase'
+import useSupabase from '../hooks/useSupabase'
 
 import { addServiceRequest } from '@/queries/addServiceRequest'
 

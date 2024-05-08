@@ -53,7 +53,7 @@ const rental = stylex.create({
     aspectRatio: 1.5,
     objectFit: 'cover',
     // layout: 'fixed',
-    placeholder: 'blur',
+    //placeholder: 'blur',
     width: '100%',
     height: 'auto',
   },
@@ -105,31 +105,32 @@ export default async function Page({ params }: { params: { id: string } }) {
     .throwOnError()
     .single()
 
-  let imageWithPlaceholder;
+  let imageWithPlaceholder
 
   if (listing)
     imageWithPlaceholder = await Promise.all(
-    listing.listing_images.map(async (image) => {
-      const imageWithPlaceholder = await getPlaceholderImage(image.url)
-      return imageWithPlaceholder
-    }),
-  )  
+      listing.listing_images.map(async (image) => {
+        const imageWithPlaceholder = await getPlaceholderImage(image.url)
+        return imageWithPlaceholder
+      })
+    )
 
-  console.log(JSON.stringify(imageWithPlaceholder, null, 2))
+  // console.log(JSON.stringify(imageWithPlaceholder, null, 2))
 
   const listingImages = listing?.listing_images?.map((image) => {
-    return(
-        <div key={image.id} {...stylex.props(rental.mediaElement)}>
+    return (
+      <div key={image.id} {...stylex.props(rental.mediaElement)}>
         <Image
-            {...stylex.props(rental.image)}
-            alt={image.description}
-            width={imageSize * aspectRatio}
-            height={imageSize}
-            src={image.url}
-            // blurDataURL={image.placeholder}
-            loading='lazy'
+          {...stylex.props(rental.image)}
+          alt={image.description}
+          width={imageSize * aspectRatio}
+          height={imageSize}
+          src={image.url}
+          placeholder='blur'
+          // blurDataURL={image.placeholder}
+          loading='lazy'
         ></Image>
-        </div>
+      </div>
     )
   })
 

@@ -7,7 +7,7 @@ import { CheckIcon } from '@radix-ui/react-icons'
 import * as stylex from '@stylexjs/stylex'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
-import useSupabase from '../../hooks/useSupabase'
+import useSupabase from '../hooks/useSupabase'
 import { InferProps } from 'prop-types'
 
 import { addServiceRequest } from '@/queries/addServiceRequest'
