@@ -15,9 +15,10 @@ export async function getPlaceholderImage(url: string) {
     const lowResImage = await getBuffer(
       `${process.env.NEXT_URL}_next/image?url=${encodeURIComponent(
         url
-      )}&w=48&q=50`
+      )}&w=48&q=25`
     )
-    const resizedBuffer = await sharp(lowResImage).resize(20).toBuffer()
+    const resizedBuffer = await sharp(lowResImage).resize(10).toBuffer()
+
     return {
       placeholder: bufferToBase64(resizedBuffer),
     }

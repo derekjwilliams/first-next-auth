@@ -4,7 +4,6 @@ import createSupabaseServerClient from '@/lib/supabase/server'
 import { revalidatePath, unstable_noStore as noStore } from 'next/cache'
 
 export async function createServiceRequest(description: string) {
-  console.log('description', description)
   const supabase = await createSupabaseServerClient()
   const user = supabase.auth.getUser()
   const result = await supabase
@@ -18,13 +17,11 @@ export async function createServiceRequest(description: string) {
     })
     .single()
   revalidatePath('/servicerequests') // to display the service requests
-  console.log('result: ', result)
   return JSON.stringify(result)
 }
 
 export async function readServiceRequests() {
   noStore()
-  console.log('readServiceRequests')
   const supabase = await createSupabaseServerClient()
   return await supabase.from('service_requests').select('*')
 }

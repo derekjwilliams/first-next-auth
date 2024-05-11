@@ -105,9 +105,10 @@ export default async function Page({ params }: { params: { id: string } }) {
     .throwOnError()
     .single()
 
+  console.log('start', new Date())
   const listingImages = listing?.listing_images?.map(async (image) => {
     const blur = await getPlaceholderImage(image.url)
-    return (
+    const result = (
       <div key={image.id} {...stylex.props(rental.mediaElement)}>
         <Image
           {...stylex.props(rental.image)}
@@ -121,7 +122,9 @@ export default async function Page({ params }: { params: { id: string } }) {
         ></Image>
       </div>
     )
+    return result
   })
+  console.log('end', new Date())
 
   const overview = (
     <div {...stylex.props(rental.overview)}>

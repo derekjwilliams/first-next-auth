@@ -39,11 +39,6 @@ export async function GET(request: Request) {
       }
     )
 
-    console.log(
-      'app/auth-server-action/callback/route.ts end of GET function, called by?'
-    )
-    console.log(`code: ${code}`)
-    console.log('-----------')
     const { error } = await supabase.auth.exchangeCodeForSession(code)
     if (!error) {
       return NextResponse.redirect(`${requestUrl.origin}/servicerequests`) // from , at https://youtu.be/PdmKlne1gRY?si=A3J-MZvqwV3Oge06&t=1026
