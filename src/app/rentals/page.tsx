@@ -1,4 +1,3 @@
-//import { createClient } from '@/lib/supabase/server'
 import Navigation from '@/components/Navigation'
 import { createClient } from '@/lib/supabase/client'
 import * as stylex from '@stylexjs/stylex'
@@ -31,12 +30,7 @@ const rental = stylex.create({
 export default async function Page() {
   const header = (
     <div {...stylex.props(rental.logo)}>
-      <Image
-        alt='simple logo'
-        width={492 / 8}
-        height={492 / 8}
-        src='/simple_logo.png'
-      />
+      <Image alt='simple logo' width={492 / 8} height={492 / 8} src='/simple_logo.png' />
       <Navigation></Navigation>
     </div>
   )
@@ -49,11 +43,9 @@ export default async function Page() {
       <Link href={`/rentals/${listing.id}`}>
         <div>
           <div {...stylex.props(rental.address)}>
-            {`${listing?.address_1}${
-              listing?.address_2 !== null ? ' ' + listing?.address_2 : ''
-            },  ${listing?.city}, ${listing?.state_province} ${
-              listing?.postal_code
-            }`}
+            {`${listing?.address_1}${listing?.address_2 !== null ? ' ' + listing?.address_2 : ''},  ${listing?.city}, ${
+              listing?.state_province
+            } ${listing?.postal_code}`}
           </div>
           <div {...stylex.props(rental.imageContainer)}>
             <Image
@@ -63,8 +55,7 @@ export default async function Page() {
               //fill
               // sizes='100vw'
               alt={listing?.address}
-              src={listing.cover_image_url}
-            ></Image>
+              src={listing.cover_image_url}></Image>
           </div>
         </div>
       </Link>

@@ -128,7 +128,7 @@ export default function Navigation() {
             </Link>
           </li>
           <li {...stylex.props(styles.item)}>
-            <Link {...stylex.props(styles.link)} href='/servicerequests'>
+            <Link {...stylex.props(styles.link)} href='/servicerequests/new'>
               Service Requests
             </Link>
           </li>
