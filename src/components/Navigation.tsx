@@ -19,7 +19,7 @@ const menuStyles = stylex.create({
 const styles = stylex.create({
   base: {
     backgroundColor: `${marigoldColors.flowerGold}`,
-    padding: '1rem',
+    padding: '0.5rem',
   },
   header: {
     width: '100%',
