@@ -4,39 +4,60 @@ import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import React, { useState } from 'react'
 
+const menuStyles = stylex.create({
+  showHamburger: (display) => ({
+    display: {
+      default: display,
+      '@media (min-width: 800px)': 'block',
+    },
+  }),
+  showClosedBurger: (display) => ({
+    display,
+  }),
+})
+
 const styles = stylex.create({
   base: {
     backgroundColor: `${marigoldColors.flowerGold}`,
     padding: '1rem',
   },
+
   navigationList: {
     listStyle: 'none',
   },
+
   item: {
-    margin: 100,
+    margin: 5,
     whiteSpace: 'nowrap',
     backgroundColor: `${marigoldColors.flowerYellow}`,
-    padding: 5,
+    // padding: 5,
     textDecoration: 'none',
   },
-  itemNumber: {
-    fontWeight: 700,
-    marginInlineEnd: '0.5em',
+  link: {
+    textDecoration: 'none',
   },
-  iconOpen: {},
-  iconClosed: {
+
+  iconHamburger: {
+    display: 'block',
+  },
+  iconClosedBurger: {
     display: 'none',
   },
   primaryNavigation: {
     marginTop: '45px',
   },
   mobileNavigationToggle: {
+    display: {
+      default: 'none',
+      '@media (max-width: 800px)': 'block',
+    },
     cursor: 'pointer',
     background: 'transparent',
     borderWidth: 0,
-    padding: '0.5em',
+    padding: '5em',
   },
-  screenReaderOnly: {
+  /**from ally-guildlines */
+  visuallyHidden: {
     position: 'absolute',
     width: '1px',
     height: '1px',
@@ -49,7 +70,7 @@ const styles = stylex.create({
   },
   navigationButton: {
     display: {
-      '@media (min-width: 1400px)': 'none',
+      '@media (min-width: 800px)': 'none',
     },
     cursor: 'pointer',
     textDecoration: 'none',
@@ -64,35 +85,47 @@ const styles = stylex.create({
   },
 })
 export default function Navigation() {
-  const [showMenu, setShowMenu] = useState(false)
+  const [hamburger, setHamburgerVisible] = useState('block')
+  const [closedBurger, setClosedBurgerVisible] = useState('none')
   const toggleMenu = () => {
-    setShowMenu(!showMenu)
-  }
-  const closeMenuOnMobile = () => {
-    if (window.innerWidth <= 1150) {
-      setShowMenu(false)
+    console.log(window.innerWidth)
+    if (window.innerWidth <= 800) {
+      setHamburgerVisible(hamburger !== 'block' ? 'block' : 'none')
+      setClosedBurgerVisible(closedBurger !== 'block' ? 'block' : 'none')
     }
   }
 
   return (
     <header>
       <button
-        {...stylex.props(styles.navigationButton, styles.mobileNavigationToggle)}
+        {...stylex.props(styles.mobileNavigationToggle)}
         id='navigation__toggle'
-        aria-controls='primary-navigation'>
-        <span {...stylex.props(styles.screenReaderOnly)}>Menu</span>
+        aria-controls='primary-navigation'
+        onClick={toggleMenu}>
+        <img
+          src='/images/icon-hamburger.svg'
+          alt=''
+          aria-hidden='true'
+          {...stylex.props(styles.iconHamburger, menuStyles.showHamburger(hamburger))}></img>
+        <img
+          src='/images/icon-close.svg'
+          alt=''
+          aria-hidden='true'
+          {...stylex.props(styles.iconClosedBurger, menuStyles.showClosedBurger(closedBurger))}></img>
+        <span {...stylex.props(styles.visuallyHidden)}>Menu</span>
       </button>
-      <nav className='navigation' id='primary-navigation' {...stylex.props(styles.base)}>
+      <nav
+        className='navigation'
+        id='primary-navigation'
+        {...stylex.props(styles.base, menuStyles.showHamburger(closedBurger))}>
         <ul {...stylex.props(styles.navigationList)}>
-          <li>
-            <Link {...stylex.props(styles.item)} href='/rentals' onClick={closeMenuOnMobile}>
-              {/* prettier-ignore */}
+          <li {...stylex.props(styles.item)}>
+            <Link {...stylex.props(styles.link)} href='/rentals'>
               Available Rentals
             </Link>
           </li>
-          <li>
-            <Link {...stylex.props(styles.item)} href='/servicerequests' onClick={closeMenuOnMobile}>
-              {/* prettier-ignore */}
+          <li {...stylex.props(styles.item)}>
+            <Link {...stylex.props(styles.link)} href='/servicerequests'>
               Service Requests
             </Link>
           </li>
