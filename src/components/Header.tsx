@@ -1,6 +1,7 @@
 import * as stylex from '@stylexjs/stylex'
 import Image from 'next/image'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
+import Navigation from './Navigation'
 
 // const marigoldColors = {
 //   flowerYellow: 'rgb(255 213 95)',
@@ -60,6 +61,7 @@ const headerSwatch = stylex.create({
 export default function Header() {
   return (
     <div {...stylex.props(headerContainer.base)}>
+      <Navigation></Navigation>
       <Image
         alt='simple logo'
         width={492 / 4}

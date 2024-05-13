@@ -1,4 +1,5 @@
 //import { createClient } from '@/lib/supabase/server'
+import Navigation from '@/components/Navigation'
 import { createClient } from '@/lib/supabase/client'
 import * as stylex from '@stylexjs/stylex'
 import Image from 'next/image'
@@ -36,6 +37,7 @@ export default async function Page() {
         height={492 / 8}
         src='/simple_logo.png'
       />
+      <Navigation></Navigation>
     </div>
   )
   const supabase = createClient()

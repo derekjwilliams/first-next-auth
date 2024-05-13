@@ -8,6 +8,7 @@ import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
 import { borders } from '@stylexjs/open-props/lib/borders.stylex'
 import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
 import { marigoldColors } from '../../../app/customStyles/marigoldColors.stylex'
+import Navigation from '@/components/Navigation'
 
 const imageSize = 220
 const aspectRatio = 1.6
@@ -166,6 +167,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         height={logoSize}
         src='/simple_logo.png'
       />
+      <Navigation></Navigation>
     </div>
   )
   return (
