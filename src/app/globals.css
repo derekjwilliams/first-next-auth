@@ -7,10 +7,6 @@
   box-sizing: border-box;
 }
 
-* {
-  min-width: 0;
-}
-
 html { 
   color-scheme: dark light;
 }
@@ -28,13 +24,6 @@ picture, svg, video {
   font-weight: normal;
   font-display: swap;
 }
-/*
-nav a > span [aria-hidden="true"] {
-  font-weight: 700;
-  margin-inline-end: 0.5em;
-}*/
-
-
 
 .compound-grid {
   display: grid;

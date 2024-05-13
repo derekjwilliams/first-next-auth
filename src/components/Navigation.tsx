@@ -21,7 +21,9 @@ const styles = stylex.create({
     backgroundColor: `${marigoldColors.flowerGold}`,
     padding: '1rem',
   },
-
+  header: {
+    width: '100%',
+  },
   navigationList: {
     listStyle: 'none',
     padding: '0.5rem',
@@ -99,7 +101,7 @@ export default function Navigation() {
   }
 
   return (
-    <header>
+    <header {...stylex.props(styles.header)}>
       <button
         {...stylex.props(styles.mobileNavigationToggle)}
         id='navigation__toggle'
@@ -108,12 +110,10 @@ export default function Navigation() {
         <img
           src='/images/icon-hamburger.svg'
           alt=''
-          aria-hidden='true'
           {...stylex.props(styles.iconHamburger, menuStyles.showHamburger(hamburger))}></img>
         <img
           src='/images/icon-close.svg'
           alt=''
-          aria-hidden='true'
           {...stylex.props(styles.iconClosedBurger, menuStyles.showClosedBurger(closedBurger))}></img>
         <span {...stylex.props(styles.visuallyHidden)}>Menu</span>
       </button>

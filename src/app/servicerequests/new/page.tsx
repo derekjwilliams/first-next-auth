@@ -41,6 +41,7 @@ const service_page = stylex.create({
     alignItems: 'center',
   },
   logo: {
+    width: '100%',
     backgroundColor: '#ffd55f',
     padding: sizes.spacing3,
   },
