@@ -24,6 +24,9 @@ const styles = stylex.create({
 
   navigationList: {
     listStyle: 'none',
+    padding: '0.5rem',
+    margin: 0,
+    backgroundColor: `${marigoldColors.flowerYellow}`,
   },
 
   item: {
@@ -54,7 +57,7 @@ const styles = stylex.create({
     cursor: 'pointer',
     background: 'transparent',
     borderWidth: 0,
-    padding: '5em',
+    padding: '0.5em',
   },
   /**from ally-guildlines */
   visuallyHidden: {
