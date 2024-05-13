@@ -76,6 +76,12 @@ export default function Navigation() {
 
   return (
     <header>
+      <button
+        {...stylex.props(styles.navigationButton, styles.mobileNavigationToggle)}
+        id='navigation__toggle'
+        aria-controls='primary-navigation'>
+        <span {...stylex.props(styles.screenReaderOnly)}>Menu</span>
+      </button>
       <nav className='navigation' id='primary-navigation' {...stylex.props(styles.base)}>
         <ul {...stylex.props(styles.navigationList)}>
           <li>
@@ -85,7 +91,7 @@ export default function Navigation() {
             </Link>
           </li>
           <li>
-            <Link {...stylex.props(styles.item)} href='/servicerequests/new' onClick={closeMenuOnMobile}>
+            <Link {...stylex.props(styles.item)} href='/servicerequests' onClick={closeMenuOnMobile}>
               {/* prettier-ignore */}
               Service Requests
             </Link>
