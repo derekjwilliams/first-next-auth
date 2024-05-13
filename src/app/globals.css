@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Figtree&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800,900&display=swap');
 
 @font-face {
   font-family: 'Figtree';
@@ -8,6 +8,11 @@
   font-weight: normal;
   font-display: swap;
 }
+/*
+nav a > span [aria-hidden="true"] {
+  font-weight: 700;
+  margin-inline-end: 0.5em;
+}*/
 
 
 

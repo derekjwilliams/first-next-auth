@@ -17,5 +17,6 @@
     "stylexjs",
     "Supabase"
   ],
+  "prettier.printWidth": 120,
   "cssvar.extensions": ["css", "postcss", "jsx", "tsx"]
 }

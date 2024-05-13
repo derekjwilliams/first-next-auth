@@ -62,7 +62,7 @@ export default async function Page() {
               height={200}
               //fill
               // sizes='100vw'
-              alt='cover image'
+              alt={listing?.address}
               src={listing.cover_image_url}
             ></Image>
           </div>
