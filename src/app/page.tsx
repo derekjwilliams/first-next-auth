@@ -89,9 +89,7 @@ export default async function Index() {
     <div className={stylex(pageStyle.base)}>
       <Navigation />
       <nav className={stylex(pageNav.base)}>
-        <div className={stylex(pageNavContent.base)}>
-          {isSupabaseConnected && <AuthButton />}
-        </div>
+        <div className={stylex(pageNavContent.base)}>{isSupabaseConnected && <AuthButton />}</div>
       </nav>
       <div className={stylex(pageHeaderContainer.base)}>
         <Header />

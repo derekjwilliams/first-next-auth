@@ -1,6 +1,26 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800,900&display=swap');
 
+/* Reset */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+* {
+  min-width: 0;
+}
+
+html { 
+  color-scheme: dark light;
+}
+
+picture, svg, video {
+  display: block;
+  max-width: 100%;
+}
+/* Fonts */
+
 @font-face {
   font-family: 'Figtree';
   src: url('/fonts/Figtree[wght].ttf');

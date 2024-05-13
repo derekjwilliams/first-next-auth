@@ -22,8 +22,7 @@ const request_button = stylex.create({
     textDecoration: 'none',
     color: 'black',
     fontSize: 18,
-    boxShadow:
-      'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.1) 0px 4px 6px -4px',
+    boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.1) 0px 4px 6px -4px',
     borderRadius: '0.5rem',
     placeItems: 'center',
     display: 'grid',
@@ -45,7 +44,6 @@ const description_input = stylex.create({
     marginLeft: '2rem',
     marginRight: 'auto',
     fontSize: '1.6rem',
-    fontFamily: 'Figtree',
   },
 })
 
@@ -89,10 +87,7 @@ function AddServiceRequest({ service_type_id }: ServiceTypeProps) {
   const mutation = useMutation({
     mutationFn,
     onSuccess: (data) => {
-      queryClient.setQueryData(
-        ['service-requests'],
-        (prevData: Array<ServiceRequest>) => [...prevData, data![0]]
-      )
+      queryClient.setQueryData(['service-requests'], (prevData: Array<ServiceRequest>) => [...prevData, data![0]])
     },
   })
 
@@ -119,9 +114,7 @@ function AddServiceRequest({ service_type_id }: ServiceTypeProps) {
         'Adding todo...'
       ) : (
         <>
-          {mutation.isError ? (
-            <div>An error occurred: {mutation.error.message}</div>
-          ) : null}
+          {mutation.isError ? <div>An error occurred: {mutation.error.message}</div> : null}
           {mutation.isSuccess ? <div>Service Request added!</div> : null}
           <div>
             <label>Description</label>
@@ -164,26 +157,16 @@ export default function MultipleServiceRequests() {
 
   return (
     <div>
-      <AddServiceRequest
-        service_type_id={safetyServiceTypeId}
-      ></AddServiceRequest>
+      <AddServiceRequest service_type_id={safetyServiceTypeId}></AddServiceRequest>
       <form>
         {serviceRequests.map((serviceRequest) => (
           <div key={serviceRequest.id}>
-            <Checkbox.Root
-              {...stylex.props(request_card.checkbox_root)}
-              id='{serviceRequest.id}'
-            >
-              <Checkbox.Indicator
-                {...stylex.props(request_card.checkbox_indicator)}
-              >
+            <Checkbox.Root {...stylex.props(request_card.checkbox_root)} id='{serviceRequest.id}'>
+              <Checkbox.Indicator {...stylex.props(request_card.checkbox_indicator)}>
                 <CheckIcon {...stylex.props(request_card.check_icon)} />
               </Checkbox.Indicator>
             </Checkbox.Root>
-            <label
-              className='service-request-label'
-              htmlFor='{serviceRequest.id}'
-            >
+            <label className='service-request-label' htmlFor='{serviceRequest.id}'>
               {/* todo make this a link to request details */}
               {serviceRequest.description} ({serviceRequest.id})
             </label>
