@@ -61,7 +61,6 @@ const headerSwatch = stylex.create({
 export default function Header() {
   return (
     <div {...stylex.props(headerContainer.base)}>
-      <Navigation></Navigation>
       <Image
         alt='simple logo'
         width={492 / 4}

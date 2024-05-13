@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/client'
 import Header from '@/components/Header'
 import stylex from '@stylexjs/stylex'
 import { colors } from '@stylexjs/open-props/lib/colors.stylex'
+import Navigation from '@/components/Navigation'
 
 const pageStyle = stylex.create({
   base: {
@@ -86,6 +87,7 @@ export default async function Index() {
 
   return (
     <div className={stylex(pageStyle.base)}>
+      <Navigation />
       <nav className={stylex(pageNav.base)}>
         <div className={stylex(pageNavContent.base)}>
           {isSupabaseConnected && <AuthButton />}

@@ -9,6 +9,7 @@ const auth_button_wrapper = stylex.create({
     alignItems: 'center',
     color: '#005145',
     gap: '1rem',
+    width: '20%',
   },
 })
 const auth_button = stylex.create({
