@@ -4,6 +4,7 @@ import { fonts } from './globalTokens.stylex'
 import { ReactQueryClientProvider } from '@/components/ReactQueryClientProvider'
 // import { Provider } from '@/utils/Provider'
 import { Toaster } from 'react-hot-toast'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -50,6 +51,7 @@ export default function RootLayout({
           <main>
             <Toaster position='bottom-center' />
             {children}
+            <SpeedInsights />
           </main>
         </ReactQueryClientProvider>
       </body>
