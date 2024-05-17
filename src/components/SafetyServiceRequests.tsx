@@ -12,14 +12,46 @@ import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import useSupabase from '../hooks/useSupabase'
-
 import { addServiceRequest } from '@/queries/addServiceRequest'
-
 import { Database } from '@/utils/database.types'
+
 type ServiceRequest = Database['public']['Tables']['service_requests']['Row']
 
-const request_button = stylex.create({
+const header = stylex.create({
   base: {
+    fontSize: `${fonts.size2}`,
+  },
+})
+
+const form = stylex.create({
+  root: {
+    width: '260px',
+  },
+  field: {
+    display: 'grid',
+    marginBottom: '10px',
+  },
+  input: {
+    width: '100%',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: '4px',
+    fontSize: '15px',
+    color: `${colors.gray10}`,
+    backgroundColor: `${colors.gray2}`,
+    borderColor: {
+      default: 'black',
+      ':hover': `${marigoldColors.flowerYellow}`,
+    },
+  },
+  textarea: {
+    padding: '10px',
+    width: '500px',
+    height: '200px',
+  },
+
+  requestButton: {
     cursor: 'pointer',
     textDecoration: 'none',
     color: 'black',
@@ -39,60 +71,8 @@ const request_button = stylex.create({
   },
 })
 
-const header = stylex.create({
-  base: {
-    fontSize: `${fonts.size2}`
-  }
-})
-
-const description_input = stylex.create({
-  base: {
-    width: '50%',
-    height: '20rem',
-    marginLeft: '2rem',
-    marginRight: 'auto',
-    fontSize: '1.6rem',
-  },
-})
-
-const form_root = stylex.create({
-  base: {
-    width: '260px'
-  }
-})
-
-const form_field = stylex.create({
-  base: {
-   display: 'grid',
-   marginBottom: '10px',
-  }
-})
-
-const form_input = stylex.create({
-  base: { 
-    width: '100%',
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: '4px',
-    fontSize: '15px',
-    color: 'white',
-    backgroundColor: `${colors.gray2}`,
-    borderColor: {
-      default: 'black',
-      ':hover': `${marigoldColors.flowerYellow}`,
-    }
-  },
-  textarea: {
-    //resize: 'none',
-    padding: '10px',
-    width:'500px',
-    height:'200px',
-  }
-})
-
-const request_card = stylex.create({
-  checkbox_root: {
+const requestCard = stylex.create({
+  checkboxRoot: {
     backgroundColor: 'white',
     width: 25,
     height: 25,
@@ -100,15 +80,14 @@ const request_card = stylex.create({
     padding: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    // boxShadow: '0 2px 10px black',
     borderColor: '#556d55',
     borderStyle: 'solid',
     borderWidth: 2,
   },
-  checkbox_indicator: {
+  checkboxIndicator: {
     padding: 0,
   },
-  check_icon: {
+  checkIcon: {
     color: '#1d2496',
     height: '100%',
     width: '100%',
@@ -121,7 +100,6 @@ interface ServiceTypeProps {
 }
 
 function AddServiceRequest({ service_type_id }: ServiceTypeProps) {
-  const [description, setDescription] = useState('')
   const client = useSupabase()
 
   const mutationFn = async (value: ServiceRequest) => {
@@ -135,11 +113,10 @@ function AddServiceRequest({ service_type_id }: ServiceTypeProps) {
     },
   })
 
-  const onCreateServiceRequest = (e: { preventDefault: () => void }) => {
+  const onCreateServiceRequest = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    //debugger
     mutation.mutate({
-      description: description,
+      description: e.currentTarget.description.value,
       technician_id: null,
       location_id: null,
       status_id: null,
@@ -156,50 +133,25 @@ function AddServiceRequest({ service_type_id }: ServiceTypeProps) {
   return (
     <>
       <h1 {...stylex.props(header.base)}>Create Service Request</h1>
-      <Form.Root {...stylex.props(form_root.base)} onSubmit={onCreateServiceRequest}>
-      <Form.Field {...stylex.props(form_field.base)} name='description'>
-        <div>
-          <Form.Label className='FormLabel'>Description</Form.Label>
-          <Form.Message className='FormMessage' match='valueMissing'>
-            Please enter a description
-          </Form.Message>
-        </div>
-        <Form.Control asChild>
-          <textarea {...stylex.props(form_input.base, form_input.textarea)}
-            required          
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}/>
-        </Form.Control>
-      </Form.Field>
-      <Form.Submit asChild>
-        <button {...stylex.props(request_button.base)} style={{ marginTop: 10 }}>
-          Submit Service Request
-        </button>
-      </Form.Submit>
+      <Form.Root {...stylex.props(form.root)} onSubmit={onCreateServiceRequest}>
+        <Form.Field {...stylex.props(form.field)} name='description'>
+          <div>
+            <Form.Label className='FormLabel'>Description</Form.Label>
+            <Form.Message className='FormMessage' match='valueMissing'>
+              Please enter a description
+            </Form.Message>
+          </div>
+          <Form.Control asChild>
+            <textarea {...stylex.props(form.input, form.textarea)} required />
+          </Form.Control>
+        </Form.Field>
+        <Form.Submit asChild>
+          <button {...stylex.props(form.requestButton)} style={{ marginTop: 10 }}>
+            Submit Service Request
+          </button>
+        </Form.Submit>
       </Form.Root>
     </>
-    // <form >
-    //   {mutation.isPending ? (
-    //     'Adding todo...'
-    //   ) : (
-    //     <>
-    //       {mutation.isError ? <div>An error occurred: {mutation.error.message}</div> : null}
-    //       {mutation.isSuccess ? <div>Service Request added!</div> : null}
-    //       <div>
-    //         <label>Description</label>
-    //       </div>
-    //       <textarea
-    //         {...stylex.props(description_input.base)}
-    //         name='description'
-    //         value={description}
-    //         onChange={(e) => setDescription(e.target.value)}
-    //       />
-    //       <button {...stylex.props(request_button.base)} type='submit'>
-    //         Create Safety Service Request
-    //       </button>
-    //     </>
-    //   )}
-    // </form>
   )
 }
 
@@ -230,9 +182,9 @@ export default function MultipleServiceRequests() {
       <form>
         {serviceRequests.map((serviceRequest) => (
           <div key={serviceRequest.id}>
-            <Checkbox.Root {...stylex.props(request_card.checkbox_root)} id='{serviceRequest.id}'>
-              <Checkbox.Indicator {...stylex.props(request_card.checkbox_indicator)}>
-                <CheckIcon {...stylex.props(request_card.check_icon)} />
+            <Checkbox.Root {...stylex.props(requestCard.checkboxRoot)} id='{serviceRequest.id}'>
+              <Checkbox.Indicator {...stylex.props(requestCard.checkboxIndicator)}>
+                <CheckIcon {...stylex.props(requestCard.checkIcon)} />
               </Checkbox.Indicator>
             </Checkbox.Root>
             <label className='service-request-label' htmlFor='{serviceRequest.id}'>
