@@ -17,13 +17,12 @@ const space = sizes.spacing3
 
 const rental = stylex.create({
   logo: {
-    backgroundColor: '#ffd55f',
+    backgroundColor: `${marigoldColors.flowerYellow}`,
     padding: sizes.spacing3,
   },
   propertyInformation: {
     display: 'grid',
-    gridTemplateColumns:
-      '[a0] 1fr [a1] 4fr [a2] 1fr [b2] 3fr [a3] 2fr [b3] 2fr [a4] 3fr [b4] 1fr [a5] 4fr [a6]',
+    gridTemplateColumns: '[a0] 1fr [a1] 4fr [a2] 1fr [b2] 3fr [a3] 2fr [b3] 2fr [a4] 3fr [b4] 1fr [a5] 4fr [a6]',
     gridColumnGap: sizes.fluid1,
     gridRowGap: sizes.fluid2,
     margin: space,
@@ -36,11 +35,11 @@ const rental = stylex.create({
     gridAutoFlow: 'column',
     gridAutoColumns: {
       default: '22%',
-      '@media (max-width: 800px)': '70%',
+      '@media (max-width: 768px)': '70%',
       '@media (max-width: 1400px)': '30%',
     },
     overflowX: 'auto',
-    backgroundColor: colors.gray3,
+    backgroundColor: `${marigoldColors.dusty}`,
     overscrollBehavior: 'contain',
   },
   mediaElement: {
@@ -53,8 +52,6 @@ const rental = stylex.create({
     inlineSize: '100%',
     aspectRatio: 1.5,
     objectFit: 'cover',
-    // layout: 'fixed',
-    //placeholder: 'blur',
     width: '100%',
     height: 'auto',
   },
@@ -118,8 +115,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           src={image.url}
           placeholder='blur'
           blurDataURL={blur.placeholder}
-          loading='lazy'
-        ></Image>
+          loading='lazy'></Image>
       </div>
     )
   })
@@ -134,17 +130,13 @@ export default async function Page({ params }: { params: { id: string } }) {
   const details = (
     <div {...stylex.props(rental.details)}>
       <h2 {...stylex.props(rental.heading)}>
-        <div
-          {...stylex.props(rental.heading)}
-        >{`$${listing?.monthly_rent.toLocaleString()}/mo`}</div>
+        <div {...stylex.props(rental.heading)}>{`$${listing?.monthly_rent.toLocaleString()}/mo`}</div>
       </h2>
       <div {...stylex.props(rental.rooms)}>{listing?.rooms}</div>
       <div {...stylex.props(rental.address)}>
-        {`${listing?.address_1}${
-          listing?.address_2 !== null ? ' ' + listing?.address_2 : ''
-        },  ${listing?.city}, ${listing?.state_province} ${
-          listing?.postal_code
-        }`}
+        {`${listing?.address_1}${listing?.address_2 !== null ? ' ' + listing?.address_2 : ''},  ${listing?.city}, ${
+          listing?.state_province
+        } ${listing?.postal_code}`}
       </div>
       <div {...stylex.props(rental.highlights)}>
         <h3>Highlights</h3>
@@ -161,12 +153,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   const header = (
     <div {...stylex.props(rental.logo)}>
-      <Image
-        alt='simple logo'
-        width={logoSize}
-        height={logoSize}
-        src='/simple_logo.png'
-      />
+      <Image alt='simple logo' width={logoSize} height={logoSize} src='/simple_logo.png' />
       <Navigation></Navigation>
     </div>
   )
