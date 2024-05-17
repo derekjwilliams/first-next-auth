@@ -8,6 +8,7 @@ import * as Form from '@radix-ui/react-form'
 import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import { colors } from '@stylexjs/open-props/lib/colors.stylex'
+import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import useSupabase from '../hooks/useSupabase'
@@ -38,6 +39,12 @@ const request_button = stylex.create({
   },
 })
 
+const header = stylex.create({
+  base: {
+    fontSize: `${fonts.size2}`
+  }
+})
+
 const description_input = stylex.create({
   base: {
     width: '50%',
@@ -46,6 +53,42 @@ const description_input = stylex.create({
     marginRight: 'auto',
     fontSize: '1.6rem',
   },
+})
+
+const form_root = stylex.create({
+  base: {
+    width: '260px'
+  }
+})
+
+const form_field = stylex.create({
+  base: {
+   display: 'grid',
+   marginBottom: '10px',
+  }
+})
+
+const form_input = stylex.create({
+  base: { 
+    width: '100%',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: '4px',
+    fontSize: '15px',
+    color: 'white',
+    backgroundColor: `${colors.gray2}`,
+    borderColor: {
+      default: 'black',
+      ':hover': `${marigoldColors.flowerYellow}`,
+    }
+  },
+  textarea: {
+    //resize: 'none',
+    padding: '10px',
+    width:'500px',
+    height:'200px',
+  }
 })
 
 const request_card = stylex.create({
@@ -94,6 +137,7 @@ function AddServiceRequest({ service_type_id }: ServiceTypeProps) {
 
   const onCreateServiceRequest = (e: { preventDefault: () => void }) => {
     e.preventDefault()
+    //debugger
     mutation.mutate({
       description: description,
       technician_id: null,
@@ -111,8 +155,9 @@ function AddServiceRequest({ service_type_id }: ServiceTypeProps) {
 
   return (
     <>
-      <Form.Root className='FormRoot' onSubmit={onCreateServiceRequest}>
-      <Form.Field className='FormField' name='description'>
+      <h1 {...stylex.props(header.base)}>Create Service Request</h1>
+      <Form.Root {...stylex.props(form_root.base)} onSubmit={onCreateServiceRequest}>
+      <Form.Field {...stylex.props(form_field.base)} name='description'>
         <div>
           <Form.Label className='FormLabel'>Description</Form.Label>
           <Form.Message className='FormMessage' match='valueMissing'>
@@ -120,11 +165,14 @@ function AddServiceRequest({ service_type_id }: ServiceTypeProps) {
           </Form.Message>
         </div>
         <Form.Control asChild>
-          <textarea className='Textarea' required />
+          <textarea {...stylex.props(form_input.base, form_input.textarea)}
+            required          
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}/>
         </Form.Control>
       </Form.Field>
       <Form.Submit asChild>
-        <button className='Button' style={{ marginTop: 10 }}>
+        <button {...stylex.props(request_button.base)} style={{ marginTop: 10 }}>
           Submit Service Request
         </button>
       </Form.Submit>
