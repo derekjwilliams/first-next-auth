@@ -10,8 +10,8 @@ import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
 import { marigoldColors } from '../../../app/customStyles/marigoldColors.stylex'
 import Navigation from '@/components/Navigation'
 
-const imageSize = 220
-const aspectRatio = 1.6
+const imageSize = 240
+const aspectRatio = 1.6 // puts width at 384px
 const logoSize = 492 / 8
 const space = sizes.spacing3
 
@@ -119,6 +119,7 @@ export default async function Page({ params }: { params: { id: string } }) {
       </div>
     )
   })
+  //sizes='(max-width: 768px) 125px 200px'
 
   const overview = (
     <div {...stylex.props(rental.overview)}>
