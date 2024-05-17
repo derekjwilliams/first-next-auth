@@ -4,6 +4,7 @@ import useMultipleServiceRequestsQuery from '@/hooks/useMultipleServiceRequestsQ
 import useServiceRequestMutation from '@/hooks/useServiceRequestMutation'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { CheckIcon } from '@radix-ui/react-icons'
+import * as Form from '@radix-ui/react-form'
 import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import { colors } from '@stylexjs/open-props/lib/colors.stylex'
@@ -109,28 +110,48 @@ function AddServiceRequest({ service_type_id }: ServiceTypeProps) {
   }
 
   return (
-    <form onSubmit={onCreateServiceRequest}>
-      {mutation.isPending ? (
-        'Adding todo...'
-      ) : (
-        <>
-          {mutation.isError ? <div>An error occurred: {mutation.error.message}</div> : null}
-          {mutation.isSuccess ? <div>Service Request added!</div> : null}
-          <div>
-            <label>Description</label>
-          </div>
-          <textarea
-            {...stylex.props(description_input.base)}
-            name='description'
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-          <button {...stylex.props(request_button.base)} type='submit'>
-            Create Safety Service Request
-          </button>
-        </>
-      )}
-    </form>
+    <>
+      <Form.Root className='FormRoot' onSubmit={onCreateServiceRequest}>
+      <Form.Field className='FormField' name='description'>
+        <div>
+          <Form.Label className='FormLabel'>Description</Form.Label>
+          <Form.Message className='FormMessage' match='valueMissing'>
+            Please enter a description
+          </Form.Message>
+        </div>
+        <Form.Control asChild>
+          <textarea className='Textarea' required />
+        </Form.Control>
+      </Form.Field>
+      <Form.Submit asChild>
+        <button className='Button' style={{ marginTop: 10 }}>
+          Submit Service Request
+        </button>
+      </Form.Submit>
+      </Form.Root>
+    </>
+    // <form >
+    //   {mutation.isPending ? (
+    //     'Adding todo...'
+    //   ) : (
+    //     <>
+    //       {mutation.isError ? <div>An error occurred: {mutation.error.message}</div> : null}
+    //       {mutation.isSuccess ? <div>Service Request added!</div> : null}
+    //       <div>
+    //         <label>Description</label>
+    //       </div>
+    //       <textarea
+    //         {...stylex.props(description_input.base)}
+    //         name='description'
+    //         value={description}
+    //         onChange={(e) => setDescription(e.target.value)}
+    //       />
+    //       <button {...stylex.props(request_button.base)} type='submit'>
+    //         Create Safety Service Request
+    //       </button>
+    //     </>
+    //   )}
+    // </form>
   )
 }
 
