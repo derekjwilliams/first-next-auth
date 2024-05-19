@@ -2,8 +2,8 @@
 
 import useMultipleServiceRequestsQuery from '@/hooks/useMultipleServiceRequestsQuery'
 import useServiceRequestMutation from '@/hooks/useServiceRequestMutation'
-import * as Checkbox from '@radix-ui/react-checkbox'
-import { CheckIcon } from '@radix-ui/react-icons'
+// import * as Checkbox from '@radix-ui/react-checkbox'
+// import { CheckIcon } from '@radix-ui/react-icons'
 import * as stylex from '@stylexjs/stylex'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
@@ -50,10 +50,7 @@ function AddServiceRequest() {
   const mutation = useMutation({
     mutationFn,
     onSuccess: (data) => {
-      queryClient.setQueryData(
-        ['service-requests'],
-        (prevData: Array<ServiceRequest>) => [...prevData, data![0]]
-      )
+      queryClient.setQueryData(['service-requests'], (prevData: Array<ServiceRequest>) => [...prevData, data![0]])
     },
   })
 
@@ -80,18 +77,12 @@ function AddServiceRequest() {
         'Adding todo...'
       ) : (
         <>
-          {mutation.isError ? (
-            <div>An error occurred: {mutation.error.message}</div>
-          ) : null}
+          {mutation.isError ? <div>An error occurred: {mutation.error.message}</div> : null}
 
           {mutation.isSuccess ? <div>Todo added!</div> : null}
 
           <button type='submit'>Create Service Request</button>
-          <input
-            type='text'
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
+          <input type='text' value={description} onChange={(e) => setDescription(e.target.value)} />
         </>
       )}
     </form>
@@ -99,11 +90,7 @@ function AddServiceRequest() {
 }
 
 export default function MultipleServiceRequests() {
-  const {
-    data: serviceRequests,
-    isLoading,
-    isError,
-  } = useMultipleServiceRequestsQuery({ service_type_id: null })
+  const { data: serviceRequests, isLoading, isError } = useMultipleServiceRequestsQuery({ service_type_id: null })
   if (isLoading) {
     return <div>Loading...</div>
   }
@@ -121,7 +108,7 @@ export default function MultipleServiceRequests() {
       <form>
         {serviceRequests.map((serviceRequest) => (
           <div key={serviceRequest.id}>
-            <Checkbox.Root
+            {/* <Checkbox.Root
               {...stylex.props(request_card.checkbox_root)}
               id='{serviceRequest.id}'
             >
@@ -130,11 +117,8 @@ export default function MultipleServiceRequests() {
               >
                 <CheckIcon {...stylex.props(request_card.check_icon)} />
               </Checkbox.Indicator>
-            </Checkbox.Root>
-            <label
-              className='service-request-label'
-              htmlFor='{serviceRequest.id}'
-            >
+            </Checkbox.Root> */}
+            <label className='service-request-label' htmlFor='{serviceRequest.id}'>
               {/* todo make this a link to request details */}
               {serviceRequest.description} ({serviceRequest.id})
             </label>

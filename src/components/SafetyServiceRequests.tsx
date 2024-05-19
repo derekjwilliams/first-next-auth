@@ -182,11 +182,11 @@ export default function MultipleServiceRequests() {
       <form>
         {serviceRequests.map((serviceRequest) => (
           <div key={serviceRequest.id}>
-            <Checkbox.Root {...stylex.props(requestCard.checkboxRoot)} id='{serviceRequest.id}'>
+            {/* <Checkbox.Root {...stylex.props(requestCard.checkboxRoot)} id='{serviceRequest.id}'>
               <Checkbox.Indicator {...stylex.props(requestCard.checkboxIndicator)}>
                 <CheckIcon {...stylex.props(requestCard.checkIcon)} />
               </Checkbox.Indicator>
-            </Checkbox.Root>
+            </Checkbox.Root> */}
             <label className='service-request-label' htmlFor='{serviceRequest.id}'>
               {/* todo make this a link to request details */}
               {serviceRequest.description} ({serviceRequest.id})
