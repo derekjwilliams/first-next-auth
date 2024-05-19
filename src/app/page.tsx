@@ -4,6 +4,7 @@ import Header from '@/components/Header'
 import stylex from '@stylexjs/stylex'
 import { colors } from '@stylexjs/open-props/lib/colors.stylex'
 import Navigation from '@/components/Navigation'
+import React from 'react'
 
 const pageStyle = stylex.create({
   base: {
@@ -86,19 +87,21 @@ export default async function Index() {
   const isSupabaseConnected = canInitSupabaseClient()
 
   return (
-    <div className={stylex(pageStyle.base)}>
-      <Navigation />
-      <nav className={stylex(pageNav.base)}>
-        <div className={stylex(pageNavContent.base)}>{isSupabaseConnected && <AuthButton />}</div>
-      </nav>
-      <div className={stylex(pageHeaderContainer.base)}>
-        <Header />
-        <main className={stylex(pageMain.base)}>
-          {/* <h2 className="font-bold text-4xl mb-4">Next steps</h2>
+    <React.StrictMode>
+      <div className={stylex(pageStyle.base)}>
+        <Navigation />
+        <nav className={stylex(pageNav.base)}>
+          <div className={stylex(pageNavContent.base)}>{isSupabaseConnected && <AuthButton />}</div>
+        </nav>
+        <div className={stylex(pageHeaderContainer.base)}>
+          <Header />
+          <main className={stylex(pageMain.base)}>
+            {/* <h2 className="font-bold text-4xl mb-4">Next steps</h2>
           {isSupabaseConnected ? <SignUpUserSteps /> : <ConnectSupabaseSteps />} */}
-        </main>
+          </main>
+        </div>
+        <footer className={stylex(pageFooter.base)}></footer>
       </div>
-      <footer className={stylex(pageFooter.base)}></footer>
-    </div>
+    </React.StrictMode>
   )
 }

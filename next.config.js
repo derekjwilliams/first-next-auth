@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 stylexPlugin = require('@stylexjs/nextjs-plugin')
 const nextConfig = {
+  reactStrictMode: true,
   optimizeFonts: false,
   pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
   images: {
@@ -27,7 +28,6 @@ const nextConfig = {
     formats: ['image/webp'],
   },
 }
-
 module.exports = stylexPlugin({
   useCSSLayers: true,
   rootDir: __dirname,
