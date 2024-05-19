@@ -2,8 +2,8 @@
 
 import useMultipleServiceRequestsQuery from '@/hooks/useMultipleServiceRequestsQuery'
 import useServiceRequestMutation from '@/hooks/useServiceRequestMutation'
-// import * as Checkbox from '@radix-ui/react-checkbox'
-// import { CheckIcon } from '@radix-ui/react-icons'
+import * as Checkbox from '@radix-ui/react-checkbox'
+import { CheckIcon } from '@radix-ui/react-icons'
 import * as stylex from '@stylexjs/stylex'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
@@ -108,16 +108,11 @@ export default function MultipleServiceRequests() {
       <form>
         {serviceRequests.map((serviceRequest) => (
           <div key={serviceRequest.id}>
-            {/* <Checkbox.Root
-              {...stylex.props(request_card.checkbox_root)}
-              id='{serviceRequest.id}'
-            >
-              <Checkbox.Indicator
-                {...stylex.props(request_card.checkbox_indicator)}
-              >
+            <Checkbox.Root {...stylex.props(request_card.checkbox_root)} id='{serviceRequest.id}'>
+              <Checkbox.Indicator {...stylex.props(request_card.checkbox_indicator)}>
                 <CheckIcon {...stylex.props(request_card.check_icon)} />
               </Checkbox.Indicator>
-            </Checkbox.Root> */}
+            </Checkbox.Root>
             <label className='service-request-label' htmlFor='{serviceRequest.id}'>
               {/* todo make this a link to request details */}
               {serviceRequest.description} ({serviceRequest.id})
