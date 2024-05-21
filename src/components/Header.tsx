@@ -61,32 +61,16 @@ const headerSwatch = stylex.create({
 export default function Header() {
   return (
     <div {...stylex.props(headerContainer.base)}>
-      <Image
-        alt='simple logo'
-        width={492 / 4}
-        height={492 / 4}
-        src='/simple_logo.png'
-      />
+      <Image alt='simple logo' width={492 / 4} height={492 / 4} src='/simple_logo.png' priority={true} />
       <div {...stylex.props(headerColors.base)}>
-        <div
-          {...stylex.props(headerSwatch.base, headerSwatch.flower_yellow)}
-        ></div>
-        <div
-          {...stylex.props(headerSwatch.base, headerSwatch.flower_gold)}
-        ></div>
-        <div
-          {...stylex.props(headerSwatch.base, headerSwatch.flower_red)}
-        ></div>
-        <div
-          {...stylex.props(headerSwatch.base, headerSwatch.environment_brown)}
-        ></div>
+        <div {...stylex.props(headerSwatch.base, headerSwatch.flower_yellow)}></div>
+        <div {...stylex.props(headerSwatch.base, headerSwatch.flower_gold)}></div>
+        <div {...stylex.props(headerSwatch.base, headerSwatch.flower_red)}></div>
+        <div {...stylex.props(headerSwatch.base, headerSwatch.environment_brown)}></div>
         <div {...stylex.props(headerSwatch.base, headerSwatch.leaf)}></div>
         <div {...stylex.props(headerSwatch.base, headerSwatch.pansy)}></div>
       </div>
-      <p>
-        Creating collaborative relationships between property owners and
-        tenants.
-      </p>
+      <p>Creating collaborative relationships between property owners and tenants.</p>
       <Image
         alt='logo'
         width={1322 / 4}

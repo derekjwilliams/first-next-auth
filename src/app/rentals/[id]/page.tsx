@@ -154,7 +154,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   const header = (
     <div {...stylex.props(rental.logo)}>
-      <Image alt='simple logo' width={logoSize} height={logoSize} src='/simple_logo.png' />
+      <Image alt='simple logo' width={logoSize} height={logoSize} src='/simple_logo.png' priority={true} />
       <Navigation></Navigation>
     </div>
   )

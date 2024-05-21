@@ -12,19 +12,10 @@ const styles = stylex.create({
     padding: '1rem',
   },
 })
-export default async function Page({
-  params,
-}: {
-  params: { predicate: string }
-}) {
+export default async function Page({ params }: { params: { predicate: string } }) {
   const header = (
     <div {...stylex.props(styles.logo)}>
-      <Image
-        alt='simple logo'
-        width={492 / 8}
-        height={492 / 8}
-        src='/simple_logo.png'
-      />
+      <Image alt='simple logo' width={492 / 8} height={492 / 8} src='/simple_logo.png' priority={true} />
       <Navigation></Navigation>
     </div>
   )

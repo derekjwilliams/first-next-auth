@@ -2,8 +2,8 @@
 
 import useMultipleServiceRequestsQuery from '@/hooks/useMultipleServiceRequestsQuery'
 import useServiceRequestMutation from '@/hooks/useServiceRequestMutation'
-import * as Checkbox from '@radix-ui/react-checkbox'
-import { CheckIcon } from '@radix-ui/react-icons'
+// import * as Checkbox from '@radix-ui/react-checkbox'
+// import { CheckIcon } from '@radix-ui/react-icons'
 import * as Form from '@radix-ui/react-form'
 import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'

@@ -120,7 +120,7 @@ export default async function ProtectedPage() {
   return (
     <div {...stylex.props(service_page.base)}>
       <div {...stylex.props(service_page.logo)}>
-        <Image alt='simple logo' width={logoSize} height={logoSize} src='/simple_logo.png' />
+        <Image alt='simple logo' width={logoSize} height={logoSize} src='/simple_logo.png' priority={true} />
         <Navigation></Navigation>
       </div>
       <div {...stylex.props(service_nav_container.base)}>
