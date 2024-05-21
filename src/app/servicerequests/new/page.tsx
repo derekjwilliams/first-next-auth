@@ -10,7 +10,7 @@ import Image from 'next/image'
 
 const logoSize = 492 / 8
 
-const service_card = stylex.create({
+const serviceCard = stylex.create({
   base: {
     cursor: 'pointer',
     textDecoration: 'none',
@@ -31,7 +31,7 @@ const service_card = stylex.create({
     transitionProperty: 'backgroundColor',
   },
 })
-const service_page = stylex.create({
+const servicePage = stylex.create({
   base: {
     display: 'flex',
     flex: '1 1 0%',
@@ -45,13 +45,14 @@ const service_page = stylex.create({
     backgroundColor: '#ffd55f',
     padding: sizes.spacing3,
   },
-})
-const service_nav_container = stylex.create({
-  base: {
-    width: '100%',
+  grid: {
+    display: 'grid',
+    gap: '2rem',
+    margin: '0 2rem',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
   },
 })
-const service_nav = stylex.create({
+const serviceNav = stylex.create({
   base: {
     width: '100%',
     display: 'flex',
@@ -61,8 +62,11 @@ const service_nav = stylex.create({
     borderColor: 'rgba(4, 9, 11, 0.1)',
     height: '4rem',
   },
+  container: {
+    width: '100%',
+  },
 })
-const service_auth_button = stylex.create({
+const serviceAuthButton = stylex.create({
   base: {
     width: '100%',
     maxWidth: '20rem',
@@ -74,7 +78,7 @@ const service_auth_button = stylex.create({
     lineHeight: '1.25rem',
   },
 })
-const service_main_container = stylex.create({
+const serviceMain_container = stylex.create({
   base: {
     display: 'flex',
     flex: '1 1 0%',
@@ -85,7 +89,7 @@ const service_main_container = stylex.create({
     lineHeight: '2rem',
   },
 })
-const service_main = stylex.create({
+const serviceMain = stylex.create({
   base: {
     display: 'flex',
     flex: '1 1 0%',
@@ -94,15 +98,6 @@ const service_main = stylex.create({
   },
   heading: {
     padding: '0 0 1rem 2rem',
-  },
-})
-
-const service_card_grid = stylex.create({
-  base: {
-    display: 'grid',
-    gap: '2rem',
-    margin: '0 2rem',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
   },
 })
 
@@ -118,81 +113,87 @@ export default async function ProtectedPage() {
   //   }
 
   return (
-    <div {...stylex.props(service_page.base)}>
-      <div {...stylex.props(service_page.logo)}>
+    <div {...stylex.props(servicePage.base)}>
+      <div {...stylex.props(servicePage.logo)}>
         <Image alt='simple logo' width={logoSize} height={logoSize} src='/simple_logo.png' priority={true} />
         <Navigation></Navigation>
       </div>
-      <div {...stylex.props(service_nav_container.base)}>
-        <nav {...stylex.props(service_nav.base)}>
-          <div {...stylex.props(service_auth_button.base)}>
+      <div {...stylex.props(serviceNav.container)}>
+        <nav {...stylex.props(serviceNav.base)}>
+          <div {...stylex.props(serviceAuthButton.base)}>
             <AuthButton />
           </div>
         </nav>
       </div>
 
-      <div {...stylex.props(service_main_container.base)}>
-        <main {...stylex.props(service_main.base)}>
-          <div {...stylex.props(service_main.heading)}>Make a Service Request</div>
-          <div {...stylex.props(service_card_grid.base)}>
-            <Link href='/servicerequests/safety' {...stylex.props(service_card.base)}>
-              <Image height={160} width={160} alt='safety' src='/images/safety.svg' />
+      <div {...stylex.props(serviceMain_container.base)}>
+        <main {...stylex.props(serviceMain.base)}>
+          <div {...stylex.props(serviceMain.heading)}>Make a Service Request</div>
+          <div {...stylex.props(servicePage.grid)}>
+            <Link draggable={false} href='/servicerequests/safety' {...stylex.props(serviceCard.base)}>
+              <Image draggable={false} height={160} width={160} alt='safety' src='/images/safety.svg' />
               Safety
             </Link>
-            <Link href='/servicerequests' {...stylex.props(service_card.base)}>
-              <Image height={160} width={160} alt='hvac' src='/images/heating_and_cooling.svg' />
+            <Link draggable={false} href='/servicerequests' {...stylex.props(serviceCard.base)}>
+              <Image draggable={false} height={160} width={160} alt='hvac' src='/images/heating_and_cooling.svg' />
               Heating and Cooling
             </Link>
-            <Link href='/servicerequests' {...stylex.props(service_card.base)}>
-              <Image height={160} width={160} alt='pests' src='/images/pests.svg' />
+            <Link draggable={false} href='/servicerequests' {...stylex.props(serviceCard.base)}>
+              <Image draggable={false} height={160} width={160} alt='pests' src='/images/pests.svg' />
               Pests
             </Link>
-            <Link href='/servicerequests' {...stylex.props(service_card.base)}>
-              <Image height={160} width={160} alt='doors and windows' src='/images/doors_and_windows.svg' />
+            <Link draggable={false} href='/servicerequests' {...stylex.props(serviceCard.base)}>
+              <Image
+                draggable={false}
+                height={160}
+                width={160}
+                alt='doors and windows'
+                src='/images/doors_and_windows.svg'
+              />
               Walls, Doors, Windows
             </Link>
-            <Link href='/servicerequests' {...stylex.props(service_card.base)}>
-              <Image height={160} width={160} alt='electrical' src='/images/electrical.svg' />
+            <Link draggable={false} href='/servicerequests' {...stylex.props(serviceCard.base)}>
+              <Image draggable={false} height={160} width={160} alt='electrical' src='/images/electrical.svg' />
               Electrical
             </Link>
-            <Link href='/servicerequests' {...stylex.props(service_card.base)}>
-              <Image height={160} width={160} alt='broadband' src='/images/broadband.svg' />
+            <Link draggable={false} href='/servicerequests' {...stylex.props(serviceCard.base)}>
+              <Image draggable={false} height={160} width={160} alt='broadband' src='/images/broadband.svg' />
               Broadband
             </Link>
-            <Link href='/servicerequests' {...stylex.props(service_card.base)}>
-              <Image height={160} width={160} alt='laundry' src='/images/laundry.svg' />
+            <Link draggable={false} href='/servicerequests' {...stylex.props(serviceCard.base)}>
+              <Image draggable={false} height={160} width={160} alt='laundry' src='/images/laundry.svg' />
               Laundry
             </Link>
-            <Link href='/servicerequests' {...stylex.props(service_card.base)}>
-              <Image height={160} width={160} alt='lock' src='/images/lock.svg' />
+            <Link draggable={false} href='/servicerequests' {...stylex.props(serviceCard.base)}>
+              <Image draggable={false} height={160} width={160} alt='lock' src='/images/lock.svg' />
               Door and Lock
             </Link>
-            <Link href='/servicerequests' {...stylex.props(service_card.base)}>
-              <Image height={160} width={160} alt='lock' src='/images/dishwasher.svg' />
+            <Link draggable={false} href='/servicerequests' {...stylex.props(serviceCard.base)}>
+              <Image draggable={false} height={160} width={160} alt='lock' src='/images/dishwasher.svg' />
               Dishwasher
             </Link>
-            <Link href='/servicerequests' {...stylex.props(service_card.base)}>
-              <Image height={160} width={160} alt='lock' src='/images/refrigerator.svg' />
+            <Link draggable={false} href='/servicerequests' {...stylex.props(serviceCard.base)}>
+              <Image draggable={false} height={160} width={160} alt='lock' src='/images/refrigerator.svg' />
               Refrigerator
             </Link>
-            <Link href='/servicerequests' {...stylex.props(service_card.base)}>
-              <Image height={160} width={160} alt='lock' src='/images/kitchen_under_plumbing.svg' />
+            <Link draggable={false} href='/servicerequests' {...stylex.props(serviceCard.base)}>
+              <Image draggable={false} height={160} width={160} alt='lock' src='/images/kitchen_under_plumbing.svg' />
               Kitchen Plumbing
             </Link>
-            <Link href='/servicerequests' {...stylex.props(service_card.base)}>
-              <Image height={160} width={160} alt='lock' src='/images/bathroom_plumbing.svg' />
+            <Link draggable={false} href='/servicerequests' {...stylex.props(serviceCard.base)}>
+              <Image draggable={false} height={160} width={160} alt='lock' src='/images/bathroom_plumbing.svg' />
               Bathroom Plumbing
             </Link>
-            <Link href='/servicerequests' {...stylex.props(service_card.base)}>
-              <Image height={160} width={160} alt='lock' src='/images/water_heater.svg' />
+            <Link draggable={false} href='/servicerequests' {...stylex.props(serviceCard.base)}>
+              <Image draggable={false} height={160} width={160} alt='lock' src='/images/water_heater.svg' />
               Water Heater
             </Link>
-            <Link href='/servicerequests' {...stylex.props(service_card.base)}>
-              <Image height={160} width={160} alt='lock' src='/images/roof.svg' />
+            <Link draggable={false} href='/servicerequests' {...stylex.props(serviceCard.base)}>
+              <Image draggable={false} height={160} width={160} alt='lock' src='/images/roof.svg' />
               Roof and Gutters
             </Link>
-            <Link href='/servicerequests' {...stylex.props(service_card.base)}>
-              <Image height={160} width={160} alt='lock' src='/images/tree.svg' />
+            <Link draggable={false} href='/servicerequests' {...stylex.props(serviceCard.base)}>
+              <Image draggable={false} height={160} width={160} alt='lock' src='/images/tree.svg' />
               Lawn and Landscaping
             </Link>
           </div>

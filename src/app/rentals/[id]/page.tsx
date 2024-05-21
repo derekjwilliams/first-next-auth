@@ -108,6 +108,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     return (
       <div key={image.id} {...stylex.props(rental.mediaElement)}>
         <Image
+          draggable={false}
           {...stylex.props(rental.image)}
           alt={image.description}
           width={imageSize * aspectRatio}
