@@ -17,14 +17,7 @@ export const metadata = {
   title: 'Marigold',
   description: 'Creating collaborative relationships between property owners and tenants',
 }
-const servicePage = stylex.create({
-  logo: {
-    width: '100%',
-    backgroundColor: '#ffd55f',
-    padding: sizes.spacing3,
-  },
-})
-const s = stylex.create({
+const styles = stylex.create({
   html: {
     colorScheme: 'light dark',
   },
@@ -36,11 +29,16 @@ const s = stylex.create({
   body: {
     fontFamily: `${fonts.appFont},Arial`,
   },
+  logo: {
+    width: '100%',
+    backgroundColor: '#ffd55f',
+    padding: sizes.spacing3,
+  },
 })
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const header = (
-    <div {...stylex.props(servicePage.logo)}>
+    <div {...stylex.props(styles.logo)}>
       <Image alt='simple logo' width={logoSize} height={logoSize} src='/simple_logo.png' priority={true} />
       <Navigation></Navigation>
     </div>
@@ -51,7 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel='preconnect' href='https://fonts.googleapis.com' />
         <link rel='preconnect' href='https://fonts.gstatic.com' crossOrigin='anonymous' />
       </head>
-      <body {...stylex.props(s.reset, s.body)}>
+      <body {...stylex.props(styles.reset, styles.body)}>
         {header}
         <ReactQueryClientProvider>
           <main>
