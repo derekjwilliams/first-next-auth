@@ -8,11 +8,9 @@ import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
 import { borders } from '@stylexjs/open-props/lib/borders.stylex'
 import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
 import { marigoldColors } from '../../../app/customStyles/marigoldColors.stylex'
-import Navigation from '@/components/Navigation'
 
 const imageSize = 240
 const aspectRatio = 1.6 // puts width at 384px
-const logoSize = 492 / 8
 const space = sizes.spacing3
 
 const rental = stylex.create({
@@ -153,16 +151,9 @@ export default async function Page({ params }: { params: { id: string } }) {
     </div>
   )
 
-  const header = (
-    <div {...stylex.props(rental.logo)}>
-      <Image alt='simple logo' width={logoSize} height={logoSize} src='/simple_logo.png' priority={true} />
-      <Navigation></Navigation>
-    </div>
-  )
   return (
     <div>
       <div>
-        {header}
         <div {...stylex.props(rental.propertyInformation)}>
           {details}
           {overview}

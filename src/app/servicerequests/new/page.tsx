@@ -8,8 +8,6 @@ import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
 import * as stylex from '@stylexjs/stylex'
 import Image from 'next/image'
 
-const logoSize = 492 / 8
-
 const serviceCard = stylex.create({
   base: {
     cursor: 'pointer',
@@ -114,10 +112,6 @@ export default async function ProtectedPage() {
 
   return (
     <div {...stylex.props(servicePage.base)}>
-      <div {...stylex.props(servicePage.logo)}>
-        <Image alt='simple logo' width={logoSize} height={logoSize} src='/simple_logo.png' priority={true} />
-        <Navigation></Navigation>
-      </div>
       <div {...stylex.props(serviceNav.container)}>
         <nav {...stylex.props(serviceNav.base)}>
           <div {...stylex.props(serviceAuthButton.base)}>

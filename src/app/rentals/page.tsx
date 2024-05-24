@@ -4,8 +4,6 @@ import * as stylex from '@stylexjs/stylex'
 import Image from 'next/image'
 import Link from 'next/link'
 
-const logoSize = 492 / 8
-
 const rental = stylex.create({
   logo: {
     backgroundColor: 'rgb(255 213 95)',
@@ -30,12 +28,6 @@ const rental = stylex.create({
 })
 
 export default async function Page() {
-  const header = (
-    <div {...stylex.props(rental.logo)}>
-      <Image alt='simple logo' width={logoSize} height={logoSize} src='/simple_logo.png' priority={true} />
-      <Navigation></Navigation>
-    </div>
-  )
   const supabase = createClient()
   supabase
   const { data: listings } = await supabase.from('listings').select(`*`)
@@ -63,10 +55,5 @@ export default async function Page() {
       </Link>
     </div>
   ))
-  return (
-    <div>
-      {header}
-      {displayListings}
-    </div>
-  )
+  return <div>{displayListings}</div>
 }
