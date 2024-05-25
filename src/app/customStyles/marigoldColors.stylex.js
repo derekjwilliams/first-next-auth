@@ -8,4 +8,5 @@ export const marigoldColors = stylex.defineVars({
   leaf: 'rgb(0 81 69)',
   pansy: 'rgb(168 0 173)',
   background: {default: 'rgb(222 222 222)',[DARK]: 'rgb(116 116 116)'},
+  foreground: {default: 'rgb(16 16 16)',[DARK]: 'rgb(222 222 222)'},
 })

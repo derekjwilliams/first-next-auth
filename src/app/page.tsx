@@ -15,7 +15,7 @@ const pageStyle = stylex.create({
     gap: '5rem',
     alignItems: 'center',
     width: '100%',
-    color: 'white',
+    color: marigoldColors.foreground,
     backgroundColor: marigoldColors.background,
     fontSize: '16px',
   },

@@ -1,20 +1,15 @@
 import * as stylex from '@stylexjs/stylex'
 import Image from 'next/image'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
-import Navigation from './Navigation'
 
-// const marigoldColors = {
-//   flowerYellow: 'rgb(255 213 95)',
-//   flowerGold: 'rgb(255 194 0)',
-//   flowerRed: 'rgb(247 70 0)',
-//   environmentBrown: 'rgb(214 122 0)',
-//   leaf: 'rgb(0 81 69)',
-//   pansy: 'rgb(168 0 173)',
-// }
 const headerColors = stylex.create({
   base: {
     display: 'flex',
     flexDirection: 'row',
+  },
+  byline: {
+    color: marigoldColors.foreground,
+    backgroundColor: marigoldColors.background,
   },
 })
 const marigoldLogo = stylex.create({
@@ -70,7 +65,9 @@ export default function Header() {
         <div {...stylex.props(headerSwatch.base, headerSwatch.leaf)}></div>
         <div {...stylex.props(headerSwatch.base, headerSwatch.pansy)}></div>
       </div>
-      <p>Creating collaborative relationships between property owners and tenants.</p>
+      <p {...stylex.props(headerColors.byline)}>
+        Creating collaborative relationships between property owners and tenants.
+      </p>
       <Image
         alt='logo'
         width={1322 / 4}

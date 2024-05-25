@@ -3,16 +3,15 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import * as stylex from '@stylexjs/stylex'
 
-const auth_button_wrapper = stylex.create({
+const authButtonWrapper = stylex.create({
   base: {
     display: 'flex',
     alignItems: 'center',
-    color: '#005145',
     gap: '1rem',
     width: '20%',
   },
 })
-const auth_button = stylex.create({
+const authButton = stylex.create({
   base: {
     padding: '0.5rem 1rem',
     textDecoration: 'none',
@@ -41,14 +40,14 @@ export default async function AuthButton() {
   }
 
   return user ? (
-    <div {...stylex.props(auth_button_wrapper.base)}>
+    <div {...stylex.props(authButtonWrapper.base)}>
       Hey, {user.email}!
       <form action={signOut}>
-        <button {...stylex.props(auth_button.base)}>Logout</button>
+        <button {...stylex.props(authButton.base)}>Logout</button>
       </form>
     </div>
   ) : (
-    <Link href='/login' {...stylex.props(auth_button.base)}>
+    <Link href='/login' {...stylex.props(authButton.base)}>
       Login
     </Link>
   )
