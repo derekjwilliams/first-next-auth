@@ -5,7 +5,7 @@ import stylex from '@stylexjs/stylex'
 import { colors } from '@stylexjs/open-props/lib/colors.stylex'
 import Navigation from '@/components/Navigation'
 import React from 'react'
-import { marigoldColors } from '../app/tokens.stylex'
+import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 
 const pageStyle = stylex.create({
   base: {
