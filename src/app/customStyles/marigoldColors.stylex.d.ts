@@ -7,6 +7,6 @@ type TColors = Readonly<{
   environmentBrown: string
   leaf: string
   pansy: string
-  dusty: string
+  background: string
 }>
 export declare const marigoldColors: VarGroup<TColors>
