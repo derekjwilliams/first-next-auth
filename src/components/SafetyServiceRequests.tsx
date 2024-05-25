@@ -9,6 +9,7 @@ import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import { colors } from '@stylexjs/open-props/lib/colors.stylex'
 import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
+import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import useSupabase from '../hooks/useSupabase'
@@ -17,6 +18,15 @@ import { Database } from '@/utils/database.types'
 
 type ServiceRequest = Database['public']['Tables']['service_requests']['Row']
 
+const requests = stylex.create({
+  base: {
+    padding: sizes.spacing10,
+    backgroundColor: marigoldColors.background,
+  },
+  list: {
+    margin: sizes.spacing5,
+  },
+})
 const header = stylex.create({
   base: {
     fontSize: `${fonts.size2}`,
@@ -29,15 +39,15 @@ const form = stylex.create({
   },
   field: {
     display: 'grid',
-    marginBottom: '10px',
+    marginBottom: sizes.spacing5,
   },
   input: {
     width: '100%',
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: '4px',
-    fontSize: '15px',
+    borderRadius: sizes.spacing00,
+    fontSize: fonts.size8,
     color: `${colors.gray10}`,
     backgroundColor: `${colors.gray2}`,
     borderColor: {
@@ -55,7 +65,7 @@ const form = stylex.create({
     cursor: 'pointer',
     textDecoration: 'none',
     color: 'black',
-    fontSize: 18,
+    fontSize: fonts.size4,
     boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.1) 0px 4px 6px -4px',
     borderRadius: '0.5rem',
     placeItems: 'center',
@@ -177,9 +187,9 @@ export default function MultipleServiceRequests() {
   const safetyServiceTypeId = '28bc6a2c-3b18-4fba-a954-766c0d7047c5' // todo get from supabase
 
   return (
-    <div>
+    <div {...stylex.props(requests.base)}>
       <AddServiceRequest service_type_id={safetyServiceTypeId}></AddServiceRequest>
-      <form>
+      <form {...stylex.props(requests.list)}>
         {serviceRequests.map((serviceRequest) => (
           <div key={serviceRequest.id}>
             {/* <Checkbox.Root {...stylex.props(requestCard.checkboxRoot)} id='{serviceRequest.id}'>
