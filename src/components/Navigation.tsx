@@ -93,7 +93,6 @@ export default function Navigation() {
   const [hamburger, setHamburgerVisible] = useState('block')
   const [closedBurger, setClosedBurgerVisible] = useState('none')
   const toggleMenu = () => {
-    console.log(window.innerWidth)
     if (window.innerWidth <= 800) {
       setHamburgerVisible(hamburger !== 'block' ? 'block' : 'none')
       setClosedBurgerVisible(closedBurger !== 'block' ? 'block' : 'none')

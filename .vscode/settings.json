@@ -7,6 +7,7 @@
     "node_modules/open-props/open-props.min.css"
   ],
   "cSpell.words": [
+    "guildlines",
     "hookform",
     "hvac",
     "nextjs",
@@ -16,7 +17,8 @@
     "servicerequests",
     "stylex",
     "stylexjs",
-    "Supabase"
+    "Supabase",
+    "treeshake"
   ],
   "prettier.printWidth": 120,
   "cssvar.extensions": ["css", "postcss", "jsx", "tsx"]

@@ -5,6 +5,7 @@ import stylex from '@stylexjs/stylex'
 import { colors } from '@stylexjs/open-props/lib/colors.stylex'
 import Navigation from '@/components/Navigation'
 import React from 'react'
+import { marigoldColors } from '../app/tokens.stylex'
 
 const pageStyle = stylex.create({
   base: {
@@ -14,7 +15,8 @@ const pageStyle = stylex.create({
     gap: '5rem',
     alignItems: 'center',
     width: '100%',
-    color: colors.gray9,
+    color: 'white',
+    backgroundColor: marigoldColors.background,
     fontSize: '16px',
   },
 })
@@ -88,19 +90,19 @@ export default async function Index() {
 
   return (
     <React.StrictMode>
-      <div className={stylex(pageStyle.base)}>
-        <Navigation />
-        <nav className={stylex(pageNav.base)}>
-          <div className={stylex(pageNavContent.base)}>{isSupabaseConnected && <AuthButton />}</div>
+      <div {...stylex.props(pageStyle.base)}>
+        {/* <Navigation /> */}
+        <nav {...stylex.props(pageNav.base)}>
+          <div {...stylex.props(pageNavContent.base)}>{isSupabaseConnected && <AuthButton />}</div>
         </nav>
-        <div className={stylex(pageHeaderContainer.base)}>
+        <div {...stylex.props(pageHeaderContainer.base)}>
           <Header />
-          <main className={stylex(pageMain.base)}>
+          <main {...stylex.props(pageMain.base)}>
             {/* <h2 className="font-bold text-4xl mb-4">Next steps</h2>
           {isSupabaseConnected ? <SignUpUserSteps /> : <ConnectSupabaseSteps />} */}
           </main>
         </div>
-        <footer className={stylex(pageFooter.base)}></footer>
+        <footer {...stylex.props(pageFooter.base)}></footer>
       </div>
     </React.StrictMode>
   )
