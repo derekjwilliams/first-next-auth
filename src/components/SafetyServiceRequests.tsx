@@ -20,7 +20,7 @@ type ServiceRequest = Database['public']['Tables']['service_requests']['Row']
 
 const requests = stylex.create({
   base: {
-    padding: sizes.spacing10,
+    padding: sizes.spacing5,
     backgroundColor: marigoldColors.background,
   },
   list: {
