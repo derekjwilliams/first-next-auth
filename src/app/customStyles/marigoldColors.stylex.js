@@ -6,5 +6,5 @@ export const marigoldColors = defineVars({
   environmentBrown: 'rgb(214 122 0)',
   leaf: 'rgb(0 81 69)',
   pansy: 'rgb(168 0 173)',
-  dusty: 'rgb(200,200,200)'
+  background: 'rgb(200,200,200)'
 })

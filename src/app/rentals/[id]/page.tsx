@@ -37,7 +37,7 @@ const rental = stylex.create({
       '@media (max-width: 1400px)': '30%',
     },
     overflowX: 'auto',
-    backgroundColor: `${marigoldColors.dusty}`,
+    backgroundColor: `${marigoldColors.background}`,
     overscrollBehavior: 'contain',
   },
   mediaElement: {
