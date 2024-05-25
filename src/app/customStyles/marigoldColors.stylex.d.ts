@@ -9,5 +9,7 @@ type TColors = Readonly<{
   pansy: string
   background: string
   foreground: string
+  link: string
+  navigationLink: string
 }>
 export declare const marigoldColors: VarGroup<TColors>

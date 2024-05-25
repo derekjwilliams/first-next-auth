@@ -1,13 +1,20 @@
-import Navigation from '@/components/Navigation'
 import { createClient } from '@/lib/supabase/client'
 import * as stylex from '@stylexjs/stylex'
 import Image from 'next/image'
 import Link from 'next/link'
+import { marigoldColors } from '../customStyles/marigoldColors.stylex'
 
 const rental = stylex.create({
   logo: {
     backgroundColor: 'rgb(255 213 95)',
     padding: '1rem',
+  },
+  background: {
+    backgroundColor: marigoldColors.background,
+  },
+  link: {
+    textDecoration: 'none',
+    color: marigoldColors.link,
   },
   overview: {
     padding: '1rem',
@@ -34,7 +41,7 @@ export default async function Page() {
 
   const displayListings = listings?.map((listing) => (
     <div {...stylex.props(rental.overview)} key={listing.id}>
-      <Link href={`/rentals/${listing.id}`}>
+      <Link {...stylex.props(rental.link)} href={`/rentals/${listing.id}`}>
         <div>
           <div {...stylex.props(rental.address)}>
             {`${listing?.address_1}${listing?.address_2 !== null ? ' ' + listing?.address_2 : ''},  ${listing?.city}, ${
@@ -55,5 +62,5 @@ export default async function Page() {
       </Link>
     </div>
   ))
-  return <div>{displayListings}</div>
+  return <div {...stylex.props(rental.background)}>{displayListings}</div>
 }

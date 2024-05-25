@@ -18,7 +18,7 @@ const menuStyles = stylex.create({
 
 const styles = stylex.create({
   base: {
-    backgroundColor: `${marigoldColors.flowerGold}`,
+    backgroundColor: marigoldColors.flowerGold,
     padding: '0.5rem',
   },
   header: {
@@ -28,18 +28,18 @@ const styles = stylex.create({
     listStyle: 'none',
     padding: '0.5rem',
     margin: 0,
-    backgroundColor: `${marigoldColors.flowerYellow}`,
+    backgroundColor: marigoldColors.flowerYellow,
   },
 
   item: {
     margin: 5,
     whiteSpace: 'nowrap',
-    backgroundColor: `${marigoldColors.flowerYellow}`,
-    // padding: 5,
+    backgroundColor: marigoldColors.flowerYellow,
     textDecoration: 'none',
   },
   link: {
     textDecoration: 'none',
+    color: marigoldColors.navigationLink,
   },
 
   iconHamburger: {

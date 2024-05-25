@@ -25,6 +25,8 @@ const rental = stylex.create({
     gridRowGap: sizes.fluid2,
     margin: space,
     padding: space,
+    backgroundColor: marigoldColors.background,
+    color: marigoldColors.foreground,
   },
   mediaScroller: {
     display: 'grid',
@@ -37,7 +39,7 @@ const rental = stylex.create({
       '@media (max-width: 1400px)': '30%',
     },
     overflowX: 'auto',
-    backgroundColor: `${marigoldColors.background}`,
+    backgroundColor: marigoldColors.background,
     overscrollBehavior: 'contain',
   },
   mediaElement: {
