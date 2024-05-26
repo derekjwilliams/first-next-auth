@@ -24,6 +24,7 @@ const requests = stylex.create({
     margin: sizes.spacing5,
   },
 })
+
 const header = stylex.create({
   base: {
     fontSize: fonts.size2,
@@ -141,7 +142,6 @@ function AddServiceRequest({ service_type_id }: ServiceTypeProps) {
       date_updated: null,
       id: '',
       requested_by: null,
-      status__old_id: null,
     })
   }
 
@@ -168,7 +168,7 @@ function AddServiceRequest({ service_type_id }: ServiceTypeProps) {
   )
 }
 
-export default function MultipleServiceRequests() {
+export default function SafetyServiceRequests() {
   const {
     data: serviceRequests,
     isLoading,

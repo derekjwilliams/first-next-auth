@@ -17,7 +17,6 @@ export interface paths {
       parameters: {
         query: {
           description?: parameters['rowFilter.service_requests.description']
-          status__old_id?: parameters['rowFilter.service_requests.status__old_id']
           date_created?: parameters['rowFilter.service_requests.date_created']
           date_updated?: parameters['rowFilter.service_requests.date_updated']
           requested_by?: parameters['rowFilter.service_requests.requested_by']
@@ -78,7 +77,6 @@ export interface paths {
       parameters: {
         query: {
           description?: parameters['rowFilter.service_requests.description']
-          status__old_id?: parameters['rowFilter.service_requests.status__old_id']
           date_created?: parameters['rowFilter.service_requests.date_created']
           date_updated?: parameters['rowFilter.service_requests.date_updated']
           requested_by?: parameters['rowFilter.service_requests.requested_by']
@@ -103,7 +101,6 @@ export interface paths {
       parameters: {
         query: {
           description?: parameters['rowFilter.service_requests.description']
-          status__old_id?: parameters['rowFilter.service_requests.status__old_id']
           date_created?: parameters['rowFilter.service_requests.date_created']
           date_updated?: parameters['rowFilter.service_requests.date_updated']
           requested_by?: parameters['rowFilter.service_requests.requested_by']
@@ -1401,8 +1398,6 @@ export interface definitions {
   service_requests: {
     /** Format: text */
     description?: string
-    /** Format: integer */
-    status__old_id?: number
     /**
      * Format: timestamp without time zone
      * @default CURRENT_TIMESTAMP
@@ -1731,8 +1726,6 @@ export interface parameters {
   'body.service_requests': definitions['service_requests']
   /** Format: text */
   'rowFilter.service_requests.description': string
-  /** Format: integer */
-  'rowFilter.service_requests.status__old_id': string
   /** Format: timestamp without time zone */
   'rowFilter.service_requests.date_created': string
   /** Format: timestamp without time zone */

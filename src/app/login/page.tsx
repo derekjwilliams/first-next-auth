@@ -107,23 +107,6 @@ export default function Login({ searchParams }: { searchParams: { message: strin
 
   return (
     <div {...stylex.props(loginContainer.base)}>
-      <Link href='/' {...stylex.props(loginBackLink.base)}>
-        <svg
-          xmlns='http://www.w3.org/2000/svg'
-          width='24'
-          height='24'
-          viewBox='0 0 24 24'
-          fill='none'
-          stroke='currentColor'
-          strokeWidth='2'
-          strokeLinecap='round'
-          strokeLinejoin='round'
-          {...stylex.props(backIcon.base)}>
-          <polyline points='15 18 9 12 15 6' />
-        </svg>{' '}
-        Back
-      </Link>
-
       <form {...stylex.props(loginForm.base)}>
         <label htmlFor='email'>Email</label>
         <input {...stylex.props(loginForm.input)} type='text' name='email' placeholder='you@example.com' required />

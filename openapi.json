@@ -33,7 +33,6 @@
       "get": {
         "parameters": [
           { "$ref": "#/parameters/rowFilter.service_requests.description" },
-          { "$ref": "#/parameters/rowFilter.service_requests.status__old_id" },
           { "$ref": "#/parameters/rowFilter.service_requests.date_created" },
           { "$ref": "#/parameters/rowFilter.service_requests.date_updated" },
           { "$ref": "#/parameters/rowFilter.service_requests.requested_by" },
@@ -75,7 +74,6 @@
       "delete": {
         "parameters": [
           { "$ref": "#/parameters/rowFilter.service_requests.description" },
-          { "$ref": "#/parameters/rowFilter.service_requests.status__old_id" },
           { "$ref": "#/parameters/rowFilter.service_requests.date_created" },
           { "$ref": "#/parameters/rowFilter.service_requests.date_updated" },
           { "$ref": "#/parameters/rowFilter.service_requests.requested_by" },
@@ -93,7 +91,7 @@
       "patch": {
         "parameters": [
           { "$ref": "#/parameters/rowFilter.service_requests.description" },
-          { "$ref": "#/parameters/rowFilter.service_requests.status__old_id" },
+          { "$ref": "#/parameters/rowFilter.service_requests.status" },
           { "$ref": "#/parameters/rowFilter.service_requests.date_created" },
           { "$ref": "#/parameters/rowFilter.service_requests.date_updated" },
           { "$ref": "#/parameters/rowFilter.service_requests.requested_by" },
@@ -930,7 +928,6 @@
       "required": ["id"],
       "properties": {
         "description": { "format": "text", "type": "string" },
-        "status__old_id": { "format": "integer", "type": "integer" },
         "date_created": {
           "default": "CURRENT_TIMESTAMP",
           "format": "timestamp without time zone",
@@ -1020,14 +1017,7 @@
       "type": "object"
     },
     "locations": {
-      "required": [
-        "location_name",
-        "street_address",
-        "city",
-        "state_province",
-        "postal_code",
-        "id"
-      ],
+      "required": ["location_name", "street_address", "city", "state_province", "postal_code", "id"],
       "properties": {
         "location_name": {
           "format": "character varying",
@@ -1278,13 +1268,7 @@
       "type": "object"
     },
     "rental_property": {
-      "required": [
-        "property_id",
-        "street_address",
-        "city",
-        "state_province",
-        "postal_code"
-      ],
+      "required": ["property_id", "street_address", "city", "state_province", "postal_code"],
       "properties": {
         "property_id": {
           "description": "Note:\nThis is a Primary Key.<pk/>",
@@ -1421,13 +1405,6 @@
       "name": "description",
       "required": false,
       "format": "text",
-      "in": "query",
-      "type": "string"
-    },
-    "rowFilter.service_requests.status__old_id": {
-      "name": "status__old_id",
-      "required": false,
-      "format": "integer",
       "in": "query",
       "type": "string"
     },

@@ -4,18 +4,16 @@ import useMultipleServiceRequestsQuery from '@/hooks/useMultipleServiceRequestsQ
 import useServiceRequestMutation from '@/hooks/useServiceRequestMutation'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { CheckIcon } from '@radix-ui/react-icons'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import useSupabase from '../hooks/useSupabase'
-import { InferProps } from 'prop-types'
-import { addServiceRequest } from '@/queries/addServiceRequest'
 import * as Form from '@radix-ui/react-form'
-
-import { Database, Tables, Enums } from '@/utils/database.types'
 import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import { colors } from '@stylexjs/open-props/lib/colors.stylex'
 import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
 import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import useSupabase from '../hooks/useSupabase'
+import { addServiceRequest } from '@/queries/addServiceRequest'
+import { Tables } from '@/utils/database.types'
 
 const requests = stylex.create({
   base: {
@@ -109,9 +107,9 @@ const requestCard = stylex.create({
   },
 })
 
-function AddServiceRequest() {
+function AddServiceRequest({ serviceTypeId, serviceDisplayName }: MultipleServiceRequestsProps) {
   const client = useSupabase()
-
+  console.log(serviceDisplayName)
   const mutationFn = async (value: Tables<'service_requests'>) => {
     return addServiceRequest(client, value)?.then((result) => result.data)
   }
@@ -132,18 +130,17 @@ function AddServiceRequest() {
       technician_id: null,
       location_id: null,
       status_id: null,
-      service_type_id: null, //TODO get service_type for this kind of service request
+      service_type_id: serviceTypeId,
       completed: null,
       date_created: null,
       date_updated: null,
       id: '',
       requested_by: null,
-      status__old_id: null,
     })
   }
   return (
     <>
-      <h1 {...stylex.props(header.base)}>Create Service Request</h1>
+      <h1 {...stylex.props(header.base)}>Create Service Request for {serviceDisplayName} Issue </h1>
       <Form.Root {...stylex.props(form.root)} onSubmit={onCreateServiceRequest}>
         <Form.Field {...stylex.props(form.field)} name='description'>
           <div>
@@ -162,25 +159,17 @@ function AddServiceRequest() {
       </Form.Root>
     </>
   )
-
-  // return (
-  //   <form onSubmit={onCreateServiceRequest}>
-  //     {mutation.isPending ? (
-  //       'Adding todo...'
-  //     ) : (
-  //       <>
-  //         {mutation.isError ? <div>An error occurred: {mutation.error.message}</div> : null}
-  //         {mutation.isSuccess ? <div>Todo added!</div> : null}
-  //         <button type='submit'>Create Service Request</button>
-  //         <input type='text' value={description} onChange={(e) => setDescription(e.target.value)} />
-  //       </>
-  //     )}
-  //   </form>
-  // )
 }
-
-export default function MultipleServiceRequests() {
-  const { data: serviceRequests, isLoading, isError } = useMultipleServiceRequestsQuery({ service_type_id: null })
+interface MultipleServiceRequestsProps {
+  serviceTypeId: string
+  serviceDisplayName: string
+}
+export default function MultipleServiceRequests({ serviceTypeId, serviceDisplayName }: MultipleServiceRequestsProps) {
+  const {
+    data: serviceRequests,
+    isLoading,
+    isError,
+  } = useMultipleServiceRequestsQuery({ service_type_id: serviceTypeId })
   if (isLoading) {
     return <div>Loading...</div>
   }
@@ -194,7 +183,7 @@ export default function MultipleServiceRequests() {
   }
   return (
     <div {...stylex.props(requests.base)}>
-      <AddServiceRequest></AddServiceRequest>
+      <AddServiceRequest serviceTypeId={serviceTypeId} serviceDisplayName={serviceDisplayName}></AddServiceRequest>
       <form {...stylex.props(requests.list)}>
         {serviceRequests.map((serviceRequest) => (
           <div key={serviceRequest.id} {...stylex.props(requestCard.base)}>
