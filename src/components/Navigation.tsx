@@ -23,6 +23,7 @@ const styles = stylex.create({
   base: {
     backgroundColor: marigoldColors.flowerGold,
     padding: sizes.spacing2,
+    fontSize: fonts.size3,
   },
   header: {
     width: '100%',
@@ -44,7 +45,6 @@ const styles = stylex.create({
     textDecoration: 'none',
     color: marigoldColors.navigationLink,
   },
-
   iconHamburger: {
     display: 'block',
   },
