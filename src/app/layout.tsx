@@ -7,6 +7,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
 import Image from 'next/image'
 import Navigation from '@/components/Navigation'
+import Link from 'next/link'
 
 const defaultUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000'
 
@@ -39,7 +40,9 @@ const styles = stylex.create({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const header = (
     <div {...stylex.props(styles.logo)}>
-      <Image alt='simple logo' width={logoSize} height={logoSize} src='/simple_logo.png' priority={true} />
+      <Link href='/'>
+        <Image alt='simple logo' width={logoSize} height={logoSize} src='/simple_logo.png' priority={true} />
+      </Link>
       <Navigation></Navigation>
     </div>
   )

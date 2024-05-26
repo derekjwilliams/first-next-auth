@@ -10,6 +10,7 @@ const headerColors = stylex.create({
   byline: {
     color: marigoldColors.foreground,
     backgroundColor: marigoldColors.background,
+    textAlign: 'center',
   },
 })
 const marigoldLogo = stylex.create({
