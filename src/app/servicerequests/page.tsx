@@ -6,13 +6,6 @@ import { redirect } from 'next/navigation'
 export default async function Page({ params }: { params: { predicate: string } }) {
   const supabase = await createClient()
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-
-  if (!user) {
-    return redirect('/login')
-  }
   //  const predicate = params.predicate //todo there will be a predicate here later for filtering and sorting
 
   return <>{/* <MultipleServiceRequests serviceTypeId='' serviceDisplayName='All' /> */}</>

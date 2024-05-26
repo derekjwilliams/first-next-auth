@@ -1,4 +1,5 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
+import { redirect } from 'next/navigation'
 import { NextResponse, type NextRequest } from 'next/server'
 
 export async function middleware(request: NextRequest) {
@@ -51,11 +52,17 @@ export async function middleware(request: NextRequest) {
           })
         },
       },
-    },
+    }
   )
 
-  await supabase.auth.getUser()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
 
+  // protect service requests and protected paths
+  if (['/servicerequests', '/protected'].some((pathRoot) => request.nextUrl.pathname.startsWith(pathRoot)) && !user) {
+    return NextResponse.redirect(new URL('/login', request.url))
+  }
   return response
 }
 

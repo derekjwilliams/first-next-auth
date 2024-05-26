@@ -26,19 +26,6 @@ const create_service_request_button = stylex.create({
 })
 
 export default async function AuthButton() {
-  //   const supabase = await createSupabaseServerClient()
-
-  //   const {
-  //     data: { user },
-  //   } = await supabase.auth.getUser()
-
-  //   const signOut = async () => {
-  //     'use server'
-
-  //     const supabase = await createSupabaseServerClient()
-  //     await supabase.auth.signOut()
-  //     return redirect('/login')
-  //   }
   const create = createServiceRequest.bind(null, 'first service request')
   return (
     <form action={create}>

@@ -13,18 +13,10 @@ const snakeToPascalCase = (value: string) => {
 export default async function Page({ params }: { params: { id: string } }) {
   const id = params.id
 
-  // TODO put this redirect into middleware
+  //TODO put this redirect into middleware
 
   const supabase = await createClient()
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-
-  if (!user) {
-    return redirect('/login')
-  }
-  // TODO handle missing values
   const { data: service_type } = await supabase
     .from('service_types')
     .select()

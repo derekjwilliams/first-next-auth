@@ -104,14 +104,6 @@ const serviceMain = stylex.create({
 export default async function Page() {
   const supabase = await createClient()
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-
-  if (!user) {
-    return redirect('/login')
-  }
-
   const { data: service_types } = await supabase.from('service_types').select()
   service_types?.forEach((service_type) => {
     if (serviceTypes.has(service_type.service_name)) {
