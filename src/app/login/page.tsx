@@ -1,7 +1,7 @@
-import Link from 'next/link'
 import { headers } from 'next/headers'
 import { createClient } from '@/lib/supabase/client'
-
+import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
+import { borders } from '@stylexjs/open-props/lib/borders.stylex'
 import { redirect } from 'next/navigation'
 import { SubmitButton } from './submit-button'
 import * as stylex from '@stylexjs/stylex'
@@ -12,52 +12,33 @@ const loginContainer = stylex.create({
     display: 'flex',
     flexDirection: 'column',
     flex: '1 1 0%',
-    padding: '0 2rem',
-    maxWidth: '20rem',
+    padding: `0 ${sizes.spacing5}`,
+    maxWidth: sizes.spacing14,
     fontFamily: 'Verdana, Geneva, Tahoma, sans-serif',
-  },
-})
-
-const loginBackLink = stylex.create({
-  base: {
-    display: 'flex',
-    position: 'absolute',
-    top: '1rem',
-    left: '1rem',
-    padding: '0.5rem',
-    alignItems: 'center',
-    textDecoration: 'none',
-  },
-})
-const backIcon = stylex.create({
-  base: {
-    marginRight: '0.5rem',
-    width: '1rem',
-    height: '1rem',
   },
 })
 
 const loginForm = stylex.create({
   base: {
     display: 'flex',
-    fontFamily: 'Verdana, Geneva, Tahoma, sans-serif',
+    fontFamily: 'Figtree, Verdana, Geneva, Tahoma, sans-serif',
     flexDirection: 'column',
     flex: '1 1 0%',
-    gap: '0.5rem',
+    gap: sizes.spacing2,
     justifyContent: 'center',
     width: '100%',
-    marginTop: '4rem',
+    marginTop: sizes.spacing8,
   },
   input: {},
   button: {
-    padding: '0.5rem 1rem',
-    borderRadius: '0.375rem',
-    borderWidth: '1px',
-    marginBottom: '0.5rem',
+    padding: `${sizes.spacing2} ${sizes.spacing3}`,
+    borderRadius: borders.radius2,
+    borderWidth: borders.size1,
+    marginBottom: sizes.spacing2,
   },
   searchButton: {
-    padding: '1rem',
-    marginTop: '1rem',
+    padding: sizes.spacing3,
+    marginTop: sizes.spacing3,
     textAlign: 'center',
   },
 })

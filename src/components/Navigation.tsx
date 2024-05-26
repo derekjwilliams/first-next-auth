@@ -2,6 +2,9 @@
 import Link from 'next/link'
 import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
+import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
+import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
+import { borders } from '@stylexjs/open-props/lib/borders.stylex'
 import React, { useState } from 'react'
 
 const menuStyles = stylex.create({
@@ -19,20 +22,20 @@ const menuStyles = stylex.create({
 const styles = stylex.create({
   base: {
     backgroundColor: marigoldColors.flowerGold,
-    padding: '0.5rem',
+    padding: sizes.spacing2,
   },
   header: {
     width: '100%',
   },
   navigationList: {
     listStyle: 'none',
-    padding: '0.5rem',
+    padding: sizes.spacing2,
     margin: 0,
     backgroundColor: marigoldColors.flowerYellow,
   },
 
   item: {
-    margin: 5,
+    margin: '5px',
     whiteSpace: 'nowrap',
     backgroundColor: marigoldColors.flowerYellow,
     textDecoration: 'none',
@@ -54,7 +57,7 @@ const styles = stylex.create({
   mobileNavigationToggle: {
     display: {
       default: 'none',
-      '@media (max-width: 800px)': 'block',
+      '@media (max-width: 768px)': 'block',
     },
     cursor: 'pointer',
     background: 'transparent',
@@ -72,21 +75,6 @@ const styles = stylex.create({
     clip: 'rect(0,0,0,0)',
     whiteSpace: 'nowrap',
     borderWidth: 0,
-  },
-  navigationButton: {
-    display: {
-      '@media (min-width: 800px)': 'none',
-    },
-    cursor: 'pointer',
-    textDecoration: 'none',
-    borderWidth: 0,
-    borderRadius: '100vmax',
-    padding: '1.25em 2.5em',
-    fontWeight: 700,
-    fontSize: '0.8125rem',
-    lineHeight: 1,
-    backgroundColor: 'hsl(12, 88%, 59%)',
-    boxShadow: '0 1.125em 1em -1em hsl(12, 60%, 45%)',
   },
 })
 export default function Navigation() {

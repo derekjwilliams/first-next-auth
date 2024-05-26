@@ -2,7 +2,9 @@ import AuthButton from '../components/AuthButton'
 import { createClient } from '@/lib/supabase/client'
 import Header from '@/components/Header'
 import stylex from '@stylexjs/stylex'
-import { colors } from '@stylexjs/open-props/lib/colors.stylex'
+import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
+import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
+import { borders } from '@stylexjs/open-props/lib/borders.stylex'
 import Navigation from '@/components/Navigation'
 import React from 'react'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
@@ -12,27 +14,26 @@ const pageStyle = stylex.create({
     display: 'flex',
     flexDirection: 'column',
     flex: '1 1 0%',
-    gap: '5rem',
+    gap: sizes.spacing10,
     alignItems: 'center',
     width: '100%',
     color: marigoldColors.foreground,
     backgroundColor: marigoldColors.background,
-    fontSize: '16px',
+    fontSize: fonts.size2,
   },
 })
 const pageNav = stylex.create({
   base: {
     display: 'flex',
     justifyContent: 'flex-end',
-    borderBottomWidth: '1px',
+    borderBottomWidth: borders.size1,
     width: '100%',
-    height: '4rem',
   },
 })
 const pageNavContent = stylex.create({
   base: {
     display: 'flex',
-    padding: '0.75rem',
+    padding: sizes.spacing3,
     justifyContent: 'space-between',
     maxWidth: '56rem',
     alignItems: 'flex-end',
@@ -42,13 +43,12 @@ const pageNavContent = stylex.create({
 const pageHeaderContainer = stylex.create({
   base: {
     display: 'flex',
-    paddingLeft: '0.75rem',
-    paddingRight: '0.75rem',
+    paddingLeft: sizes.spacing3,
+    paddingRight: sizes.spacing3,
     flexDirection: 'column',
     flex: '1 1 0%',
-    gap: '5rem',
+    gap: sizes.spacing10,
     maxWidth: '56rem',
-    // opacity: 0
   },
 })
 
@@ -57,19 +57,19 @@ const pageMain = stylex.create({
     display: 'flex',
     flexDirection: 'column',
     flex: '1 1 0%',
-    gap: '1.5rem',
+    gap: sizes.spacing5,
   },
 })
 
 const pageFooter = stylex.create({
   base: {
     display: 'flex',
-    padding: '2rem',
+    padding: sizes.spacing8,
     justifyContent: 'center',
-    borderTopWidth: '1px',
+    borderTopWidth: borders.size1,
     width: '100%',
-    fontSize: '0.75rem',
-    lineHeight: '1rem',
+    fontSize: fonts.size1,
+    lineHeight: fonts.lineHeight2,
     textAlign: 'center',
   },
 })
