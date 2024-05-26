@@ -2,8 +2,8 @@
 
 import useMultipleServiceRequestsQuery from '@/hooks/useMultipleServiceRequestsQuery'
 import useServiceRequestMutation from '@/hooks/useServiceRequestMutation'
-// import * as Checkbox from '@radix-ui/react-checkbox'
-// import { CheckIcon } from '@radix-ui/react-icons'
+import * as Checkbox from '@radix-ui/react-checkbox'
+import { CheckIcon } from '@radix-ui/react-icons'
 import * as Form from '@radix-ui/react-form'
 import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
@@ -11,12 +11,9 @@ import { colors } from '@stylexjs/open-props/lib/colors.stylex'
 import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
 import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useState } from 'react'
 import useSupabase from '../hooks/useSupabase'
 import { addServiceRequest } from '@/queries/addServiceRequest'
-import { Database } from '@/utils/database.types'
-
-type ServiceRequest = Database['public']['Tables']['service_requests']['Row']
+import { Tables } from '@/utils/database.types'
 
 const requests = stylex.create({
   base: {
@@ -29,7 +26,7 @@ const requests = stylex.create({
 })
 const header = stylex.create({
   base: {
-    fontSize: `${fonts.size2}`,
+    fontSize: fonts.size2,
   },
 })
 
@@ -48,11 +45,11 @@ const form = stylex.create({
     justifyContent: 'center',
     borderRadius: sizes.spacing00,
     fontSize: fonts.size8,
-    color: `${colors.gray10}`,
-    backgroundColor: `${colors.gray2}`,
+    color: colors.gray10,
+    backgroundColor: colors.gray2,
     borderColor: {
-      default: 'black',
-      ':hover': `${marigoldColors.flowerYellow}`,
+      default: colors.gray12,
+      ':hover': marigoldColors.flowerYellow,
     },
   },
   textarea: {
@@ -73,15 +70,19 @@ const form = stylex.create({
     minWidth: 200,
     padding: 10,
     backgroundColor: {
-      default: `${colors.gray2}`,
-      ':hover': `${marigoldColors.flowerYellow}`,
+      default: colors.gray2,
+      ':hover': marigoldColors.flowerYellow,
     },
     transitionDuration: '500ms',
     transitionProperty: 'backgroundColor',
+    marginTop: '10px',
   },
 })
 
 const requestCard = stylex.create({
+  base: {
+    margin: sizes.spacing2,
+  },
   checkboxRoot: {
     backgroundColor: 'white',
     width: 25,
@@ -90,9 +91,10 @@ const requestCard = stylex.create({
     padding: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: '#556d55',
+    borderColor: colors.gray6,
     borderStyle: 'solid',
     borderWidth: 2,
+    marginRight: sizes.spacing2,
   },
   checkboxIndicator: {
     padding: 0,
@@ -112,14 +114,17 @@ interface ServiceTypeProps {
 function AddServiceRequest({ service_type_id }: ServiceTypeProps) {
   const client = useSupabase()
 
-  const mutationFn = async (value: ServiceRequest) => {
+  const mutationFn = async (value: Tables<'service_requests'>) => {
     return addServiceRequest(client, value)?.then((result) => result.data)
   }
   const queryClient = useQueryClient()
   const mutation = useMutation({
     mutationFn,
     onSuccess: (data) => {
-      queryClient.setQueryData(['service-requests'], (prevData: Array<ServiceRequest>) => [...prevData, data![0]])
+      queryClient.setQueryData(['service-requests'], (prevData: Array<Tables<'service_requests'>>) => [
+        ...prevData,
+        data![0],
+      ])
     },
   })
 
@@ -156,9 +161,7 @@ function AddServiceRequest({ service_type_id }: ServiceTypeProps) {
           </Form.Control>
         </Form.Field>
         <Form.Submit asChild>
-          <button {...stylex.props(form.requestButton)} style={{ marginTop: 10 }}>
-            Submit Service Request
-          </button>
+          <button {...stylex.props(form.requestButton)}>Submit Service Request</button>
         </Form.Submit>
       </Form.Root>
     </>
@@ -191,12 +194,12 @@ export default function MultipleServiceRequests() {
       <AddServiceRequest service_type_id={safetyServiceTypeId}></AddServiceRequest>
       <form {...stylex.props(requests.list)}>
         {serviceRequests.map((serviceRequest) => (
-          <div key={serviceRequest.id}>
-            {/* <Checkbox.Root {...stylex.props(requestCard.checkboxRoot)} id='{serviceRequest.id}'>
+          <div key={serviceRequest.id} {...stylex.props(requestCard.base)}>
+            <Checkbox.Root {...stylex.props(requestCard.checkboxRoot)} id='{serviceRequest.id}'>
               <Checkbox.Indicator {...stylex.props(requestCard.checkboxIndicator)}>
                 <CheckIcon {...stylex.props(requestCard.checkIcon)} />
               </Checkbox.Indicator>
-            </Checkbox.Root> */}
+            </Checkbox.Root>
             <label className='service-request-label' htmlFor='{serviceRequest.id}'>
               {/* todo make this a link to request details */}
               {serviceRequest.description} ({serviceRequest.id})

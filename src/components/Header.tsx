@@ -35,22 +35,22 @@ const headerSwatch = stylex.create({
     maxWidth: '4rem',
   },
   flower_yellow: {
-    backgroundColor: `${marigoldColors.flowerYellow}`,
+    backgroundColor: marigoldColors.flowerYellow,
   },
   flower_gold: {
-    backgroundColor: `${marigoldColors.flowerGold}`,
+    backgroundColor: marigoldColors.flowerGold,
   },
   flower_red: {
-    backgroundColor: `${marigoldColors.flowerRed}`,
+    backgroundColor: marigoldColors.flowerRed,
   },
   environment_brown: {
-    backgroundColor: `${marigoldColors.environmentBrown}`,
+    backgroundColor: marigoldColors.environmentBrown,
   },
   leaf: {
-    backgroundColor: `${marigoldColors.leaf}`,
+    backgroundColor: marigoldColors.leaf,
   },
   pansy: {
-    backgroundColor: `${marigoldColors.pansy}`,
+    backgroundColor: marigoldColors.pansy,
   },
 })
 export default function Header() {

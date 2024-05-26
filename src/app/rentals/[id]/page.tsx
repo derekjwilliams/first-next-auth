@@ -15,7 +15,7 @@ const space = sizes.spacing3
 
 const rental = stylex.create({
   logo: {
-    backgroundColor: `${marigoldColors.flowerYellow}`,
+    backgroundColor: marigoldColors.flowerYellow,
     padding: sizes.spacing3,
   },
   propertyInformation: {

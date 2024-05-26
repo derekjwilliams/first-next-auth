@@ -22,8 +22,8 @@ const serviceCard = stylex.create({
     minHeight: 200,
     padding: 10,
     backgroundColor: {
-      default: `${colors.gray2}`,
-      ':hover': `${marigoldColors.flowerYellow}`,
+      default: colors.gray2,
+      ':hover': marigoldColors.flowerYellow,
     },
     transitionDuration: '500ms',
     transitionProperty: 'backgroundColor',
