@@ -92,6 +92,7 @@ const rental = stylex.create({
 })
 
 export default async function Page({ params }: { params: { id: string } }) {
+  console.log('a rental page')
   const supabase = createClient()
   const { data: listing } = await supabase
     .from('listings')

@@ -5,6 +5,7 @@
 - React
 - Next.js
 - Supabase
+- React-query
 - Playwright
 - Radix
 - StyleX

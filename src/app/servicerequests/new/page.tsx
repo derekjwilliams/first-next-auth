@@ -8,7 +8,7 @@ import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
 import * as stylex from '@stylexjs/stylex'
 import Image from 'next/image'
 import { redirect } from 'next/navigation'
-import { JSX } from 'react'
+import { AwaitedReactNode, JSX, JSXElementConstructor, ReactElement, ReactNode } from 'react'
 import { serviceTypes } from '@/utils/serviceTypes'
 
 const serviceCard = stylex.create({
@@ -102,6 +102,7 @@ const serviceMain = stylex.create({
   },
 })
 export default async function Page() {
+  console.log('-----service request tiles')
   const supabase = await createClient()
 
   const { data: service_types } = await supabase.from('service_types').select()
@@ -143,11 +144,10 @@ export default async function Page() {
       </Link>
     )
   })
-  //   return (<Link draggable={false} href={`/servicerequests/${serviceType.serviceName}`} {...stylex.props(serviceCard.base)}>
-  //             <Image draggable={false} height={160} width={160} alt=`${serviceType.displayName}` src=`/images/${serviceType.image}.svg` />
-  //             serviceType.displayName
-  // </Link>)
-  // })
+
+  var foo = { ...stylex.props(servicePage.base) }
+
+  console.log(foo)
 
   return (
     <div {...stylex.props(servicePage.base)}>
