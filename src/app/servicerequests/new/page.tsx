@@ -102,7 +102,6 @@ const serviceMain = stylex.create({
   },
 })
 export default async function Page() {
-  console.log('-----service request tiles')
   const supabase = await createClient()
 
   const { data: service_types } = await supabase.from('service_types').select()
@@ -144,10 +143,6 @@ export default async function Page() {
       </Link>
     )
   })
-
-  var foo = { ...stylex.props(servicePage.base) }
-
-  console.log(foo)
 
   return (
     <div {...stylex.props(servicePage.base)}>
