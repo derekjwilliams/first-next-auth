@@ -63,7 +63,7 @@ export async function middleware(request: NextRequest) {
   if (['/servicerequests', '/protected'].some((pathRoot) => pathname.startsWith(pathRoot)) && !user) {
     const url = request.nextUrl.clone()
     url.pathname = '/login'
-    url.searchParams.set('redirect', pathname)
+    url.searchParams.set('message', pathname)
     return NextResponse.redirect(url)
   }
   return response
