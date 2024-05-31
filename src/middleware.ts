@@ -58,7 +58,7 @@ export async function middleware(request: NextRequest) {
   const {
     data: { user },
   } = await supabase.auth.getUser()
-
+  console.log('middleware in src directory')
   // protect service requests and protected paths
   if (['/servicerequests', '/protected'].some((pathRoot) => request.nextUrl.pathname.startsWith(pathRoot)) && !user) {
     return NextResponse.redirect(new URL('/login', request.url))
