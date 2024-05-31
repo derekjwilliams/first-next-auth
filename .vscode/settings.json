@@ -22,5 +22,6 @@
     "treeshake"
   ],
   "prettier.printWidth": 120,
-  "cssvar.extensions": ["css", "postcss", "jsx", "tsx"]
+  "cssvar.extensions": ["css", "postcss", "jsx", "tsx"],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
