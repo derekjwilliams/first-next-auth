@@ -28,8 +28,8 @@
     "babel-plugin-react-compiler": "^0.0.0-experimental-487cb0e-20240529",
     "eslint-plugin-react-compiler": "^0.0.0-experimental-a97cca1-20240529",
     "next": "^15.0.0-rc.0",
-    "react": "^19.0.0-rc-6f23540c7d-20240528",
-    "react-dom": "^19.0.0-rc-6f23540c7d-20240528",
+    "react": "^19.0.0-rc-6d3110b4d9-20240531",
+    "react-dom": "19.0.0-rc-6d3110b4d9-20240531",
     "react-hot-toast": "^2.4.1",
     "sharp": "^0.33.4",
     "typescript": "5.4.5"
