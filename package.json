@@ -26,7 +26,6 @@
     "@tanstack/react-table": "^8.17.3",
     "@vercel/speed-insights": "^1.0.11",
     "babel-plugin-react-compiler": "^0.0.0-experimental-487cb0e-20240529",
-    "eslint-plugin-react-compiler": "^0.0.0-experimental-a97cca1-20240529",
     "next": "^15.0.0-rc.0",
     "react": "^19.0.0-rc-6f23540c7d-20240528",
     "react-dom": "^19.0.0-rc-6f23540c7d-20240528",
@@ -46,6 +45,7 @@
     "encoding": "^0.1.13",
     "eslint": "^8.56.0",
     "eslint-config-next": "latest",
+    "eslint-plugin-react-compiler": "^0.0.0-experimental-51a85ea-20240601",
     "openapi-typescript": "^5.4.0",
     "prettier-plugin-stylex-key-sort": "^1.0.1",
     "rimraf": "^5.0.7"
