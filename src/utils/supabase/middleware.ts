@@ -56,7 +56,7 @@ export async function updateSession(request: NextRequest) {
     }
   )
 
-  //  await supabase.auth.getUser()
+  await supabase.auth.getUser()
   const {
     data: { user },
   } = await supabase.auth.getUser()
@@ -68,7 +68,5 @@ export async function updateSession(request: NextRequest) {
     url.searchParams.set('redirect', pathname)
     return NextResponse.redirect(url)
   }
-  return response
-
   return response
 }
