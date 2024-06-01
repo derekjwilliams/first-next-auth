@@ -109,7 +109,6 @@ const requestCard = stylex.create({
 
 function AddServiceRequest({ serviceTypeId, serviceDisplayName }: MultipleServiceRequestsProps) {
   const client = useSupabase()
-  console.log(serviceDisplayName)
   const mutationFn = async (value: Tables<'service_requests'>) => {
     return addServiceRequest(client, value)?.then((result) => result.data)
   }
