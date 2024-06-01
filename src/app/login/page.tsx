@@ -43,7 +43,14 @@ const loginForm = stylex.create({
   },
 })
 
-export default function Login({ searchParams }: { searchParams: { message: string } }) {
+export default function Login({
+  searchParams,
+}: {
+  searchParams: {
+    message: string
+    redirect: string
+  }
+}) {
   const signIn = async (formData: FormData) => {
     'use server'
 
@@ -57,10 +64,10 @@ export default function Login({ searchParams }: { searchParams: { message: strin
     })
 
     if (error) {
+      console.log('error', error)
       return redirect('/login?message=Could not authenticate user')
     }
-    console.log('searchParams', searchParams)
-    return redirect(searchParams.message || '/')
+    return redirect(searchParams.redirect || '/')
   }
 
   const signUp = async (formData: FormData) => {
@@ -80,9 +87,9 @@ export default function Login({ searchParams }: { searchParams: { message: strin
     })
 
     if (error) {
+      console.log('error in signUp', error)
       return redirect('/login?message=Could not authenticate user')
     }
-
     return redirect('/login?message=Check email to continue sign in process')
   }
 
