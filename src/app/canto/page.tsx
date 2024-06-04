@@ -69,11 +69,7 @@ const TreeNodeComponent: React.FC<TreeNodeProps> = ({ items }) => {
 }
 // Main Tree component to parse JSON and build the tree
 const Tree: React.FC = () => {
-  //const data = JSON.parse(json)
-
   const cantoItems: CantoItem[] = cantoData.results
-  //   const tree = buildTree(cantoItems)
-
   return (
     <div>
       <h1>Tree Structure</h1>
