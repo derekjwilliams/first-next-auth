@@ -1,9 +1,14 @@
 'use client'
 import { CantoItem, TreeNodeProps } from '@/utils/canto.types'
 import { useState } from 'react'
+import dayjs from 'dayjs'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
 
 export const CantoTreeNode = ({ node }: { node: CantoItem }) => {
   const [showChildren, setShowChildren] = useState(true)
+  dayjs('05/02/69 1:02:03 PM -05:00', 'MM/DD/YY H:mm:ss A Z', true)
+
+  //('05/02/69 1:02:03 PM -05:00', 'MM/DD/YY H:mm:ss A Z')
   return (
     <ul>
       <li>
@@ -18,7 +23,7 @@ export const CantoTreeNode = ({ node }: { node: CantoItem }) => {
             <li>Height: {node.height}</li>
             <li>Owner Name: {node.ownerName}</li>
             <li>DPI: {node.dpi}</li>
-            <li>Created: {node.created}</li>
+            <li>Created: {dayjs(node.created, 'yyyyMMddHHmmssSSS').toLocaleString()}</li>
             <li>
               URL Detail: <a href={node.url.detail}>{node.url.detail}</a>
             </li>
@@ -27,7 +32,8 @@ export const CantoTreeNode = ({ node }: { node: CantoItem }) => {
                 URL Preview: <a href={node.url.preview}>{node.url.preview}</a>
               </li>
             )}
-            <li>Time: {node.time}</li>
+            {/* 2022 01 14 10 08 09 800 */}
+            <li>Time: {dayjs(node.time, 'yyyyMMddHHmmssSSS').toLocaleString()}</li>
             <li>Width: {node.width}</li>
             <li>Size: {node.size}</li>
             <li>Scheme: {node.scheme}</li>
