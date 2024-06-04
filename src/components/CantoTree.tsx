@@ -43,34 +43,6 @@ export const CantoTreeNode = ({ node }: { node: CantoItem }) => {
 export const CantoTree: React.FC<TreeNodeProps> = ({ items }) => {
   const renderTreeNodes = (data: CantoItem[]) => {
     return data.map((node, index) => <CantoTreeNode key={index} node={node} />)
-    // return data.map((item) => (
-    //   <div key={item.id}>
-    //     <h2>{item.name}</h2>
-    //     <ul>
-    //       <li>ID: {item.id}</li>
-    //       <li>ID Path: {item.idPath}</li>
-    //       <li>Name Path: {item.namePath}</li>
-    //       <li>Height: {item.height}</li>
-    //       <li>Owner Name: {item.ownerName}</li>
-    //       <li>DPI: {item.dpi}</li>
-    //       <li>Created: {item.created}</li>
-    //       <li>
-    //         URL Detail: <a href={item.url.detail}>{item.url.detail}</a>
-    //       </li>
-    //       {item.url.preview && (
-    //         <li>
-    //           URL Preview: <a href={item.url.preview}>{item.url.preview}</a>
-    //         </li>
-    //       )}
-    //       <li>Time: {item.time}</li>
-    //       <li>Width: {item.width}</li>
-    //       <li>Size: {item.size}</li>
-    //       <li>Scheme: {item.scheme}</li>
-    //       <li>Owner: {item.owner}</li>
-    //       {item.children && <li>{renderTreeNodes(item.children)}</li>}
-    //     </ul>
-    //   </div>
-    // ))
   }
 
   return <>{renderTreeNodes(items)}</>
