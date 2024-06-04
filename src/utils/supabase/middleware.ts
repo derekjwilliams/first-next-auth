@@ -58,7 +58,7 @@ export async function updateSession(request: NextRequest) {
   } = await supabase.auth.getUser()
   const pathname = request.nextUrl.pathname
   // protect service requests and protected paths
-  if (['/servicerequests', '/protected', '/canto'].some((pathRoot) => pathname.startsWith(pathRoot)) && !user) {
+  if (['/servicerequests', '/protected'].some((pathRoot) => pathname.startsWith(pathRoot)) && !user) {
     const url = request.nextUrl.clone()
     url.pathname = '/login'
     url.searchParams.set('redirect', pathname)
