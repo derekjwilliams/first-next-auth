@@ -135,6 +135,7 @@ function AddServiceRequest({ serviceTypeId, serviceDisplayName }: MultipleServic
       date_updated: null,
       id: '',
       requested_by: null,
+      steps: [],
     })
   }
   return (

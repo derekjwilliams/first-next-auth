@@ -142,6 +142,7 @@ function AddServiceRequest({ service_type_id }: ServiceTypeProps) {
       date_updated: null,
       id: '',
       requested_by: null,
+      steps: [],
     })
   }
 
