@@ -359,15 +359,7 @@ export type Database = {
           rooms?: string | null
           state_province?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "fk_location"
-            columns: ["location_id"]
-            isOneToOne: true
-            referencedRelation: "locations"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       locations: {
         Row: {
