@@ -5,6 +5,8 @@
     "predev": "npm run clean",
     "prebuild": "npm run clean",
     "dev": "next dev",
+    "dev-https": "next dev --experimental-https",
+    "next-dev-help": "next dev -h",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
