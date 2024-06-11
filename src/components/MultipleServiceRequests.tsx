@@ -169,7 +169,7 @@ export default function MultipleServiceRequests({ serviceTypeId, serviceDisplayN
     data: serviceRequests,
     isLoading,
     isError,
-  } = useMultipleServiceRequestsQuery({ service_type_id: serviceTypeId })
+  } = useMultipleServiceRequestsQuery({ serviceTypeId: serviceTypeId })
   if (isLoading) {
     return <div>Loading...</div>
   }
