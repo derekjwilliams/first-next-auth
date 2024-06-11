@@ -183,7 +183,9 @@ export default function MultipleServiceRequests({ serviceTypeId, serviceDisplayN
   }
   return (
     <div {...stylex.props(requests.base)}>
-      <AddServiceRequest serviceTypeId={serviceTypeId} serviceDisplayName={serviceDisplayName}></AddServiceRequest>
+      {serviceDisplayName !== 'All' && (
+        <AddServiceRequest serviceTypeId={serviceTypeId} serviceDisplayName={serviceDisplayName}></AddServiceRequest>
+      )}
       <form {...stylex.props(requests.list)}>
         {serviceRequests.map((serviceRequest) => (
           <div key={serviceRequest.id} {...stylex.props(requestCard.base)}>
