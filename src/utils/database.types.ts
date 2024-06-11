@@ -399,7 +399,7 @@ export type Database = {
           {
             foreignKeyName: "fk_listing"
             columns: ["listing_id"]
-            isOneToOne: true
+            isOneToOne: false
             referencedRelation: "listings"
             referencedColumns: ["id"]
           },
@@ -495,6 +495,36 @@ export type Database = {
         }
         Relationships: []
       }
+      service_request_technicians: {
+        Row: {
+          service_request_id: string
+          technician_id: string
+        }
+        Insert: {
+          service_request_id: string
+          technician_id: string
+        }
+        Update: {
+          service_request_id?: string
+          technician_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "service_request_technicians_service_request_id_fkey"
+            columns: ["service_request_id"]
+            isOneToOne: false
+            referencedRelation: "service_requests"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "service_request_technicians_technician_id_fkey"
+            columns: ["technician_id"]
+            isOneToOne: false
+            referencedRelation: "technicians"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       service_requests: {
         Row: {
           completed: boolean | null
@@ -507,7 +537,6 @@ export type Database = {
           service_type_id: string | null
           status_id: string | null
           steps: string[] | null
-          technician_id: string | null
         }
         Insert: {
           completed?: boolean | null
@@ -520,7 +549,6 @@ export type Database = {
           service_type_id?: string | null
           status_id?: string | null
           steps?: string[] | null
-          technician_id?: string | null
         }
         Update: {
           completed?: boolean | null
@@ -533,7 +561,6 @@ export type Database = {
           service_type_id?: string | null
           status_id?: string | null
           steps?: string[] | null
-          technician_id?: string | null
         }
         Relationships: [
           {
@@ -562,13 +589,6 @@ export type Database = {
             columns: ["status_id"]
             isOneToOne: false
             referencedRelation: "statuses"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "public_service_requests_technician_id_fkey"
-            columns: ["technician_id"]
-            isOneToOne: false
-            referencedRelation: "technicians"
             referencedColumns: ["id"]
           },
         ]
