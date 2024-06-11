@@ -126,7 +126,6 @@ function AddServiceRequest({ serviceTypeId, serviceDisplayName }: MultipleServic
     e.preventDefault()
     mutation.mutate({
       description: e.currentTarget.description.value,
-      technician_id: null,
       location_id: null,
       status_id: null,
       service_type_id: serviceTypeId,

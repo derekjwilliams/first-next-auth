@@ -10,7 +10,6 @@ export async function createServiceRequest(description: string) {
     .from('service_requests')
     .insert({
       description: description,
-      technician_id: null,
       location_id: null,
       status_id: null,
       service_type_id: null,
