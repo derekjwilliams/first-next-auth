@@ -1,0 +1,251 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model bathrooms {
+  id          String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at  DateTime   @default(now()) @db.Timestamptz(6)
+  area        Float?     @db.Real
+  location_id String?    @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  width       Float?     @db.Real
+  length      Float?     @db.Real
+  height      Float?     @db.Real
+  locations   locations? @relation(fields: [location_id], references: [id], onDelete: Cascade)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model bedrooms {
+  id          String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at  DateTime   @default(now()) @db.Timestamptz(6)
+  area        Float?     @db.Real
+  location_id String?    @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  width       Float?     @db.Real
+  length      Float?     @db.Real
+  height      Float?     @db.Real
+  locations   locations? @relation(fields: [location_id], references: [id], onDelete: Cascade)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model foo {
+  id         BigInt   @id @default(autoincrement())
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  sites      String[] @db.VarChar
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model kitchens {
+  id          String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at  DateTime   @default(now()) @db.Timestamptz(6)
+  area        Float?     @db.Real
+  location_id String?    @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  width       Float?     @db.Real
+  length      Float?     @db.Real
+  height      Float?     @db.Real
+  locations   locations? @relation(fields: [location_id], references: [id], onDelete: Cascade)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model laundry_rooms {
+  id          BigInt     @id @default(autoincrement())
+  created_at  DateTime   @default(now()) @db.Timestamptz(6)
+  width       Float?     @db.Real
+  length      Float?     @db.Real
+  height      Float?     @db.Real
+  location_id String?    @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  area        Float?     @db.Real
+  locations   locations? @relation(fields: [location_id], references: [id], onDelete: Cascade)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model lessee {
+  lessee_id                      Int                     @id @default(autoincrement())
+  first_name                     String                  @db.VarChar(50)
+  last_name                      String                  @db.VarChar(50)
+  date_of_birth                  DateTime?               @db.Date
+  email_address                  String?                 @db.VarChar(100)
+  phone_number                   String?                 @db.VarChar(20)
+  secondary_phone_number         String?                 @db.VarChar(20)
+  occupation                     String?                 @db.VarChar(100)
+  emergency_contact              String?                 @db.VarChar(255)
+  emergency_contact_phone_number String?                 @db.VarChar(20)
+  lease_start_date               DateTime?               @db.Date
+  lease_end_date                 DateTime?               @db.Date
+  monthly_rent_amount            Decimal?                @db.Decimal(10, 2)
+  payment_due_day                Int?
+  security_deposit               Decimal?                @db.Decimal(10, 2)
+  lease_status                   String?                 @db.VarChar(20)
+  move_in_date                   DateTime?               @db.Date
+  move_out_date                  DateTime?               @db.Date
+  notes                          String?
+  lessee_payment_method          lessee_payment_method[]
+  rental_lessee                  rental_lessee[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model lessee_payment_method {
+  lessee_id      Int
+  method_id      Int
+  lessee         lessee         @relation(fields: [lessee_id], references: [lessee_id], onDelete: NoAction, onUpdate: NoAction)
+  payment_method payment_method @relation(fields: [method_id], references: [method_id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([lessee_id, method_id])
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model listing_images {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at  DateTime  @default(now()) @db.Timestamptz(6)
+  url         String?
+  listing_id  String?   @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  description String?
+  listings    listings? @relation(fields: [listing_id], references: [id], onDelete: Cascade, map: "public_listing_images_listing_id_fkey")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model listings {
+  id                       String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at               DateTime         @default(now()) @db.Timestamptz(6)
+  description              String?
+  monthly_rent             Decimal?         @db.Decimal
+  rooms                    String?
+  lease_terms              String?
+  address_1                String?          @db.VarChar
+  address_2                String?          @db.VarChar
+  city                     String?          @db.VarChar
+  state_province           String?          @db.VarChar
+  postal_code              String?          @db.VarChar
+  required_legal_statement String?
+  features                 String[]         @db.VarChar
+  cover_image_url          String
+  location_id              String?          @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  listing_images           listing_images[]
+  locations                locations?       @relation(fields: [location_id], references: [id], onUpdate: NoAction, map: "fk_location")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model locations {
+  location_name    String             @db.VarChar(255)
+  street_address   String             @db.VarChar(255)
+  city             String             @db.VarChar(100)
+  state_province   String             @db.VarChar(100)
+  postal_code      String             @db.VarChar(20)
+  unit_number      String?            @db.VarChar(20)
+  notes            String?
+  id               String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  bathrooms        bathrooms[]
+  bedrooms         bedrooms[]
+  kitchens         kitchens[]
+  laundry_rooms    laundry_rooms[]
+  listings         listings?
+  service_requests service_requests[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model notes {
+  id    BigInt  @id @default(autoincrement())
+  title String?
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model payment_method {
+  method_id             Int                     @id @default(autoincrement())
+  payment_method_stripe String                  @db.VarChar(50)
+  lessee_payment_method lessee_payment_method[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model rental_lessee {
+  rental_id       Int
+  lessee_id       Int
+  lessee          lessee          @relation(fields: [lessee_id], references: [lessee_id], onDelete: NoAction, onUpdate: NoAction)
+  rental_property rental_property @relation(fields: [rental_id], references: [property_id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([rental_id, lessee_id])
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model rental_property {
+  property_id    Int             @id @default(autoincrement())
+  street_address String          @db.VarChar(255)
+  city           String          @db.VarChar(100)
+  state_province String          @db.VarChar(100)
+  postal_code    String          @db.VarChar(20)
+  unit_number    String?         @db.VarChar(20)
+  notes          String?
+  rental_lessee  rental_lessee[]
+}
+
+model service_request_technicians {
+  service_request_id String           @db.Uuid
+  technician_id      String           @db.Uuid
+  service_requests   service_requests @relation(fields: [service_request_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  technicians        technicians      @relation(fields: [technician_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([service_request_id, technician_id])
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model service_requests {
+  description                 String?
+  date_created                DateTime?                     @default(now()) @db.Timestamp(6)
+  date_updated                DateTime?                     @default(now()) @db.Timestamp(6)
+  requested_by                String?                       @default(dbgenerated("auth.uid()")) @db.Uuid
+  location_id                 String?                       @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  service_type_id             String?                       @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  status_id                   String?                       @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  completed                   Boolean?                      @default(false)
+  id                          String                        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  steps                       String[]                      @db.VarChar
+  service_request_technicians service_request_technicians[]
+  locations                   locations?                    @relation(fields: [location_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "public_service_requests_location_id_fkey")
+  tenants                     tenants?                      @relation(fields: [requested_by], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "public_service_requests_requested_by_fkey")
+  service_types               service_types?                @relation(fields: [service_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "public_service_requests_service_type_id_fkey")
+  statuses                    statuses?                     @relation(fields: [status_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "public_service_requests_status_id_fkey")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model service_types {
+  service_name     String             @unique @db.VarChar(100)
+  id               String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  service_requests service_requests[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model statuses {
+  status_name      String             @db.VarChar(100)
+  id               String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  service_requests service_requests[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model technicians {
+  name                        String                        @db.VarChar(100)
+  email                       String?                       @db.VarChar(100)
+  id                          String                        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  service_request_technicians service_request_technicians[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model tenants {
+  name             String             @db.VarChar(100)
+  email            String?            @db.VarChar(100)
+  id               String             @id @default(dbgenerated("auth.uid()")) @db.Uuid
+  service_requests service_requests[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model todo {
+  id         BigInt   @id @default(autoincrement())
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  completed  Boolean? @default(false)
+  title      String?
+}
