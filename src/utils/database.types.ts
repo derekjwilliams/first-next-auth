@@ -359,13 +359,20 @@ export type Database = {
           rooms?: string | null
           state_province?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "fk_location"
+            columns: ["location_id"]
+            isOneToOne: true
+            referencedRelation: "locations"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       locations: {
         Row: {
           city: string
           id: string
-          listing_id: string | null
           location_name: string
           notes: string | null
           postal_code: string
@@ -376,7 +383,6 @@ export type Database = {
         Insert: {
           city: string
           id?: string
-          listing_id?: string | null
           location_name: string
           notes?: string | null
           postal_code: string
@@ -387,7 +393,6 @@ export type Database = {
         Update: {
           city?: string
           id?: string
-          listing_id?: string | null
           location_name?: string
           notes?: string | null
           postal_code?: string
@@ -395,15 +400,7 @@ export type Database = {
           street_address?: string
           unit_number?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "fk_listing"
-            columns: ["listing_id"]
-            isOneToOne: false
-            referencedRelation: "listings"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       notes: {
         Row: {
