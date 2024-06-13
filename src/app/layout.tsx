@@ -8,6 +8,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import Image from 'next/image'
 import Navigation from '@/components/Navigation'
 import Link from 'next/link'
+import { Analytics } from '@vercel/analytics/react'
 
 const defaultUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000'
 
@@ -58,6 +59,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main>
             <Toaster position='bottom-center' />
             {children}
+            <Analytics />
             <SpeedInsights />
           </main>
         </ReactQueryClientProvider>
