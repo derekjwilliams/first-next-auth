@@ -7,8 +7,6 @@ import { colors } from '@stylexjs/open-props/lib/colors.stylex'
 import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
 import * as stylex from '@stylexjs/stylex'
 import Image from 'next/image'
-import { redirect } from 'next/navigation'
-import { AwaitedReactNode, JSX, JSXElementConstructor, ReactElement, ReactNode } from 'react'
 import { serviceTypes } from '@/utils/serviceTypes'
 
 const serviceCard = stylex.create({
@@ -117,7 +115,7 @@ export default async function Page() {
     }
   })
 
-  // See https://stackoverflow.com/questions/54246477/how-to-convert-camelcase-to-snake-case
+  // From https://stackoverflow.com/questions/54246477/how-to-convert-camelcase-to-snake-case
   const pascalToSnakeCase = (value: string) => {
     if (value) {
       return value.replace(/(([a-z])(?=[A-Z][a-zA-Z])|([A-Z])(?=[A-Z][a-z]))/g, '$1_').toLowerCase()
@@ -143,6 +141,11 @@ export default async function Page() {
       </Link>
     )
   })
+  serviceLinks.push(
+    <Link href={`/servicerequests`} {...stylex.props(serviceCard.base)}>
+      All
+    </Link>
+  )
 
   return (
     <div {...stylex.props(servicePage.base)}>

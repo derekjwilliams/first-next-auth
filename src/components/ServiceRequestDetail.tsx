@@ -1,13 +1,12 @@
 'use client'
 
 import useServiceRequestQuery from '@/hooks/useServiceRequestQuery'
-import * as Checkbox from '@radix-ui/react-checkbox'
-import { CheckIcon } from '@radix-ui/react-icons'
 import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
 import { colors } from '@stylexjs/open-props/lib/colors.stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 
 import * as stylex from '@stylexjs/stylex'
+import Link from 'next/link'
 
 const requests = stylex.create({
   base: {
@@ -62,19 +61,22 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
     )
   }
   return (
-    <div {...stylex.props(requests.base)}>
-      <form {...stylex.props(requests.list)}>
+    <form>
+      <div {...stylex.props(requests.base)}>
         <div key={serviceRequest.id} {...stylex.props(requestCard.base)}>
-          <Checkbox.Root {...stylex.props(requestCard.checkboxRoot)} id={serviceRequest.id}>
-            <Checkbox.Indicator {...stylex.props(requestCard.checkboxIndicator)}>
-              <CheckIcon {...stylex.props(requestCard.checkIcon)} />
-            </Checkbox.Indicator>
-          </Checkbox.Root>
-          <label className='service-request-label' htmlFor={serviceRequest.id}>
-            {serviceRequest.description}
-          </label>
+          {serviceRequest.description}
         </div>
-      </form>
-    </div>
+        <div>
+          <h2>Technicians Assigned</h2>
+          <div>
+            {serviceRequest.technicians.map((technician: any) => (
+              <div key={serviceRequest.id}>
+                <Link href={`/technicians/${technician.id}`}>{technician.name}</Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </form>
   )
 }

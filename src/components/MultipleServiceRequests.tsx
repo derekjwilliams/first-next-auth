@@ -14,6 +14,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import useSupabase from '../hooks/useSupabase'
 import { addServiceRequest } from '@/queries/addServiceRequest'
 import { Tables } from '@/utils/database.types'
+import Link from 'next/link'
 
 const requests = stylex.create({
   base: {
@@ -196,8 +197,9 @@ export default function MultipleServiceRequests({ serviceTypeId, serviceDisplayN
               </Checkbox.Indicator>
             </Checkbox.Root>
             <label className='service-request-label' htmlFor={serviceRequest.id}>
-              {/* todo make this a link to request details */}
-              {serviceRequest.description} ({serviceRequest.id})
+              <Link href={`/servicerequests/${serviceRequest.id}`}>
+                {serviceRequest.description} ({serviceRequest.id})
+              </Link>
             </label>
           </div>
         ))}

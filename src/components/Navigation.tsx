@@ -4,7 +4,6 @@ import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
 import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
-import { borders } from '@stylexjs/open-props/lib/borders.stylex'
 import React, { useState } from 'react'
 
 const menuStyles = stylex.create({
