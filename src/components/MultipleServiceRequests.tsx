@@ -190,12 +190,12 @@ export default function MultipleServiceRequests({ serviceTypeId, serviceDisplayN
       <form {...stylex.props(requests.list)}>
         {serviceRequests.map((serviceRequest: any) => (
           <div key={serviceRequest.id} {...stylex.props(requestCard.base)}>
-            <Checkbox.Root {...stylex.props(requestCard.checkboxRoot)} id='{serviceRequest.id}'>
+            <Checkbox.Root {...stylex.props(requestCard.checkboxRoot)} id={serviceRequest.id}>
               <Checkbox.Indicator {...stylex.props(requestCard.checkboxIndicator)}>
                 <CheckIcon {...stylex.props(requestCard.checkIcon)} />
               </Checkbox.Indicator>
             </Checkbox.Root>
-            <label className='service-request-label' htmlFor='{serviceRequest.id}'>
+            <label className='service-request-label' htmlFor={serviceRequest.id}>
               {/* todo make this a link to request details */}
               {serviceRequest.description} ({serviceRequest.id})
             </label>

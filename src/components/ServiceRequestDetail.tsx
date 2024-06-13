@@ -1,13 +1,31 @@
 'use client'
 
-//import useNotesQuery from '@/hooks/useNotesQuery'
 import useServiceRequestQuery from '@/hooks/useServiceRequestQuery'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { CheckIcon } from '@radix-ui/react-icons'
+import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
+import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
+import { colors } from '@stylexjs/open-props/lib/colors.stylex'
+import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 
 import * as stylex from '@stylexjs/stylex'
 
+const requests = stylex.create({
+  base: {
+    padding: sizes.spacing5,
+    backgroundColor: marigoldColors.background,
+  },
+  list: {
+    margin: sizes.spacing5,
+  },
+})
+
 const requestCard = stylex.create({
+  base: {
+    margin: sizes.spacing2,
+    display: 'flex',
+    alignItems: 'center',
+  },
   checkboxRoot: {
     backgroundColor: 'white',
     width: 25,
@@ -16,10 +34,10 @@ const requestCard = stylex.create({
     padding: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    // boxShadow: '0 2px 10px black',
-    borderColor: '#556d55',
+    borderColor: colors.gray6,
     borderStyle: 'solid',
     borderWidth: 2,
+    marginRight: sizes.spacing2,
   },
   checkboxIndicator: {
     padding: 0,
@@ -45,15 +63,19 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
     )
   }
   return (
-    <form>
-      <Checkbox.Root {...stylex.props(requestCard.checkboxRoot)} defaultChecked id='c1'>
-        <Checkbox.Indicator {...stylex.props(requestCard.checkboxIndicator)}>
-          <CheckIcon {...stylex.props(requestCard.checkIcon)} />
-        </Checkbox.Indicator>
-      </Checkbox.Root>
-      <label className='Label' htmlFor='c1'>
-        {serviceRequest.description}
-      </label>
-    </form>
+    <div {...stylex.props(requests.base)}>
+      <form {...stylex.props(requests.list)}>
+        <div key={serviceRequest.id} {...stylex.props(requestCard.base)}>
+          <Checkbox.Root {...stylex.props(requestCard.checkboxRoot)} id={serviceRequest.id}>
+            <Checkbox.Indicator {...stylex.props(requestCard.checkboxIndicator)}>
+              <CheckIcon {...stylex.props(requestCard.checkIcon)} />
+            </Checkbox.Indicator>
+          </Checkbox.Root>
+          <label className='service-request-label' htmlFor={serviceRequest.id}>
+            {serviceRequest.description}
+          </label>
+        </div>
+      </form>
+    </div>
   )
 }
