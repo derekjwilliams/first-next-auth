@@ -83,6 +83,8 @@ const form = stylex.create({
 const requestCard = stylex.create({
   base: {
     margin: sizes.spacing2,
+    display: 'flex',
+    alignItems: 'center',
   },
   checkboxRoot: {
     backgroundColor: 'white',
@@ -115,7 +117,7 @@ function AddServiceRequest({ serviceTypeId, serviceDisplayName }: MultipleServic
   const queryClient = useQueryClient()
   const mutation = useMutation({
     mutationFn,
-    onSuccess: (data) => {
+    onSuccess: (data: any) => {
       queryClient.setQueryData(['service-requests'], (prevData: Array<Tables<'service_requests'>>) => [
         ...prevData,
         data![0],
@@ -186,7 +188,7 @@ export default function MultipleServiceRequests({ serviceTypeId, serviceDisplayN
         <AddServiceRequest serviceTypeId={serviceTypeId} serviceDisplayName={serviceDisplayName}></AddServiceRequest>
       )}
       <form {...stylex.props(requests.list)}>
-        {serviceRequests.map((serviceRequest) => (
+        {serviceRequests.map((serviceRequest: any) => (
           <div key={serviceRequest.id} {...stylex.props(requestCard.base)}>
             <Checkbox.Root {...stylex.props(requestCard.checkboxRoot)} id='{serviceRequest.id}'>
               <Checkbox.Indicator {...stylex.props(requestCard.checkboxIndicator)}>

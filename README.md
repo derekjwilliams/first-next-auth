@@ -11,7 +11,15 @@
 - StyleX
 - Open Props
 - Typescript
+- Prisma
 
+## React 19 and NextJS 15 notes
+
+Many packages have not been updated yet for React 19, to avoid errors on `npm install` make sure to include the `--legacy-peer-deps` flag, e.g.`npm install  --legacy-peer-deps`
+
+## Safari And Authentication
+
+Safari, sensibly, does not like using http to send sensitive data, so if you run with `npm run dev` Safari will complain, to work around this a script has been added to package.json that runs with the Next https server, `npm run dev-https`.  More details on the Next `--experimental-https` flag can be found here: https://nextjs.org/docs/app/api-reference/next-cli 
 
 ## Nextjs and StyleX example project
 

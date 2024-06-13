@@ -62,7 +62,7 @@ export default function AllServiceRequests() {
   return (
     <div {...stylex.props(requests.base)}>
       <form {...stylex.props(requests.list)}>
-        {serviceRequests.map((serviceRequest) => (
+        {serviceRequests.map((serviceRequest: any) => (
           <div key={serviceRequest.id} {...stylex.props(requestCard.base)}>
             <Checkbox.Root {...stylex.props(requestCard.checkboxRoot)} id='{serviceRequest.id}'>
               <Checkbox.Indicator {...stylex.props(requestCard.checkboxIndicator)}>
