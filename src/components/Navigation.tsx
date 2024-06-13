@@ -117,8 +117,8 @@ export default function Navigation() {
         {...stylex.props(styles.base, menuStyles.showHamburger(closedBurger))}>
         <ul {...stylex.props(styles.navigationList)}>
           <li {...stylex.props(styles.item)}>
-            <Link {...stylex.props(styles.link)} href='/rentals'>
-              Available Rentals
+            <Link {...stylex.props(styles.link)} href='/properties'>
+              Properties
             </Link>
           </li>
           <li {...stylex.props(styles.item)}>
@@ -129,6 +129,11 @@ export default function Navigation() {
           <li {...stylex.props(styles.item)}>
             <Link {...stylex.props(styles.link)} href='/technicians'>
               Technicians
+            </Link>
+          </li>
+          <li {...stylex.props(styles.item)}>
+            <Link {...stylex.props(styles.link)} href='/rentals'>
+              Available Rentals
             </Link>
           </li>
         </ul>

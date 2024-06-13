@@ -113,8 +113,6 @@ export default async function Page({ params }: { params: { id: string } }) {
   //   .throwOnError()
   //   .single()
 
-  // console.log(JSON.stringify(listings_with_locations, null, 2))
-
   const listingImages = listing?.listing_images?.map(async (image) => {
     const blur = await getPlaceholderImage(image.url)
     return (

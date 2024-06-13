@@ -59,7 +59,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main>
             <Toaster position='bottom-center' />
             {children}
-            <Analytics />
+            {/* <Analytics /> seems to slow things down*/}
             <SpeedInsights />
           </main>
         </ReactQueryClientProvider>
