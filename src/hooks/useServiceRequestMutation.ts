@@ -1,9 +1,8 @@
-//hooks/useServiceRequestMutation.ts
 import { useMutation } from '@tanstack/react-query'
 import useSupabase from './useSupabase'
 import { addServiceRequest } from '@/queries/addServiceRequest'
-import { Database } from '@/utils/database.types'
-type ServiceRequest = Database['public']['Tables']['service_requests']['Row']
+import { Tables } from '@/utils/database.types'
+type ServiceRequest = Tables<'service_requests'>
 
 function useServiceRequestMutation(value: ServiceRequest) {
   const client = useSupabase()

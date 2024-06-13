@@ -1,6 +1,6 @@
 'use client'
 
-import useServiceRequestQuery from '@/hooks/useServiceRequestQuery'
+import useTechnicianQuery from '@/hooks/useTechnicianQuery'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { CheckIcon } from '@radix-ui/react-icons'
 import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
@@ -48,12 +48,12 @@ const requestCard = stylex.create({
   },
 })
 
-export default function ServiceRequestDetail({ id }: { id: string | null }) {
-  const { data: serviceRequest, isLoading, isError } = useServiceRequestQuery(id!)
+export default function TechnicianDetail({ id }: { id: string | null }) {
+  const { data: technician, isLoading, isError } = useTechnicianQuery(id!)
   if (isLoading) {
     return <div>Loading...</div>
   }
-  if (isError || !serviceRequest) {
+  if (isError || !technician) {
     return (
       <>
         <div>{isError}</div>
@@ -64,14 +64,14 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
   return (
     <div {...stylex.props(requests.base)}>
       <form {...stylex.props(requests.list)}>
-        <div key={serviceRequest.id} {...stylex.props(requestCard.base)}>
-          <Checkbox.Root {...stylex.props(requestCard.checkboxRoot)} id={serviceRequest.id}>
+        <div key={technician.id} {...stylex.props(requestCard.base)}>
+          <Checkbox.Root {...stylex.props(requestCard.checkboxRoot)} id={technician.id}>
             <Checkbox.Indicator {...stylex.props(requestCard.checkboxIndicator)}>
               <CheckIcon {...stylex.props(requestCard.checkIcon)} />
             </Checkbox.Indicator>
           </Checkbox.Root>
-          <label className='service-request-label' htmlFor={serviceRequest.id}>
-            {serviceRequest.description}
+          <label htmlFor={technician.id}>
+            {technician.name} {technician.email}
           </label>
         </div>
       </form>

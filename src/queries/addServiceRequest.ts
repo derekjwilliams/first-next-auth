@@ -1,6 +1,6 @@
 import { TypedSupabaseClient } from '@/lib/supabase/supabase'
-import { Database } from '@/utils/database.types'
-type ServiceRequest = Database['public']['Tables']['service_requests']['Row']
+import { Tables } from '@/utils/database.types'
+type ServiceRequest = Tables<'service_requests'>
 
 export function addServiceRequest(client: TypedSupabaseClient, value: ServiceRequest) {
   return client
