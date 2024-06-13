@@ -11,7 +11,7 @@ const menuStyles = stylex.create({
   showHamburger: (display) => ({
     display: {
       default: display,
-      '@media (min-width: 800px)': 'block',
+      '@media (min-width: 768px)': 'block',
     },
   }),
   showClosedBurger: (display) => ({
@@ -40,6 +40,14 @@ const styles = stylex.create({
     whiteSpace: 'nowrap',
     backgroundColor: marigoldColors.flowerYellow,
     textDecoration: 'none',
+    display: {
+      default: 'inline-block',
+      '@media (max-width: 768px)': 'block',
+    },
+    paddingLeft: {
+      default: sizes.spacing2,
+      '@media (max-width: 768px)': 0,
+    },
   },
   link: {
     textDecoration: 'none',
@@ -81,7 +89,7 @@ export default function Navigation() {
   const [hamburger, setHamburgerVisible] = useState('block')
   const [closedBurger, setClosedBurgerVisible] = useState('none')
   const toggleMenu = () => {
-    if (window.innerWidth <= 800) {
+    if (window.innerWidth <= 768) {
       setHamburgerVisible(hamburger !== 'block' ? 'block' : 'none')
       setClosedBurgerVisible(closedBurger !== 'block' ? 'block' : 'none')
     }
@@ -117,6 +125,11 @@ export default function Navigation() {
           <li {...stylex.props(styles.item)}>
             <Link {...stylex.props(styles.link)} href='/servicerequests/new'>
               Service Requests
+            </Link>
+          </li>
+          <li {...stylex.props(styles.item)}>
+            <Link {...stylex.props(styles.link)} href='/technicians'>
+              Technicians
             </Link>
           </li>
         </ul>
