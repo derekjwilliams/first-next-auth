@@ -29,7 +29,7 @@ const styles = stylex.create({
     padding: 0,
   },
   body: {
-    fontFamily: `${fonts.appFont},Arial`,
+    fontFamily: `${fonts.appFont}, -apple-system, BlinkMacSystemFont, Arial`,
   },
   logo: {
     width: '100%',

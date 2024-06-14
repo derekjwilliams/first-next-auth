@@ -2,6 +2,11 @@ import { createClient } from '@/lib/supabase/client'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import * as stylex from '@stylexjs/stylex'
+import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
+import { colors } from '@stylexjs/open-props/lib/colors.stylex'
+import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
+import { borders } from '@stylexjs/open-props/lib/borders.stylex'
+import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
 
 const authButtonWrapper = stylex.create({
   base: {
@@ -13,14 +18,17 @@ const authButtonWrapper = stylex.create({
 })
 const authButton = stylex.create({
   base: {
-    padding: '0.5rem 1rem',
+    cursor: 'pointer',
     textDecoration: 'none',
-    borderRadius: '0.375rem',
-    borderColor: '#005145',
-    borderWidth: '1px',
+    display: 'grid',
+    padding: sizes.spacing2,
     backgroundColor: {
-      ':hover': '#e9ecef',
+      default: colors.gray2,
+      ':hover': marigoldColors.flowerYellow,
     },
+    transitionDuration: '500ms',
+    transitionProperty: 'backgroundColor',
+    borderRadius: borders.radius2,
   },
 })
 
