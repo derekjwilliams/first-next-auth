@@ -20,9 +20,8 @@ const menuStyles = stylex.create({
 
 const styles = stylex.create({
   base: {
-    backgroundColor: marigoldColors.flowerGold,
     padding: sizes.spacing2,
-    fontSize: fonts.size3,
+    fontSize: fonts.size2,
   },
   header: {
     width: '100%',

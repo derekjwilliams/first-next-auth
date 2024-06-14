@@ -8,6 +8,8 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import Image from 'next/image'
 import Navigation from '@/components/Navigation'
 import Link from 'next/link'
+import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
+
 import { Analytics } from '@vercel/analytics/react'
 
 const defaultUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000'
@@ -31,16 +33,17 @@ const styles = stylex.create({
   body: {
     fontFamily: `${fonts.appFont}, -apple-system, BlinkMacSystemFont, Arial`,
   },
-  logo: {
+  top: {
     width: '100%',
-    backgroundColor: '#ffd55f',
-    padding: sizes.spacing3,
+    backgroundColor: marigoldColors.flowerYellow,
+    paddingLeft: sizes.spacing2,
+    paddingTop: sizes.spacing2,
   },
 })
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const header = (
-    <div {...stylex.props(styles.logo)}>
+    <div {...stylex.props(styles.top)}>
       <Link href='/'>
         <Image alt='simple logo' width={logoSize} height={logoSize} src='/simple_logo.png' priority={true} />
       </Link>
