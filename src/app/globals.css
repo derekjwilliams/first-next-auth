@@ -1,6 +1,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&display=swap');
-@import "./open-props.min.css"
+@import "./open-props.min.css";
 /* Reset */
 
 *, *::before, *::after {
@@ -28,13 +28,6 @@ picture, svg, video {
 .compound-grid {
   display: grid;
   grid-template-columns: [a1] 4fr [a2] 1fr [b2] 3fr [a3] 2fr [b3] 2fr [a4] 3fr [b4] 1fr [a5] 4fr [a6];
-                      /*|---------|---------|---------|---------|--------|*/
-                      /*|------------|-----------|-----------|-----------|*/
-                      /*|---------|--|------|----|----|------|--|--------|*/
-
-                      /*a---------a--b------a----b----a------b--a--------a*/
-                      /*1---------2--2------3----3----4------4--5--------6*/
-                      /* note: a1 is also b1 and a6 is also b6*/
   grid-column-gap: 1vw;
   grid-row-gap: 2vh;
   margin: 2rem;
@@ -61,7 +54,9 @@ picture, svg, video {
   grid-column: a1 / a6;
 }
 
+
 /* buttons */
+
 .button {
   display: inline-flex;
   white-space: nowrap;
@@ -89,7 +84,6 @@ picture, svg, video {
   
   &:active:not(:focus-visible) {
     position: relative;
-/*     inset-block-start: 2px; */
   }
 
   @nest .dark & {
@@ -102,6 +96,7 @@ picture, svg, video {
     }
   }
 }
+
 
 @media
  (prefers-reduced-motion: no-preference) {

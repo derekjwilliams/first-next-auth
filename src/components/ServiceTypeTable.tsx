@@ -1,30 +1,50 @@
+// components/ServiceTypeTable.tsx
 'use client'
-
-import React, { useState } from 'react'
-import { useReactTable, ColumnDef, flexRender, getCoreRowModel } from '@tanstack/react-table'
+import React from 'react'
+import { ColumnDef, useReactTable, getCoreRowModel, flexRender, SortingState } from '@tanstack/react-table'
+import Pagination from './Pagination'
 import { ServiceType } from '@/utils/servicetype.types'
-import type { SortingState } from '@tanstack/react-table'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
-// TODO implement pagination and sorting, see https://medium.com/@aylo.srd/server-side-pagination-and-sorting-with-tanstack-table-and-react-bd493170125e
-// and https://medium.com/@clee080/how-to-do-server-side-pagination-column-filtering-and-sorting-with-tanstack-react-table-and-react-7400a5604ff2
-
-interface TableComponentProps {
+interface ServiceTypeTableProps {
   data: ServiceType[]
+  currentPage: number
+  totalPages: number
+  sortColumn: string
+  sortDirection: string
 }
 
-// Define the columns
-const columns: ColumnDef<ServiceType>[] = [
-  {
-    accessorKey: 'id',
-    header: 'ID',
-  },
-  {
-    accessorKey: 'service_name',
-    header: 'Service',
-  },
-]
-const ServiceTypeTable: React.FC<TableComponentProps> = ({ data }) => {
-  const [sorting, setSorting] = useState<SortingState>([])
+const ServiceTypeTable: React.FC<ServiceTypeTableProps> = ({
+  data,
+  currentPage,
+  totalPages,
+  sortColumn,
+  sortDirection,
+}) => {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+
+  // const [sorting, setSorting] = React.useState<Sorting[]>([])
+
+  const handleSort = (column: string) => {
+    const newSortDirection = sortColumn === column && sortDirection === 'asc' ? 'desc' : 'asc'
+    const params = new URLSearchParams(searchParams ? searchParams.toString() : undefined)
+    params.set('sortColumn', column)
+    params.set('sortDirection', newSortDirection)
+    router.push(`${pathname}?${params.toString()}`)
+  }
+
+  const columns: ColumnDef<ServiceType>[] = [
+    {
+      accessorKey: 'id',
+      header: 'ID',
+    },
+    {
+      accessorKey: 'service_name',
+      header: 'Service Name',
+    },
+  ]
 
   const table = useReactTable({
     data,
@@ -34,24 +54,14 @@ const ServiceTypeTable: React.FC<TableComponentProps> = ({ data }) => {
 
   return (
     <div>
-      <h1>Service Types Table</h1>
       <table>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <th key={header.id} onClick={header.column.getToggleSortingHandler()}>
-                  {header.isPlaceholder ? null : (
-                    <div>
-                      {header.column.columnDef.header as React.ReactNode}
-                      {{
-                        asc: ' up',
-                        desc: ' down',
-                        // asc: ' 🔼',
-                        // desc: ' 🔽',
-                      }[header.column.getIsSorted() as string] ?? null}
-                    </div>
-                  )}
+                <th key={header.id} onClick={() => handleSort(header.id)}>
+                  {flexRender(header.column.columnDef.header, header.getContext())}
+                  {sortColumn === header.id ? (sortDirection === 'asc' ? '↑' : '↓') : ''}
                 </th>
               ))}
             </tr>
@@ -61,40 +71,15 @@ const ServiceTypeTable: React.FC<TableComponentProps> = ({ data }) => {
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id}>
               {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>{cell.getValue() as React.ReactNode}</td>
+                <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
               ))}
             </tr>
           ))}
         </tbody>
       </table>
+      <Pagination currentPage={currentPage} totalPages={totalPages} />
     </div>
   )
 }
-
-//   return (
-//     <table>
-//       <thead>
-//         {table.getHeaderGroups().map((headerGroup) => (
-//           <tr key={headerGroup.id}>
-//             {headerGroup.headers.map((header) => (
-//               <th key={header.id}>
-//                 {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-//               </th>
-//             ))}
-//           </tr>
-//         ))}
-//       </thead>
-//       <tbody>
-//         {table.getRowModel().rows.map((row) => (
-//           <tr key={row.id}>
-//             {row.getVisibleCells().map((cell) => (
-//               <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
-//             ))}
-//           </tr>
-//         ))}
-//       </tbody>
-//     </table>
-//   )
-// }
 
 export default ServiceTypeTable
