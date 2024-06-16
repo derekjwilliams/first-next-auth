@@ -197,9 +197,7 @@ export default function MultipleServiceRequests({ serviceTypeId, serviceDisplayN
               </Checkbox.Indicator>
             </Checkbox.Root>
             <label className='service-request-label' htmlFor={serviceRequest.id}>
-              <Link href={`/servicerequests/${serviceRequest.id}`}>
-                {serviceRequest.description} ({serviceRequest.id})
-              </Link>
+              <Link href={`/servicerequests/${serviceRequest.id}`}>{serviceRequest.description}</Link>
             </label>
           </div>
         ))}
