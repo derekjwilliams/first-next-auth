@@ -31,7 +31,7 @@ export default async function Page({
     .order(sortColumn, { ascending: sortDirection === 'asc' })
     .range((currentPage - 1) * pageSize, currentPage * pageSize - 1)
 
-  console.log(serviceRequests)
+  // console.log(serviceRequests)
   const totalPages = Math.ceil((count || 0) / pageSize)
 
   return (
