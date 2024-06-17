@@ -35,9 +35,9 @@ export default async function Page({
         <ServiceRequestTable
           data={serviceRequests || []}
           currentPage={currentPage}
+          totalPages={totalPages}
           sortColumn={sortColumn}
           sortDirection={sortDirection}
-          totalPages={totalPages}
         />
       </Suspense>
     </div>
