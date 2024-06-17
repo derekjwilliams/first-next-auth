@@ -63,13 +63,16 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
   })
 
   return (
-    <div>
+    <div style={{ margin: '15px' }}>
       <table>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <th key={header.id} onClick={() => handleSort(header.id)}>
+                <th
+                  key={header.id}
+                  style={{ textAlign: 'left', fontWeight: '300', fontSize: '1.2rem', cursor: 'pointer' }}
+                  onClick={() => handleSort(header.id)}>
                   {flexRender(header.column.columnDef.header, header.getContext())}
                   {sortColumn === header.id ? (sortDirection === 'asc' ? '↑' : '↓') : ''}
                 </th>
@@ -87,7 +90,9 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                     const link = `/servicerequests/${serviceRequestId}`
                     return (
                       <td key={cell.id}>
-                        <Link href={link}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</Link>
+                        <Link href={link} style={{ marginRight: '15px' }}>
+                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        </Link>
                       </td>
                     )
                   }
@@ -96,7 +101,7 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
 
                     if (technicians.length) {
                       return (
-                        <td key={cell.id}>
+                        <td key={cell.id} style={{ minWidth: '20rem' }}>
                           {technicians.map((technician) => {
                             return (
                               <Link
