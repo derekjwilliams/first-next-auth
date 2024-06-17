@@ -27,11 +27,12 @@ export default async function Page({
 
   const { data: serviceRequests, count } = await supabase
     .from('service_requests')
-    .select('*', { count: 'exact' })
+    .select('*, technicians(id, name, email)', { count: 'exact' })
+    // .eq(`id`, 'ba9c1ee3-644f-4d83-b2b8-c592edd35ae4')
     .order(sortColumn, { ascending: sortDirection === 'asc' })
     .range((currentPage - 1) * pageSize, currentPage * pageSize - 1)
 
-  // console.log(serviceRequests)
+  console.log(serviceRequests)
   const totalPages = Math.ceil((count || 0) / pageSize)
 
   return (

@@ -3,9 +3,17 @@
 import React from 'react'
 import { ColumnDef, useReactTable, getCoreRowModel, flexRender } from '@tanstack/react-table'
 import Pagination from './Pagination'
-import { ServiceRequest } from '@/utils/servicerequest.types'
+import { ServiceRequest, Technician } from '@/utils/servicerequest.types'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
+import { Tables } from '@/utils/database.types'
+// interface ServiceRequestTableProps {
+//   data: ServiceRequest[]
+//   currentPage: number
+//   totalPages: number
+//   sortColumn: string
+//   sortDirection: string
+// }
 
 interface ServiceRequestTableProps {
   data: ServiceRequest[]
@@ -46,8 +54,8 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
       header: 'Description',
     },
     {
-      accessorKey: 'requested_by',
-      header: 'Requested By',
+      accessorKey: 'technicians',
+      header: 'Technicians',
     },
   ]
 
@@ -59,7 +67,7 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
       columnVisibility: {
         id: false,
         description: true, //hide this column by default
-        requested_by: true,
+        technicians: true,
       },
     },
   })
@@ -82,7 +90,6 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
         <tbody>
           {table.getRowModel().rows.map((row) => {
             const serviceRequestId = row.getValue('id') as string
-            // console.log(row.getValue('id'))
             return (
               <tr key={row.id}>
                 {row.getVisibleCells().map((cell) => {
@@ -93,6 +100,29 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                         <Link href={link}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</Link>
                       </td>
                     )
+                  }
+                  if (cell.column.id === 'technicians') {
+                    const technicians = cell.getValue() as Technician[]
+
+                    console.log(JSON.stringify(technicians))
+                    if (technicians.length) {
+                      return (
+                        <td key={cell.id}>
+                          {technicians.map((technician) => {
+                            return (
+                              <Link
+                                key={technician.id}
+                                href={`technicians/${technician.id}`}
+                                style={{ marginRight: '5px' }}>
+                                {technician.name}
+                              </Link>
+                            )
+                          })}
+                          {/* <Link href={`technicians/${firstTechnician.id}`}>{firstTechnician.name}</Link> */}
+                        </td>
+                      )
+                    }
+                    return <td key={cell.id}>No Technician Assigned</td>
                   }
                   return <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
                 })}
@@ -107,3 +137,5 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
 }
 
 export default ServiceRequestTable
+// c13cf26e-d61a-4947-bf92-73c2e1a7aca7 technician id for mark
+// ba9c1ee3-644f-4d83-b2b8-c592edd35ae4 for Mold on ceiling
