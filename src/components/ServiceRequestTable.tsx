@@ -6,14 +6,6 @@ import Pagination from './Pagination'
 import { ServiceRequest, Technician } from '@/utils/servicerequest.types'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { Tables } from '@/utils/database.types'
-// interface ServiceRequestTableProps {
-//   data: ServiceRequest[]
-//   currentPage: number
-//   totalPages: number
-//   sortColumn: string
-//   sortDirection: string
-// }
 
 interface ServiceRequestTableProps {
   data: ServiceRequest[]
@@ -33,8 +25,6 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
   const router = useRouter()
   const searchParams = useSearchParams()
   const pathname = usePathname()
-
-  // const [sorting, setSorting] = React.useState<Sorting[]>([])
 
   const handleSort = (column: string) => {
     const newSortDirection = sortColumn === column && sortDirection === 'asc' ? 'desc' : 'asc'
@@ -104,7 +94,6 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                   if (cell.column.id === 'technicians') {
                     const technicians = cell.getValue() as Technician[]
 
-                    console.log(JSON.stringify(technicians))
                     if (technicians.length) {
                       return (
                         <td key={cell.id}>
@@ -118,7 +107,6 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                               </Link>
                             )
                           })}
-                          {/* <Link href={`technicians/${firstTechnician.id}`}>{firstTechnician.name}</Link> */}
                         </td>
                       )
                     }
@@ -137,5 +125,3 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
 }
 
 export default ServiceRequestTable
-// c13cf26e-d61a-4947-bf92-73c2e1a7aca7 technician id for mark
-// ba9c1ee3-644f-4d83-b2b8-c592edd35ae4 for Mold on ceiling
