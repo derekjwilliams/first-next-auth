@@ -176,7 +176,7 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                               <Link
                                 key={technician.id}
                                 href={`technicians/${technician.id}`}
-                                style={{ padding: '0 5px' }}>
+                                style={{ paddingRight: '5px' }}>
                                 {technician.name}
                               </Link>
                             )
