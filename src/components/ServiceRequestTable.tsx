@@ -133,6 +133,7 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                           border: '1px solid rgb(208, 215, 222)',
                           padding: '10px',
                           wordBreak: 'break-word',
+                          verticalAlign: 'top',
                         }}>
                         <Link href={link} style={{ marginRight: '15px' }}>
                           {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -144,7 +145,9 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                     const serviceType = cell.getValue() as ServiceType
                     const link = `/servicerequests/new/${pascalToSnakeCase(serviceType.service_name)}`
                     return (
-                      <td key={cell.id} style={{ padding: '10px', border: '1px solid rgb(208, 215, 222)' }}>
+                      <td
+                        key={cell.id}
+                        style={{ padding: '10px', border: '1px solid rgb(208, 215, 222)', verticalAlign: 'top' }}>
                         <Link href={link}>{serviceTypes.get(serviceType.service_name).displayName}</Link>
                       </td>
                     )
@@ -158,7 +161,12 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                     return (
                       <td
                         key={cell.id}
-                        style={{ padding: '10px', marginRight: '15px', border: '1px solid rgb(208, 215, 222)' }}>
+                        style={{
+                          padding: '10px',
+                          marginRight: '15px',
+                          border: '1px solid rgb(208, 215, 222)',
+                          verticalAlign: 'top',
+                        }}>
                         {formattedDate}
                       </td>
                     )
@@ -170,13 +178,19 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                       return (
                         <td
                           key={cell.id}
-                          style={{ minWidth: '15rem', border: '1px solid rgb(208, 215, 222)', padding: '10px' }}>
+                          style={{
+                            // minWidth: '15rem',
+                            border: '1px solid rgb(208, 215, 222)',
+                            padding: '10px',
+                            verticalAlign: 'top',
+                            width: '10rem',
+                          }}>
                           {technicians.map((technician) => {
                             return (
                               <Link
                                 key={technician.id}
                                 href={`technicians/${technician.id}`}
-                                style={{ paddingRight: '5px' }}>
+                                style={{ paddingRight: '5px', display: 'inlineBlock', whiteSpace: 'pre' }}>
                                 {technician.name}
                               </Link>
                             )
