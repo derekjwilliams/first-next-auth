@@ -82,8 +82,16 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
 
   return (
     <div style={{ margin: '15px' }}>
-      <table>
-        <thead style={{ backgroundColor: 'lightgrey' }}>
+      <table
+        style={{
+          borderCollapse: 'collapse',
+          borderTopRightRadius: '12px',
+          borderTopLeftRadius: '12px',
+          outlineOffset: '-1px',
+          margin: '15px',
+          outline: '1px solid rgb(208, 215, 222)',
+        }}>
+        <thead style={{ backgroundColor: 'rgb(246, 248, 250)' }}>
           {table.getHeaderGroups().map((headerGroup: any) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header: any) => (
@@ -114,7 +122,14 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                   if (cell.column.id === 'description') {
                     const link = `/servicerequests/${serviceRequestId}`
                     return (
-                      <td key={cell.id} style={{ width: '50%', minWidth: '20rem' }}>
+                      <td
+                        key={cell.id}
+                        style={{
+                          width: '50%',
+                          minWidth: '20rem',
+                          border: '1px solid rgb(208, 215, 222)',
+                          padding: '10px',
+                        }}>
                         <Link href={link} style={{ marginRight: '15px' }}>
                           {flexRender(cell.column.columnDef.cell, cell.getContext())}
                         </Link>
@@ -125,7 +140,7 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                     const serviceType = cell.getValue() as ServiceType
                     const link = `/servicerequests/new/${pascalToSnakeCase(serviceType.service_name)}`
                     return (
-                      <td key={cell.id} style={{ padding: '10px' }}>
+                      <td key={cell.id} style={{ padding: '10px', border: '1px solid rgb(208, 215, 222)' }}>
                         <Link href={link}>{serviceTypes.get(serviceType.service_name).displayName}</Link>
                       </td>
                     )
@@ -137,7 +152,9 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                   if (cell.column.id === 'date_created') {
                     const formattedDate = dayjs(cell.getValue()).toDate().toLocaleString('en-US')
                     return (
-                      <td key={cell.id} style={{ marginRight: '15px' }}>
+                      <td
+                        key={cell.id}
+                        style={{ padding: '10px', marginRight: '15px', border: '1px solid rgb(208, 215, 222)' }}>
                         {formattedDate}
                       </td>
                     )
@@ -147,13 +164,12 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
 
                     if (technicians.length) {
                       return (
-                        <td key={cell.id} style={{ minWidth: '20rem' }}>
+                        <td
+                          key={cell.id}
+                          style={{ minWidth: '20rem', border: '1px solid rgb(208, 215, 222)', padding: '10px' }}>
                           {technicians.map((technician) => {
                             return (
-                              <Link
-                                key={technician.id}
-                                href={`technicians/${technician.id}`}
-                                style={{ marginRight: '5px' }}>
+                              <Link key={technician.id} href={`technicians/${technician.id}`}>
                                 {technician.name}
                               </Link>
                             )
@@ -161,9 +177,17 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                         </td>
                       )
                     }
-                    return <td key={cell.id}>No Technician Assigned</td>
+                    return (
+                      <td key={cell.id} style={{ border: '1px solid rgb(208, 215, 222)', padding: '10px' }}>
+                        No Technician Assigned
+                      </td>
+                    )
                   }
-                  return <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
+                  return (
+                    <td key={cell.id} style={{ border: '1px solid rgb(208, 215, 222)' }}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </td>
+                  )
                 })}
               </tr>
             )
