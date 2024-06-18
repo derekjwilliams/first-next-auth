@@ -90,6 +90,9 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
           outlineOffset: '-1px',
           margin: '15px',
           outline: '1px solid rgb(208, 215, 222)',
+          tableLayout: 'fixed',
+          marginLeft: '15px',
+          marginRight: 'auto',
         }}>
         <thead style={{ backgroundColor: 'rgb(246, 248, 250)' }}>
           {table.getHeaderGroups().map((headerGroup: any) => (
@@ -125,10 +128,11 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                       <td
                         key={cell.id}
                         style={{
-                          width: '50%',
-                          minWidth: '20rem',
+                          width: '40rem',
+                          minWidth: '10rem',
                           border: '1px solid rgb(208, 215, 222)',
                           padding: '10px',
+                          wordBreak: 'break-word',
                         }}>
                         <Link href={link} style={{ marginRight: '15px' }}>
                           {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -166,10 +170,13 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                       return (
                         <td
                           key={cell.id}
-                          style={{ minWidth: '20rem', border: '1px solid rgb(208, 215, 222)', padding: '10px' }}>
+                          style={{ minWidth: '15rem', border: '1px solid rgb(208, 215, 222)', padding: '10px' }}>
                           {technicians.map((technician) => {
                             return (
-                              <Link key={technician.id} href={`technicians/${technician.id}`}>
+                              <Link
+                                key={technician.id}
+                                href={`technicians/${technician.id}`}
+                                style={{ padding: '0 5px' }}>
                                 {technician.name}
                               </Link>
                             )
