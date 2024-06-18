@@ -22,13 +22,13 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages }) => {
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1)
 
   return (
-    <div>
+    <div style={{ marginLeft: '15px' }}>
       {pages.map((page) => (
         <button
           key={page}
           onClick={() => handlePageChange(page)}
           disabled={page === currentPage}
-          style={{ margin: '0 5px' }}>
+          style={{ margin: '0 5px', borderRadius: '5px', padding: '5px 15px' }}>
           {page}
         </button>
       ))}
