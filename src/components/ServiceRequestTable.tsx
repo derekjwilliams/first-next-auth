@@ -83,7 +83,7 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
   return (
     <div style={{ margin: '15px' }}>
       <table>
-        <thead>
+        <thead style={{ backgroundColor: 'lightgrey' }}>
           {table.getHeaderGroups().map((headerGroup: any) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header: any) => (
@@ -94,6 +94,7 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                     textAlign: 'left',
                     fontWeight: '300',
                     fontSize: '1.2rem',
+                    padding: '10px',
                     cursor: `${header.id !== 'technicians' ? 'pointer' : ''}`,
                   }}
                   onClick={() => handleSort(header.id)}>
@@ -124,10 +125,8 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                     const serviceType = cell.getValue() as ServiceType
                     const link = `/servicerequests/new/${pascalToSnakeCase(serviceType.service_name)}`
                     return (
-                      <td key={cell.id}>
-                        <Link href={link} style={{ marginRight: '15px' }}>
-                          {serviceTypes.get(serviceType.service_name).displayName}
-                        </Link>
+                      <td key={cell.id} style={{ padding: '10px' }}>
+                        <Link href={link}>{serviceTypes.get(serviceType.service_name).displayName}</Link>
                       </td>
                     )
                   }
