@@ -23,12 +23,11 @@ export default async function Page({
 
   const { data: serviceRequests, count } = await supabase
     .from('service_requests')
-    .select('*, technicians(id, name, email)', { count: 'exact' })
+    .select('*, technicians(id, name, email), service_types(*), tenants(*)', { count: 'exact' })
     .order(sortColumn, { ascending: sortDirection === 'asc' })
     .range((currentPage - 1) * pageSize, currentPage * pageSize - 1)
 
   const totalPages = Math.ceil((count || 0) / pageSize)
-
   return (
     <div>
       <Suspense key={'' + currentPage + sortDirection + sortColumn} fallback={<ServiceRequestTableSkeleton />}>

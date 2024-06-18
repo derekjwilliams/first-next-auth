@@ -142,7 +142,7 @@ export default async function Page() {
     )
   })
   serviceLinks.push(
-    <Link href={`/servicerequests`} {...stylex.props(serviceCard.base)}>
+    <Link key='all' href={`/servicerequests`} {...stylex.props(serviceCard.base)}>
       All
     </Link>
   )
@@ -160,7 +160,6 @@ export default async function Page() {
       <div {...stylex.props(serviceMain_container.base)}>
         <main {...stylex.props(serviceMain.base)}>
           <div {...stylex.props(serviceMain.heading)}>Make a Service Request</div>
-
           <div {...stylex.props(servicePage.grid)}>{serviceLinks}</div>
         </main>
       </div>

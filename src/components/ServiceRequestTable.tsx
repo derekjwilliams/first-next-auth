@@ -3,9 +3,10 @@
 import React from 'react'
 import { ColumnDef, useReactTable, getCoreRowModel, flexRender } from '@tanstack/react-table'
 import Pagination from './Pagination'
-import { ServiceRequest, Technician } from '@/utils/servicerequest.types'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
+import { ServiceRequest, ServiceType, Tenant, Technician } from '@/utils/servicerequest.types' // todo import from supabase types
+import { serviceTypes } from '@/utils/serviceTypes'
 
 interface ServiceRequestTableProps {
   data: ServiceRequest[]
@@ -34,6 +35,13 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
     router.push(`${pathname}?${params.toString()}`)
   }
 
+  const pascalToSnakeCase = (value: string) => {
+    if (value) {
+      return value.replace(/(([a-z])(?=[A-Z][a-zA-Z])|([A-Z])(?=[A-Z][a-z]))/g, '$1_').toLowerCase()
+    }
+    return 'no_match'
+  }
+
   const columns: ColumnDef<ServiceRequest>[] = [
     {
       accessorKey: 'id',
@@ -42,6 +50,14 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
     {
       accessorKey: 'description',
       header: 'Description',
+    },
+    {
+      accessorKey: 'tenants',
+      header: 'Reported By',
+    },
+    {
+      accessorKey: 'service_types',
+      header: 'Type',
     },
     {
       accessorKey: 'technicians',
@@ -95,6 +111,22 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                         </Link>
                       </td>
                     )
+                  }
+                  if (cell.column.id === 'service_types') {
+                    const serviceType = cell.getValue() as ServiceType
+                    const link = `/servicerequests/new/${pascalToSnakeCase(serviceType.service_name)}`
+                    return (
+                      <td key={cell.id}>
+                        <Link href={link} style={{ marginRight: '15px' }}>
+                          {serviceTypes.get(serviceType.service_name).displayName}
+                        </Link>
+                      </td>
+                    )
+                  }
+                  if (cell.column.id === 'tenants') {
+                    const tenant = cell.getValue() as Tenant
+                    // const link = `/servicerequests/new/${pascalToSnakeCase(serviceType.service_name)}` // todo once we have a tenant page
+                    return <td key={cell.id}>{tenant.name}</td>
                   }
                   if (cell.column.id === 'technicians') {
                     const technicians = cell.getValue() as Technician[]

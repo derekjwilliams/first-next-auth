@@ -1,6 +1,11 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&display=swap');
 @import "./open-props.min.css";
+/* @import "./normalize.min.css"; */
+
+/*@import "https://unpkg.com/open-props";
+@import "https://unpkg.com/open-props/normalize.min.css";
+/* @import "https://unpkg.com/open-props/buttons.min.css";  */
 /* Reset */
 
 *, *::before, *::after {

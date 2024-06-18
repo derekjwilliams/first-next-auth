@@ -14,4 +14,15 @@ type ServiceRequest = {
   technicians: Technician[]
 }
 
-export type { Technician, ServiceRequest }
+type ServiceType = {
+  id: string // UUID type
+  service_name: string
+}
+
+type Tenant = {
+  id: string // UUID type
+  name: string
+  email: string
+}
+
+export type { Technician, ServiceRequest, ServiceType, Tenant }
