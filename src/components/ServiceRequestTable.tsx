@@ -200,7 +200,7 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                     }
                     return (
                       <td key={cell.id} style={{ border: '1px solid rgb(208, 215, 222)', padding: '10px' }}>
-                        No Technician Assigned
+                        None Assigned
                       </td>
                     )
                   }
