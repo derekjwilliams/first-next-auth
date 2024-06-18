@@ -18,16 +18,31 @@ export default async function Page({
   const pageSize = 5
 
   const currentPage = Number(searchParams?.page) || 1
-  const sortColumn = searchParams?.sortColumn || 'id'
+  let sortColumn = searchParams?.sortColumn || 'id'
   const sortDirection = searchParams?.sortDirection || 'asc'
 
-  const { data: serviceRequests, count } = await supabase
-    .from('service_requests')
-    .select('*, technicians(id, name, email), service_types(*), tenants(*)', { count: 'exact' })
-    .order(sortColumn, { ascending: sortDirection === 'asc' })
-    .range((currentPage - 1) * pageSize, currentPage * pageSize - 1)
+  let serviceRequests
+  let serviceRequestsCount = 0
 
-  const totalPages = Math.ceil((count || 0) / pageSize)
+  if (sortColumn === 'service_types') {
+    let { data: sr, count } = await supabase
+      .from('service_requests')
+      .select('*, technicians(id, name, email), service_types(id, service_name), tenants(*)', { count: 'exact' })
+      .order('service_types(service_name)', { ascending: sortDirection === 'asc' })
+      .range((currentPage - 1) * pageSize, currentPage * pageSize - 1)
+    serviceRequests = sr
+    serviceRequestsCount = count || 0
+  } else {
+    let { data: sr, count } = await supabase
+      .from('service_requests')
+      .select('*, technicians(id, name, email), service_types(id, service_name), tenants(*)', { count: 'exact' })
+      .order(sortColumn, { ascending: sortDirection === 'asc' })
+      .range((currentPage - 1) * pageSize, currentPage * pageSize - 1)
+    serviceRequests = sr
+    serviceRequestsCount = count || 0
+  }
+
+  const totalPages = Math.ceil(serviceRequestsCount / pageSize)
   return (
     <div>
       <Suspense key={'' + currentPage + sortDirection + sortColumn} fallback={<ServiceRequestTableSkeleton />}>

@@ -1,4 +1,3 @@
-// components/ServiceTypeTable.tsx
 'use client'
 import React from 'react'
 import { ColumnDef, useReactTable, getCoreRowModel, flexRender } from '@tanstack/react-table'
@@ -7,6 +6,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { ServiceRequest, ServiceType, Tenant, Technician } from '@/utils/servicerequest.types' // todo import from supabase types
 import { serviceTypes } from '@/utils/serviceTypes'
+import dayjs from 'dayjs'
 
 interface ServiceRequestTableProps {
   data: ServiceRequest[]
@@ -28,11 +28,13 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
   const pathname = usePathname()
 
   const handleSort = (column: string) => {
-    const newSortDirection = sortColumn === column && sortDirection === 'asc' ? 'desc' : 'asc'
-    const params = new URLSearchParams(searchParams ? searchParams.toString() : undefined)
-    params.set('sortColumn', column)
-    params.set('sortDirection', newSortDirection)
-    router.push(`${pathname}?${params.toString()}`)
+    if (column !== 'technicians') {
+      const newSortDirection = sortColumn === column && sortDirection === 'asc' ? 'desc' : 'asc'
+      const params = new URLSearchParams(searchParams ? searchParams.toString() : undefined)
+      params.set('sortColumn', column)
+      params.set('sortDirection', newSortDirection)
+      router.push(`${pathname}?${params.toString()}`)
+    }
   }
 
   const pascalToSnakeCase = (value: string) => {
@@ -52,8 +54,8 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
       header: 'Description',
     },
     {
-      accessorKey: 'tenants',
-      header: 'Reported By',
+      accessorKey: 'date_created',
+      header: 'Created',
     },
     {
       accessorKey: 'service_types',
@@ -82,12 +84,18 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
     <div style={{ margin: '15px' }}>
       <table>
         <thead>
-          {table.getHeaderGroups().map((headerGroup) => (
+          {table.getHeaderGroups().map((headerGroup: any) => (
             <tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
+              {headerGroup.headers.map((header: any) => (
                 <th
                   key={header.id}
-                  style={{ textAlign: 'left', fontWeight: '300', fontSize: '1.2rem', cursor: 'pointer' }}
+                  id={header.id}
+                  style={{
+                    textAlign: 'left',
+                    fontWeight: '300',
+                    fontSize: '1.2rem',
+                    cursor: `${header.id !== 'technicians' ? 'pointer' : ''}`,
+                  }}
                   onClick={() => handleSort(header.id)}>
                   {flexRender(header.column.columnDef.header, header.getContext())}
                   {sortColumn === header.id ? (sortDirection === 'asc' ? '↑' : '↓') : ''}
@@ -97,15 +105,15 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
           ))}
         </thead>
         <tbody>
-          {table.getRowModel().rows.map((row) => {
+          {table.getRowModel().rows.map((row: any) => {
             const serviceRequestId = row.getValue('id') as string
             return (
               <tr key={row.id}>
-                {row.getVisibleCells().map((cell) => {
+                {row.getVisibleCells().map((cell: any) => {
                   if (cell.column.id === 'description') {
                     const link = `/servicerequests/${serviceRequestId}`
                     return (
-                      <td key={cell.id}>
+                      <td key={cell.id} style={{ width: '50%', minWidth: '20rem' }}>
                         <Link href={link} style={{ marginRight: '15px' }}>
                           {flexRender(cell.column.columnDef.cell, cell.getContext())}
                         </Link>
@@ -125,8 +133,15 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                   }
                   if (cell.column.id === 'tenants') {
                     const tenant = cell.getValue() as Tenant
-                    // const link = `/servicerequests/new/${pascalToSnakeCase(serviceType.service_name)}` // todo once we have a tenant page
                     return <td key={cell.id}>{tenant.name}</td>
+                  }
+                  if (cell.column.id === 'date_created') {
+                    const formattedDate = dayjs(cell.getValue()).toDate().toLocaleString('en-US')
+                    return (
+                      <td key={cell.id} style={{ marginRight: '15px' }}>
+                        {formattedDate}
+                      </td>
+                    )
                   }
                   if (cell.column.id === 'technicians') {
                     const technicians = cell.getValue() as Technician[]

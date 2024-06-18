@@ -4,7 +4,10 @@ serviceTypes.set('Safety', { displayName: 'Safety', image: 'safety.svg' })
 serviceTypes.set('Hvac', { displayName: 'Heating and Cooling', image: 'heating_and_cooling.svg' })
 serviceTypes.set('Pests', { displayName: 'Pests', image: 'pests.svg' })
 serviceTypes.set('Safety', { displayName: 'Safety', image: 'safety.svg' })
-serviceTypes.set('FloorsWallsDoorsWindows', { displayName: 'Walls, Doors, Windows', image: 'doors_and_windows.svg' })
+serviceTypes.set('FloorsWallsDoorsWindows', {
+  displayName: 'Floors Walls Doors Windows',
+  image: 'doors_and_windows.svg',
+})
 serviceTypes.set('Electrical', { displayName: 'Electrical', image: 'electrical.svg' })
 serviceTypes.set('Broadband', { displayName: 'Broadband', image: 'broadband.svg' })
 serviceTypes.set('Laundry', { displayName: 'Laundry', image: 'laundry.svg' })
