@@ -8,6 +8,7 @@ type TColors = Readonly<{
   leaf: string
   pansy: string
   background: string
+  dataBackground: string
   foreground: string
   link: string
   navigationLink: string

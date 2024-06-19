@@ -16,6 +16,7 @@ export const marigoldColors = stylex.defineVars({
   leafHighlight: leafHighlight,
   pansy: pansy,
   background: {default: 'rgb(222 222 222)',[DARK]: 'rgb(116 116 116)'},
+  dataBackground: {default: 'rgb(240 240 240)',[DARK]: 'rgb(116 116 116)'},
   foreground: {default: 'rgb(16 16 16)',[DARK]: 'rgb(222 222 222)'},
   navigationLink: {default: pansy,[DARK]: environmentBrown},
   link: {default: pansy,[DARK]: leafHighlight},

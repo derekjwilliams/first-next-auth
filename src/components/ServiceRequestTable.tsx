@@ -7,6 +7,47 @@ import Link from 'next/link'
 import { ServiceRequest, ServiceType, Tenant, Technician } from '@/utils/servicerequest.types' // todo import from supabase types
 import { serviceTypes } from '@/utils/serviceTypes'
 import dayjs from 'dayjs'
+import * as stylex from '@stylexjs/stylex'
+import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
+// import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
+import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
+import { fonts } from '../app/globalTokens.stylex'
+
+const styles = stylex.create({
+  html: {
+    colorScheme: 'light dark',
+  },
+  reset: {
+    minHeight: '100%',
+    margin: 0,
+    padding: 0,
+  },
+  body: {
+    fontFamily: `${fonts.appFont}, -apple-system, BlinkMacSystemFont, Arial`,
+  },
+  dataWrapper: {
+    padding: sizes.spacing2,
+    borderWidth: '10px',
+  },
+  table: {
+    // width: '100%',
+    margin: sizes.spacing2,
+    backgroundColor: `${marigoldColors.dataBackground}`,
+    // paddingLeft: sizes.spacing2,
+    // paddingTop: sizes.spacing2,
+    borderCollapse: 'collapse',
+    tableLayout: 'fixed',
+    width: 'auto', // overrides the :where width: fit-width from normalize.css
+  },
+})
+
+/*
+          borderCollapse: 'collapse',
+          // outline: '1px solid rgb(208, 215, 222)',
+          tableLayout: 'fixed',
+          margin: '15px',
+          width: 'auto', // overrides the :where width: fit-width from normalize.css
+*/
 
 interface ServiceRequestTableProps {
   data: ServiceRequest[]
@@ -81,20 +122,9 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
   })
 
   return (
-    <div style={{ margin: '15px' }}>
-      <table
-        style={{
-          borderCollapse: 'collapse',
-          borderTopRightRadius: '12px',
-          borderTopLeftRadius: '12px',
-          outlineOffset: '-1px',
-          margin: '15px',
-          outline: '1px solid rgb(208, 215, 222)',
-          tableLayout: 'fixed',
-          marginLeft: '15px',
-          marginRight: 'auto',
-        }}>
-        <thead style={{ backgroundColor: 'rgb(246, 248, 250)' }}>
+    <div {...stylex.props(styles.dataWrapper)}>
+      <table {...stylex.props(styles.table)}>
+        <thead>
           {table.getHeaderGroups().map((headerGroup: any) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header: any) => (
@@ -102,11 +132,14 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                   key={header.id}
                   id={header.id}
                   style={{
+                    border: `1px solid ${marigoldColors.foreground}`,
+                    color: marigoldColors.foreground,
                     textAlign: 'left',
                     fontWeight: '300',
                     fontSize: '1.2rem',
                     padding: '10px',
                     cursor: `${header.id !== 'technicians' ? 'pointer' : ''}`,
+                    backgroundColor: marigoldColors.background,
                   }}
                   onClick={() => handleSort(header.id)}>
                   {flexRender(header.column.columnDef.header, header.getContext())}
@@ -128,6 +161,7 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                       <td
                         key={cell.id}
                         style={{
+                          textAlign: 'left',
                           width: '40rem',
                           minWidth: '10rem',
                           border: '1px solid rgb(208, 215, 222)',
@@ -147,7 +181,12 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                     return (
                       <td
                         key={cell.id}
-                        style={{ padding: '10px', border: '1px solid rgb(208, 215, 222)', verticalAlign: 'top' }}>
+                        style={{
+                          padding: '10px',
+                          border: '1px solid rgb(208, 215, 222)',
+                          verticalAlign: 'top',
+                          textAlign: 'left',
+                        }}>
                         <Link href={link}>{serviceTypes.get(serviceType.service_name).displayName}</Link>
                       </td>
                     )
@@ -166,6 +205,7 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                           marginRight: '15px',
                           border: '1px solid rgb(208, 215, 222)',
                           verticalAlign: 'top',
+                          textAlign: 'left',
                         }}>
                         {formattedDate}
                       </td>
@@ -179,11 +219,11 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                         <td
                           key={cell.id}
                           style={{
-                            // minWidth: '15rem',
                             border: '1px solid rgb(208, 215, 222)',
                             padding: '10px',
                             verticalAlign: 'top',
                             width: '10rem',
+                            textAlign: 'left',
                           }}>
                           {technicians.map((technician) => {
                             return (
@@ -199,7 +239,9 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                       )
                     }
                     return (
-                      <td key={cell.id} style={{ border: '1px solid rgb(208, 215, 222)', padding: '10px' }}>
+                      <td
+                        key={cell.id}
+                        style={{ border: '1px solid rgb(208, 215, 222)', padding: '10px', textAlign: 'left' }}>
                         None Assigned
                       </td>
                     )

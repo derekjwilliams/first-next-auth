@@ -1,22 +1,27 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&display=swap');
-@import "./open-props.min.css";
-/* @import "./normalize.min.css"; */
+@import './open-props.min.css';
+/* @import './normalize.min.css'; */
+/* @import './buttons.css'; */
+/* @import 'https://unpkg.com/open-props/buttons.min.css'; */
 
 /*@import "https://unpkg.com/open-props";
 @import "https://unpkg.com/open-props/normalize.min.css";
-/* @import "https://unpkg.com/open-props/buttons.min.css";  */
+@import "https://unpkg.com/open-props/buttons.min.css";
 /* Reset */
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
-html { 
+html {
   color-scheme: dark light;
 }
 
-picture, svg, video {
+picture,
+svg,
+video {
   display: block;
   max-width: 100%;
 }
@@ -59,16 +64,15 @@ picture, svg, video {
   grid-column: a1 / a6;
 }
 
-
 /* buttons */
 
 .button {
   display: inline-flex;
   white-space: nowrap;
-  
+
   font-size: var(--font-size-fluid-1);
   font-weight: var(--font-weight-7);
-  
+
   padding-inline: var(--size-6);
   padding-block: var(--size-3);
 
@@ -76,17 +80,17 @@ picture, svg, video {
   border: var(--border-size-2) solid var(--blue-5);
   background-color: transparent;
   border-radius: var(--radius-2);
-  
+
   &:is(:hover, :focus) {
     cursor: pointer;
     color: var(--blue-0);
     background-color: var(--blue-5);
-    
+
     @nest .light & {
       text-shadow: 0 1px 0 var(--blue-8);
     }
   }
-  
+
   &:active:not(:focus-visible) {
     position: relative;
   }
@@ -94,7 +98,7 @@ picture, svg, video {
   @nest .dark & {
     border-color: var(--blue-3);
     color: var(--blue-1);
-    
+
     &:hover {
       background-color: var(--blue-3);
       color: black;
@@ -102,58 +106,55 @@ picture, svg, video {
   }
 }
 
-
-@media
- (prefers-reduced-motion: no-preference) {
+@media (prefers-reduced-motion: no-preference) {
   .button:focus {
-    transition: outline-offset .25s ease;
+    transition: outline-offset 0.25s ease;
   }
   .button:focus:not(:active) {
     outline-offset: 5px;
   }
 }
 
-
 /* See https://adrianroselli.com/2019/09/under-engineered-text-boxen.html */
 
 textarea,
-input:not([type="checkbox"]):not([type="file"]):not([type="image"]):not([type="radio"]):not([type="range"]) {
+input:not([type='checkbox']):not([type='file']):not([type='image']):not([type='radio']):not([type='range']) {
   font: inherit;
   letter-spacing: inherit;
   word-spacing: inherit;
-  padding: 0.5rem
+  padding: 0.5rem;
 }
 
 textarea:focus,
-input:not([type="checkbox"]):not([type="file"]):not([type="image"]):not([type="radio"]):not([type="range"]):focus {
+input:not([type='checkbox']):not([type='file']):not([type='image']):not([type='radio']):not([type='range']):focus {
   outline: 0.15em solid #00f;
   box-shadow: 0 0 0.2em #00f;
 }
 
-textarea[aria-invalid="true"],
-textarea[aria-invalid="spelling"],
-textarea[aria-invalid="grammar"],
-input:not([type="checkbox"]):not([type="file"]):not([type="image"]):not([type="radio"]):not([type="range"])[aria-invalid] {
-  background: linear-gradient(135deg, rgba(255,0,0,1) 0, rgba(255,0,0,1) .4em, rgba(255,255,255,1) .4em);
+textarea[aria-invalid='true'],
+textarea[aria-invalid='spelling'],
+textarea[aria-invalid='grammar'],
+input:not([type='checkbox']):not([type='file']):not([type='image']):not([type='radio']):not(
+    [type='range']
+  )[aria-invalid] {
+  background: linear-gradient(135deg, rgba(255, 0, 0, 1) 0, rgba(255, 0, 0, 1) 0.4em, rgba(255, 255, 255, 1) 0.4em);
 }
 @media print {
   body {
     font-size: 8pt;
   }
 }
-input[type="text"]:-webkit-autofill,
-input[type="text"]:-webkit-autofill:hover,
-input[type="text"]:-webkit-autofill:focus,
-input[type="password"]:-webkit-autofill,
-input[type="password"]:-webkit-autofill:hover,
-input[type="password"]:-webkit-autofill:focus {
-    zoom: 1.16666;
+input[type='text']:-webkit-autofill,
+input[type='text']:-webkit-autofill:hover,
+input[type='text']:-webkit-autofill:focus,
+input[type='password']:-webkit-autofill,
+input[type='password']:-webkit-autofill:hover,
+input[type='password']:-webkit-autofill:focus {
+  zoom: 1.16666;
 }
 
-input[type="text"]:-webkit-autofill::first-line, input[type="password"]:-webkit-autofill::first-line {
-    font-size: 0.81333rem;
-    line-height: 1.5;
+input[type='text']:-webkit-autofill::first-line,
+input[type='password']:-webkit-autofill::first-line {
+  font-size: 0.81333rem;
+  line-height: 1.5;
 }
-
-
-

@@ -163,7 +163,7 @@ export default async function Page() {
           <div {...stylex.props(servicePage.grid)}>{serviceLinks}</div>
         </main>
       </div>
-      <footer className='w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs'></footer>
+      <footer></footer>
     </div>
   )
 }
