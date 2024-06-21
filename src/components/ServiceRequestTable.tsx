@@ -12,6 +12,7 @@ import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 // import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
 import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
 import { fonts } from '../app/globalTokens.stylex'
+import ServiceRequestDropdownMenu from './ServiceRequestDropdownMenu'
 
 const styles = stylex.create({
   html: {
@@ -126,13 +127,15 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
       <table {...stylex.props(styles.table)}>
         <thead>
           {table.getHeaderGroups().map((headerGroup: any) => (
-            <tr key={headerGroup.id}>
+            <tr
+              key={headerGroup.id}
+              style={{ backgroundColor: marigoldColors.background, border: `1px solid ${marigoldColors.background}` }}>
               {headerGroup.headers.map((header: any) => (
                 <th
                   key={header.id}
                   id={header.id}
                   style={{
-                    border: `1px solid ${marigoldColors.foreground}`,
+                    border: `1px solid ${marigoldColors.background}`,
                     color: marigoldColors.foreground,
                     textAlign: 'left',
                     fontWeight: '300',
@@ -146,6 +149,7 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                   {sortColumn === header.id ? (sortDirection === 'asc' ? '↑' : '↓') : ''}
                 </th>
               ))}
+              <th></th>
             </tr>
           ))}
         </thead>
@@ -252,6 +256,14 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                     </td>
                   )
                 })}
+                <td
+                  style={{
+                    border: '1px solid rgb(208, 215, 222)',
+                    verticalAlign: 'top',
+                  }}>
+                  {' '}
+                  <ServiceRequestDropdownMenu></ServiceRequestDropdownMenu>
+                </td>
               </tr>
             )
           })}

@@ -2,7 +2,7 @@
 stylexPlugin = require('@stylexjs/nextjs-plugin')
 const nextConfig = {
   experimental: {
-    reactCompiler: true,
+    reactCompiler: false,
   },
   reactStrictMode: true,
   optimizeFonts: false,

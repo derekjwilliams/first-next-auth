@@ -7,11 +7,14 @@ import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
 import React, { useState } from 'react'
 
 const menuStyles = stylex.create({
-  showHamburger: (display) => ({
+  showNav: (display) => ({
     display: {
       default: display,
       '@media (min-width: 768px)': 'block',
     },
+  }),
+  showHamburger: (display) => ({
+    display,
   }),
   showClosedBurger: (display) => ({
     display,
@@ -19,6 +22,12 @@ const menuStyles = stylex.create({
 })
 
 const styles = stylex.create({
+  responsiveNavButton: {
+    display: {
+      default: 'block',
+      '@media (min-width: 768px)': 'none',
+    },
+  },
   base: {
     padding: sizes.spacing2,
     fontSize: fonts.size2,
@@ -87,50 +96,48 @@ export default function Navigation() {
   const [hamburger, setHamburgerVisible] = useState('block')
   const [closedBurger, setClosedBurgerVisible] = useState('none')
   const toggleMenu = () => {
-    if (window.innerWidth <= 768) {
-      setHamburgerVisible(hamburger !== 'block' ? 'block' : 'none')
-      setClosedBurgerVisible(closedBurger !== 'block' ? 'block' : 'none')
-    }
+    console.log('toggleMenu')
+    console.log('hamburger', hamburger)
+    console.log('closedBurger', closedBurger)
+    setHamburgerVisible(hamburger !== 'block' ? 'block' : 'none')
+    setClosedBurgerVisible(closedBurger !== 'block' ? 'block' : 'none')
   }
 
   return (
     <header {...stylex.props(styles.header)}>
-      <button
-        {...stylex.props(styles.mobileNavigationToggle)}
-        id='navigation__toggle'
-        aria-controls='primary-navigation'
-        onClick={toggleMenu}>
-        <img
-          src='/images/icon-hamburger.svg'
-          alt=''
-          {...stylex.props(styles.iconHamburger, menuStyles.showHamburger(hamburger))}></img>
-        <img
-          src='/images/icon-close.svg'
-          alt=''
-          {...stylex.props(styles.iconClosedBurger, menuStyles.showClosedBurger(closedBurger))}></img>
-        <span {...stylex.props(styles.visuallyHidden)}>Menu</span>
-      </button>
-      <nav
-        className='navigation'
-        id='primary-navigation'
-        {...stylex.props(styles.base, menuStyles.showHamburger(closedBurger))}>
+      <div {...stylex.props(styles.responsiveNavButton)}>
+        <button
+          {...stylex.props(styles.mobileNavigationToggle)}
+          id='navigation__toggle'
+          aria-controls='primary-navigation'
+          onClick={toggleMenu}>
+          <div {...stylex.props(styles.iconHamburger, menuStyles.showHamburger(hamburger))}>
+            <img src='/images/icon-hamburger.svg' alt=''></img>
+          </div>
+          <div {...stylex.props(styles.iconClosedBurger, menuStyles.showClosedBurger(closedBurger))}>
+            <img src='/images/icon-close.svg' alt=''></img>
+          </div>
+          <span {...stylex.props(styles.visuallyHidden)}>Menu</span>
+        </button>
+      </div>
+      <nav id='primary-navigation' {...stylex.props(styles.base, menuStyles.showNav(closedBurger))}>
         <ul {...stylex.props(styles.navigationList)}>
-          <li {...stylex.props(styles.item)}>
+          <li key='properties' {...stylex.props(styles.item)}>
             <Link {...stylex.props(styles.link)} href='/properties'>
               Properties
             </Link>
           </li>
-          <li {...stylex.props(styles.item)}>
+          <li key='servicerequests' {...stylex.props(styles.item)}>
             <Link {...stylex.props(styles.link)} href='/servicerequests/new'>
               Service Requests
             </Link>
           </li>
-          <li {...stylex.props(styles.item)}>
+          <li key='technicians' {...stylex.props(styles.item)}>
             <Link {...stylex.props(styles.link)} href='/technicians'>
               Technicians
             </Link>
           </li>
-          <li {...stylex.props(styles.item)}>
+          <li key='rentals' {...stylex.props(styles.item)}>
             <Link {...stylex.props(styles.link)} href='/rentals'>
               Available Rentals
             </Link>
