@@ -10,9 +10,12 @@ import dayjs from 'dayjs'
 import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 // import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
+import { colors } from '@stylexjs/open-props/lib/colors.stylex'
 import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
 import { fonts } from '../app/globalTokens.stylex'
 import ServiceRequestDropdownMenu from './ServiceRequestDropdownMenu'
+import * as Checkbox from '@radix-ui/react-checkbox'
+import { CheckIcon } from '@radix-ui/react-icons'
 
 const styles = stylex.create({
   html: {
@@ -39,6 +42,34 @@ const styles = stylex.create({
     borderCollapse: 'collapse',
     tableLayout: 'fixed',
     width: 'auto', // overrides the :where width: fit-width from normalize.css
+  },
+})
+const requestCard = stylex.create({
+  base: {
+    margin: sizes.spacing2,
+    display: 'flex',
+    alignItems: 'center',
+  },
+  checkboxRoot: {
+    backgroundColor: 'white',
+    width: 25,
+    height: 25,
+    borderRadius: '4px',
+    padding: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: colors.gray6,
+    borderStyle: 'solid',
+    borderWidth: 2,
+    marginRight: sizes.spacing2,
+  },
+  checkboxIndicator: {
+    padding: 0,
+  },
+  checkIcon: {
+    color: '#1d2496',
+    height: '100%',
+    width: '100%',
   },
 })
 
@@ -130,6 +161,7 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
             <tr
               key={headerGroup.id}
               style={{ backgroundColor: marigoldColors.background, border: `1px solid ${marigoldColors.background}` }}>
+              <th></th>
               {headerGroup.headers.map((header: any) => (
                 <th
                   key={header.id}
@@ -149,7 +181,14 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                   {sortColumn === header.id ? (sortDirection === 'asc' ? '↑' : '↓') : ''}
                 </th>
               ))}
-              <th></th>
+              <th
+                style={{
+                  border: '1px solid rgb(208, 215, 222)',
+                  verticalAlign: 'top',
+                }}>
+                {' '}
+                <ServiceRequestDropdownMenu></ServiceRequestDropdownMenu>
+              </th>
             </tr>
           ))}
         </thead>
@@ -158,6 +197,13 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
             const serviceRequestId = row.getValue('id') as string
             return (
               <tr key={row.id}>
+                <td>
+                  <Checkbox.Root {...stylex.props(requestCard.checkboxRoot)} id={serviceRequestId}>
+                    <Checkbox.Indicator {...stylex.props(requestCard.checkboxIndicator)}>
+                      <CheckIcon {...stylex.props(requestCard.checkIcon)} />
+                    </Checkbox.Indicator>
+                  </Checkbox.Root>
+                </td>
                 {row.getVisibleCells().map((cell: any) => {
                   if (cell.column.id === 'description') {
                     const link = `/servicerequests/${serviceRequestId}`
