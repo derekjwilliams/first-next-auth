@@ -29,15 +29,16 @@ const styles = stylex.create({
     },
   },
   base: {
-    padding: sizes.spacing2,
+    paddingBottom: sizes.spacing1,
     fontSize: fonts.size2,
   },
   header: {
-    width: '100%',
+    display: 'inline-flex',
+    // width: '100%',
   },
   navigationList: {
     listStyle: 'none',
-    padding: sizes.spacing2,
+    // padding: sizes.spacing2,
     margin: 0,
     backgroundColor: marigoldColors.flowerYellow,
   },
