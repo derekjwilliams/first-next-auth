@@ -96,9 +96,6 @@ export default function Navigation() {
   const [hamburger, setHamburgerVisible] = useState('block')
   const [closedBurger, setClosedBurgerVisible] = useState('none')
   const toggleMenu = () => {
-    console.log('toggleMenu')
-    console.log('hamburger', hamburger)
-    console.log('closedBurger', closedBurger)
     setHamburgerVisible(hamburger !== 'block' ? 'block' : 'none')
     setClosedBurgerVisible(closedBurger !== 'block' ? 'block' : 'none')
   }
