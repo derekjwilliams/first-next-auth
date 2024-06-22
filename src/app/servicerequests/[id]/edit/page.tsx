@@ -11,20 +11,30 @@ export default async function Page({ params }: { params: { id: string } }) {
     .eq(`id`, id)
     .single()
 
+  let { data: technicians } = await supabase.from('technicians').select('*')
+
+  let { data: serviceTypes } = await supabase.from('service_types').select('*')
+
   console.log(JSON.stringify(serviceRequest, null, 2))
-  return <EditServiceRequestForm serviceRequest={serviceRequest}></EditServiceRequestForm>
-  return <div>{JSON.stringify(serviceRequest, null, 2)}</div>
-  // return client
-  //   ?.from('service_requests')
-  //   .select('id, description, technicians(id, name, email)')
-  //   .eq(`id`, id)
-  //   .throwOnError()
-  //   .single()
+  return (
+    <EditServiceRequestForm
+      serviceRequest={serviceRequest}
+      availableTechnicians={technicians ?? []}
+      availableServiceTypes={serviceTypes ?? []}></EditServiceRequestForm>
+  )
 }
 
 import { Tables } from '@/utils/database.types'
-
-function EditServiceRequestForm({ serviceRequest }: { serviceRequest: Tables<'service_requests'> }) {
+import { serviceTypes } from '@/utils/serviceTypes'
+function EditServiceRequestForm({
+  serviceRequest,
+  availableTechnicians,
+  availableServiceTypes,
+}: {
+  serviceRequest: Tables<'service_requests'>
+  availableTechnicians: Tables<'technicians'>[]
+  availableServiceTypes: Tables<'service_types'>[]
+}) {
   return (
     <form>
       <div>
@@ -32,14 +42,39 @@ function EditServiceRequestForm({ serviceRequest }: { serviceRequest: Tables<'se
         <div>
           <label htmlFor='description'>Description</label>
           <div>
-            <input
+            <textarea
               id='description'
               name='description'
-              type='string'
               defaultValue={serviceRequest.description ?? ''}
               placeholder='description'
+              style={{ width: '40rem' }}
             />
           </div>
+        </div>
+        {/* Technicians Checkboxes */}
+        <div>
+          {availableTechnicians.map((technician) => (
+            <div key={technician.id}>
+              <input type='checkbox' id={`technician_${technician.id}`} name={`technician_${technician.id}`} />
+              <label htmlFor={`technician_${technician.id}`}>{technician.name}</label>
+            </div>
+          ))}
+          {/* Service Type Select */}
+        </div>
+        <div>
+          <select
+            id='available_service_types'
+            name='available_service_types_id'
+            defaultValue={serviceRequest.service_type_id ?? ''}>
+            <option value='' disabled>
+              Select a service type
+            </option>
+            {availableServiceTypes.map((serviceType) => (
+              <option key={serviceType.id} value={serviceType.id}>
+                {serviceType.service_name}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
     </form>
