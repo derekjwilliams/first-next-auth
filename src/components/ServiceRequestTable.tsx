@@ -198,7 +198,10 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
             return (
               <tr key={row.id}>
                 <td>
-                  <Checkbox.Root {...stylex.props(requestCard.checkboxRoot)} id={serviceRequestId}>
+                  <Checkbox.Root
+                    {...stylex.props(requestCard.checkboxRoot)}
+                    id={`request_${serviceRequestId}`}
+                    key={`request_${serviceRequestId}`}>
                     <Checkbox.Indicator {...stylex.props(requestCard.checkboxIndicator)}>
                       <CheckIcon {...stylex.props(requestCard.checkIcon)} />
                     </Checkbox.Indicator>

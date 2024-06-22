@@ -55,15 +55,18 @@ export default function LocationDetail({ id }: { id: string | null }) {
             return (
               <div key={serviceRequest.id} {...stylex.props(locations.base)}>
                 <Link href={`/servicerequests/${serviceRequest.id}`}>{serviceRequest.description}</Link>
-                <div {...stylex.props(locations.assignments)}>
-                  {serviceRequest.technicians.map((technician: any) => {
-                    return (
-                      <div key={technician.id} {...stylex.props(locations.assignments)}>
-                        assigned to: <Link href={`/technicians/${technician.id}`}>{technician.name}</Link>
-                      </div>
-                    )
-                  })}
-                </div>
+                {serviceRequest.technicians.length > 0 && (
+                  <div {...stylex.props(locations.assignments)}>
+                    assigned to:
+                    {serviceRequest.technicians.map((technician: any) => {
+                      return (
+                        <div key={technician.id} {...stylex.props(locations.assignments)}>
+                          <Link href={`/technicians/${technician.id}`}>{technician.name}</Link>
+                        </div>
+                      )
+                    })}
+                  </div>
+                )}
               </div>
             )
           })}
