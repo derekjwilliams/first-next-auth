@@ -1,3 +1,4 @@
+import { updateServiceRequest } from '@/lib/actions'
 import { createClient } from '@/lib/supabase/client'
 import { Tables } from '@/utils/database.types'
 import { QueryData } from '@supabase/supabase-js'
@@ -39,10 +40,10 @@ function EditServiceRequestForm({
   availableServiceTypes: Tables<'service_types'>[]
 }) {
   const assignedTechnicianIds = serviceRequest.technicians.map((t: { id: string }) => t.id)
-  // <form onSubmit={onUpdateServiceRequest}>
-
+  const availableTechnicianIds = availableTechnicians.map((t) => t.id)
+  const updateServiceRequestWithId = updateServiceRequest.bind(null, serviceRequest.id, availableTechnicianIds)
   return (
-    <form>
+    <form action={updateServiceRequestWithId}>
       <div>
         {/* Service Request Description */}
         <div>
@@ -63,9 +64,10 @@ function EditServiceRequestForm({
             <div key={technician.id}>
               <input
                 type='checkbox'
+                defaultChecked={assignedTechnicianIds.includes(technician.id)}
                 id={`technician_${technician.id}`}
                 name={`technician_${technician.id}`}
-                checked={assignedTechnicianIds.includes(technician.id)}
+                // checked={assignedTechnicianIds.includes(technician.id)}
               />
               <label htmlFor={`technician_${technician.id}`}>{technician.name}</label>
             </div>
@@ -73,10 +75,7 @@ function EditServiceRequestForm({
           {/* Service Type Select */}
         </div>
         <div>
-          <select
-            id='available_service_types'
-            name='available_service_types_id'
-            defaultValue={serviceRequest.service_type_id ?? ''}>
+          <select id='service_types' name='service_types' defaultValue={serviceRequest.service_type_id ?? ''}>
             <option value='' disabled>
               Select a service type
             </option>
@@ -88,6 +87,7 @@ function EditServiceRequestForm({
           </select>
         </div>
       </div>
+      <button type='submit'>Save Changes</button>
     </form>
   )
 }
