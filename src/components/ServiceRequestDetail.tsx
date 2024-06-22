@@ -61,22 +61,24 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
     )
   }
   return (
-    <form>
-      <div {...stylex.props(requests.base)}>
-        <div key={serviceRequest.id} {...stylex.props(requestCard.base)}>
-          {serviceRequest.description}
-        </div>
+    // <form>
+    <div {...stylex.props(requests.base)}>
+      <Link href={`/servicerequests/${id}/edit`}>Edit</Link>
+
+      <div key={serviceRequest.id} {...stylex.props(requestCard.base)}>
+        {serviceRequest.description}
+      </div>
+      <div>
+        <h2>Technicians Assigned</h2>
         <div>
-          <h2>Technicians Assigned</h2>
-          <div>
-            {serviceRequest.technicians.map((technician: any) => (
-              <div key={serviceRequest.id}>
-                <Link href={`/technicians/${technician.id}`}>{technician.name}</Link>
-              </div>
-            ))}
-          </div>
+          {serviceRequest.technicians.map((technician: any) => (
+            <div key={serviceRequest.id}>
+              <Link href={`/technicians/${technician.id}`}>{technician.name}</Link>
+            </div>
+          ))}
         </div>
       </div>
-    </form>
+    </div>
+    // </form>
   )
 }
