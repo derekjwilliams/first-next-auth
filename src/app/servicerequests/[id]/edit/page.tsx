@@ -38,8 +38,8 @@ function EditServiceRequestForm({
   availableTechnicians: Tables<'technicians'>[]
   availableServiceTypes: Tables<'service_types'>[]
 }) {
-  const serviceRequestServiceTypeId = serviceRequest.service_types.id
   const assignedTechnicianIds = serviceRequest.technicians.map((t: { id: string }) => t.id)
+  // <form onSubmit={onUpdateServiceRequest}>
 
   return (
     <form>
