@@ -1,21 +1,26 @@
 import { createClient } from '@/lib/supabase/client'
+import { Tables } from '@/utils/database.types'
+import { QueryData } from '@supabase/supabase-js'
 
 export default async function Page({ params }: { params: { id: string } }) {
   const id = params.id
   // get this service request by id
   const supabase = await createClient()
-
-  let { data: serviceRequest } = await supabase
+  // let { data: serviceRequest }
+  const serviceRequestWithChildrenQuery = supabase
     .from('service_requests')
     .select('*, technicians(id, name, email), service_types(id, service_name), tenants(*)', { count: 'exact' })
     .eq(`id`, id)
     .single()
 
+  type ServiceRequestWithChildren = QueryData<typeof serviceRequestWithChildrenQuery>
+  const { data: serviceRequest, error }: { data: ServiceRequestWithChildren; error: any } =
+    await serviceRequestWithChildrenQuery
+
   let { data: technicians } = await supabase.from('technicians').select('*')
 
   let { data: serviceTypes } = await supabase.from('service_types').select('*')
 
-  console.log(JSON.stringify(serviceRequest, null, 2))
   return (
     <EditServiceRequestForm
       serviceRequest={serviceRequest}
@@ -24,8 +29,6 @@ export default async function Page({ params }: { params: { id: string } }) {
   )
 }
 
-import { Tables } from '@/utils/database.types'
-import { serviceTypes } from '@/utils/serviceTypes'
 function EditServiceRequestForm({
   serviceRequest,
   availableTechnicians,
@@ -35,6 +38,9 @@ function EditServiceRequestForm({
   availableTechnicians: Tables<'technicians'>[]
   availableServiceTypes: Tables<'service_types'>[]
 }) {
+  const serviceRequestServiceTypeId = serviceRequest.service_types.id
+  const assignedTechnicianIds = serviceRequest.technicians.map((t: { id: string }) => t.id)
+
   return (
     <form>
       <div>
@@ -55,7 +61,12 @@ function EditServiceRequestForm({
         <div>
           {availableTechnicians.map((technician) => (
             <div key={technician.id}>
-              <input type='checkbox' id={`technician_${technician.id}`} name={`technician_${technician.id}`} />
+              <input
+                type='checkbox'
+                id={`technician_${technician.id}`}
+                name={`technician_${technician.id}`}
+                checked={assignedTechnicianIds.includes(technician.id)}
+              />
               <label htmlFor={`technician_${technician.id}`}>{technician.name}</label>
             </div>
           ))}
