@@ -67,6 +67,7 @@ function EditServiceRequestForm({
           </label>
           <div>
             <textarea
+              rows={4}
               id='description'
               name='description'
               defaultValue={serviceRequest.description ?? ''}
