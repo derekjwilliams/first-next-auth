@@ -11,7 +11,7 @@ export default async function readUserSession() {
 
 export async function updateServiceRequest(id: string, availableTechnicianIds: string[], formData: FormData) {
   const description = formData.get('description') as string
-  const v = formData.get('service_types')
+  const serviceTypeSelected = formData.get('service_types')
   const technicianIds: string[] = []
   for (const [key, value] of formData.entries()) {
     if (key.startsWith('technician_')) {
@@ -19,44 +19,50 @@ export async function updateServiceRequest(id: string, availableTechnicianIds: s
       technicianIds.push(id)
     }
   }
-  if (v?.toString() !== '') {
-    const upsertData = technicianIds.map((technicianId) => ({
+
+  /* empty serviceType is not allowed in database, so don't proceed if it is empty*/
+  if (serviceTypeSelected?.toString() !== '') {
+    const supabase = await createSupabaseServerClient()
+    /* update service type */
+    const { data: updateServiceTypeData, error: updateServiceTypeError } = await supabase
+      .from('service_requests')
+      .update({ description: description, service_type_id: serviceTypeSelected?.toString() })
+      .eq('id', id)
+
+    if (updateServiceTypeError) {
+      console.log('error on updating service request (description)', updateServiceTypeError)
+      throw updateServiceTypeError
+    }
+    console.log('updateServiceTypeData', updateServiceTypeData)
+
+    // add technicians for each technician that is selected (e.g. checked) on the form
+    const techniciansToServiceRequests = technicianIds.map((technicianId) => ({
       service_request_id: id,
       technician_id: technicianId,
     }))
-
-    const supabase = await createSupabaseServerClient()
-
-    const { error } = await supabase // TODO handle error
-      .from('service_requests')
-      .update({ description: description, service_type_id: v?.toString() })
-      .eq('id', id)
-
-    if (error) {
-      throw error
+    const { data: upsertTechniciansData, error: upsertError } = await supabase
+      .from('service_request_technicians')
+      .upsert(techniciansToServiceRequests)
+    if (upsertError) {
+      console.log('error on adding technicians to service request', upsertError)
+      throw upsertError
     }
-
-    const { data, error: e } = await supabase.from('service_request_technicians').upsert(upsertData)
-    if (e) {
-      console.log('error on upsert')
-      console.log(e)
-      throw e
-    }
+    console.log('upsertTechniciansData', upsertTechniciansData)
 
     // delete technicians that are not checked
     const technicianIdsToDelete = availableTechnicianIds.filter((t) => !technicianIds.includes(t))
 
-    const { data: d, error: deleteError } = await supabase
+    const { data: deleteTechniciansData, error: deleteError } = await supabase
       .from('service_request_technicians')
       .delete()
       .in('technician_id', technicianIdsToDelete)
       .eq('service_request_id', id)
 
     if (deleteError) {
-      console.log('error on delete')
-      console.log(deleteError)
-      throw e
+      console.log('error on deleting technicians from service request', deleteError)
+      throw deleteError
     }
+    console.log('upsertTechniciansData', upsertTechniciansData)
   } // TODO else display an error
   revalidatePath('/servicerequests')
   redirect('/servicerequests')

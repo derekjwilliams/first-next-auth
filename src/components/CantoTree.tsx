@@ -2,13 +2,11 @@
 import { CantoItem, TreeNodeProps } from '@/utils/canto.types'
 import { useState } from 'react'
 import dayjs from 'dayjs'
-import customParseFormat from 'dayjs/plugin/customParseFormat'
 
 export const CantoTreeNode = ({ node }: { node: CantoItem }) => {
   const [showChildren, setShowChildren] = useState(true)
   dayjs('05/02/69 1:02:03 PM -05:00', 'MM/DD/YY H:mm:ss A Z', true)
 
-  //('05/02/69 1:02:03 PM -05:00', 'MM/DD/YY H:mm:ss A Z')
   return (
     <ul>
       <li>
