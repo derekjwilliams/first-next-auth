@@ -11,7 +11,7 @@ import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import { colors } from '@stylexjs/open-props/lib/colors.stylex'
 import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
-import { fonts } from '../app/globalTokens.stylex'
+import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
 import ServiceRequestDropdownMenu from './ServiceRequestDropdownMenu'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { CheckIcon } from '@radix-ui/react-icons'
@@ -25,14 +25,9 @@ const styles = stylex.create({
     margin: 0,
     padding: 0,
   },
-  body: {
-    fontFamily: `${fonts.appFont}, -apple-system, BlinkMacSystemFont, Arial`,
-  },
   dataWrapper: {
     padding: sizes.spacing2,
-    borderWidth: '10px',
     height: '100%',
-    // padding: 0,
     margin: 0,
     display: 'flex',
     flexDirection: 'column',
@@ -40,42 +35,39 @@ const styles = stylex.create({
     justifyContent: 'center',
   },
   table: {
-    // width: '100%',
     margin: sizes.spacing2,
     backgroundColor: `${marigoldColors.dataBackground}`,
-    // paddingLeft: sizes.spacing2,
-    // paddingTop: sizes.spacing2,
     borderCollapse: 'collapse',
     tableLayout: 'fixed',
     width: 'auto', // overrides the :where width: fit-width from normalize.css
   },
   tableRow: {
     backgroundColor: marigoldColors.background,
-    borderWidth: '0px',
+    borderWidth: '1px',
     borderStyle: 'solid',
     borderColor: marigoldColors.background,
   },
   tableHeaderRow: {
-    // backgroundColor: 'red',
-    borderWidth: '0px',
+    borderWidth: '1px',
     borderStyle: 'solid',
     borderColor: marigoldColors.background,
+    height: sizes.spacing8,
     color: marigoldColors.foreground,
     textAlign: 'left',
     fontWeight: 'bold',
-    fontSize: '1.2rem',
+    fontSize: fonts.size3,
     padding: '10px',
-    // cursor: `${header.id !== 'technicians' ? 'pointer' : ''}`,
     backgroundColor: marigoldColors.background,
   },
   tableHead: {
     textAlign: 'left',
+    paddingLeft: '10px',
   },
   tableData: {
     textAlign: 'left',
     borderWidth: '1px',
     borderStyle: 'solid',
-    borderColor: 'rgb(208, 215, 222)',
+    borderColor: marigoldColors.background,
     padding: '10px',
     wordBreak: 'break-word',
     verticalAlign: 'top',
@@ -92,6 +84,10 @@ const styles = stylex.create({
   tableTechnicianData: {
     width: '10rem',
   },
+  tableDropdownData: {
+    width: 'auto',
+    minWidth: 'auto',
+  },
 })
 const requestCard = stylex.create({
   base: {
@@ -100,7 +96,7 @@ const requestCard = stylex.create({
     alignItems: 'center',
   },
   checkboxRoot: {
-    backgroundColor: { default: 'white', ':hover': marigoldColors.flowerYellow, ':focus': marigoldColors.flowerGold },
+    backgroundColor: { default: 'white', ':hover': marigoldColors.flowerYellow },
     width: 25,
     height: 25,
     borderRadius: '4px',
@@ -301,7 +297,7 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                       </td>
                     )
                   })}
-                  <td {...stylex.props(styles.tableData)}>
+                  <td {...stylex.props(styles.tableData, styles.tableDropdownData)}>
                     <ServiceRequestDropdownMenu></ServiceRequestDropdownMenu>
                   </td>
                 </tr>

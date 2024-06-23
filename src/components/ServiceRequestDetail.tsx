@@ -2,7 +2,6 @@
 
 import useServiceRequestQuery from '@/hooks/useServiceRequestQuery'
 import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
-import { colors } from '@stylexjs/open-props/lib/colors.stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 
 import * as stylex from '@stylexjs/stylex'
@@ -24,27 +23,6 @@ const requestCard = stylex.create({
     display: 'flex',
     alignItems: 'center',
   },
-  checkboxRoot: {
-    backgroundColor: 'white',
-    width: 25,
-    height: 25,
-    borderRadius: '4px',
-    padding: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderColor: colors.gray6,
-    borderStyle: 'solid',
-    borderWidth: 2,
-    marginRight: sizes.spacing2,
-  },
-  checkboxIndicator: {
-    padding: 0,
-  },
-  checkIcon: {
-    color: '#1d2496',
-    height: '100%',
-    width: '100%',
-  },
 })
 
 export default function ServiceRequestDetail({ id }: { id: string | null }) {
@@ -61,7 +39,6 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
     )
   }
   return (
-    // <form>
     <div {...stylex.props(requests.base)}>
       <Link href={`/servicerequests/${id}/edit`}>Edit</Link>
 
@@ -72,13 +49,12 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
         <h2>Technicians Assigned</h2>
         <div>
           {serviceRequest.technicians.map((technician: any) => (
-            <div key={serviceRequest.id}>
+            <div key={technician.id}>
               <Link href={`/technicians/${technician.id}`}>{technician.name}</Link>
             </div>
           ))}
         </div>
       </div>
     </div>
-    // </form>
   )
 }

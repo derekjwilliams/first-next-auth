@@ -1,8 +1,23 @@
 import { updateServiceRequest } from '@/lib/actions'
 import { createClient } from '@/lib/supabase/client'
 import { Tables } from '@/utils/database.types'
+import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
+import { marigoldColors } from '../../../../app/customStyles/marigoldColors.stylex'
+import stylex from '@stylexjs/stylex'
 import { QueryData } from '@supabase/supabase-js'
-
+import './styles.css'
+const request = stylex.create({
+  base: {
+    padding: sizes.spacing5,
+    backgroundColor: marigoldColors.background,
+  },
+  technicians: {
+    margin: sizes.spacing00,
+  },
+  technician: {
+    margin: sizes.spacing2,
+  },
+})
 export default async function Page({ params }: { params: { id: string } }) {
   const id = params.id
   // get this service request by id
@@ -44,37 +59,55 @@ function EditServiceRequestForm({
   const updateServiceRequestWithId = updateServiceRequest.bind(null, serviceRequest.id, availableTechnicianIds)
   return (
     <form action={updateServiceRequestWithId}>
-      <div>
+      <div {...stylex.props(request.base)}>
         {/* Service Request Description */}
         <div>
-          <label htmlFor='description'>Description</label>
+          <label htmlFor='description'>
+            <h2>Description</h2>
+          </label>
           <div>
             <textarea
               id='description'
               name='description'
               defaultValue={serviceRequest.description ?? ''}
               placeholder='description'
-              style={{ width: '40rem' }}
+              style={{ width: '40rem', fontSize: '1.3rem' }}
             />
           </div>
         </div>
         {/* Technicians Checkboxes */}
-        <div>
-          {availableTechnicians.map((technician) => (
-            <div key={technician.id}>
-              <input
-                type='checkbox'
-                defaultChecked={assignedTechnicianIds.includes(technician.id)}
-                id={`technician_${technician.id}`}
-                name={`technician_${technician.id}`}
-                // checked={assignedTechnicianIds.includes(technician.id)}
-              />
-              <label htmlFor={`technician_${technician.id}`}>{technician.name}</label>
-            </div>
-          ))}
-          {/* Service Type Select */}
+        <div {...stylex.props(request.technicians)}>
+          <h2>Service Technicians</h2>
+          <div>
+            {availableTechnicians.map((technician) => (
+              <div key={technician.id} {...stylex.props(request.technician)}>
+                <label
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: '1em auto',
+                    gap: '0.5em',
+                    fontSize: '1.2rem',
+                    fontWeight: 'bold',
+                    lineHeight: 1.1,
+                  }}>
+                  <input
+                    type='checkbox'
+                    className='technican_checkbox'
+                    defaultChecked={assignedTechnicianIds.includes(technician.id)}
+                    id={`technician_${technician.id}`}
+                    name={`technician_${technician.id}`}
+                    // checked={assignedTechnicianIds.includes(technician.id)}
+                  />
+                  <span style={{ fontWeight: 'normal' }}>{technician.name}</span>
+                </label>
+                {/* <label htmlFor={`technician_${technician.id}`}>{technician.name}</label> */}
+              </div>
+            ))}
+          </div>
         </div>
+        {/* Service Type Select */}
         <div>
+          <h2>Service Type</h2>
           <select id='service_types' name='service_types' defaultValue={serviceRequest.service_type_id ?? ''}>
             <option value='' disabled>
               Select a service type
@@ -86,44 +119,18 @@ function EditServiceRequestForm({
             ))}
           </select>
         </div>
+        <button
+          type='submit'
+          style={{
+            marginTop: '10px',
+            padding: '10px',
+            fontSize: '1.3rem',
+            borderRadius: '0.5rem',
+            borderWidth: '1.2px',
+          }}>
+          Save Changes
+        </button>
       </div>
-      <button type='submit'>Save Changes</button>
     </form>
   )
 }
-
-// Example response
-/*
-{
-  "description": "Mold on bathroom ceiling at 2105 8th Ave #A",
-  "date_created": "2024-06-10T18:42:36.213372",
-  "date_updated": "2024-06-10T18:42:36.213372",
-  "requested_by": "6ef6b9fc-097c-4431-9f50-5eb902b41d69",
-  "location_id": "9ee9beb8-96ee-46b9-90bf-347fbce9ef7d",
-  "service_type_id": "28bc6a2c-3b18-4fba-a954-766c0d7047c5",
-  "status_id": null,
-  "completed": false,
-  "id": "ba9c1ee3-644f-4d83-b2b8-c592edd35ae4",
-  "steps": null,
-  "technicians": [
-    {
-      "id": "bfb34c56-719c-4360-9fef-07208a71577c",
-      "name": "Derek Williams",
-      "email": "derek61+22@gmail.com"
-    },
-    {
-      "id": "c13cf26e-d61a-4947-bf92-73c2e1a7aca7",
-      "name": "Mark Tiahrt",
-      "email": "mark.tiahrt@outlook.com"
-    }
-  ],
-  "service_types": {
-    "id": "28bc6a2c-3b18-4fba-a954-766c0d7047c5",
-    "service_name": "Safety"
-  },
-  "tenants": {
-    "id": "6ef6b9fc-097c-4431-9f50-5eb902b41d69",
-    "name": "Derek Williams",
-    "email": "derek61+22@gmail.com"
-  }
-}*/
