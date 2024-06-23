@@ -63,7 +63,7 @@ function EditServiceRequestForm({
         {/* Service Request Description */}
         <div>
           <label htmlFor='description'>
-            <h2>Description</h2>
+            <h3>Description</h3>
           </label>
           <div>
             <textarea
@@ -77,7 +77,7 @@ function EditServiceRequestForm({
         </div>
         {/* Technicians Checkboxes */}
         <div {...stylex.props(request.technicians)}>
-          <h2>Service Technicians</h2>
+          <h3>Service Technicians</h3>
           <div>
             {availableTechnicians.map((technician) => (
               <div key={technician.id} {...stylex.props(request.technician)}>
@@ -95,6 +95,7 @@ function EditServiceRequestForm({
                     className='technican_checkbox'
                     defaultChecked={assignedTechnicianIds.includes(technician.id)}
                     id={`technician_${technician.id}`}
+                    key={technician.id}
                     name={`technician_${technician.id}`}
                     // checked={assignedTechnicianIds.includes(technician.id)}
                   />
@@ -107,7 +108,7 @@ function EditServiceRequestForm({
         </div>
         {/* Service Type Select */}
         <div>
-          <h2>Service Type</h2>
+          <h3>Service Type</h3>
           <select id='service_types' name='service_types' defaultValue={serviceRequest.service_type_id ?? ''}>
             <option value='' disabled>
               Select a service type
