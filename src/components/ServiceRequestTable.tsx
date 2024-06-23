@@ -100,7 +100,7 @@ const requestCard = stylex.create({
     alignItems: 'center',
   },
   checkboxRoot: {
-    backgroundColor: { default: 'white', ':hover': marigoldColors.flowerYellow, ':hover': marigoldColors.flowerGold },
+    backgroundColor: { default: 'white', ':hover': marigoldColors.flowerYellow, ':focus': marigoldColors.flowerGold },
     width: 25,
     height: 25,
     borderRadius: '4px',
