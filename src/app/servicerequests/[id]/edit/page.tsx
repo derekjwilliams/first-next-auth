@@ -1,4 +1,3 @@
-import '@/app/checkbox.css'
 import { createClient } from '@/lib/supabase/client'
 import ServiceRequestEditForm from '@/components/ServiceRequestEditForm'
 import { QueryData } from '@supabase/supabase-js'
