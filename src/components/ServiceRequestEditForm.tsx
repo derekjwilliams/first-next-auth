@@ -24,7 +24,6 @@ const select = stylex.create({
   base: {
     display: 'block',
     fontSize: '16px',
-    fontWeight: '700',
     color: '#444',
     lineHeight: '1.3',
     padding: '0.6em 1.4em 0.5em 0.8em',
