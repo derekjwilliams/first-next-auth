@@ -72,17 +72,20 @@ const styles = stylex.create({
     wordBreak: 'break-word',
     verticalAlign: 'top',
     fontSize: '1.1rem',
-    minWidth: '10rem',
+    minWidth: '8rem',
   },
   tableCheckboxData: {
     minWidth: 'auto',
   },
   tableDescriptionData: {
     minWidth: '10rem',
-    width: '40rem',
+    width: '30rem',
   },
   tableTechnicianData: {
-    width: '10rem',
+    width: '8rem',
+  },
+  tableDateData: {
+    width: '8rem',
   },
   tableDropdownData: {
     width: 'auto',
@@ -261,7 +264,7 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                     if (cell.column.id === 'date_created') {
                       const formattedDate = dayjs(cell.getValue()).toDate().toLocaleString('en-US')
                       return (
-                        <td key={cell.id} {...stylex.props(styles.tableData)}>
+                        <td key={cell.id} {...stylex.props(styles.tableData, styles.tableDateData)}>
                           {formattedDate}
                         </td>
                       )
