@@ -28,7 +28,7 @@ const styles = stylex.create({
   dataWrapper: {
     padding: sizes.spacing2,
     height: '100%',
-    margin: 0,
+    marginBottom: '20px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
