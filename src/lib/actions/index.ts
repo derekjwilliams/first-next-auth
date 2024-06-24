@@ -33,7 +33,6 @@ export async function updateServiceRequest(id: string, availableTechnicianIds: s
       console.log('error on updating service request (description)', updateServiceTypeError)
       throw updateServiceTypeError
     }
-    console.log('updateServiceTypeData', updateServiceTypeData)
 
     // add technicians for each technician that is selected (e.g. checked) on the form
     const techniciansToServiceRequests = technicianIds.map((technicianId) => ({
@@ -47,7 +46,6 @@ export async function updateServiceRequest(id: string, availableTechnicianIds: s
       console.log('error on adding technicians to service request', upsertError)
       throw upsertError
     }
-    console.log('upsertTechniciansData', upsertTechniciansData)
 
     // delete technicians that are not checked
     const technicianIdsToDelete = availableTechnicianIds.filter((t) => !technicianIds.includes(t))
@@ -62,8 +60,7 @@ export async function updateServiceRequest(id: string, availableTechnicianIds: s
       console.log('error on deleting technicians from service request', deleteError)
       throw deleteError
     }
-    console.log('upsertTechniciansData', upsertTechniciansData)
   } // TODO else display an error
-  revalidatePath('/servicerequests')
-  redirect('/servicerequests')
+  revalidatePath(`/servicerequests/${id}`)
+  redirect(`/servicerequests/${id}`)
 }
