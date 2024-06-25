@@ -156,7 +156,7 @@ export default function ServiceRequestEditForm({
             {...stylex.props(select.base)}
             id='locations'
             name='locations'
-            defaultValue={serviceRequest.locations_id ?? ''}>
+            defaultValue={serviceRequest.location_id ?? ''}>
             <option value='' disabled>
               Select a location
             </option>
