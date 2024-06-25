@@ -1,10 +1,10 @@
 'use client'
 import React from 'react'
-import { ColumnDef, useReactTable, getCoreRowModel, flexRender } from '@tanstack/react-table'
+import { ColumnDef, useReactTable, getCoreRowModel, flexRender, SortingFn, Row } from '@tanstack/react-table'
 import Pagination from './Pagination'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { ServiceRequest, ServiceType, Tenant, Technician, Status } from '@/utils/servicerequest.types' // todo import from supabase types
+import { ServiceRequest, ServiceType, Tenant, Technician, Status, RequestLocation } from '@/utils/servicerequest.types' // todo import from supabase types
 import { serviceTypes } from '@/utils/serviceTypes'
 import dayjs from 'dayjs'
 import * as stylex from '@stylexjs/stylex'
@@ -34,27 +34,20 @@ const styles = stylex.create({
     display: 'grid',
     gridTemplateColumns: 'auto',
     gridTemplateRows: 'auto minmax(0, 0.5fr) auto',
-    // gridTemplateRows: 'auto 1fr auto',
     gap: '10px',
     width: '95%',
     marginBottom: '20px',
   },
   tableWrapper: {
-    // display: 'grid',
-    // justifyContent: 'center',
     width: '100%',
     overflowX: 'auto',
-    // gridRow: '2 / 3',
   },
   table: {
     width: 'auto',
     maxWidth: '100%',
     borderCollapse: 'collapse',
-    // margin: sizes.spacing2,
     backgroundColor: `${marigoldColors.dataBackground}`,
-    // borderCollapse: 'collapse',
     tableLayout: 'fixed',
-    // width: 'auto',
   },
   tableRow: {
     backgroundColor: marigoldColors.background,
@@ -194,6 +187,10 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
       header: 'Status',
     },
     {
+      accessorKey: 'locations',
+      header: 'Address',
+    },
+    {
       accessorKey: 'description',
       header: 'Description',
     },
@@ -237,23 +234,24 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
           <table {...stylex.props(styles.table)}>
             <thead>
               {table.getHeaderGroups().map((headerGroup: any) => {
-                // console.log('headerGroup.id', headerGroup.id)
                 return (
                   <tr key={headerGroup.id} {...stylex.props(styles.tableHeaderRow)}>
                     <th {...stylex.props(styles.tableHead)}></th>
-                    {headerGroup.headers.map((header: any) => (
-                      <th
-                        key={header.id}
-                        id={header.id}
-                        {...stylex.props(styles.tableHead)}
-                        style={{
-                          cursor: `${header.id !== 'technicians' ? 'pointer' : ''}`,
-                        }}
-                        onClick={() => handleSort(header.id)}>
-                        {flexRender(header.column.columnDef.header, header.getContext())}
-                        {sortColumn === header.id ? (sortDirection === 'asc' ? '↑' : '↓') : ''}
-                      </th>
-                    ))}
+                    {headerGroup.headers.map((header: any) => {
+                      return (
+                        <th
+                          key={header.id}
+                          id={header.id}
+                          {...stylex.props(styles.tableHead)}
+                          style={{
+                            cursor: `${header.id !== 'technicians' ? 'pointer' : ''}`,
+                          }}
+                          onClick={() => handleSort(header.id)}>
+                          {flexRender(header.column.columnDef.header, header.getContext())}
+                          {sortColumn === header.id ? (sortDirection === 'asc' ? '↑' : '↓') : ''}
+                        </th>
+                      )
+                    })}
                     <th
                       {...stylex.props(styles.tableHead)}
                       style={{
@@ -286,9 +284,21 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                         const status = cell.getValue() as Status
                         return (
                           <td key={cell.id} {...stylex.props(styles.tableData, styles.tableStatusData)}>
-                            {status.status_name}
+                            {status ? status.status_name : ''}
                           </td>
                         )
+                      }
+                      if (cell.column.id === 'locations') {
+                        const locations = cell.getValue() as RequestLocation
+
+                        if (locations) {
+                          const link = `/properties/${locations.id}`
+                          return (
+                            <td key={cell.id} {...stylex.props(styles.tableData, styles.tableTechnicianData)}>
+                              <Link href={link}>{`${locations.street_address} ${locations.unit_number || ''}`}</Link>
+                            </td>
+                          )
+                        }
                       }
                       if (cell.column.id === 'description') {
                         const link = `/servicerequests/${serviceRequestId}`

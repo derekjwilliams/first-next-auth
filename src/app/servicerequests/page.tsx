@@ -15,15 +15,13 @@ export default async function Page({
   }
 }) {
   const supabase = await createClient()
-  const pageSize = 5
+  const pageSize = 10
 
   const currentPage = Number(searchParams?.page) || 1
   let sortColumn = searchParams?.sortColumn || 'id'
   const sortDirection = searchParams?.sortDirection || 'asc'
 
-  let serviceRequests
   let serviceRequestsCount = 0
-
   let sortedBy = ''
 
   switch (sortColumn) {
@@ -33,42 +31,26 @@ export default async function Page({
     case 'statuses':
       sortedBy = 'statuses(status_name)'
       break
+    case 'locations':
+      sortedBy = 'locations(street_address)'
+      break
     default:
       sortedBy = sortColumn
   }
 
-  let { data: sr, count } = await supabase
+  let { data: serviceRequests, count } = await supabase
     .from('service_requests')
-    .select('*, technicians(id, name, email), service_types(id, service_name), tenants(*), statuses(*)', {
-      count: 'exact',
-    })
+    .select(
+      '*, technicians(id, name, email), service_types(id, service_name), tenants(*), statuses(*), locations(id, street_address, unit_number)',
+      {
+        count: 'exact',
+      }
+    )
     .order(sortedBy, { ascending: sortDirection === 'asc' })
     .range((currentPage - 1) * pageSize, currentPage * pageSize - 1)
-  serviceRequests = sr
   serviceRequestsCount = count || 0
 
-  // if (sortColumn === 'service_types') {
-  //   let { data: sr, count } = await supabase
-  //     .from('service_requests')
-  //     .select('*, technicians(id, name, email), service_types(id, service_name), tenants(*), statuses(*)', {
-  //       count: 'exact',
-  //     })
-  //     .order('service_types(service_name)', { ascending: sortDirection === 'asc' })
-  //     .range((currentPage - 1) * pageSize, currentPage * pageSize - 1)
-  //   serviceRequests = sr
-  //   serviceRequestsCount = count || 0
-  // } else {
-  //   let { data: sr, count } = await supabase
-  //     .from('service_requests')
-  //     .select('*, technicians(id, name, email), service_types(id, service_name), tenants(*), statuses(*)', {
-  //       count: 'exact',
-  //     })
-  //     .order(sortColumn, { ascending: sortDirection === 'asc' })
-  //     .range((currentPage - 1) * pageSize, currentPage * pageSize - 1)
-  //   serviceRequests = sr
-  //   serviceRequestsCount = count || 0
-  // }
-  // console.log(serviceRequests)
+  // if (serviceRequests && serviceRequests.length) console.log(serviceRequests[0])
 
   const totalPages = Math.ceil(serviceRequestsCount / pageSize)
   return (
