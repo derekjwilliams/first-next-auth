@@ -22,11 +22,16 @@ export default async function Page({ params }: { params: { id: string } }) {
     .select()
     .eq('service_name', snakeToPascalCase(id))
     .single()
+  let { data: locations } = await supabase.from('locations').select('id, street_address, unit_number')
+  if (locations === null) {
+    locations = []
+  }
 
   return (
     <>
       <MultipleServiceRequests
         serviceTypeId={service_type?.id}
+        locations={locations}
         serviceDisplayName={serviceTypes.get(snakeToPascalCase(id)).displayName}></MultipleServiceRequests>
     </>
   )
