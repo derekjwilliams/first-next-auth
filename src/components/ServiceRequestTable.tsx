@@ -4,7 +4,7 @@ import { ColumnDef, useReactTable, getCoreRowModel, flexRender } from '@tanstack
 import Pagination from './Pagination'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { ServiceRequest, ServiceType, Tenant, Technician } from '@/utils/servicerequest.types' // todo import from supabase types
+import { ServiceRequest, ServiceType, Tenant, Technician, Status } from '@/utils/servicerequest.types' // todo import from supabase types
 import { serviceTypes } from '@/utils/serviceTypes'
 import dayjs from 'dayjs'
 import * as stylex from '@stylexjs/stylex'
@@ -29,17 +29,20 @@ const styles = stylex.create({
     padding: sizes.spacing2,
     height: '100%',
     marginBottom: '20px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
+    // display: 'flex',
+    // flexDirection: 'column',
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    // overflowX: 'auto',
+    // whiteSpace: 'nowrap',
+    // width: '100%',
   },
   table: {
     margin: sizes.spacing2,
     backgroundColor: `${marigoldColors.dataBackground}`,
     borderCollapse: 'collapse',
     tableLayout: 'fixed',
-    width: 'auto', // overrides the :where width: fit-width from normalize.css
+    width: 'auto',
   },
   tableRow: {
     backgroundColor: marigoldColors.background,
@@ -77,15 +80,22 @@ const styles = stylex.create({
   tableCheckboxData: {
     minWidth: 'auto',
   },
+  tableStatusData: {
+    minWidth: 'auto',
+  },
   tableDescriptionData: {
     minWidth: '10rem',
-    width: '30rem',
+    // width: '30rem',
   },
   tableTechnicianData: {
     width: '8rem',
   },
-  tableDateData: {
-    width: '8rem',
+  dataDate: {
+    whiteSpace: 'nowrap',
+  },
+  dataTime: {
+    marginLeft: '0.5rem',
+    whiteSpace: 'nowrap',
   },
   tableDropdownData: {
     width: 'auto',
@@ -163,6 +173,10 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
       header: 'ID',
     },
     {
+      accessorKey: 'statuses',
+      header: 'Status',
+    },
+    {
       accessorKey: 'description',
       header: 'Description',
     },
@@ -187,8 +201,9 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
     initialState: {
       columnVisibility: {
         id: false,
-        description: true, //hide this column by default
+        description: true,
         technicians: true,
+        statuses: true,
       },
     },
   })
@@ -198,31 +213,33 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
       <div>
         <table {...stylex.props(styles.table)}>
           <thead>
-            {table.getHeaderGroups().map((headerGroup: any) => (
-              <tr key={headerGroup.id} {...stylex.props(styles.tableHeaderRow)}>
-                <th {...stylex.props(styles.tableHead)}></th>
-                {headerGroup.headers.map((header: any) => (
+            {table.getHeaderGroups().map((headerGroup: any) => {
+              return (
+                <tr key={headerGroup.id} {...stylex.props(styles.tableHeaderRow)}>
+                  <th {...stylex.props(styles.tableHead)}></th>
+                  {headerGroup.headers.map((header: any) => (
+                    <th
+                      key={header.id}
+                      id={header.id}
+                      {...stylex.props(styles.tableHead)}
+                      style={{
+                        cursor: `${header.id !== 'technicians' ? 'pointer' : ''}`,
+                      }}
+                      onClick={() => handleSort(header.id)}>
+                      {flexRender(header.column.columnDef.header, header.getContext())}
+                      {sortColumn === header.id ? (sortDirection === 'asc' ? '↑' : '↓') : ''}
+                    </th>
+                  ))}
                   <th
-                    key={header.id}
-                    id={header.id}
                     {...stylex.props(styles.tableHead)}
                     style={{
-                      cursor: `${header.id !== 'technicians' ? 'pointer' : ''}`,
-                    }}
-                    onClick={() => handleSort(header.id)}>
-                    {flexRender(header.column.columnDef.header, header.getContext())}
-                    {sortColumn === header.id ? (sortDirection === 'asc' ? '↑' : '↓') : ''}
+                      cursor: 'pointer',
+                    }}>
+                    <ServiceRequestDropdownMenu></ServiceRequestDropdownMenu>
                   </th>
-                ))}
-                <th
-                  {...stylex.props(styles.tableHead)}
-                  style={{
-                    cursor: 'pointer',
-                  }}>
-                  <ServiceRequestDropdownMenu></ServiceRequestDropdownMenu>
-                </th>
-              </tr>
-            ))}
+                </tr>
+              )
+            })}
           </thead>
           <tbody>
             {table.getRowModel().rows.map((row: any) => {
@@ -240,6 +257,14 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                     </Checkbox.Root>
                   </td>
                   {row.getVisibleCells().map((cell: any) => {
+                    if (cell.column.id === 'statuses') {
+                      const status = cell.getValue() as Status
+                      return (
+                        <td key={cell.id} {...stylex.props(styles.tableData, styles.tableStatusData)}>
+                          {status.status_name}
+                        </td>
+                      )
+                    }
                     if (cell.column.id === 'description') {
                       const link = `/servicerequests/${serviceRequestId}`
                       return (
@@ -262,10 +287,14 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                       return <td key={cell.id}>{tenant.name}</td>
                     }
                     if (cell.column.id === 'date_created') {
-                      const formattedDate = dayjs(cell.getValue()).toDate().toLocaleString('en-US')
+                      const formattedDate = dayjs(cell.getValue()).format('MM/DD/YYYY') // US style date
+                      const formattedTime = dayjs(cell.getValue()).format('HH:mm A')
+                      // formattedTime.replace(' ', '&nbsp')
+                      // const formattedDate = dayjs(cell.getValue()).toDate().toLocaleString('en-US')
                       return (
                         <td key={cell.id} {...stylex.props(styles.tableData, styles.tableDateData)}>
-                          {formattedDate}
+                          <span {...stylex.props(styles.dataDate)}>{formattedDate}</span>
+                          <span {...stylex.props(styles.dataTime)}>{formattedTime}</span>
                         </td>
                       )
                     }

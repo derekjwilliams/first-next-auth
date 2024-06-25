@@ -24,23 +24,51 @@ export default async function Page({
   let serviceRequests
   let serviceRequestsCount = 0
 
-  if (sortColumn === 'service_types') {
-    let { data: sr, count } = await supabase
-      .from('service_requests')
-      .select('*, technicians(id, name, email), service_types(id, service_name), tenants(*)', { count: 'exact' })
-      .order('service_types(service_name)', { ascending: sortDirection === 'asc' })
-      .range((currentPage - 1) * pageSize, currentPage * pageSize - 1)
-    serviceRequests = sr
-    serviceRequestsCount = count || 0
-  } else {
-    let { data: sr, count } = await supabase
-      .from('service_requests')
-      .select('*, technicians(id, name, email), service_types(id, service_name), tenants(*)', { count: 'exact' })
-      .order(sortColumn, { ascending: sortDirection === 'asc' })
-      .range((currentPage - 1) * pageSize, currentPage * pageSize - 1)
-    serviceRequests = sr
-    serviceRequestsCount = count || 0
+  let sortedBy = ''
+
+  switch (sortColumn) {
+    case 'service_types':
+      sortedBy = 'service_types(service_name)'
+      break
+    case 'statuses':
+      sortedBy = 'statuses(status_name)'
+      break
+    default:
+      sortedBy = sortColumn
   }
+
+  let { data: sr, count } = await supabase
+    .from('service_requests')
+    .select('*, technicians(id, name, email), service_types(id, service_name), tenants(*), statuses(*)', {
+      count: 'exact',
+    })
+    .order(sortedBy, { ascending: sortDirection === 'asc' })
+    .range((currentPage - 1) * pageSize, currentPage * pageSize - 1)
+  serviceRequests = sr
+  serviceRequestsCount = count || 0
+
+  // if (sortColumn === 'service_types') {
+  //   let { data: sr, count } = await supabase
+  //     .from('service_requests')
+  //     .select('*, technicians(id, name, email), service_types(id, service_name), tenants(*), statuses(*)', {
+  //       count: 'exact',
+  //     })
+  //     .order('service_types(service_name)', { ascending: sortDirection === 'asc' })
+  //     .range((currentPage - 1) * pageSize, currentPage * pageSize - 1)
+  //   serviceRequests = sr
+  //   serviceRequestsCount = count || 0
+  // } else {
+  //   let { data: sr, count } = await supabase
+  //     .from('service_requests')
+  //     .select('*, technicians(id, name, email), service_types(id, service_name), tenants(*), statuses(*)', {
+  //       count: 'exact',
+  //     })
+  //     .order(sortColumn, { ascending: sortDirection === 'asc' })
+  //     .range((currentPage - 1) * pageSize, currentPage * pageSize - 1)
+  //   serviceRequests = sr
+  //   serviceRequestsCount = count || 0
+  // }
+  // console.log(serviceRequests)
 
   const totalPages = Math.ceil(serviceRequestsCount / pageSize)
   return (

@@ -19,10 +19,15 @@ type ServiceType = {
   service_name: string
 }
 
+type Status = {
+  id: string // UUID type
+  status_name: string
+}
+
 type Tenant = {
   id: string // UUID type
   name: string
   email: string
 }
 
-export type { Technician, ServiceRequest, ServiceType, Tenant }
+export type { Technician, ServiceRequest, ServiceType, Tenant, Status }
