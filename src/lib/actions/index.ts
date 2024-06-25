@@ -12,6 +12,7 @@ export default async function readUserSession() {
 export async function updateServiceRequest(id: string, availableTechnicianIds: string[], formData: FormData) {
   const description = formData.get('description') as string
   const serviceTypeSelected = formData.get('service_types')
+  const locationSelected = formData.get('locations')
   const technicianIds: string[] = []
   for (const [key, value] of formData.entries()) {
     if (key.startsWith('technician_')) {
@@ -30,7 +31,17 @@ export async function updateServiceRequest(id: string, availableTechnicianIds: s
       .eq('id', id)
 
     if (updateServiceTypeError) {
-      console.log('error on updating service request (description)', updateServiceTypeError)
+      console.log('error on updating service request (service type)', updateServiceTypeError)
+      throw updateServiceTypeError
+    }
+    /* update location */
+    const { data: updateLocationData, error: updateLocationError } = await supabase
+      .from('service_requests')
+      .update({ location_id: locationSelected?.toString() })
+      .eq('id', id)
+
+    if (updateLocationError) {
+      console.log('error on updating service request (location)', updateServiceTypeError)
       throw updateServiceTypeError
     }
 

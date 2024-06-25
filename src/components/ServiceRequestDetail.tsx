@@ -38,10 +38,17 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
       </>
     )
   }
+
+  console.log(serviceRequest)
   return (
     <div {...stylex.props(requests.base)}>
       <Link href={`/servicerequests/${id}/edit`}>Edit</Link>
 
+      <div key={serviceRequest.locations?.id} {...stylex.props(requestCard.base)}>
+        {` ${serviceRequest.locations?.street_address} ${
+          serviceRequest.locations?.unit_number ? serviceRequest.locations?.unit_number : ''
+        }`}
+      </div>
       <div key={serviceRequest.id} {...stylex.props(requestCard.base)}>
         {serviceRequest.description}
       </div>

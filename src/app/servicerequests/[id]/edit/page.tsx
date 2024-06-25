@@ -9,7 +9,9 @@ export default async function Page({ params }: { params: { id: string } }) {
   // let { data: serviceRequest }
   const serviceRequestWithChildrenQuery = supabase
     .from('service_requests')
-    .select('*, technicians(id, name, email), service_types(id, service_name), tenants(*)', { count: 'exact' })
+    .select('*, technicians(id, name, email), service_types(id, service_name), tenants(*), locations(*)', {
+      count: 'exact',
+    })
     .eq(`id`, id)
     .single()
 
@@ -20,11 +22,17 @@ export default async function Page({ params }: { params: { id: string } }) {
   let { data: technicians } = await supabase.from('technicians').select('*')
 
   let { data: serviceTypes } = await supabase.from('service_types').select('*')
+  let { data: locations } = await supabase
+    .from('locations')
+    .select('*')
+    .order('street_address', { ascending: true })
+    .order('unit_number', { ascending: true })
 
   return (
     <ServiceRequestEditForm
       serviceRequest={serviceRequest}
       availableTechnicians={technicians ?? []}
-      availableServiceTypes={serviceTypes ?? []}></ServiceRequestEditForm>
+      availableServiceTypes={serviceTypes ?? []}
+      availableLocations={locations ?? []}></ServiceRequestEditForm>
   )
 }

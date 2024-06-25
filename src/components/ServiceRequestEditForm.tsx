@@ -72,10 +72,12 @@ export default function ServiceRequestEditForm({
   serviceRequest,
   availableTechnicians,
   availableServiceTypes,
+  availableLocations,
 }: {
   serviceRequest: Tables<'service_requests'>
   availableTechnicians: Tables<'technicians'>[]
   availableServiceTypes: Tables<'service_types'>[]
+  availableLocations: Tables<'locations'>[]
 }) {
   const assignedTechnicianIds = serviceRequest.technicians.map((t: { id: string }) => t.id)
   const availableTechnicianIds = availableTechnicians.map((t) => t.id)
@@ -143,6 +145,24 @@ export default function ServiceRequestEditForm({
             {availableServiceTypes.map((serviceType) => (
               <option key={serviceType.id} value={serviceType.id}>
                 {serviceType.service_name}
+              </option>
+            ))}
+          </select>
+        </div>
+        {/* Location Select */}
+        <div>
+          <h3>Location</h3>
+          <select
+            {...stylex.props(select.base)}
+            id='locations'
+            name='locations'
+            defaultValue={serviceRequest.locations_id ?? ''}>
+            <option value='' disabled>
+              Select a location
+            </option>
+            {availableLocations.map((location) => (
+              <option key={location.id} value={location.id}>
+                {`${location.street_address} ${location.unit_number ? location.unit_number : ''}`}
               </option>
             ))}
           </select>
