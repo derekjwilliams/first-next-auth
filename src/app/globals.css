@@ -10,7 +10,7 @@
 @import "https://unpkg.com/open-props/buttons.min.css";
 /* Reset */
 
-*,
+/* *,
 *::before,
 *::after {
   box-sizing: border-box;
@@ -25,9 +25,9 @@ svg,
 video {
   display: block;
   max-width: 100%;
-}
+} */
 /* Fonts */
-
+/* 
 @font-face {
   font-family: 'Figtree';
   src: url('/fonts/Figtree[wght].ttf');
@@ -63,11 +63,11 @@ video {
 }
 .toes {
   grid-column: a1 / a6;
-}
+} */
 
 /* buttons */
 
-.button {
+/* .button {
   display: inline-flex;
   white-space: nowrap;
 
@@ -105,20 +105,20 @@ video {
       color: black;
     }
   }
-}
+} */
 
-@media (prefers-reduced-motion: no-preference) {
+/* @media (prefers-reduced-motion: no-preference) {
   .button:focus {
     transition: outline-offset 0.25s ease;
   }
   .button:focus:not(:active) {
     outline-offset: 5px;
   }
-}
+} */
 
 /* See https://adrianroselli.com/2019/09/under-engineered-text-boxen.html */
 
-textarea,
+/* textarea,
 input:not([type='checkbox']):not([type='file']):not([type='image']):not([type='radio']):not([type='range']) {
   font: inherit;
   letter-spacing: inherit;
@@ -158,4 +158,4 @@ input[type='text']:-webkit-autofill::first-line,
 input[type='password']:-webkit-autofill::first-line {
   font-size: 0.81333rem;
   line-height: 1.5;
-}
+} */

@@ -25,24 +25,36 @@ const styles = stylex.create({
     margin: 0,
     padding: 0,
   },
+  containerWrapper: {
+    marginTop: '20px',
+    display: 'grid',
+    placeItems: 'center',
+  },
   dataWrapper: {
-    padding: sizes.spacing2,
-    height: '100%',
+    display: 'grid',
+    gridTemplateColumns: 'auto',
+    gridTemplateRows: 'auto minmax(0, 0.5fr) auto',
+    // gridTemplateRows: 'auto 1fr auto',
+    gap: '10px',
+    width: '95%',
     marginBottom: '20px',
-    // display: 'flex',
-    // flexDirection: 'column',
-    // alignItems: 'center',
+  },
+  tableWrapper: {
+    // display: 'grid',
     // justifyContent: 'center',
-    // overflowX: 'auto',
-    // whiteSpace: 'nowrap',
-    // width: '100%',
+    width: '100%',
+    overflowX: 'auto',
+    // gridRow: '2 / 3',
   },
   table: {
-    margin: sizes.spacing2,
-    backgroundColor: `${marigoldColors.dataBackground}`,
-    borderCollapse: 'collapse',
-    tableLayout: 'fixed',
     width: 'auto',
+    maxWidth: '100%',
+    borderCollapse: 'collapse',
+    // margin: sizes.spacing2,
+    backgroundColor: `${marigoldColors.dataBackground}`,
+    // borderCollapse: 'collapse',
+    tableLayout: 'fixed',
+    // width: 'auto',
   },
   tableRow: {
     backgroundColor: marigoldColors.background,
@@ -58,23 +70,25 @@ const styles = stylex.create({
     color: marigoldColors.foreground,
     textAlign: 'left',
     fontWeight: 'bold',
-    fontSize: fonts.size3,
-    padding: '10px',
+    fontSize: fonts.size2,
+    padding: sizes.spacing1,
     backgroundColor: marigoldColors.background,
   },
   tableHead: {
     textAlign: 'left',
-    paddingLeft: '10px',
+    paddingLeft: sizes.spacing1,
   },
   tableData: {
     textAlign: 'left',
     borderWidth: '1px',
     borderStyle: 'solid',
     borderColor: marigoldColors.background,
-    padding: '10px',
+    padding: sizes.spacing1,
+    paddingTop: sizes.spacing2,
+    paddingBottom: sizes.spacing2,
     wordBreak: 'break-word',
     verticalAlign: 'top',
-    fontSize: '1.1rem',
+    fontSize: fonts.size2,
     minWidth: '8rem',
   },
   tableCheckboxData: {
@@ -85,10 +99,13 @@ const styles = stylex.create({
   },
   tableDescriptionData: {
     minWidth: '10rem',
-    // width: '30rem',
   },
   tableTechnicianData: {
     width: '8rem',
+  },
+  tableDateData: {
+    width: '2rem',
+    minWidth: 'auto',
   },
   dataDate: {
     whiteSpace: 'nowrap',
@@ -209,134 +226,143 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
   })
 
   return (
-    <div {...stylex.props(styles.dataWrapper)}>
-      <div>
-        <table {...stylex.props(styles.table)}>
-          <thead>
-            {table.getHeaderGroups().map((headerGroup: any) => {
-              return (
-                <tr key={headerGroup.id} {...stylex.props(styles.tableHeaderRow)}>
-                  <th {...stylex.props(styles.tableHead)}></th>
-                  {headerGroup.headers.map((header: any) => (
+    // display: 'grid',
+    // gridTemplateColumns: '1fr',
+    // gridTemplateRows: 'auto 1fr auto',
+    // gap: '10px',
+    // width: '100%'
+    <div {...stylex.props(styles.containerWrapper)}>
+      <div {...stylex.props(styles.dataWrapper)}>
+        <div {...stylex.props(styles.tableWrapper)}>
+          <table {...stylex.props(styles.table)}>
+            <thead>
+              {table.getHeaderGroups().map((headerGroup: any) => {
+                // console.log('headerGroup.id', headerGroup.id)
+                return (
+                  <tr key={headerGroup.id} {...stylex.props(styles.tableHeaderRow)}>
+                    <th {...stylex.props(styles.tableHead)}></th>
+                    {headerGroup.headers.map((header: any) => (
+                      <th
+                        key={header.id}
+                        id={header.id}
+                        {...stylex.props(styles.tableHead)}
+                        style={{
+                          cursor: `${header.id !== 'technicians' ? 'pointer' : ''}`,
+                        }}
+                        onClick={() => handleSort(header.id)}>
+                        {flexRender(header.column.columnDef.header, header.getContext())}
+                        {sortColumn === header.id ? (sortDirection === 'asc' ? '↑' : '↓') : ''}
+                      </th>
+                    ))}
                     <th
-                      key={header.id}
-                      id={header.id}
                       {...stylex.props(styles.tableHead)}
                       style={{
-                        cursor: `${header.id !== 'technicians' ? 'pointer' : ''}`,
-                      }}
-                      onClick={() => handleSort(header.id)}>
-                      {flexRender(header.column.columnDef.header, header.getContext())}
-                      {sortColumn === header.id ? (sortDirection === 'asc' ? '↑' : '↓') : ''}
+                        cursor: 'pointer',
+                      }}>
+                      <ServiceRequestDropdownMenu></ServiceRequestDropdownMenu>
                     </th>
-                  ))}
-                  <th
-                    {...stylex.props(styles.tableHead)}
-                    style={{
-                      cursor: 'pointer',
-                    }}>
-                    <ServiceRequestDropdownMenu></ServiceRequestDropdownMenu>
-                  </th>
-                </tr>
-              )
-            })}
-          </thead>
-          <tbody>
-            {table.getRowModel().rows.map((row: any) => {
-              const serviceRequestId = row.getValue('id') as string
-              return (
-                <tr key={row.id}>
-                  <td {...stylex.props(styles.tableData, styles.tableCheckboxData)}>
-                    <Checkbox.Root
-                      {...stylex.props(requestCard.checkboxRoot)}
-                      id={`request_${serviceRequestId}`}
-                      key={`request_${serviceRequestId}`}>
-                      <Checkbox.Indicator {...stylex.props(requestCard.checkboxIndicator)}>
-                        <CheckIcon {...stylex.props(requestCard.checkIcon)} />
-                      </Checkbox.Indicator>
-                    </Checkbox.Root>
-                  </td>
-                  {row.getVisibleCells().map((cell: any) => {
-                    if (cell.column.id === 'statuses') {
-                      const status = cell.getValue() as Status
-                      return (
-                        <td key={cell.id} {...stylex.props(styles.tableData, styles.tableStatusData)}>
-                          {status.status_name}
-                        </td>
-                      )
-                    }
-                    if (cell.column.id === 'description') {
-                      const link = `/servicerequests/${serviceRequestId}`
-                      return (
-                        <td key={cell.id} {...stylex.props(styles.tableData, styles.tableDescriptionData)}>
-                          <Link href={link}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</Link>
-                        </td>
-                      )
-                    }
-                    if (cell.column.id === 'service_types') {
-                      const serviceType = cell.getValue() as ServiceType
-                      const link = `/servicerequests/new/${pascalToSnakeCase(serviceType.service_name)}`
-                      return (
-                        <td key={cell.id} {...stylex.props(styles.tableData)}>
-                          <Link href={link}>{serviceTypes.get(serviceType.service_name).displayName}</Link>
-                        </td>
-                      )
-                    }
-                    if (cell.column.id === 'tenants') {
-                      const tenant = cell.getValue() as Tenant
-                      return <td key={cell.id}>{tenant.name}</td>
-                    }
-                    if (cell.column.id === 'date_created') {
-                      const formattedDate = dayjs(cell.getValue()).format('MM/DD/YYYY') // US style date
-                      const formattedTime = dayjs(cell.getValue()).format('HH:mm A')
-                      // formattedTime.replace(' ', '&nbsp')
-                      // const formattedDate = dayjs(cell.getValue()).toDate().toLocaleString('en-US')
-                      return (
-                        <td key={cell.id} {...stylex.props(styles.tableData, styles.tableDateData)}>
-                          <span {...stylex.props(styles.dataDate)}>{formattedDate}</span>
-                          <span {...stylex.props(styles.dataTime)}>{formattedTime}</span>
-                        </td>
-                      )
-                    }
-                    if (cell.column.id === 'technicians') {
-                      const technicians = cell.getValue() as Technician[]
+                  </tr>
+                )
+              })}
+            </thead>
 
-                      if (technicians.length) {
+            <tbody>
+              {table.getRowModel().rows.map((row: any) => {
+                const serviceRequestId = row.getValue('id') as string
+                return (
+                  <tr key={row.id}>
+                    <td {...stylex.props(styles.tableData, styles.tableCheckboxData)}>
+                      <Checkbox.Root
+                        {...stylex.props(requestCard.checkboxRoot)}
+                        id={`request_${serviceRequestId}`}
+                        key={`request_${serviceRequestId}`}>
+                        <Checkbox.Indicator {...stylex.props(requestCard.checkboxIndicator)}>
+                          <CheckIcon {...stylex.props(requestCard.checkIcon)} />
+                        </Checkbox.Indicator>
+                      </Checkbox.Root>
+                    </td>
+                    {row.getVisibleCells().map((cell: any) => {
+                      if (cell.column.id === 'statuses') {
+                        const status = cell.getValue() as Status
                         return (
-                          <td key={cell.id} {...stylex.props(styles.tableData, styles.tableTechnicianData)}>
-                            {technicians.map((technician) => {
-                              return (
-                                <Link
-                                  key={technician.id}
-                                  href={`technicians/${technician.id}`}
-                                  style={{ paddingRight: '5px', display: 'inlineBlock', whiteSpace: 'pre' }}>
-                                  {technician.name}
-                                </Link>
-                              )
-                            })}
+                          <td key={cell.id} {...stylex.props(styles.tableData, styles.tableStatusData)}>
+                            {status.status_name}
+                          </td>
+                        )
+                      }
+                      if (cell.column.id === 'description') {
+                        const link = `/servicerequests/${serviceRequestId}`
+                        return (
+                          <td key={cell.id} {...stylex.props(styles.tableData, styles.tableDescriptionData)}>
+                            <Link href={link}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</Link>
+                          </td>
+                        )
+                      }
+                      if (cell.column.id === 'service_types') {
+                        const serviceType = cell.getValue() as ServiceType
+                        const link = `/servicerequests/new/${pascalToSnakeCase(serviceType.service_name)}`
+                        return (
+                          <td key={cell.id} {...stylex.props(styles.tableData)}>
+                            <Link href={link}>{serviceTypes.get(serviceType.service_name).displayName}</Link>
+                          </td>
+                        )
+                      }
+                      if (cell.column.id === 'tenants') {
+                        const tenant = cell.getValue() as Tenant
+                        return <td key={cell.id}>{tenant.name}</td>
+                      }
+                      if (cell.column.id === 'date_created') {
+                        const formattedDate = dayjs(cell.getValue()).format('MM/DD/YYYY') // US style date
+                        const formattedTime = dayjs(cell.getValue()).format('HH:mm A')
+                        // formattedTime.replace(' ', '&nbsp')
+                        // const formattedDate = dayjs(cell.getValue()).toDate().toLocaleString('en-US')
+                        return (
+                          <td key={cell.id} {...stylex.props(styles.tableData, styles.tableDateData)}>
+                            <span {...stylex.props(styles.dataDate)}>{formattedDate}</span>
+                            {/* <span {...stylex.props(styles.dataTime)}>{formattedTime}</span> */}
+                          </td>
+                        )
+                      }
+                      if (cell.column.id === 'technicians') {
+                        const technicians = cell.getValue() as Technician[]
+
+                        if (technicians.length) {
+                          return (
+                            <td key={cell.id} {...stylex.props(styles.tableData, styles.tableTechnicianData)}>
+                              {technicians.map((technician) => {
+                                return (
+                                  <Link
+                                    key={technician.id}
+                                    href={`technicians/${technician.id}`}
+                                    style={{ paddingRight: '5px', display: 'inlineBlock', whiteSpace: 'pre' }}>
+                                    {technician.name}
+                                  </Link>
+                                )
+                              })}
+                            </td>
+                          )
+                        }
+                        return (
+                          <td key={cell.id} {...stylex.props(styles.tableData)}>
+                            None Assigned
                           </td>
                         )
                       }
                       return (
                         <td key={cell.id} {...stylex.props(styles.tableData)}>
-                          None Assigned
+                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
                         </td>
                       )
-                    }
-                    return (
-                      <td key={cell.id} {...stylex.props(styles.tableData)}>
-                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                      </td>
-                    )
-                  })}
-                  <td {...stylex.props(styles.tableData, styles.tableDropdownData)}>
-                    <ServiceRequestDropdownMenu></ServiceRequestDropdownMenu>
-                  </td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
+                    })}
+                    <td {...stylex.props(styles.tableData, styles.tableDropdownData)}>
+                      <ServiceRequestDropdownMenu></ServiceRequestDropdownMenu>
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
         <Pagination currentPage={currentPage} totalPages={totalPages} />
       </div>
     </div>
