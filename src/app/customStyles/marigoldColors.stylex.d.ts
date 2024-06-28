@@ -10,6 +10,8 @@ type TColors = Readonly<{
   background: string
   dataBackground: string
   foreground: string
+  foregroundLink: string
+  foregroundHoverLink: string
   link: string
   navigationLink: string
 }>

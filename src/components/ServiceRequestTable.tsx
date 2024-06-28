@@ -76,6 +76,7 @@ const styles = stylex.create({
     borderWidth: '1px',
     borderStyle: 'solid',
     borderColor: marigoldColors.background,
+    color: marigoldColors.foreground,
     padding: sizes.spacing1,
     paddingTop: sizes.spacing2,
     paddingBottom: sizes.spacing2,
@@ -83,6 +84,12 @@ const styles = stylex.create({
     verticalAlign: 'top',
     fontSize: fonts.size2,
     minWidth: '8rem',
+  },
+  tableDataLink: {
+    color: {
+      default: marigoldColors.foregroundLink,
+      ':hover': marigoldColors.foregroundHoverLink,
+    },
   },
   tableCheckboxData: {
     minWidth: 'auto',
@@ -296,7 +303,9 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                           const link = `/properties/${locations.id}`
                           return (
                             <td key={cell.id} {...stylex.props(styles.tableData, styles.tableTechnicianData)}>
-                              <Link href={link}>{`${locations.street_address} ${locations.unit_number || ''}`}</Link>
+                              <Link {...stylex.props(styles.tableDataLink)} href={link}>{`${locations.street_address} ${
+                                locations.unit_number || ''
+                              }`}</Link>
                             </td>
                           )
                         }
@@ -305,7 +314,9 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                         const link = `/servicerequests/${serviceRequestId}`
                         return (
                           <td key={cell.id} {...stylex.props(styles.tableData, styles.tableDescriptionData)}>
-                            <Link href={link}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</Link>
+                            <Link {...stylex.props(styles.tableDataLink)} href={link}>
+                              {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                            </Link>
                           </td>
                         )
                       }
@@ -314,7 +325,9 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                         const link = `/servicerequests/new/${pascalToSnakeCase(serviceType.service_name)}`
                         return (
                           <td key={cell.id} {...stylex.props(styles.tableData)}>
-                            <Link href={link}>{serviceTypes.get(serviceType.service_name).displayName}</Link>
+                            <Link {...stylex.props(styles.tableDataLink)} href={link}>
+                              {serviceTypes.get(serviceType.service_name).displayName}
+                            </Link>
                           </td>
                         )
                       }
@@ -345,6 +358,7 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                                   <Link
                                     key={technician.id}
                                     href={`technicians/${technician.id}`}
+                                    {...stylex.props(styles.tableDataLink)}
                                     style={{ paddingRight: '5px', display: 'inlineBlock', whiteSpace: 'pre' }}>
                                     {technician.name}
                                   </Link>
