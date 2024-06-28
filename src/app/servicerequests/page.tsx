@@ -50,8 +50,6 @@ export default async function Page({
     .range((currentPage - 1) * pageSize, currentPage * pageSize - 1)
   serviceRequestsCount = count || 0
 
-  // if (serviceRequests && serviceRequests.length) console.log(serviceRequests[0])
-
   const totalPages = Math.ceil(serviceRequestsCount / pageSize)
   return (
     <div>

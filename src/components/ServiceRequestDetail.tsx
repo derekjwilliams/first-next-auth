@@ -10,6 +10,7 @@ import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
 import { borders } from '@stylexjs/open-props/lib/borders.stylex'
 
 import Link from 'next/link'
+import LinkWrapperButton from './controls/linkwrapperbutton'
 
 const requests = stylex.create({
   base: {
@@ -46,35 +47,6 @@ const requestCard = stylex.create({
   },
 })
 
-const button = stylex.create({
-  base: {
-    display: 'inline-flex',
-    whiteSpace: 'nowrap',
-    fontSize: fonts.sizeFluid1,
-    fontWeight: fonts.weight7,
-    paddingInline: sizes.spacing6,
-    paddingBlock: sizes.spacing3,
-    color: {
-      default:colors.blue9,
-      ':hover': colors.blue0,
-      ':focus': colors.blue0,
-    },
-    borderWidth: borders.size2,
-    borderStyle: 'solid',
-    borderColor: colors.blue5,
-    backgroundColor: {
-      default: 'transparent',
-      ':hover': colors.blue5,
-      ':focus': colors.blue5,
-    },
-    borderRadius: borders.radius2,
-    cursor: {
-      ':hover': 'pointer',
-      ':focus': 'pointer',
-    },
-  }
-})
-
 export default function ServiceRequestDetail({ id }: { id: string | null }) {
   const { data: serviceRequest, isLoading, isError } = useServiceRequestQuery(id!)
   if (isLoading) {
@@ -89,17 +61,18 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
     )
   }
 
-  console.log(serviceRequest)
   return (
     <div {...stylex.props(requests.base)}>
-
-      <Link href={`/servicerequests/${id}/edit`}  {...stylex.props(button.base)}>Edit</Link>
+      <LinkWrapperButton href={`/servicerequests/${id}/edit`} {...stylex.props(button.base)}>
+        Edit
+      </LinkWrapperButton>
+      {/* <Link href={`/servicerequests/${id}/edit`}  {...stylex.props(button.base)}>Edit</Link> */}
 
       <div key={serviceRequest.locations?.id} {...stylex.props(requestCard.base)}>
         <h1 {...stylex.props(requestCard.h1)}>
           {` ${serviceRequest.locations?.street_address} ${
-          serviceRequest.locations?.unit_number ? serviceRequest.locations?.unit_number : ''
-        }`}
+            serviceRequest.locations?.unit_number ? serviceRequest.locations?.unit_number : ''
+          }`}
         </h1>
       </div>
       <div key={serviceRequest.id} {...stylex.props(requestCard.description)}>
