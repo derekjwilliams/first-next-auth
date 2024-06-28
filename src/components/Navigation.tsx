@@ -27,6 +27,10 @@ const styles = stylex.create({
       default: 'block',
       '@media (min-width: 768px)': 'none',
     },
+    marginTop: {
+      default: '28px',
+      '@media (min-width: 768px)': '0',
+    },
   },
   base: {
     paddingBottom: sizes.spacing1,
@@ -39,7 +43,8 @@ const styles = stylex.create({
   navigationList: {
     listStyle: 'none',
     // padding: sizes.spacing2,
-    margin: 0,
+
+    marginTop: '28px',
     backgroundColor: marigoldColors.flowerYellow,
   },
 

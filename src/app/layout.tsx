@@ -38,6 +38,7 @@ const styles = stylex.create({
     backgroundColor: marigoldColors.flowerYellow,
     paddingLeft: sizes.spacing2,
     paddingTop: sizes.spacing2,
+    display: 'flex',
   },
 })
 
