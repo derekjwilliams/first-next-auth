@@ -22,11 +22,10 @@ const requestCard = stylex.create({
   base: {
     margin: sizes.spacing2,
     display: 'flex',
-    alignItems: 'center',
   },
   checkboxRoot: {
     backgroundColor: 'white',
-    width: 25,
+    minWidth: 25,
     height: 25,
     borderRadius: '4px',
     padding: 0,

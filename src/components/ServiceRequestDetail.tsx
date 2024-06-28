@@ -26,7 +26,6 @@ const requestCard = stylex.create({
   base: {
     margin: sizes.spacing2,
     display: 'flex',
-    alignItems: 'center',
   },
   h1: {
     fontSize: fonts.sizeFluid3,
