@@ -23,6 +23,7 @@ const requests = stylex.create({
 
 const requestCard = stylex.create({
   base: {
+    color: marigoldColors.foreground,
     margin: sizes.spacing2,
     display: 'flex',
   },
@@ -75,7 +76,7 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
         {serviceRequest.description}
       </div>
       <div>
-        <h2>Technicians Assigned</h2>
+        <h2 {...stylex.props(requestCard.base)}>Technicians Assigned</h2>
         <div>
           {serviceRequest.technicians.map((technician: any) => (
             <div key={technician.id}>

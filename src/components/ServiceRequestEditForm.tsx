@@ -13,6 +13,10 @@ const request = stylex.create({
   base: {
     padding: sizes.spacing5,
     backgroundColor: marigoldColors.background,
+    color: marigoldColors.foreground,
+  },
+  h1: {
+    fontSize: fonts.size4,
   },
   technicians: {
     margin: sizes.spacing00,
@@ -146,7 +150,7 @@ export default function ServiceRequestEditForm({
         {/* Service Request Description */}
         <div>
           <label htmlFor='description'>
-            <h3>Description</h3>
+            <h1 {...stylex.props(request.h1)}>Description</h1>
           </label>
           <div>
             <textarea
@@ -161,7 +165,7 @@ export default function ServiceRequestEditForm({
         </div>
         {/* Technicians Checkboxes, TODO use react-select for improved UX */}
         <div {...stylex.props(request.technicians)}>
-          <h3>Service Technicians</h3>
+          <h1 {...stylex.props(request.h1)}>Service Technicians</h1>
           <div>
             {availableTechnicians.map((technician) => (
               <>
@@ -191,7 +195,7 @@ export default function ServiceRequestEditForm({
         </div>
         {/* Service Type Select */}
         <div>
-          <h3>Service Type</h3>
+          <h1 {...stylex.props(request.h1)}>Service Type</h1>
           <select
             {...stylex.props(select.base)}
             id='service_types'
@@ -209,7 +213,7 @@ export default function ServiceRequestEditForm({
         </div>
         {/* Location Select */}
         <div>
-          <h3>Location</h3>
+          <h1 {...stylex.props(request.h1)}>Location</h1>
           <select
             {...stylex.props(select.base)}
             id='locations'
@@ -227,7 +231,7 @@ export default function ServiceRequestEditForm({
         </div>
 
         {/* Status Radio Group */}
-        <h3>Status</h3>
+        <h1 {...stylex.props(request.h1)}>Status</h1>
         <RadioGroup.Root
           {...stylex.props(radioGroup.root)}
           defaultValue={serviceRequest.status_id ?? ''}

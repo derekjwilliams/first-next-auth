@@ -1,8 +1,8 @@
 import MultipleServiceRequests from '@/components/MultipleServiceRequests'
 import { createClient } from '@/lib/supabase/client'
 import { serviceTypes } from '@/utils/serviceTypes'
+import stylex from '@stylexjs/stylex'
 import { redirect } from 'next/navigation'
-
 const snakeToPascalCase = (value: string) => {
   let result = value.toLowerCase().replace(/([_][a-z])/g, (group) => group.toUpperCase().replace('_', ''))
   return result.charAt(0).toUpperCase() + result.slice(1)

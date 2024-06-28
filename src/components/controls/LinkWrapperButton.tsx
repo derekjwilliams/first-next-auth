@@ -6,6 +6,7 @@ import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
 import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
 import { colors } from '@stylexjs/open-props/lib/colors.stylex'
 import { borders } from '@stylexjs/open-props/lib/borders.stylex'
+import { marigoldColors } from '../../app/customStyles/marigoldColors.stylex'
 
 const button = stylex.create({
   base: {
@@ -16,17 +17,17 @@ const button = stylex.create({
     paddingInline: sizes.spacing6,
     paddingBlock: sizes.spacing3,
     color: {
-      default: colors.blue9,
-      ':hover': colors.blue0,
-      ':focus': colors.blue0,
+      default: marigoldColors.foregroundButton,
+      ':hover': marigoldColors.foregroundButton,
+      ':focus': marigoldColors.foregroundButton,
     },
     borderWidth: borders.size2,
     borderStyle: 'solid',
-    borderColor: colors.blue5,
+    borderColor: marigoldColors.foregroundButton,
     backgroundColor: {
       default: 'transparent',
-      ':hover': colors.blue5,
-      ':focus': colors.blue5,
+      ':hover': marigoldColors.backgroundButton,
+      ':focus': marigoldColors.backgroundButton,
     },
     borderRadius: borders.radius2,
     cursor: {
