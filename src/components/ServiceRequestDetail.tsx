@@ -4,13 +4,12 @@ import useServiceRequestQuery from '@/hooks/useServiceRequestQuery'
 
 import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
-import { colors } from '@stylexjs/open-props/lib/colors.stylex'
 import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
 import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
 import { borders } from '@stylexjs/open-props/lib/borders.stylex'
 
 import Link from 'next/link'
-import LinkWrapperButton from './controls/linkwrapperbutton'
+import LinkWrapperButton from './controls/LinkWrapperButton'
 
 const requests = stylex.create({
   base: {
