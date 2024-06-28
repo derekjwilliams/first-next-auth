@@ -159,3 +159,37 @@ input[type='password']:-webkit-autofill::first-line {
   font-size: 0.81333rem;
   line-height: 1.5;
 } */
+/* CustomRadioButton.css */
+.custom-radio-button__item {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.custom-radio-button__control {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  margin-right: 8px;
+}
+
+.custom-radio-button__item[data-state='checked'] .custom-radio-button__control::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #007bff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.custom-radio-button__label {
+  display: inline-block;
+}

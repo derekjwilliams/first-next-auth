@@ -22,6 +22,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   let { data: technicians } = await supabase.from('technicians').select('*')
 
   let { data: serviceTypes } = await supabase.from('service_types').select('*')
+  let { data: statuses } = await supabase.from('statuses').select('*')
   let { data: locations } = await supabase
     .from('locations')
     .select('*')
@@ -33,6 +34,7 @@ export default async function Page({ params }: { params: { id: string } }) {
       serviceRequest={serviceRequest}
       availableTechnicians={technicians ?? []}
       availableServiceTypes={serviceTypes ?? []}
-      availableLocations={locations ?? []}></ServiceRequestEditForm>
+      availableLocations={locations ?? []}
+      availableStatuses={statuses ?? []}></ServiceRequestEditForm>
   )
 }

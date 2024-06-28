@@ -7,6 +7,7 @@ import { colors } from '@stylexjs/open-props/lib/colors.stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import stylex from '@stylexjs/stylex'
 import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
+import * as RadioGroup from '@radix-ui/react-radio-group'
 
 const request = stylex.create({
   base: {
@@ -20,6 +21,61 @@ const request = stylex.create({
     margin: sizes.spacing2,
   },
 })
+
+const radioGroup = stylex.create({
+  label: {
+    fontSize: '15px',
+    lineHeight: '1',
+    paddingLeft: '15px',
+  },
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+  },
+  item: {
+    width: '25px',
+    height: '25px',
+    borderRadius: '100%',
+    boxShadow: {
+      default: '0 2px 10px var(--black-a7)',
+      ':focus': '0 0 0 2px black',
+    },
+    backgroundColor: {
+      default: 'white',
+      ':hover': 'var(--violet-3)',
+    },
+  },
+  indicator: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+    display: {
+      default: 'flex',
+      '::after': 'block',
+    },
+    width: {
+      default: '100%',
+      '::after': '11px',
+    },
+    height: {
+      default: '9px',
+      '::after': '9px',
+    },
+    backgroundColor: {
+      default: 'white',
+      '::after': 'var(--violet-11)',
+    },
+    content: {
+      '::after': '""',
+    },
+    borderRadius: {
+      default: '100%',
+      '::after': '100%',
+    },
+  },
+})
+
 const select = stylex.create({
   base: {
     display: 'block',
@@ -73,11 +129,13 @@ export default function ServiceRequestEditForm({
   availableTechnicians,
   availableServiceTypes,
   availableLocations,
+  availableStatuses,
 }: {
   serviceRequest: Tables<'service_requests'>
   availableTechnicians: Tables<'technicians'>[]
   availableServiceTypes: Tables<'service_types'>[]
   availableLocations: Tables<'locations'>[]
+  availableStatuses: Tables<'statuses'>[]
 }) {
   const assignedTechnicianIds = serviceRequest.technicians.map((t: { id: string }) => t.id)
   const availableTechnicianIds = availableTechnicians.map((t) => t.id)
@@ -101,7 +159,7 @@ export default function ServiceRequestEditForm({
             />
           </div>
         </div>
-        {/* Technicians Checkboxes */}
+        {/* Technicians Checkboxes, TODO use react-select for improved UX */}
         <div {...stylex.props(request.technicians)}>
           <h3>Service Technicians</h3>
           <div>
@@ -167,6 +225,53 @@ export default function ServiceRequestEditForm({
             ))}
           </select>
         </div>
+
+        {/* Status Radio Group */}
+        <h3>Status</h3>
+        <RadioGroup.Root
+          {...stylex.props(radioGroup.root)}
+          defaultValue={serviceRequest.status_id ?? ''}
+          aria-label='Service Request Status'
+          name='status_options'>
+          {availableStatuses.map((status) => (
+            <div key={status.id} style={{ display: 'flex', alignItems: 'center' }}>
+              <RadioGroup.Item {...stylex.props(radioGroup.item)} value={status.id} id={status.id}>
+                <RadioGroup.Indicator {...stylex.props(radioGroup.indicator)} />
+              </RadioGroup.Item>
+              <label {...stylex.props(radioGroup.label)} htmlFor={status.id}>
+                {status.status_name}
+              </label>
+            </div>
+          ))}
+        </RadioGroup.Root>
+        {/* Status Radio Group */}
+        {/* <h3>Status</h3>
+        <RadioGroup.Root {...stylex.props(radioGroup.root)} defaultValue='default' aria-label='Service Request Status'>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <RadioGroup.Item {...stylex.props(radioGroup.item)} value='default' id='r1'>
+              <RadioGroup.Indicator {...stylex.props(radioGroup.indicator)} />
+            </RadioGroup.Item>
+            <label {...stylex.props(radioGroup.label)} htmlFor='r1'>
+              Open
+            </label>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <RadioGroup.Item {...stylex.props(radioGroup.item)} value='comfortable' id='r2'>
+              <RadioGroup.Indicator {...stylex.props(radioGroup.indicator)} />
+            </RadioGroup.Item>
+            <label {...stylex.props(radioGroup.label)} htmlFor='r2'>
+              In Progress
+            </label>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <RadioGroup.Item {...stylex.props(radioGroup.item)} value='compact' id='r3'>
+              <RadioGroup.Indicator {...stylex.props(radioGroup.indicator)} />
+            </RadioGroup.Item>
+            <label {...stylex.props(radioGroup.label)} htmlFor='r3'>
+              Closed
+            </label>
+          </div>
+        </RadioGroup.Root> */}
         <button
           type='submit'
           style={{

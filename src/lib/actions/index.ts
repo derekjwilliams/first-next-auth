@@ -13,6 +13,7 @@ export async function updateServiceRequest(id: string, availableTechnicianIds: s
   const description = formData.get('description') as string
   const serviceTypeSelected = formData.get('service_types')
   const locationSelected = formData.get('locations')
+  const selectedStatus = formData.get('status_options')
   const technicianIds: string[] = []
   for (const [key, value] of formData.entries()) {
     if (key.startsWith('technician_')) {
@@ -43,6 +44,16 @@ export async function updateServiceRequest(id: string, availableTechnicianIds: s
     if (updateLocationError) {
       console.log('error on updating service request (location)', updateServiceTypeError)
       throw updateServiceTypeError
+    }
+    console.log('status: ', selectedStatus)
+    /* update status */
+    const { data: updateStatus, error: updateStatusError } = await supabase
+      .from('service_requests')
+      .update({ status_id: selectedStatus?.toString() })
+      .eq('id', id)
+    if (updateStatusError) {
+      console.log('error on updating service request (status)', updateStatusError)
+      throw updateStatusError
     }
 
     // add technicians for each technician that is selected (e.g. checked) on the form
