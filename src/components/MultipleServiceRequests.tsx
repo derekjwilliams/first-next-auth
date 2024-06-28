@@ -178,7 +178,7 @@ function AddServiceRequest({ locations, serviceTypeId, serviceDisplayName }: Mul
             </Form.Message>
           </div>
           <Form.Control asChild>
-            <textarea {...stylex.props(form.input, form.textarea)} required />
+            <textarea {...stylex.props(form.input, form.textarea)} autoCapitalize='sentences' required />
           </Form.Control>
         </Form.Field>
         <div>
