@@ -95,7 +95,6 @@ const form = stylex.create({
   requestButton: {
     cursor: 'pointer',
     textDecoration: 'none',
-    // color: marigoldColors.foreground,
     fontSize: fonts.size2,
     borderRadius: '0.5rem',
     placeItems: 'center',
@@ -103,11 +102,11 @@ const form = stylex.create({
     minWidth: 200,
     padding: 10,
     backgroundColor: {
-      default: marigoldColors.background,
+      default: 'rgb(244,244,244)',
       ':hover': marigoldColors.flowerYellow,
     },
     color: {
-      default: marigoldColors.foreground,
+      default: 'rgb(40,40,40)',
       ':hover': marigoldColors.background,
     },
     transitionDuration: '500ms',
