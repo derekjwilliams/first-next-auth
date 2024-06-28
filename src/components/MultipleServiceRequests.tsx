@@ -264,7 +264,7 @@ export default function MultipleServiceRequests({
           serviceDisplayName={serviceDisplayName}></AddServiceRequest>
       )}
       <form {...stylex.props(requests.list)}>
-        <h2 {...stylex.props(form.h2)}>Existing Service Requests</h2>
+        <h2 {...stylex.props(form.h2)}>Existing {serviceDisplayName} Service Requests</h2>
         {serviceRequests.map((serviceRequest: any) => (
           <div key={serviceRequest.id} {...stylex.props(requestCard.base)}>
             <Checkbox.Root {...stylex.props(requestCard.checkboxRoot)} id={serviceRequest.id}>
