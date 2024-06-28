@@ -63,9 +63,7 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
 
   return (
     <div {...stylex.props(requests.base)}>
-      <LinkWrapperButton href={`/servicerequests/${id}/edit`} {...stylex.props(button.base)}>
-        Edit
-      </LinkWrapperButton>
+      <LinkWrapperButton href={`/servicerequests/${id}/edit`}>Edit</LinkWrapperButton>
       {/* <Link href={`/servicerequests/${id}/edit`}  {...stylex.props(button.base)}>Edit</Link> */}
 
       <div key={serviceRequest.locations?.id} {...stylex.props(requestCard.base)}>
