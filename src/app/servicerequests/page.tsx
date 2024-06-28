@@ -25,6 +25,9 @@ export default async function Page({
   let sortedBy = ''
 
   switch (sortColumn) {
+    case 'status':
+      sortedBy = 'statuses(status_name)'
+      break
     case 'service_types':
       sortedBy = 'service_types(service_name)'
       break

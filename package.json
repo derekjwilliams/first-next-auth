@@ -35,6 +35,7 @@
     "react": "^19.0.0-rc",
     "react-dom": "^19.0.0-rc",
     "react-hot-toast": "^2.4.1",
+    "react-select": "^5.8.0",
     "sharp": "^0.33.4",
     "typescript": "5.4.5"
   },
