@@ -89,6 +89,7 @@ const styles = stylex.create({
   },
   tableStatusData: {
     minWidth: 'auto',
+    whiteSpace: 'nowrap',
   },
   tableDescriptionData: {
     minWidth: '10rem',
