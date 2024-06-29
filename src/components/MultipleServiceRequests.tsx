@@ -34,7 +34,7 @@ const header = stylex.create({
 
 const form = stylex.create({
   root: {
-    width: '260px',
+    width: '100%',
   },
   field: {
     display: 'grid',
@@ -48,17 +48,22 @@ const form = stylex.create({
     borderRadius: sizes.spacing00,
     fontSize: fonts.size2,
     color: marigoldColors.foreground,
-    backgroundColor: marigoldColors.dataBackground,
+    backgroundColor: marigoldColors.backgroundData,
     borderColor: {
       default: marigoldColors.foreground,
       ':hover': marigoldColors.flowerYellow,
     },
   },
+
+  textareaWrapper: {
+    display: 'flex',
+  },
   textarea: {
     padding: '10px',
-    width: '500px',
+    width: '100%',
     height: '200px',
-    backgroundColor: marigoldColors.textareaBackground,
+    flex: '1',
+    backgroundColor: marigoldColors.backgroundTextarea,
   },
   h1: {
     color: marigoldColors.foreground,
@@ -102,12 +107,12 @@ const form = stylex.create({
     minWidth: 200,
     padding: 10,
     backgroundColor: {
-      default: 'rgb(244,244,244)',
+      default: marigoldColors.backgroundButton,
       ':hover': marigoldColors.flowerYellow,
     },
     color: {
-      default: 'rgb(40,40,40)',
-      ':hover': marigoldColors.background,
+      default: marigoldColors.foregroundButton,
+      ':hover': marigoldColors.foregroundButton,
     },
     transitionDuration: '500ms',
     transitionProperty: 'backgroundColor',
@@ -121,7 +126,10 @@ const requestCard = stylex.create({
     display: 'flex',
   },
   requestLink: {
-    color: marigoldColors.foreground,
+    color: {
+      default: marigoldColors.foregroundLink,
+      ':hover': marigoldColors.foregroundHoverLink,
+    },
   },
   checkboxRoot: {
     backgroundColor: 'white',
@@ -194,7 +202,9 @@ function AddServiceRequest({ locations, serviceTypeId, serviceDisplayName }: Mul
             </Form.Message>
           </div>
           <Form.Control asChild>
-            <textarea {...stylex.props(form.input, form.textarea)} autoCapitalize='sentences' required />
+            <div {...stylex.props(form.textareaWrapper)}>
+              <textarea {...stylex.props(form.input, form.textarea)} autoCapitalize='sentences' required />
+            </div>
           </Form.Control>
         </Form.Field>
         <div>

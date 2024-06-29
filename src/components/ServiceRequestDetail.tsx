@@ -44,6 +44,13 @@ const requestCard = stylex.create({
       default: 'white',
     },
   },
+  link: {
+    marginLeft: '15px',
+    color: {
+      default: marigoldColors.foregroundLink,
+      ':hover': marigoldColors.foregroundHoverLink,
+    },
+  },
 })
 
 export default function ServiceRequestDetail({ id }: { id: string | null }) {
@@ -80,7 +87,9 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
         <div>
           {serviceRequest.technicians.map((technician: any) => (
             <div key={technician.id}>
-              <Link href={`/technicians/${technician.id}`}>{technician.name}</Link>
+              <Link {...stylex.props(requestCard.link)} href={`/technicians/${technician.id}`}>
+                {technician.name}
+              </Link>
             </div>
           ))}
         </div>

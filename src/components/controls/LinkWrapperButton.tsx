@@ -4,7 +4,6 @@ import classNames from '@/utils/classnames'
 import stylex from '@stylexjs/stylex'
 import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
 import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
-import { colors } from '@stylexjs/open-props/lib/colors.stylex'
 import { borders } from '@stylexjs/open-props/lib/borders.stylex'
 import { marigoldColors } from '../../app/customStyles/marigoldColors.stylex'
 
@@ -17,17 +16,17 @@ const button = stylex.create({
     paddingInline: sizes.spacing6,
     paddingBlock: sizes.spacing3,
     color: {
-      default: marigoldColors.foregroundButton,
-      ':hover': marigoldColors.foregroundButton,
-      ':focus': marigoldColors.foregroundButton,
+      default: marigoldColors.foregroundLinkButton,
+      ':hover': marigoldColors.foregroundHoverLinkButton,
+      ':focus': marigoldColors.foregroundHoverLinkButton,
     },
     borderWidth: borders.size2,
     borderStyle: 'solid',
-    borderColor: marigoldColors.foregroundButton,
+    borderColor: marigoldColors.foregroundLinkButton,
     backgroundColor: {
       default: 'transparent',
-      ':hover': marigoldColors.backgroundButton,
-      ':focus': marigoldColors.backgroundButton,
+      ':hover': marigoldColors.backgroundHoverLinkButton,
+      ':focus': marigoldColors.backgroundHoverLinkButton,
     },
     borderRadius: borders.radius2,
     cursor: {

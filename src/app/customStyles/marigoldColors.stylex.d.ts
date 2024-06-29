@@ -8,13 +8,18 @@ type TColors = Readonly<{
   leaf: string
   pansy: string
   background: string
-  dataBackground: string
+  backgroundData: string
   foreground: string
   foregroundLink: string
   foregroundHoverLink: string
+  foregroundLinkButton: string
+  backgroundLinkButton: string
+  foregroundHoverLinkButton: string
+  backgroundHoverLinkButton: string
   foregroundButton: string
   backgroundButton: string
-  textareaBackground: string
+  backgroundTextarea: string
+  backgroundHoverButton: string
   link: string
   navigationLink: string
 }>

@@ -46,7 +46,7 @@ const styles = stylex.create({
     width: 'auto',
     maxWidth: '100%',
     borderCollapse: 'collapse',
-    backgroundColor: `${marigoldColors.dataBackground}`,
+    backgroundColor: `${marigoldColors.backgroundData}`,
     tableLayout: 'fixed',
   },
   tableRow: {
