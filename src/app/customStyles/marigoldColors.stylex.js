@@ -31,5 +31,6 @@ export const marigoldColors = stylex.defineVars({
   backgroundButton: {default: 'rgb(244,244,244)',[DARK]: 'rgb(244,244,244)'},
   backgroundHoverButton: {default: flowerYellow,[DARK]: flowerGold},
   navigationLink: {default: pansy,[DARK]: environmentBrown},
+  tableBorder: {default: 'rgb(16 16 16)', [DARK]: 'rgb(16 16 16)'},
   link: {default: pansy,[DARK]: leafHighlight},
 })

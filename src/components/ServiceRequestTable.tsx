@@ -26,9 +26,10 @@ const styles = stylex.create({
     padding: 0,
   },
   containerWrapper: {
-    marginTop: '20px',
+    paddingTop: '20px',
     display: 'grid',
     placeItems: 'center',
+    backgroundColor: marigoldColors.background,
   },
   dataWrapper: {
     display: 'grid',
@@ -37,6 +38,7 @@ const styles = stylex.create({
     gap: '10px',
     width: '95%',
     marginBottom: '20px',
+    marginTop: '20px',
   },
   tableWrapper: {
     width: '100%',
@@ -48,6 +50,9 @@ const styles = stylex.create({
     borderCollapse: 'collapse',
     backgroundColor: `${marigoldColors.backgroundData}`,
     tableLayout: 'fixed',
+    borderWidth: '2px',
+    borderColor: marigoldColors.tableBorder,
+    borderStyle: 'solid',
   },
   tableRow: {
     backgroundColor: marigoldColors.background,
@@ -261,6 +266,7 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                       )
                     })}
                     <th
+                      key='dropdown_menu'
                       {...stylex.props(styles.tableHead)}
                       style={{
                         cursor: 'pointer',
@@ -379,7 +385,7 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                         </td>
                       )
                     })}
-                    <td {...stylex.props(styles.tableData, styles.tableDropdownData)}>
+                    <td key={`dropdown_menu_${row.id}`} {...stylex.props(styles.tableData, styles.tableDropdownData)}>
                       <ServiceRequestDropdownMenu></ServiceRequestDropdownMenu>
                     </td>
                   </tr>

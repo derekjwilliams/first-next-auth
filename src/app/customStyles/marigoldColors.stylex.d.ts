@@ -20,6 +20,7 @@ type TColors = Readonly<{
   backgroundButton: string
   backgroundTextarea: string
   backgroundHoverButton: string
+  tableBorder: string
   link: string
   navigationLink: string
 }>

@@ -13,9 +13,14 @@ const serviceCard = stylex.create({
   base: {
     cursor: 'pointer',
     textDecoration: 'none',
-    color: 'black',
+    color: {
+      default: marigoldColors.foreground,
+      ':hover': marigoldColors.background,
+    },
     fontSize: 16,
-    boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.1) 0px 4px 6px -4px',
+    boxShadow: {
+      default: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.1) 0px 4px 6px -4px',
+    },
     borderRadius: '0.5rem',
     placeItems: 'center',
     display: 'grid',
@@ -23,7 +28,7 @@ const serviceCard = stylex.create({
     minHeight: 200,
     padding: 10,
     backgroundColor: {
-      default: colors.gray2,
+      default: marigoldColors.background,
       ':hover': marigoldColors.flowerYellow,
     },
     transitionDuration: '500ms',
@@ -38,6 +43,7 @@ const servicePage = stylex.create({
     flexDirection: 'column',
     gap: '4rem',
     alignItems: 'center',
+    backgroundColor: marigoldColors.backgroundTextarea,
   },
   logo: {
     width: '100%',
@@ -75,6 +81,7 @@ const serviceAuthButton = stylex.create({
     padding: '0.75rem',
     fontSize: '0.875rem',
     lineHeight: '1.25rem',
+    color: marigoldColors.foreground,
   },
 })
 const serviceMain_container = stylex.create({
@@ -96,6 +103,7 @@ const serviceMain = stylex.create({
     gap: 1.5,
   },
   heading: {
+    color: marigoldColors.foreground,
     padding: '0 0 1rem 2rem',
   },
 })

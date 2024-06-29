@@ -1,7 +1,15 @@
 import ServiceRequestTable from '@/components/ServiceRequestTable'
 import ServiceRequestTableSkeleton from '@/components/ServiceRequestTableSkeleton'
 import { createClient } from '@/lib/supabase/client'
+import stylex from '@stylexjs/stylex'
 import { Suspense } from 'react'
+import { marigoldColors } from '../customStyles/marigoldColors.stylex'
+
+const styles = stylex.create({
+  tableWrapper: {
+    backgroundColor: marigoldColors.backgroundData,
+  },
+})
 
 // See https://nextjs.org/learn/dashboard-app/adding-search-and-pagination
 export default async function Page({
@@ -55,7 +63,7 @@ export default async function Page({
 
   const totalPages = Math.ceil(serviceRequestsCount / pageSize)
   return (
-    <div>
+    <div {...stylex.props(styles.tableWrapper)}>
       <Suspense key={'' + currentPage + sortDirection + sortColumn} fallback={<ServiceRequestTableSkeleton />}>
         <ServiceRequestTable
           data={serviceRequests || []}
