@@ -50,14 +50,15 @@ const request = stylex.create({
 
 const radioGroup = stylex.create({
   label: {
-    fontSize: '15px',
-    lineHeight: '1',
-    paddingLeft: '15px',
+    fontSize: fonts.size3,
+    lineHeight: fonts.lineHeight0,
+    paddingLeft: sizes.spacing3,
   },
   root: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '10px',
+    gap: sizes.spacing2,
+    marginBottom: sizes.spacing5,
   },
   item: {
     width: '25px',
@@ -135,7 +136,7 @@ const checkbox = stylex.create({
     borderColor: colors.gray6,
     borderStyle: 'solid',
     borderWidth: 2,
-    margin: sizes.spacing3,
+    margin: sizes.spacing2,
   },
 
   checkboxIndicator: {
@@ -145,6 +146,20 @@ const checkbox = stylex.create({
     color: '#1d2496',
     height: '100%',
     width: '100%',
+  },
+})
+
+const form = stylex.create({
+  textareaWrapper: {
+    display: 'flex',
+    marginTop: sizes.spacing5,
+  },
+  textarea: {
+    padding: sizes.spacing3,
+    width: 'auto',
+    flex: '1',
+    fontSize: fonts.size3,
+    backgroundColor: marigoldColors.backgroundTextarea,
   },
 })
 
@@ -172,14 +187,15 @@ export default function ServiceRequestEditForm({
           <label htmlFor='description'>
             <h1 {...stylex.props(request.h1)}>Description</h1>
           </label>
-          <div>
+          <div {...stylex.props(form.textareaWrapper)}>
             <textarea
+              {...stylex.props(form.textarea)}
               rows={4}
               id='description'
               name='description'
               defaultValue={serviceRequest.description ?? ''}
               placeholder='description'
-              style={{ width: '40rem', fontSize: '1.3rem' }}
+              // style={{ width: '40rem', fontSize: '1.3rem' }}
             />
           </div>
         </div>
