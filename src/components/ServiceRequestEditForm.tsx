@@ -55,51 +55,51 @@ const radioGroup = stylex.create({
     paddingLeft: sizes.spacing3,
   },
   root: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: sizes.spacing2,
-    marginBottom: sizes.spacing5,
+    // display: 'flex',
+    // flexDirection: 'column',
+    // gap: sizes.spacing2,
+    // marginBottom: sizes.spacing5,
   },
   item: {
-    width: '25px',
-    height: '25px',
-    borderRadius: '100%',
-    boxShadow: {
-      default: '0 2px 10px var(--black-a7)',
-      ':focus': '0 0 0 2px black',
-    },
-    backgroundColor: {
-      default: 'white',
-      ':hover': 'var(--violet-3)',
-    },
+    // width: '25px',
+    // height: '25px',
+    // borderRadius: '100%',
+    // boxShadow: {
+    //   default: '0 2px 10px var(--black-a7)',
+    //   ':focus': '0 0 0 2px black',
+    // },
+    // backgroundColor: {
+    //   default: 'white',
+    //   ':hover': 'var(--violet-3)',
+    // },
   },
   indicator: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
-    display: {
-      default: 'flex',
-      '::after': 'block',
-    },
-    width: {
-      default: '100%',
-      '::after': '11px',
-    },
-    height: {
-      default: '9px',
-      '::after': '9px',
-    },
-    backgroundColor: {
-      default: 'white',
-      '::after': 'var(--violet-11)',
-    },
-    content: {
-      '::after': '""',
-    },
-    borderRadius: {
-      default: '100%',
-      '::after': '100%',
-    },
+    //   alignItems: 'center',
+    //   justifyContent: 'center',
+    //   position: 'relative',
+    //   display: {
+    //     default: 'flex',
+    //     '::after': 'block',
+    //   },
+    //   width: {
+    //     default: '100%',
+    //     '::after': '11px',
+    //   },
+    //   height: {
+    //     default: '9px',
+    //     '::after': '9px',
+    //   },
+    //   backgroundColor: {
+    //     default: 'white',
+    //     '::after': 'var(--violet-11)',
+    //   },
+    //   content: {
+    //     '::after': '""',
+    //   },
+    //   borderRadius: {
+    //     default: '100%',
+    //     '::after': '100%',
+    //   },
   },
 })
 
@@ -269,16 +269,16 @@ export default function ServiceRequestEditForm({
         {/* Status Radio Group */}
         <h1 {...stylex.props(request.h1)}>Status</h1>
         <RadioGroup.Root
-          {...stylex.props(radioGroup.root)}
+          className='RadioGroupRoot'
           defaultValue={serviceRequest.status_id ?? ''}
           aria-label='Service Request Status'
           name='status_options'>
           {availableStatuses.map((status) => (
             <div key={status.id} style={{ display: 'flex', alignItems: 'center' }}>
-              <RadioGroup.Item {...stylex.props(radioGroup.item)} value={status.id} id={status.id}>
-                <RadioGroup.Indicator {...stylex.props(radioGroup.indicator)} />
+              <RadioGroup.Item className='RadioGroupItem' value={status.id} id={status.id}>
+                <RadioGroup.Indicator className='RadioGroupIndicator' />
               </RadioGroup.Item>
-              <label {...stylex.props(radioGroup.label)} htmlFor={status.id}>
+              <label className='Label' {...stylex.props(radioGroup.label)} htmlFor={status.id}>
                 {status.status_name}
               </label>
             </div>
