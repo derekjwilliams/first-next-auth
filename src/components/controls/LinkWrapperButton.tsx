@@ -11,6 +11,7 @@ const button = stylex.create({
   base: {
     display: 'inline-flex',
     whiteSpace: 'nowrap',
+    textDecoration: 'none',
     fontSize: fonts.sizeFluid1,
     fontWeight: fonts.weight7,
     paddingInline: sizes.spacing6,

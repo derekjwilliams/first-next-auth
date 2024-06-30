@@ -28,7 +28,7 @@ const requestCard = stylex.create({
     display: 'flex',
   },
   h1: {
-    fontSize: fonts.sizeFluid3,
+    fontSize: fonts.sizeFluid2,
     fontWeight: fonts.weight7,
   },
   details: {
