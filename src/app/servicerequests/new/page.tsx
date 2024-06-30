@@ -15,7 +15,7 @@ const serviceCard = stylex.create({
     textDecoration: 'none',
     color: {
       default: marigoldColors.foreground,
-      ':hover': marigoldColors.background,
+      ':hover': marigoldColors.foregroundButton,
     },
     fontSize: 16,
     boxShadow: {

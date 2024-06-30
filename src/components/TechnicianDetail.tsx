@@ -3,6 +3,7 @@
 import useTechnicianQuery from '@/hooks/useTechnicianQuery'
 import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
 import { colors } from '@stylexjs/open-props/lib/colors.stylex'
+import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 
 import * as stylex from '@stylexjs/stylex'
@@ -17,11 +18,25 @@ const requests = stylex.create({
     margin: sizes.spacing5,
   },
 })
+const form = stylex.create({
+  heading: {
+    color: marigoldColors.foreground,
+    fontWeight: fonts.weight7,
+  },
+  h1: {
+    fontSize: fonts.size7,
+  },
+  h2: {
+    fontSize: fonts.size5,
+  },
+})
 
 const requestCard = stylex.create({
   base: {
     margin: sizes.spacing2,
     display: 'flex',
+    color: marigoldColors.foreground,
+    fontSize: fonts.size4,
   },
   checkboxRoot: {
     backgroundColor: 'white',
@@ -44,6 +59,12 @@ const requestCard = stylex.create({
     height: '100%',
     width: '100%',
   },
+  requestLink: {
+    color: {
+      default: marigoldColors.foregroundLink,
+      ':hover': marigoldColors.foregroundHoverLink,
+    },
+  },
 })
 
 export default function TechnicianDetail({ id }: { id: string | null }) {
@@ -59,18 +80,24 @@ export default function TechnicianDetail({ id }: { id: string | null }) {
       </>
     )
   }
+  console.log(technician.service_requests[0].locations)
   return (
     <form>
       <div {...stylex.props(requests.base)}>
+        <h1 {...stylex.props(form.heading, form.h1)}>Technician Detail</h1>
         <div key={technician.id} {...stylex.props(requestCard.base)}>
           {technician.name} {technician.email}
         </div>
         <div>
-          <h2>Service Requests</h2>
+          <h2 {...stylex.props(form.heading, form.h2)}>Service Requests</h2>
           <div>
             {technician.service_requests.map((serviceRequest: any) => (
               <div key={serviceRequest.id}>
-                <Link href={`/servicerequests/${serviceRequest.id}`}>{serviceRequest.description}</Link>
+                <Link href={`/servicerequests/${serviceRequest.id}`} {...stylex.props(requestCard.requestLink)}>
+                  {`${serviceRequest.description} at ${serviceRequest.locations.street_address} ${
+                    serviceRequest.locations.unit_number ?? ''
+                  }`}
+                </Link>
               </div>
             ))}
           </div>

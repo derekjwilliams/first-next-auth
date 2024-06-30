@@ -1,7 +1,6 @@
 'use client'
 
 import useMultipleServiceRequestsQuery from '@/hooks/useMultipleServiceRequestsQuery'
-import useServiceRequestMutation from '@/hooks/useServiceRequestMutation'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { CheckIcon } from '@radix-ui/react-icons'
 import * as Form from '@radix-ui/react-form'
@@ -192,7 +191,7 @@ function AddServiceRequest({ locations, serviceTypeId, serviceDisplayName }: Mul
   }
   return (
     <>
-      <h1 {...stylex.props(header.base, form.h1)}>Create Service Request for {serviceDisplayName} Issue </h1>
+      <h1 {...stylex.props(form.h1)}>Create Service Request for {serviceDisplayName} Issue </h1>
       <Form.Root {...stylex.props(form.root)} onSubmit={onCreateServiceRequest}>
         <Form.Field {...stylex.props(form.field)} name='description'>
           <div>
@@ -284,7 +283,9 @@ export default function MultipleServiceRequests({
             </Checkbox.Root>
             <label htmlFor={serviceRequest.id}>
               <Link {...stylex.props(requestCard.requestLink)} href={`/servicerequests/${serviceRequest.id}`}>
-                {serviceRequest.description}
+                {`${serviceRequest.description} at ${serviceRequest.locations.street_address} ${
+                  serviceRequest.locations.unit_number ?? ''
+                }`}
               </Link>
             </label>
           </div>

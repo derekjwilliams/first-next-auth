@@ -24,6 +24,27 @@ const request = stylex.create({
   technician: {
     margin: sizes.spacing2,
   },
+  requestButton: {
+    cursor: 'pointer',
+    textDecoration: 'none',
+    fontSize: fonts.size2,
+    borderRadius: '0.5rem',
+    placeItems: 'center',
+    display: 'grid',
+    minWidth: 200,
+    padding: 10,
+    backgroundColor: {
+      default: marigoldColors.backgroundButton,
+      ':hover': marigoldColors.flowerYellow,
+    },
+    color: {
+      default: marigoldColors.foregroundButton,
+      ':hover': marigoldColors.foregroundButton,
+    },
+    transitionDuration: '500ms',
+    transitionProperty: 'backgroundColor',
+    marginTop: '10px',
+  },
 })
 
 const radioGroup = stylex.create({
@@ -248,35 +269,10 @@ export default function ServiceRequestEditForm({
             </div>
           ))}
         </RadioGroup.Root>
-        {/* Status Radio Group */}
-        {/* <h3>Status</h3>
-        <RadioGroup.Root {...stylex.props(radioGroup.root)} defaultValue='default' aria-label='Service Request Status'>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <RadioGroup.Item {...stylex.props(radioGroup.item)} value='default' id='r1'>
-              <RadioGroup.Indicator {...stylex.props(radioGroup.indicator)} />
-            </RadioGroup.Item>
-            <label {...stylex.props(radioGroup.label)} htmlFor='r1'>
-              Open
-            </label>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <RadioGroup.Item {...stylex.props(radioGroup.item)} value='comfortable' id='r2'>
-              <RadioGroup.Indicator {...stylex.props(radioGroup.indicator)} />
-            </RadioGroup.Item>
-            <label {...stylex.props(radioGroup.label)} htmlFor='r2'>
-              In Progress
-            </label>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <RadioGroup.Item {...stylex.props(radioGroup.item)} value='compact' id='r3'>
-              <RadioGroup.Indicator {...stylex.props(radioGroup.indicator)} />
-            </RadioGroup.Item>
-            <label {...stylex.props(radioGroup.label)} htmlFor='r3'>
-              Closed
-            </label>
-          </div>
-        </RadioGroup.Root> */}
-        <button
+        <button type='submit' {...stylex.props(request.requestButton)}>
+          Save Changes
+        </button>
+        {/* <button
           type='submit'
           style={{
             marginTop: '10px',
@@ -286,7 +282,7 @@ export default function ServiceRequestEditForm({
             borderWidth: '1.2px',
           }}>
           Save Changes
-        </button>
+        </button> */}
       </div>
     </form>
   )
