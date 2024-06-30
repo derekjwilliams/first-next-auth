@@ -55,51 +55,10 @@ const radioGroup = stylex.create({
     paddingLeft: sizes.spacing3,
   },
   root: {
-    // display: 'flex',
-    // flexDirection: 'column',
-    // gap: sizes.spacing2,
-    // marginBottom: sizes.spacing5,
-  },
-  item: {
-    // width: '25px',
-    // height: '25px',
-    // borderRadius: '100%',
-    // boxShadow: {
-    //   default: '0 2px 10px var(--black-a7)',
-    //   ':focus': '0 0 0 2px black',
-    // },
-    // backgroundColor: {
-    //   default: 'white',
-    //   ':hover': 'var(--violet-3)',
-    // },
-  },
-  indicator: {
-    //   alignItems: 'center',
-    //   justifyContent: 'center',
-    //   position: 'relative',
-    //   display: {
-    //     default: 'flex',
-    //     '::after': 'block',
-    //   },
-    //   width: {
-    //     default: '100%',
-    //     '::after': '11px',
-    //   },
-    //   height: {
-    //     default: '9px',
-    //     '::after': '9px',
-    //   },
-    //   backgroundColor: {
-    //     default: 'white',
-    //     '::after': 'var(--violet-11)',
-    //   },
-    //   content: {
-    //     '::after': '""',
-    //   },
-    //   borderRadius: {
-    //     default: '100%',
-    //     '::after': '100%',
-    //   },
+    display: 'flex',
+    flexDirection: 'column',
+    gap: sizes.spacing2,
+    marginBottom: sizes.spacing5,
   },
 })
 
@@ -143,7 +102,7 @@ const checkbox = stylex.create({
     padding: 0,
   },
   checkIcon: {
-    color: '#1d2496',
+    color: marigoldColors.slate,
     height: '100%',
     width: '100%',
   },
@@ -160,6 +119,7 @@ const form = stylex.create({
     flex: '1',
     fontSize: fonts.size3,
     backgroundColor: marigoldColors.backgroundTextarea,
+    color: marigoldColors.foreground,
   },
 })
 
@@ -269,7 +229,8 @@ export default function ServiceRequestEditForm({
         {/* Status Radio Group */}
         <h1 {...stylex.props(request.h1)}>Status</h1>
         <RadioGroup.Root
-          className='RadioGroupRoot'
+          {...stylex.props(radioGroup.root)}
+          // className='RadioGroupRoot'
           defaultValue={serviceRequest.status_id ?? ''}
           aria-label='Service Request Status'
           name='status_options'>

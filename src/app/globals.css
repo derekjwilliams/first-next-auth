@@ -36,34 +36,7 @@ video {
   font-display: swap;
 }
 
-.compound-grid {
-  display: grid;
-  grid-template-columns: [a1] 4fr [a2] 1fr [b2] 3fr [a3] 2fr [b3] 2fr [a4] 3fr [b4] 1fr [a5] 4fr [a6];
-  grid-column-gap: 1vw;
-  grid-row-gap: 2vh;
-  margin: 2rem;
-}
-.a1-b2 {
-  grid-column: a1 / b2;
-}
-.a1-b4 {
-  grid-column: a1 / b4;
-}
-.b2-b4 {
-  grid-column: b2 / b4;
-}
-.a5-a6 {
-  grid-column: a5 / a6;
-}
-.a1-b3 {
-  grid-column: a1 / b3;
-}
-.b2-a6 {
-  grid-column: b2 / a6;
-}
-.toes {
-  grid-column: a1 / a6;
-} */
+*/
 
 /* buttons */
 
@@ -159,49 +132,10 @@ input[type='password']:-webkit-autofill::first-line {
   font-size: 0.81333rem;
   line-height: 1.5;
 } */
-/* CustomRadioButton.css */
-.custom-radio-button__item {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  position: relative;
-  margin-bottom: 8px;
-}
 
-.custom-radio-button__control {
-  width: 16px;
-  height: 16px;
-  border: 2px solid #ccc;
-  border-radius: 50%;
-  display: inline-block;
-  position: relative;
-  margin-right: 8px;
-}
-
-.custom-radio-button__item[data-state='checked'] .custom-radio-button__control::before {
-  content: '';
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: #007bff;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.custom-radio-button__label {
-  display: inline-block;
-}
-
+/* Radix Primitives Radio Group */
 .RadioGroupItem {
   all: unset;
-}
-
-.RadioGroupRoot {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
 }
 
 .RadioGroupItem {
@@ -212,10 +146,10 @@ input[type='password']:-webkit-autofill::first-line {
   box-shadow: 0 2px 10px var(--black-a7);
 }
 .RadioGroupItem:hover {
-  background-color: var(--violet-3);
+  background-color: rgb(255 213 95);
 }
 .RadioGroupItem:focus {
-  box-shadow: 0 0 0 2px black;
+  box-shadow: 0 0 0 2px rgb(68, 68, 68);
 }
 
 .RadioGroupIndicator {
@@ -232,12 +166,5 @@ input[type='password']:-webkit-autofill::first-line {
   width: 11px;
   height: 11px;
   border-radius: 50%;
-  background-color: var(--violet-11);
-}
-
-.Label {
-  color: white;
-  font-size: 15px;
-  line-height: 1;
-  padding-left: 15px;
+  background-color: rgb(68, 68, 68);
 }
