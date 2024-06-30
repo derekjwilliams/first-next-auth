@@ -91,6 +91,7 @@ const styles = stylex.create({
     minWidth: '8rem',
   },
   tableDataLink: {
+    textDecoration: 'none',
     color: {
       default: marigoldColors.foregroundLink,
       ':hover': marigoldColors.foregroundHoverLink,

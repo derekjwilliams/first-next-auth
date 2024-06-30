@@ -7,6 +7,8 @@ type TColors = Readonly<{
   environmentBrown: string
   leaf: string
   pansy: string
+  slate: string
+  backgroundDetails: string
   background: string
   backgroundData: string
   foreground: string

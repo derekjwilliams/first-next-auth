@@ -77,27 +77,34 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
       {/* <Link href={`/servicerequests/${id}/edit`}  {...stylex.props(button.base)}>Edit</Link> */}
 
       <div key={serviceRequest.locations?.id} {...stylex.props(requestCard.base)}>
-        <h1 {...stylex.props(requestCard.h1)}>
-          {` ${serviceRequest.locations?.street_address} ${
-            serviceRequest.locations?.unit_number ? serviceRequest.locations?.unit_number : ''
-          }`}
-        </h1>
+        <h1 {...stylex.props(requestCard.h1)}>{serviceRequest.description}</h1>
       </div>
       <div key={serviceRequest.id} {...stylex.props(requestCard.details)}>
-        <div>{serviceRequest.description}</div>
+        <div>{`Location: ${serviceRequest.locations?.street_address} ${
+          serviceRequest.locations?.unit_number ? serviceRequest.locations?.unit_number : ''
+        }`}</div>
         <div>{`Status: ${serviceRequest.statuses?.status_name}`}</div>
       </div>
       <div>
-        <h2 {...stylex.props(requestCard.base)}>Technicians Assigned</h2>
-        <div {...stylex.props(requestCard.technicians)}>
-          {serviceRequest.technicians.map((technician: any) => (
-            <div key={technician.id}>
-              <Link {...stylex.props(requestCard.link)} href={`/technicians/${technician.id}`}>
-                {technician.name}
-              </Link>
+        {serviceRequest.technicians.length === 0 && (
+          <>
+            <h2 {...stylex.props(requestCard.base)}>No Technicians Assigned</h2>
+          </>
+        )}
+        {serviceRequest.technicians.length > 0 && (
+          <>
+            <h2 {...stylex.props(requestCard.base)}>Technicians Assigned</h2>
+            <div {...stylex.props(requestCard.technicians)}>
+              {serviceRequest.technicians.map((technician: any) => (
+                <div key={technician.id}>
+                  <Link {...stylex.props(requestCard.link)} href={`/technicians/${technician.id}`}>
+                    {technician.name}
+                  </Link>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </>
+        )}
       </div>
     </div>
   )

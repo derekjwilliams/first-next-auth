@@ -8,6 +8,7 @@ const leaf = 'rgb(0 81 69)'
 const leafHighlight = 'rgb(189 219 163)'
 const flowerGold = 'rgb(255 194 0)'
 const flowerRed = 'rgb(247 70 0)'
+const slate = 'rgb(68, 68, 68)'
 
 export const marigoldColors = stylex.defineVars({
   flowerYellow: flowerYellow,
@@ -17,6 +18,8 @@ export const marigoldColors = stylex.defineVars({
   leaf: leaf,
   leafHighlight: leafHighlight,
   pansy: pansy,
+  slate: slate,
+  backgroundDetails: {default: 'rgb(245,245,245)', [DARK]: slate},
   backgroundTextarea: {default: 'rgb(245,245,245)', [DARK]: 'rgb(40, 40, 40)'},
   background: {default: 'rgb(222 222 222)',[DARK]: 'rgb(116 116 116)'},
   backgroundData: {default: 'rgb(240 240 240)',[DARK]: 'rgb(116 116 116)'},
