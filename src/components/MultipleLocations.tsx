@@ -48,7 +48,7 @@ const form = stylex.create({
     borderRadius: sizes.spacing00,
     fontSize: fonts.size8,
     color: colors.gray10,
-    backgroundColor: colors.gray2,
+    backgroundColor: colors.gray0,
     borderColor: {
       default: colors.gray12,
       ':hover': marigoldColors.flowerYellow,
@@ -69,7 +69,7 @@ const form = stylex.create({
     placeItems: 'center',
     display: 'grid',
     minWidth: 200,
-    padding: 10,
+    padding: sizes.spacing2,
     backgroundColor: {
       default: colors.gray2,
       ':hover': marigoldColors.flowerYellow,

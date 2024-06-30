@@ -29,6 +29,7 @@ const requests = stylex.create({
 const form = stylex.create({
   root: {
     width: '100%',
+    marginBottom: sizes.spacing7,
   },
   field: {
     display: 'grid',
@@ -51,11 +52,13 @@ const form = stylex.create({
 
   textareaWrapper: {
     display: 'flex',
+    width: '98%',
+    marginTop: sizes.spacing5,
   },
   textarea: {
     padding: sizes.spacing3,
     width: '100%',
-    height: '200px',
+    // height: '200px',
     flex: '1',
     backgroundColor: marigoldColors.backgroundTextarea,
   },
@@ -68,7 +71,6 @@ const form = stylex.create({
     color: marigoldColors.foreground,
     fontSize: fonts.size4,
     fontWeight: fonts.weight7,
-    margin: 0,
   },
   requestButton: {
     cursor: 'pointer',
@@ -78,7 +80,7 @@ const form = stylex.create({
     placeItems: 'center',
     display: 'grid',
     minWidth: 200,
-    padding: 10,
+    padding: sizes.spacing2,
     backgroundColor: {
       default: marigoldColors.backgroundButton,
       ':hover': marigoldColors.flowerYellow,
@@ -89,7 +91,7 @@ const form = stylex.create({
     },
     transitionDuration: '500ms',
     transitionProperty: 'backgroundColor',
-    marginTop: '10px',
+    marginTop: sizes.spacing7,
   },
 })
 
@@ -182,8 +184,8 @@ function AddServiceRequest({ locations, serviceTypeId, serviceDisplayName }: Mul
               Please enter a description
             </Form.Message>
           </div>
-          <Form.Control asChild>
-            <textarea {...stylex.props(form.input, form.textarea)} autoCapitalize='sentences' required />
+          <Form.Control asChild {...stylex.props(form.textareaWrapper)}>
+            <textarea {...stylex.props(form.input, form.textarea)} autoCapitalize='sentences' rows={4} required />
           </Form.Control>
         </Form.Field>
         <div>
@@ -205,7 +207,7 @@ function AddServiceRequest({ locations, serviceTypeId, serviceDisplayName }: Mul
           </select>
         </div>
         <Form.Submit asChild>
-          <button {...stylex.props(form.requestButton)}>Submit Service Request</button>
+          <button {...stylex.props(form.requestButton)}>Submit {serviceDisplayName} Request</button>
         </Form.Submit>
         {/* Location Select, TODO use radix */}
       </Form.Root>

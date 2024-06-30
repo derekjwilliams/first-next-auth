@@ -33,7 +33,7 @@ const request = stylex.create({
     placeItems: 'center',
     display: 'grid',
     minWidth: 200,
-    padding: 10,
+    padding: sizes.spacing2,
     backgroundColor: {
       default: marigoldColors.backgroundButton,
       ':hover': marigoldColors.flowerYellow,

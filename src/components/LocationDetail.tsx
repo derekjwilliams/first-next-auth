@@ -61,7 +61,7 @@ export default function LocationDetail({ id }: { id: string | null }) {
                     {serviceRequest.technicians.map((technician: any) => {
                       return (
                         <div key={technician.id} {...stylex.props(locations.assignments)}>
-                          <Link {...stylex.props(select.base)} href={`/technicians/${technician.id}`}>
+                          <Link {...stylex.props(locations.assignments)} href={`/technicians/${technician.id}`}>
                             {technician.name}
                           </Link>
                         </div>

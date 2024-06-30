@@ -23,7 +23,7 @@ const authButton = stylex.create({
     display: 'grid',
     padding: sizes.spacing2,
     backgroundColor: {
-      default: colors.gray2,
+      default: colors.gray0,
       ':hover': marigoldColors.flowerYellow,
     },
     transitionDuration: '500ms',

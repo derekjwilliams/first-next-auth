@@ -27,7 +27,7 @@ const serviceCard = stylex.create({
     display: 'grid',
     minWidth: 200,
     minHeight: 200,
-    padding: 10,
+    padding: sizes.spacing2,
     backgroundColor: {
       default: marigoldColors.background,
       ':hover': marigoldColors.flowerYellow,
