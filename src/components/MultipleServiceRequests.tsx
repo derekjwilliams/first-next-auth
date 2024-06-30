@@ -52,13 +52,11 @@ const form = stylex.create({
 
   textareaWrapper: {
     display: 'flex',
-    width: '98%',
     marginTop: sizes.spacing5,
   },
   textarea: {
     padding: sizes.spacing3,
-    width: '100%',
-    // height: '200px',
+    width: 'auto',
     flex: '1',
     backgroundColor: marigoldColors.backgroundTextarea,
   },
