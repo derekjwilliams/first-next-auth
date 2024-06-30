@@ -8,6 +8,7 @@ import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
 import * as stylex from '@stylexjs/stylex'
 import Image from 'next/image'
 import { serviceTypes } from '@/utils/serviceTypes'
+import { borders } from '@stylexjs/open-props/lib/borders.stylex'
 
 const serviceCard = stylex.create({
   base: {
@@ -21,7 +22,7 @@ const serviceCard = stylex.create({
     boxShadow: {
       default: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.1) 0px 4px 6px -4px',
     },
-    borderRadius: '0.5rem',
+    borderRadius: borders.radius2,
     placeItems: 'center',
     display: 'grid',
     minWidth: 200,

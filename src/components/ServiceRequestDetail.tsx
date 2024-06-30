@@ -31,7 +31,7 @@ const requestCard = stylex.create({
     fontSize: fonts.sizeFluid3,
     fontWeight: fonts.weight7,
   },
-  description: {
+  details: {
     fontSize: fonts.sizeFluid1,
     fontWeight: fonts.weight2,
     lineHeight: fonts.lineHeight3,
@@ -44,8 +44,12 @@ const requestCard = stylex.create({
       default: 'white',
     },
   },
+  technicians: {
+    marginLeft: sizes.spacing4,
+  },
   link: {
-    marginLeft: '15px',
+    textDecoration: 'none',
+    fontSize: fonts.size3,
     color: {
       default: marigoldColors.foregroundLink,
       ':hover': marigoldColors.foregroundHoverLink,
@@ -79,12 +83,13 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
           }`}
         </h1>
       </div>
-      <div key={serviceRequest.id} {...stylex.props(requestCard.description)}>
-        {serviceRequest.description}
+      <div key={serviceRequest.id} {...stylex.props(requestCard.details)}>
+        <div>{serviceRequest.description}</div>
+        <div>{`Status: ${serviceRequest.statuses?.status_name}`}</div>
       </div>
       <div>
         <h2 {...stylex.props(requestCard.base)}>Technicians Assigned</h2>
-        <div>
+        <div {...stylex.props(requestCard.technicians)}>
           {serviceRequest.technicians.map((technician: any) => (
             <div key={technician.id}>
               <Link {...stylex.props(requestCard.link)} href={`/technicians/${technician.id}`}>

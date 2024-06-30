@@ -8,6 +8,7 @@ import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import stylex from '@stylexjs/stylex'
 import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
 import * as RadioGroup from '@radix-ui/react-radio-group'
+import { borders } from '@stylexjs/open-props/lib/borders.stylex'
 
 const request = stylex.create({
   base: {
@@ -28,7 +29,7 @@ const request = stylex.create({
     cursor: 'pointer',
     textDecoration: 'none',
     fontSize: fonts.size2,
-    borderRadius: '0.5rem',
+    borderRadius: borders.radius2,
     placeItems: 'center',
     display: 'grid',
     minWidth: 200,
@@ -113,8 +114,8 @@ const select = stylex.create({
     margin: '0',
     borderWidth: '1px',
     borderStyle: 'solid',
-    borderColor: '#aaa',
-    borderRadius: '0.5em',
+    // borderColor: '#aaa',
+    borderRadius: borders.radius2,
     appearance: 'none',
     backgroundColor: '#fff',
     backgroundImage:
@@ -272,17 +273,6 @@ export default function ServiceRequestEditForm({
         <button type='submit' {...stylex.props(request.requestButton)}>
           Save Changes
         </button>
-        {/* <button
-          type='submit'
-          style={{
-            marginTop: '10px',
-            padding: '10px',
-            fontSize: '1.3rem',
-            borderRadius: '0.5rem',
-            borderWidth: '1.2px',
-          }}>
-          Save Changes
-        </button> */}
       </div>
     </form>
   )

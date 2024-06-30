@@ -14,6 +14,7 @@ import useSupabase from '../hooks/useSupabase'
 import { addLocation } from '@/queries/addLocation'
 import { Tables } from '@/utils/database.types'
 import Link from 'next/link'
+import { borders } from '@stylexjs/open-props/lib/borders.stylex'
 
 const items = stylex.create({
   base: {
@@ -64,7 +65,7 @@ const form = stylex.create({
     textDecoration: 'none',
     color: 'black',
     fontSize: fonts.size2,
-    borderRadius: '0.5rem',
+    borderRadius: borders.radius2,
     placeItems: 'center',
     display: 'grid',
     minWidth: 200,

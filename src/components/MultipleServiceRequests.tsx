@@ -1,12 +1,9 @@
 'use client'
 
 import useMultipleServiceRequestsQuery from '@/hooks/useMultipleServiceRequestsQuery'
-import * as Checkbox from '@radix-ui/react-checkbox'
-import { CheckIcon } from '@radix-ui/react-icons'
 import * as Form from '@radix-ui/react-form'
 import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
-import { colors } from '@stylexjs/open-props/lib/colors.stylex'
 import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
 import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -15,6 +12,7 @@ import { addServiceRequest } from '@/queries/addServiceRequest'
 import { Tables } from '@/utils/database.types'
 import Link from 'next/link'
 import React, { useState } from 'react'
+import { borders } from '@stylexjs/open-props/lib/borders.stylex'
 
 const requests = stylex.create({
   base: {
@@ -23,11 +21,6 @@ const requests = stylex.create({
   },
   list: {
     margin: sizes.spacing5,
-  },
-})
-const header = stylex.create({
-  base: {
-    fontSize: `${fonts.size2}`,
   },
 })
 
@@ -74,33 +67,11 @@ const form = stylex.create({
     fontSize: fonts.size4,
     fontWeight: fonts.weight7,
   },
-  select: {
-    display: 'block',
-    fontSize: '16px',
-    color: marigoldColors.foreground,
-    lineHeight: '1.3',
-    padding: '0.6em 1.4em 0.5em 0.8em',
-    maxWidth: '100%',
-    boxSizing: 'border-box',
-    margin: '0',
-    borderWidth: '1px',
-    borderStyle: 'solid',
-    borderColor: marigoldColors.foreground,
-    borderRadius: '0.5em',
-    appearance: 'none',
-    backgroundColor: marigoldColors.background,
-    backgroundImage:
-      'url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E")',
-    backgroundRepeat: 'no-repeat, repeat',
-    backgroundPosition: 'right 0.7em top 50%, 0 0',
-    backgroundSize: '0.65em auto, 100%',
-  },
-
   requestButton: {
     cursor: 'pointer',
     textDecoration: 'none',
     fontSize: fonts.size2,
-    borderRadius: '0.5rem',
+    borderRadius: borders.radius2,
     placeItems: 'center',
     display: 'grid',
     minWidth: 200,
@@ -118,38 +89,47 @@ const form = stylex.create({
     marginTop: '10px',
   },
 })
+const select = stylex.create({
+  base: {
+    display: 'block',
+    fontSize: '16px',
+    // color: '#444',
+    lineHeight: '1.3',
+    padding: '0.6em 1.4em 0.5em 0.8em',
+    maxWidth: '100%',
+    boxSizing: 'border-box',
+    margin: '0',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    // borderColor: '#aaa',
+    borderRadius: borders.radius2,
+    appearance: 'none',
+    backgroundColor: '#fff',
+    backgroundImage:
+      'url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E")',
+    backgroundRepeat: 'no-repeat, repeat',
+    backgroundPosition: 'right 0.7em top 50%, 0 0',
+    backgroundSize: '0.65em auto, 100%',
+  },
+})
 
 const requestCard = stylex.create({
   base: {
     margin: sizes.spacing2,
     display: 'flex',
   },
-  requestLink: {
+  link: {
+    textDecoration: 'none',
     color: {
       default: marigoldColors.foregroundLink,
       ':hover': marigoldColors.foregroundHoverLink,
     },
   },
-  checkboxRoot: {
-    backgroundColor: 'white',
-    minWidth: 25,
-    height: 25,
-    borderRadius: '4px',
-    padding: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderColor: colors.gray6,
-    borderStyle: 'solid',
-    borderWidth: 2,
-    marginRight: sizes.spacing2,
+  requestLink: {
+    fontSize: fonts.size3,
   },
-  checkboxIndicator: {
-    padding: 0,
-  },
-  checkIcon: {
-    color: '#1d2496',
-    height: '100%',
-    width: '100%',
+  locationLink: {
+    fontSize: fonts.size3,
   },
 })
 
@@ -209,7 +189,7 @@ function AddServiceRequest({ locations, serviceTypeId, serviceDisplayName }: Mul
         <div>
           <h2 {...stylex.props(form.h2)}>Location</h2>
           <select
-            {...stylex.props(form.select)}
+            {...stylex.props(select.base)}
             value={selectedLocation}
             id='locations'
             name='locations'
@@ -276,17 +256,21 @@ export default function MultipleServiceRequests({
         <h2 {...stylex.props(form.h2)}>Existing {serviceDisplayName} Service Requests</h2>
         {serviceRequests.map((serviceRequest: any) => (
           <div key={serviceRequest.id} {...stylex.props(requestCard.base)}>
-            <Checkbox.Root {...stylex.props(requestCard.checkboxRoot)} id={serviceRequest.id}>
-              <Checkbox.Indicator {...stylex.props(requestCard.checkboxIndicator)}>
-                <CheckIcon {...stylex.props(requestCard.checkIcon)} />
-              </Checkbox.Indicator>
-            </Checkbox.Root>
             <label htmlFor={serviceRequest.id}>
-              <Link {...stylex.props(requestCard.requestLink)} href={`/servicerequests/${serviceRequest.id}`}>
-                {`${serviceRequest.description} at ${serviceRequest.locations.street_address} ${
-                  serviceRequest.locations.unit_number ?? ''
-                }`}
-              </Link>
+              <div>
+                <Link
+                  {...stylex.props(requestCard.link, requestCard.requestLink)}
+                  href={`/servicerequests/${serviceRequest.id}`}>
+                  {`${serviceRequest.description}`}
+                </Link>
+              </div>
+              <div>
+                <Link
+                  {...stylex.props(requestCard.link, requestCard.locationLink)}
+                  href={`/properties/${serviceRequest.locations.id}`}>
+                  {`${serviceRequest.locations.street_address} ${serviceRequest.locations.unit_number ?? ''}`}
+                </Link>
+              </div>
             </label>
           </div>
         ))}
