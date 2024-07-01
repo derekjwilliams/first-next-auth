@@ -54,7 +54,7 @@ const servicePage = stylex.create({
   grid: {
     display: 'grid',
     gap: '2rem',
-    margin: '0 2rem',
+    margin: '2rem',
     gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
   },
 })
@@ -64,7 +64,7 @@ const serviceNav = stylex.create({
     display: 'flex',
     justifyContent: 'flex-end',
     borderWidth: '0',
-    // height: '4rem',
+    height: '2rem',
   },
   container: {
     width: '100%',
@@ -77,8 +77,10 @@ const serviceAuthButton = stylex.create({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: '0.75rem',
-    paddingRight: '2rem',
+    paddingTop: '0.5rem',
+    position: 'fixed',
+    top: '0.2rem',
+    paddingRight: '1rem',
     paddingBottom: '1rem',
     fontSize: '0.875rem',
     lineHeight: '1.25rem',
