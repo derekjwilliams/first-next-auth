@@ -79,6 +79,7 @@ const serviceAuthButton = stylex.create({
     alignItems: 'center',
     paddingTop: '0.75rem',
     paddingRight: '2rem',
+    paddingBottom: '1rem',
     fontSize: '0.875rem',
     lineHeight: '1.25rem',
     color: marigoldColors.foreground,
