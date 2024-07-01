@@ -132,8 +132,17 @@ input[type='password']:-webkit-autofill::first-line {
   font-size: 0.81333rem;
   line-height: 1.5;
 } */
+
+/* Left right white space */
 body {
   overflow-x: hidden !important;
+}
+
+/* mobile font size issue */
+@media screen and (max-device-width: 480px) {
+  body {
+    -webkit-text-size-adjust: 100%;
+  }
 }
 /* Radix Primitives Radio Group */
 .RadioGroupItem {
