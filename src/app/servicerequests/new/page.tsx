@@ -42,7 +42,7 @@ const servicePage = stylex.create({
     flex: '1 1 0%',
     width: '100%',
     flexDirection: 'column',
-    gap: '4rem',
+    // gap: '4rem',
     alignItems: 'center',
     backgroundColor: marigoldColors.backgroundTextarea,
   },
@@ -60,13 +60,11 @@ const servicePage = stylex.create({
 })
 const serviceNav = stylex.create({
   base: {
-    width: '100%',
+    // width: '100%',
     display: 'flex',
     justifyContent: 'flex-end',
-    borderWidth: '1px',
-    borderStyle: 'solid',
-    borderColor: 'rgba(4, 9, 11, 0.1)',
-    height: '4rem',
+    borderWidth: '0',
+    // height: '4rem',
   },
   container: {
     width: '100%',
@@ -79,7 +77,7 @@ const serviceAuthButton = stylex.create({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: '0.75rem',
+    paddingTop: '0.75rem',
     fontSize: '0.875rem',
     lineHeight: '1.25rem',
     color: marigoldColors.foreground,
@@ -105,7 +103,7 @@ const serviceMain = stylex.create({
   },
   heading: {
     color: marigoldColors.foreground,
-    padding: '0 0 1rem 2rem',
+    padding: '0 0 0rem 2rem',
   },
 })
 export default async function Page() {
