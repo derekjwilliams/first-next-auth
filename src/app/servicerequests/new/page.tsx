@@ -78,7 +78,7 @@ const serviceAuthButton = stylex.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingTop: '0.5rem',
-    position: 'fixed',
+    position: 'absolute',
     top: '0.2rem',
     paddingRight: '1rem',
     paddingBottom: '1rem',
