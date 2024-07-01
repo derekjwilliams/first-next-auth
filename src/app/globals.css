@@ -132,7 +132,9 @@ input[type='password']:-webkit-autofill::first-line {
   font-size: 0.81333rem;
   line-height: 1.5;
 } */
-
+body {
+  overflow-x: hidden !important;
+}
 /* Radix Primitives Radio Group */
 .RadioGroupItem {
   all: unset;
