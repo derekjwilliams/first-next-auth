@@ -12,8 +12,7 @@ const authButtonWrapper = stylex.create({
   base: {
     display: 'flex',
     alignItems: 'center',
-    gap: '1rem',
-    width: '20%',
+    gap: '0.5rem',
   },
 })
 const authButton = stylex.create({

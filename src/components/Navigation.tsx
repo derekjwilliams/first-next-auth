@@ -45,7 +45,10 @@ const styles = stylex.create({
     // padding: sizes.spacing2,
     paddingLeft: 0,
     marginBottom: 0,
-    marginTop: '28px',
+    marginTop: {
+      default: '28px',
+      '@media (max-width: 768px)': '40px',
+    },
     backgroundColor: marigoldColors.flowerYellow,
   },
 
