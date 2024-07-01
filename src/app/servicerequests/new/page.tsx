@@ -72,12 +72,13 @@ const serviceNav = stylex.create({
 })
 const serviceAuthButton = stylex.create({
   base: {
-    width: '100%',
+    // width: '100%',
     maxWidth: '20rem',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingTop: '0.75rem',
+    paddingRight: '2rem',
     fontSize: '0.875rem',
     lineHeight: '1.25rem',
     color: marigoldColors.foreground,
