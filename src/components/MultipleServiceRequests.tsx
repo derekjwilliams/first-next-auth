@@ -265,11 +265,13 @@ export default function MultipleServiceRequests({
                 </Link>
               </div>
               <div>
-                <Link
-                  {...stylex.props(requestCard.link, requestCard.locationLink)}
-                  href={`/properties/${serviceRequest.locations.id}`}>
-                  {`${serviceRequest.locations.street_address} ${serviceRequest.locations.unit_number ?? ''}`}
-                </Link>
+                {serviceRequest.locations && (
+                  <Link
+                    {...stylex.props(requestCard.link, requestCard.locationLink)}
+                    href={`/properties/${serviceRequest.locations.id}`}>
+                    {`${serviceRequest.locations.street_address} ${serviceRequest.locations.unit_number ?? ''}`}
+                  </Link>
+                )}
               </div>
             </label>
           </div>

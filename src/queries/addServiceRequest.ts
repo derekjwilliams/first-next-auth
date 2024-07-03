@@ -11,5 +11,5 @@ export function addServiceRequest(client: TypedSupabaseClient, value: ServiceReq
       status_id: null,
       service_type_id: value.service_type_id || null,
     })
-    .select()
+    .select('*, locations(*)')
 }

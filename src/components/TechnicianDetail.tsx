@@ -80,7 +80,6 @@ export default function TechnicianDetail({ id }: { id: string | null }) {
       </>
     )
   }
-  console.log(technician.service_requests[0].locations)
   return (
     <form>
       <div {...stylex.props(requests.base)}>
