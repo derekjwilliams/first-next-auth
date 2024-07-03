@@ -23,7 +23,7 @@ Many packages have not been updated yet for React 19, to avoid errors on `npm in
 
 `supabase gen types typescript --linked --schema=public > src/utils/database.types.ts`
 
-Note: there is a bug where the types for many-to-many don't appear to be generated correctly now. If a build error is encountered that says "technicans not present" then add [x: string]: any to the service_request definition in src/utils/database.types.ts, e.g.
+Note: there is a bug where the types for many-to-many don't appear to be generated correctly now. If a build error is encountered that says "Type error: Property 'technicians' does not exist on type" then add `[x: string]: any` to the service_request definition in src/utils/database.types.ts, e.g.
 
 ```
 service_requests: {
