@@ -17,19 +17,31 @@
 
 Many packages have not been updated yet for React 19, to avoid errors on `npm install` make sure to include the `--legacy-peer-deps` flag, e.g.`npm install  --legacy-peer-deps`
 
+## Generating Data Types from Supabase
+
+`supabase link --project-ref [project ref]`
+
+`supabase gen types typescript --linked --schema=public > src/utils/database.types.ts`
+
+Note: there is a bug where the types for many-to-many don't appear to be generated correctly now. If a build error is encountered that says "technicans not present" then add [x: string]: any to the service_request definition in src/utils/database.types.ts, e.g.
+
+```
+service_requests: {
+        Row: {
+          [x: string]: any
+          completed: boolean | null
+          date_created: string | null
+          date_updated: string | null
+          description: string | null
+          details: string | null
+          ...
+```
+
+Unclear why this is the case, but the line [x: string]: any was at one point added, regerating the database types does not have that present
+
 ## Safari And Authentication
 
 Safari, sensibly, does not like using http to send sensitive data, so if you run with `npm run dev` Safari will complain, to work around this a script has been added to package.json that runs with the Next https server, `npm run dev-https`. More details on the Next `--experimental-https` flag can be found here: https://nextjs.org/docs/app/api-reference/next-cli
-
-## Getting Data Types from Supabase
-
-If not done already: `supabase link --project-ref [ref here]`
-
-ref here is from Supabase
-
-### Generating Types
-
-`supabase gen types typescript --linked --schema=public > src/utils/database.types.ts`
 
 ## Nextjs and StyleX example project
 

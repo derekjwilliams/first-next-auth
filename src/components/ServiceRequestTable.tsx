@@ -104,11 +104,11 @@ const styles = stylex.create({
     minWidth: 'auto',
     whiteSpace: 'nowrap',
   },
-  descriptionLink: {
-    whiteSpace: 'break-spaces',
-  },
   tableDescriptionData: {
     minWidth: '10rem',
+  },
+  descriptionLink: {
+    whiteSpace: 'break-spaces',
   },
   tableTechnicianData: {
     width: '8rem',

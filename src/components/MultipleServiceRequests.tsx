@@ -163,6 +163,7 @@ function AddServiceRequest({ locations, serviceTypeId, serviceDisplayName }: Mul
       id: '',
       requested_by: null,
       steps: [],
+      details: null,
     })
   }
 
