@@ -1,4 +1,10 @@
-export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[]
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json | undefined }
+  | Json[]
 
 export type Database = {
   public: {
@@ -33,12 +39,12 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'bathrooms_location_id_fkey'
-            columns: ['location_id']
+            foreignKeyName: "bathrooms_location_id_fkey"
+            columns: ["location_id"]
             isOneToOne: false
-            referencedRelation: 'locations'
-            referencedColumns: ['id']
-          }
+            referencedRelation: "locations"
+            referencedColumns: ["id"]
+          },
         ]
       }
       bedrooms: {
@@ -71,12 +77,12 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'bedrooms_location_id_fkey'
-            columns: ['location_id']
+            foreignKeyName: "bedrooms_location_id_fkey"
+            columns: ["location_id"]
             isOneToOne: false
-            referencedRelation: 'locations'
-            referencedColumns: ['id']
-          }
+            referencedRelation: "locations"
+            referencedColumns: ["id"]
+          },
         ]
       }
       foo: {
@@ -127,12 +133,12 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'kitchens_location_id_fkey'
-            columns: ['location_id']
+            foreignKeyName: "kitchens_location_id_fkey"
+            columns: ["location_id"]
             isOneToOne: false
-            referencedRelation: 'locations'
-            referencedColumns: ['id']
-          }
+            referencedRelation: "locations"
+            referencedColumns: ["id"]
+          },
         ]
       }
       laundry_rooms: {
@@ -165,12 +171,12 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'laundry_rooms_location_id_fkey'
-            columns: ['location_id']
+            foreignKeyName: "laundry_rooms_location_id_fkey"
+            columns: ["location_id"]
             isOneToOne: false
-            referencedRelation: 'locations'
-            referencedColumns: ['id']
-          }
+            referencedRelation: "locations"
+            referencedColumns: ["id"]
+          },
         ]
       }
       lessee: {
@@ -254,19 +260,19 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'lessee_payment_method_lessee_id_fkey'
-            columns: ['lessee_id']
+            foreignKeyName: "lessee_payment_method_lessee_id_fkey"
+            columns: ["lessee_id"]
             isOneToOne: false
-            referencedRelation: 'lessee'
-            referencedColumns: ['lessee_id']
+            referencedRelation: "lessee"
+            referencedColumns: ["lessee_id"]
           },
           {
-            foreignKeyName: 'lessee_payment_method_method_id_fkey'
-            columns: ['method_id']
+            foreignKeyName: "lessee_payment_method_method_id_fkey"
+            columns: ["method_id"]
             isOneToOne: false
-            referencedRelation: 'payment_method'
-            referencedColumns: ['method_id']
-          }
+            referencedRelation: "payment_method"
+            referencedColumns: ["method_id"]
+          },
         ]
       }
       listing_images: {
@@ -293,12 +299,12 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'public_listing_images_listing_id_fkey'
-            columns: ['listing_id']
+            foreignKeyName: "public_listing_images_listing_id_fkey"
+            columns: ["listing_id"]
             isOneToOne: false
-            referencedRelation: 'listings'
-            referencedColumns: ['id']
-          }
+            referencedRelation: "listings"
+            referencedColumns: ["id"]
+          },
         ]
       }
       listings: {
@@ -355,12 +361,12 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'fk_location'
-            columns: ['location_id']
+            foreignKeyName: "fk_location"
+            columns: ["location_id"]
             isOneToOne: true
-            referencedRelation: 'locations'
-            referencedColumns: ['id']
-          }
+            referencedRelation: "locations"
+            referencedColumns: ["id"]
+          },
         ]
       }
       locations: {
@@ -441,19 +447,19 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'rental_lessee_lessee_id_fkey'
-            columns: ['lessee_id']
+            foreignKeyName: "rental_lessee_lessee_id_fkey"
+            columns: ["lessee_id"]
             isOneToOne: false
-            referencedRelation: 'lessee'
-            referencedColumns: ['lessee_id']
+            referencedRelation: "lessee"
+            referencedColumns: ["lessee_id"]
           },
           {
-            foreignKeyName: 'rental_lessee_rental_id_fkey'
-            columns: ['rental_id']
+            foreignKeyName: "rental_lessee_rental_id_fkey"
+            columns: ["rental_id"]
             isOneToOne: false
-            referencedRelation: 'rental_property'
-            referencedColumns: ['property_id']
-          }
+            referencedRelation: "rental_property"
+            referencedColumns: ["property_id"]
+          },
         ]
       }
       rental_property: {
@@ -501,28 +507,28 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'service_request_technicians_service_request_id_fkey'
-            columns: ['service_request_id']
+            foreignKeyName: "service_request_technicians_service_request_id_fkey"
+            columns: ["service_request_id"]
             isOneToOne: false
-            referencedRelation: 'service_requests'
-            referencedColumns: ['id']
+            referencedRelation: "service_requests"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: 'service_request_technicians_technician_id_fkey'
-            columns: ['technician_id']
+            foreignKeyName: "service_request_technicians_technician_id_fkey"
+            columns: ["technician_id"]
             isOneToOne: false
-            referencedRelation: 'technicians'
-            referencedColumns: ['id']
-          }
+            referencedRelation: "technicians"
+            referencedColumns: ["id"]
+          },
         ]
       }
       service_requests: {
         Row: {
-          [x: string]: any
           completed: boolean | null
           date_created: string | null
           date_updated: string | null
           description: string | null
+          details: string | null
           id: string
           location_id: string | null
           requested_by: string | null
@@ -535,6 +541,7 @@ export type Database = {
           date_created?: string | null
           date_updated?: string | null
           description?: string | null
+          details?: string | null
           id?: string
           location_id?: string | null
           requested_by?: string | null
@@ -547,6 +554,7 @@ export type Database = {
           date_created?: string | null
           date_updated?: string | null
           description?: string | null
+          details?: string | null
           id?: string
           location_id?: string | null
           requested_by?: string | null
@@ -556,33 +564,33 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'public_service_requests_location_id_fkey'
-            columns: ['location_id']
+            foreignKeyName: "public_service_requests_location_id_fkey"
+            columns: ["location_id"]
             isOneToOne: false
-            referencedRelation: 'locations'
-            referencedColumns: ['id']
+            referencedRelation: "locations"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: 'public_service_requests_requested_by_fkey'
-            columns: ['requested_by']
+            foreignKeyName: "public_service_requests_requested_by_fkey"
+            columns: ["requested_by"]
             isOneToOne: false
-            referencedRelation: 'tenants'
-            referencedColumns: ['id']
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: 'public_service_requests_service_type_id_fkey'
-            columns: ['service_type_id']
+            foreignKeyName: "public_service_requests_service_type_id_fkey"
+            columns: ["service_type_id"]
             isOneToOne: false
-            referencedRelation: 'service_types'
-            referencedColumns: ['id']
+            referencedRelation: "service_types"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: 'public_service_requests_status_id_fkey'
-            columns: ['status_id']
+            foreignKeyName: "public_service_requests_status_id_fkey"
+            columns: ["status_id"]
             isOneToOne: false
-            referencedRelation: 'statuses'
-            referencedColumns: ['id']
-          }
+            referencedRelation: "statuses"
+            referencedColumns: ["id"]
+          },
         ]
       }
       service_types: {
@@ -688,74 +696,84 @@ export type Database = {
   }
 }
 
-type PublicSchema = Database[Extract<keyof Database, 'public'>]
+type PublicSchema = Database[Extract<keyof Database, "public">]
 
 export type Tables<
-  PublicTableNameOrOptions extends keyof (PublicSchema['Tables'] & PublicSchema['Views']) | { schema: keyof Database },
+  PublicTableNameOrOptions extends
+    | keyof (PublicSchema["Tables"] & PublicSchema["Views"])
+    | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof (Database[PublicTableNameOrOptions['schema']]['Tables'] &
-        Database[PublicTableNameOrOptions['schema']]['Views'])
-    : never = never
+    ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
+        Database[PublicTableNameOrOptions["schema"]]["Views"])
+    : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? (Database[PublicTableNameOrOptions['schema']]['Tables'] &
-      Database[PublicTableNameOrOptions['schema']]['Views'])[TableName] extends {
+  ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
+      Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
       Row: infer R
     }
     ? R
     : never
-  : PublicTableNameOrOptions extends keyof (PublicSchema['Tables'] & PublicSchema['Views'])
-  ? (PublicSchema['Tables'] & PublicSchema['Views'])[PublicTableNameOrOptions] extends {
-      Row: infer R
-    }
-    ? R
+  : PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] &
+        PublicSchema["Views"])
+    ? (PublicSchema["Tables"] &
+        PublicSchema["Views"])[PublicTableNameOrOptions] extends {
+        Row: infer R
+      }
+      ? R
+      : never
     : never
-  : never
 
 export type TablesInsert<
-  PublicTableNameOrOptions extends keyof PublicSchema['Tables'] | { schema: keyof Database },
+  PublicTableNameOrOptions extends
+    | keyof PublicSchema["Tables"]
+    | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicTableNameOrOptions['schema']]['Tables']
-    : never = never
+    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
+    : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicTableNameOrOptions['schema']]['Tables'][TableName] extends {
+  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Insert: infer I
     }
     ? I
     : never
-  : PublicTableNameOrOptions extends keyof PublicSchema['Tables']
-  ? PublicSchema['Tables'][PublicTableNameOrOptions] extends {
-      Insert: infer I
-    }
-    ? I
+  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
+    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
+        Insert: infer I
+      }
+      ? I
+      : never
     : never
-  : never
 
 export type TablesUpdate<
-  PublicTableNameOrOptions extends keyof PublicSchema['Tables'] | { schema: keyof Database },
+  PublicTableNameOrOptions extends
+    | keyof PublicSchema["Tables"]
+    | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicTableNameOrOptions['schema']]['Tables']
-    : never = never
+    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
+    : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicTableNameOrOptions['schema']]['Tables'][TableName] extends {
+  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Update: infer U
     }
     ? U
     : never
-  : PublicTableNameOrOptions extends keyof PublicSchema['Tables']
-  ? PublicSchema['Tables'][PublicTableNameOrOptions] extends {
-      Update: infer U
-    }
-    ? U
+  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
+    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
+        Update: infer U
+      }
+      ? U
+      : never
     : never
-  : never
 
 export type Enums<
-  PublicEnumNameOrOptions extends keyof PublicSchema['Enums'] | { schema: keyof Database },
+  PublicEnumNameOrOptions extends
+    | keyof PublicSchema["Enums"]
+    | { schema: keyof Database },
   EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicEnumNameOrOptions['schema']]['Enums']
-    : never = never
+    ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"]
+    : never = never,
 > = PublicEnumNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicEnumNameOrOptions['schema']]['Enums'][EnumName]
-  : PublicEnumNameOrOptions extends keyof PublicSchema['Enums']
-  ? PublicSchema['Enums'][PublicEnumNameOrOptions]
-  : never
+  ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
+  : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
+    ? PublicSchema["Enums"][PublicEnumNameOrOptions]
+    : never
