@@ -9,6 +9,7 @@ import stylex from '@stylexjs/stylex'
 import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
 import * as RadioGroup from '@radix-ui/react-radio-group'
 import { borders } from '@stylexjs/open-props/lib/borders.stylex'
+import CustomRadioGroup from './controls/RadioSet'
 
 const request = stylex.create({
   base: {
@@ -139,6 +140,11 @@ export default function ServiceRequestEditForm({
   const assignedTechnicianIds = serviceRequest.technicians.map((t: { id: string }) => t.id)
   const availableTechnicianIds = availableTechnicians.map((t) => t.id)
   const updateServiceRequestWithId = updateServiceRequest.bind(null, serviceRequest.id, availableTechnicianIds)
+
+  const options = availableStatuses.map((status) => {
+    return { value: status.id, label: status.status_name, id: status.id }
+  })
+
   return (
     <form action={updateServiceRequestWithId}>
       <div {...stylex.props(request.base)}>
@@ -228,23 +234,7 @@ export default function ServiceRequestEditForm({
 
         {/* Status Radio Group */}
         <h1 {...stylex.props(request.h1)}>Status</h1>
-        <RadioGroup.Root
-          {...stylex.props(radioGroup.root)}
-          // className='RadioGroupRoot'
-          defaultValue={serviceRequest.status_id ?? ''}
-          aria-label='Service Request Status'
-          name='status_options'>
-          {availableStatuses.map((status) => (
-            <div key={status.id} style={{ display: 'flex', alignItems: 'center' }}>
-              <RadioGroup.Item className='RadioGroupItem' value={status.id} id={status.id}>
-                <RadioGroup.Indicator className='RadioGroupIndicator' />
-              </RadioGroup.Item>
-              <label className='Label' {...stylex.props(radioGroup.label)} htmlFor={status.id}>
-                {status.status_name}
-              </label>
-            </div>
-          ))}
-        </RadioGroup.Root>
+        <CustomRadioGroup options={options} value={serviceRequest.status_id ?? ''} name='status_options' />
         <button type='submit' {...stylex.props(request.requestButton)}>
           Save Changes
         </button>
