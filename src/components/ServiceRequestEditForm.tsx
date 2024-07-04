@@ -7,6 +7,7 @@ import { colors } from '@stylexjs/open-props/lib/colors.stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import stylex from '@stylexjs/stylex'
 import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
+import { fonts as globalFonts } from '../app/globalTokens.stylex'
 import * as RadioGroup from '@radix-ui/react-radio-group'
 import { borders } from '@stylexjs/open-props/lib/borders.stylex'
 import CustomRadioGroup from './controls/RadioSet'
@@ -119,6 +120,7 @@ const form = stylex.create({
     width: 'auto',
     flex: '1',
     fontSize: fonts.size3,
+    fontFamily: `${globalFonts.appFont}, -apple-system, BlinkMacSystemFont, Arial`,
     backgroundColor: marigoldColors.backgroundTextarea,
     color: marigoldColors.foreground,
   },
@@ -161,7 +163,22 @@ export default function ServiceRequestEditForm({
               name='description'
               defaultValue={serviceRequest.description ?? ''}
               placeholder='description'
-              // style={{ width: '40rem', fontSize: '1.3rem' }}
+            />
+          </div>
+        </div>
+        {/* Service Request Details */}
+        <div>
+          <label htmlFor='details'>
+            <h1 {...stylex.props(request.h1)}>Details</h1>
+          </label>
+          <div {...stylex.props(form.textareaWrapper)}>
+            <textarea
+              {...stylex.props(form.textarea)}
+              rows={6}
+              id='details'
+              name='details'
+              defaultValue={serviceRequest.details ?? ''}
+              placeholder='details'
             />
           </div>
         </div>
