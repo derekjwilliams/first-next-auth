@@ -196,13 +196,10 @@ function AddServiceRequest({
       locationId: selectedLocation,
       technicianIds: technicianIds, // //TODO, all are being added, need to get from the RadioSet
       completed: null,
-      dateCreated: null,
-      dateUpdated: null,
       requestedBy: null,
       details: e.currentTarget.details.value,
       serviceTypeId: serviceTypeId,
       statusId: e.currentTarget.statuses.value, // TODO, check this
-      steps: null,
     })
   }
 

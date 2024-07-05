@@ -7,14 +7,11 @@ interface InsertServiceRequestParams {
   description: string
   technicianIds: string[]
   completed: boolean | null
-  dateCreated: string | null
-  dateUpdated: string | null
   details: string | null
   locationId: string
   requestedBy: string | null
   serviceTypeId: string
   statusId: string | null
-  steps: string[] | null
 }
 
 const insertServiceRequestWithTechnicians = async (params: InsertServiceRequestParams): Promise<any> => {
@@ -33,19 +30,15 @@ const insertServiceRequestWithTechnicians = async (params: InsertServiceRequestP
     }
   }
 
-  console.log('--------------', reqBy)
   const { data, error } = await client.rpc('insert_service_request_with_technicians', {
     service_description: params.description,
     technician_ids: params.technicianIds,
     completed: params.completed,
-    date_created: params.dateCreated,
-    date_updated: params.dateUpdated,
     details: params.details,
     location_id: params.locationId,
     requested_by: reqBy,
     service_type_id: params.serviceTypeId,
     status_id: params.statusId,
-    steps: params.steps,
   })
 
   if (error) {
