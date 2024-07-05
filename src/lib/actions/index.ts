@@ -11,7 +11,7 @@ export default async function readUserSession() {
 
 export async function updateServiceRequest(id: string, availableTechnicianIds: string[], formData: FormData) {
   const description = formData.get('description') as string
-  const details = formData.get('description') as string
+  const details = formData.get('details') as string
   const serviceTypeSelected = formData.get('service_types')
   const locationSelected = formData.get('locations')
   const selectedStatus = formData.get('status_options')
