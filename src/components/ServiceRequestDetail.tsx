@@ -84,6 +84,7 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
           serviceRequest.locations?.unit_number ? serviceRequest.locations?.unit_number : ''
         }`}</div>
         <div>{`Status: ${serviceRequest.statuses?.status_name}`}</div>
+        {serviceRequest.details && <div>{`Details: ${serviceRequest.details}`}</div>}
       </div>
       <div>
         {serviceRequest.technicians.length === 0 && (
