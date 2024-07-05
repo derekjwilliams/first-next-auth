@@ -190,7 +190,6 @@ function AddServiceRequest({
       }
     }
 
-    debugger
     mutation.mutate({
       description: e.currentTarget.description.value,
       locationId: selectedLocation,
@@ -234,7 +233,7 @@ function AddServiceRequest({
             </Form.Message>
           </div>
           <Form.Control asChild {...stylex.props(form.textareaWrapper)}>
-            <textarea {...stylex.props(form.input, form.textarea)} autoCapitalize='sentences' rows={6} required />
+            <textarea {...stylex.props(form.input, form.textarea)} autoCapitalize='sentences' rows={6} />
           </Form.Control>
         </Form.Field>
         <Form.Field {...stylex.props(form.field)} name='statuses'>
