@@ -55,7 +55,6 @@ export async function updateServiceRequest(id: string, availableTechnicianIds: s
       console.log('error on updating service request (status)', updateStatusError)
       throw updateStatusError
     }
-
     // add technicians for each technician that is selected (e.g. checked) on the form
     const techniciansToServiceRequests = technicianIds.map((technicianId) => ({
       service_request_id: id,

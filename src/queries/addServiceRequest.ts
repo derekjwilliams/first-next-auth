@@ -7,9 +7,10 @@ export function addServiceRequest(client: TypedSupabaseClient, value: ServiceReq
     ?.from('service_requests')
     .insert({
       description: value.description,
+      details: value.details,
       location_id: value.location_id,
-      status_id: null,
+      status_id: value.status_id || null,
       service_type_id: value.service_type_id || null,
     })
-    .select('*, locations(*)')
+    .select('*, locations(*), technicians(*), statuses(*)')
 }

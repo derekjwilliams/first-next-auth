@@ -8,9 +8,8 @@ import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import stylex from '@stylexjs/stylex'
 import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
 import { fonts as globalFonts } from '../app/globalTokens.stylex'
-import * as RadioGroup from '@radix-ui/react-radio-group'
 import { borders } from '@stylexjs/open-props/lib/borders.stylex'
-import CustomRadioGroup from './controls/RadioSet'
+import RadioSet from './controls/RadioSet'
 
 const request = stylex.create({
   base: {
@@ -251,7 +250,7 @@ export default function ServiceRequestEditForm({
 
         {/* Status Radio Group */}
         <h1 {...stylex.props(request.h1)}>Status</h1>
-        <CustomRadioGroup options={options} value={serviceRequest.status_id ?? ''} name='status_options' />
+        <RadioSet options={options} value={serviceRequest.status_id ?? ''} name='status_options' />
         <button type='submit' {...stylex.props(request.requestButton)}>
           Save Changes
         </button>

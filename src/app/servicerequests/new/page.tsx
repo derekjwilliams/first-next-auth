@@ -1,9 +1,7 @@
-import Navigation from '@/components/Navigation'
 import AuthButton from '@/components/AuthButton'
 import { createClient } from '@/lib/supabase/client'
 import Link from 'next/link'
 import { marigoldColors } from '../../customStyles/marigoldColors.stylex'
-import { colors } from '@stylexjs/open-props/lib/colors.stylex'
 import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
 import * as stylex from '@stylexjs/stylex'
 import Image from 'next/image'
@@ -42,7 +40,6 @@ const servicePage = stylex.create({
     flex: '1 1 0%',
     width: '100%',
     flexDirection: 'column',
-    // gap: '4rem',
     alignItems: 'center',
     backgroundColor: marigoldColors.backgroundTextarea,
   },
@@ -72,7 +69,6 @@ const serviceNav = stylex.create({
 })
 const serviceAuthButton = stylex.create({
   base: {
-    // width: '100%',
     maxWidth: '20rem',
     display: 'flex',
     justifyContent: 'space-between',

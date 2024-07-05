@@ -5,13 +5,20 @@ import * as Form from '@radix-ui/react-form'
 import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
+import { fonts as globalFonts } from '../app/globalTokens.stylex'
 import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { colors } from '@stylexjs/open-props/lib/colors.stylex'
+// import { useMutation, useQueryClient } from '@tanstack/react-query'
 import useSupabase from '../hooks/useSupabase'
+import { useInsertServiceRequestWithTechnicians } from '@/hooks/useInsertServiceRequestWithTechnicians'
 import { addServiceRequest } from '@/queries/addServiceRequest'
 import { Tables } from '@/utils/database.types'
 import Link from 'next/link'
 import React, { useState } from 'react'
+import RadioSet from './controls/RadioSet'
+import * as Checkbox from '@radix-ui/react-checkbox'
+import { CheckIcon } from '@radix-ui/react-icons'
+
 import { borders } from '@stylexjs/open-props/lib/borders.stylex'
 
 const requests = stylex.create({
@@ -25,7 +32,6 @@ const requests = stylex.create({
     padding: sizes.spacing3,
   },
 })
-
 const form = stylex.create({
   root: {
     width: '100%',
@@ -59,6 +65,7 @@ const form = stylex.create({
     width: 'auto',
     flex: '1',
     backgroundColor: marigoldColors.backgroundTextarea,
+    fontFamily: `${globalFonts.appFont}, -apple-system, BlinkMacSystemFont, Arial`,
   },
   h1: {
     color: marigoldColors.foreground,
@@ -69,6 +76,12 @@ const form = stylex.create({
     color: marigoldColors.foreground,
     fontSize: fonts.size4,
     fontWeight: fonts.weight7,
+  },
+  statusWrapper: {
+    marginTop: sizes.spacing5,
+  },
+  techniciansWrapper: {
+    marginTop: sizes.spacing5,
   },
   requestButton: {
     cursor: 'pointer',
@@ -134,36 +147,62 @@ const requestCard = stylex.create({
     fontSize: fonts.size3,
   },
 })
+const checkbox = stylex.create({
+  checkboxRoot: {
+    backgroundColor: { default: 'white', ':hover': marigoldColors.flowerYellow },
+    width: 25,
+    height: 25,
+    borderRadius: '4px',
+    padding: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: colors.gray6,
+    borderStyle: 'solid',
+    borderWidth: 2,
+    margin: sizes.spacing2,
+  },
 
-function AddServiceRequest({ locations, serviceTypeId, serviceDisplayName }: MultipleServiceRequestsProps) {
-  const client = useSupabase()
-  const mutationFn = async (value: Tables<'service_requests'>) => {
-    return addServiceRequest(client, value)?.then((result) => result.data)
-  }
-  const queryClient = useQueryClient()
-  const mutation = useMutation({
-    mutationFn,
-    onSuccess: (data: any) => {
-      queryClient.setQueryData(['service-requests'], (prevData: Array<Tables<'service_requests'>>) => [
-        ...prevData,
-        data![0],
-      ])
-    },
-  })
+  checkboxIndicator: {
+    padding: 0,
+  },
+  checkIcon: {
+    color: marigoldColors.slate,
+    height: '100%',
+    width: '100%',
+  },
+})
+
+function AddServiceRequest({
+  locations,
+  serviceTypeId,
+  serviceDisplayName,
+  statuses,
+  technicians,
+}: MultipleServiceRequestsProps) {
+  const mutation = useInsertServiceRequestWithTechnicians()
   const onCreateServiceRequest = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    const technicianIds: string[] = []
+    const formData = new FormData(e.currentTarget)
+    for (const [key, value] of formData.entries()) {
+      if (key.startsWith('technician_')) {
+        const id = key.slice('technician_'.length)
+        technicianIds.push(id)
+      }
+    }
+
+    debugger
     mutation.mutate({
       description: e.currentTarget.description.value,
-      location_id: selectedLocation,
-      status_id: null,
-      service_type_id: serviceTypeId,
+      locationId: selectedLocation,
+      technicianIds: technicianIds, // //TODO, all are being added, need to get from the RadioSet
       completed: null,
-      date_created: null,
-      date_updated: null,
-      id: '',
-      requested_by: null,
-      steps: [],
-      details: null,
+      dateCreated: null,
+      dateUpdated: null,
+      requestedBy: null,
+      details: e.currentTarget.details.value,
+      serviceTypeId: serviceTypeId,
+      statusId: e.currentTarget.statuses.value, // TODO, check this
+      steps: null,
     })
   }
 
@@ -172,6 +211,9 @@ function AddServiceRequest({ locations, serviceTypeId, serviceDisplayName }: Mul
   const handleSelectChange = (event: { target: { value: React.SetStateAction<string> } }) => {
     setSelectedLocation(event.target.value)
   }
+  const options = statuses.map((status) => {
+    return { value: status.id, label: status.status_name, id: status.id }
+  })
   return (
     <>
       <h1 {...stylex.props(form.h1)}>Create Service Request for {serviceDisplayName} Issue </h1>
@@ -187,6 +229,53 @@ function AddServiceRequest({ locations, serviceTypeId, serviceDisplayName }: Mul
             <textarea {...stylex.props(form.input, form.textarea)} autoCapitalize='sentences' rows={4} required />
           </Form.Control>
         </Form.Field>
+        <Form.Field {...stylex.props(form.field)} name='details'>
+          <div>
+            <Form.Label {...stylex.props(form.h2)}>Details</Form.Label>
+            <Form.Message className='FormMessage' match='valueMissing'>
+              details
+            </Form.Message>
+          </div>
+          <Form.Control asChild {...stylex.props(form.textareaWrapper)}>
+            <textarea {...stylex.props(form.input, form.textarea)} autoCapitalize='sentences' rows={6} required />
+          </Form.Control>
+        </Form.Field>
+        <Form.Field {...stylex.props(form.field)} name='statuses'>
+          <Form.Label {...stylex.props(form.h2)}>Status</Form.Label>
+          <Form.Message className='FormMessage' match='valueMissing'>
+            status
+          </Form.Message>
+          <div {...stylex.props(form.statusWrapper)}>
+            <RadioSet options={options} value={''} name='statuses' />
+          </div>
+        </Form.Field>
+        <div>
+          <h2 {...stylex.props(form.h2)}>Technicians</h2>
+          <div {...stylex.props(form.statusWrapper)}>
+            {technicians.map((technician) => (
+              <div key={technician.id} style={{ display: 'flex', alignItems: 'center' }}>
+                <Checkbox.Root
+                  {...stylex.props(checkbox.checkboxRoot)}
+                  defaultChecked={false}
+                  id={`technician_${technician.id}`}
+                  key={technician.id}
+                  name={`technician_${technician.id}`}>
+                  <Checkbox.Indicator className='CheckboxIndicator'>
+                    <CheckIcon {...stylex.props(checkbox.checkIcon)} />
+                  </Checkbox.Indicator>
+                </Checkbox.Root>
+                <label
+                  style={{
+                    fontSize: fonts.size3,
+                  }}
+                  // className='Label'
+                  htmlFor={technician.id}>
+                  <span style={{ fontWeight: 'normal' }}>{technician.name}</span>
+                </label>
+              </div>
+            ))}
+          </div>
+        </div>
         <div>
           <h2 {...stylex.props(form.h2)}>Location</h2>
           <select
@@ -206,7 +295,7 @@ function AddServiceRequest({ locations, serviceTypeId, serviceDisplayName }: Mul
           </select>
         </div>
         <Form.Submit asChild>
-          <button {...stylex.props(form.requestButton)}>Submit {serviceDisplayName} Request</button>
+          <button {...stylex.props(form.requestButton)}>Submit Service Request</button>
         </Form.Submit>
         {/* Location Select, TODO use radix */}
       </Form.Root>
@@ -223,11 +312,15 @@ interface MultipleServiceRequestsProps {
   locations: Location[]
   serviceTypeId: string
   serviceDisplayName: string
+  statuses: Tables<'statuses'>[]
+  technicians: Tables<'technicians'>[]
 }
 export default function MultipleServiceRequests({
   locations,
   serviceTypeId,
   serviceDisplayName,
+  statuses,
+  technicians,
 }: MultipleServiceRequestsProps) {
   const {
     data: serviceRequests,
@@ -251,7 +344,9 @@ export default function MultipleServiceRequests({
         <AddServiceRequest
           locations={locations}
           serviceTypeId={serviceTypeId}
-          serviceDisplayName={serviceDisplayName}></AddServiceRequest>
+          serviceDisplayName={serviceDisplayName}
+          statuses={statuses}
+          technicians={technicians}></AddServiceRequest>
       )}
       <div {...stylex.props(requests.list)}>
         <h2 {...stylex.props(form.h2)}>Existing {serviceDisplayName} Service Requests</h2>

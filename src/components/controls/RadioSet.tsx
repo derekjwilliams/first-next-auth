@@ -25,13 +25,13 @@ interface RadioOption {
   id: string
 }
 
-interface CustomRadioGroupProps extends HTMLAttributes<HTMLDivElement> {
+interface RadioSetProps extends HTMLAttributes<HTMLDivElement> {
   options: RadioOption[]
   value: string
   name?: string
 }
 
-const CustomRadioGroup: FC<CustomRadioGroupProps> = ({ options, value, name }) => {
+const RadioSet: FC<RadioSetProps> = ({ options, value, name }) => {
   return (
     <RadioGroup.Root className='RadioGroupRoot' {...stylex.props(styles.root)} defaultValue={value} name={name}>
       {options.map((option) => (
@@ -48,4 +48,4 @@ const CustomRadioGroup: FC<CustomRadioGroupProps> = ({ options, value, name }) =
   )
 }
 
-export default CustomRadioGroup
+export default RadioSet
