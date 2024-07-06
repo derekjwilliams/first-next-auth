@@ -138,7 +138,7 @@ function AddLocation() {
     <>
       <h1 {...stylex.props(header.base)}>Add Property</h1>
       <Form.Root {...stylex.props(form.root)} onSubmit={onCreateLocation}>
-        <Form.Field className='FormField' name='location_address'>
+        <Form.Field className='FormField' name='street_address'>
           <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
             <Form.Label className='FormLabel'>Street Address</Form.Label>
             <Form.Message className='FormMessage' match='valueMissing'>
