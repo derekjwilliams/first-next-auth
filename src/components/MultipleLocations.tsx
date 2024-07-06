@@ -126,9 +126,9 @@ function AddLocation() {
     mutation.mutate({
       street_address: e.currentTarget.street_address.value,
       location_name: '',
-      unit_number: e.currentTarget.unit.value,
+      unit_number: e.currentTarget.unit_number.value,
       city: e.currentTarget.city.value,
-      state_province: e.currentTarget.state.value,
+      state_province: e.currentTarget.state_province.value,
       postal_code: e.currentTarget.postal_code.value,
       id: '',
       notes: null,
@@ -149,7 +149,7 @@ function AddLocation() {
             <input className='Input' type='text' required />
           </Form.Control>
         </Form.Field>
-        <Form.Field className='FormField' name='email'>
+        <Form.Field className='FormField' name='unit_number'>
           <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
             <Form.Label className='FormLabel'>Unit</Form.Label>
             <Form.Message className='FormMessage' match='valueMissing'>
@@ -157,7 +157,7 @@ function AddLocation() {
             </Form.Message>
           </div>
           <Form.Control asChild>
-            <input className='Input' type='email' required />
+            <input className='Input' type='text' />
           </Form.Control>
         </Form.Field>
         <Form.Field className='FormField' name='city'>

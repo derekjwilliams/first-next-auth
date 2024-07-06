@@ -163,7 +163,7 @@ function AddServiceRequest({ locations, serviceTypeId, serviceDisplayName }: Mul
       id: '',
       requested_by: null,
       steps: [],
-      details: null,
+      details: e.currentTarget.details.value,
     })
   }
 
@@ -185,6 +185,17 @@ function AddServiceRequest({ locations, serviceTypeId, serviceDisplayName }: Mul
           </div>
           <Form.Control asChild {...stylex.props(form.textareaWrapper)}>
             <textarea {...stylex.props(form.input, form.textarea)} autoCapitalize='sentences' rows={4} required />
+          </Form.Control>
+        </Form.Field>
+        <Form.Field {...stylex.props(form.field)} name='details'>
+          <div>
+            <Form.Label {...stylex.props(form.h2)}>Details</Form.Label>
+            <Form.Message className='FormMessage' match='valueMissing'>
+              details
+            </Form.Message>
+          </div>
+          <Form.Control asChild {...stylex.props(form.textareaWrapper)}>
+            <textarea {...stylex.props(form.input, form.textarea)} autoCapitalize='sentences' rows={6} />
           </Form.Control>
         </Form.Field>
         <div>

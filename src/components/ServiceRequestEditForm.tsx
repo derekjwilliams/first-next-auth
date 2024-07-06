@@ -7,8 +7,9 @@ import { colors } from '@stylexjs/open-props/lib/colors.stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import stylex from '@stylexjs/stylex'
 import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
-import * as RadioGroup from '@radix-ui/react-radio-group'
+import { fonts as globalFonts } from '../app/globalTokens.stylex'
 import { borders } from '@stylexjs/open-props/lib/borders.stylex'
+import RadioSet from './controls/RadioSet'
 
 const request = stylex.create({
   base: {
@@ -47,61 +48,19 @@ const request = stylex.create({
     marginTop: '10px',
   },
 })
-
 const radioGroup = stylex.create({
   label: {
-    fontSize: '15px',
-    lineHeight: '1',
-    paddingLeft: '15px',
+    fontSize: fonts.size3,
+    lineHeight: fonts.lineHeight0,
+    paddingLeft: sizes.spacing3,
   },
   root: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '10px',
-  },
-  item: {
-    width: '25px',
-    height: '25px',
-    borderRadius: '100%',
-    boxShadow: {
-      default: '0 2px 10px var(--black-a7)',
-      ':focus': '0 0 0 2px black',
-    },
-    backgroundColor: {
-      default: 'white',
-      ':hover': 'var(--violet-3)',
-    },
-  },
-  indicator: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
-    display: {
-      default: 'flex',
-      '::after': 'block',
-    },
-    width: {
-      default: '100%',
-      '::after': '11px',
-    },
-    height: {
-      default: '9px',
-      '::after': '9px',
-    },
-    backgroundColor: {
-      default: 'white',
-      '::after': 'var(--violet-11)',
-    },
-    content: {
-      '::after': '""',
-    },
-    borderRadius: {
-      default: '100%',
-      '::after': '100%',
-    },
+    gap: sizes.spacing2,
+    marginBottom: sizes.spacing5,
   },
 })
-
 const select = stylex.create({
   base: {
     display: 'block',
@@ -135,16 +94,30 @@ const checkbox = stylex.create({
     borderColor: colors.gray6,
     borderStyle: 'solid',
     borderWidth: 2,
-    margin: sizes.spacing3,
+    margin: sizes.spacing2,
   },
-
   checkboxIndicator: {
     padding: 0,
   },
   checkIcon: {
-    color: '#1d2496',
+    color: marigoldColors.slate,
     height: '100%',
     width: '100%',
+  },
+})
+const form = stylex.create({
+  textareaWrapper: {
+    display: 'flex',
+    marginTop: sizes.spacing5,
+  },
+  textarea: {
+    padding: sizes.spacing3,
+    width: 'auto',
+    flex: '1',
+    fontSize: fonts.size3,
+    fontFamily: `${globalFonts.appFont}, -apple-system, BlinkMacSystemFont, Arial`,
+    backgroundColor: marigoldColors.backgroundTextarea,
+    color: marigoldColors.foreground,
   },
 })
 
@@ -163,6 +136,9 @@ export default function ServiceRequestEditForm({
 }) {
   const assignedTechnicianIds = serviceRequest.technicians.map((t: { id: string }) => t.id)
   const availableTechnicianIds = availableTechnicians.map((t) => t.id)
+  const options = availableStatuses.map((status) => {
+    return { value: status.id, label: status.status_name, id: status.id }
+  })
   const updateServiceRequestWithId = updateServiceRequest.bind(null, serviceRequest.id, availableTechnicianIds)
   return (
     <form action={updateServiceRequestWithId}>
@@ -172,14 +148,30 @@ export default function ServiceRequestEditForm({
           <label htmlFor='description'>
             <h1 {...stylex.props(request.h1)}>Description</h1>
           </label>
-          <div>
+          <div {...stylex.props(form.textareaWrapper)}>
             <textarea
+              {...stylex.props(form.textarea)}
               rows={4}
               id='description'
               name='description'
               defaultValue={serviceRequest.description ?? ''}
               placeholder='description'
-              style={{ width: '40rem', fontSize: '1.3rem' }}
+            />
+          </div>
+        </div>
+        {/* Service Request Details */}
+        <div>
+          <label htmlFor='details'>
+            <h1 {...stylex.props(request.h1)}>Details</h1>
+          </label>
+          <div {...stylex.props(form.textareaWrapper)}>
+            <textarea
+              {...stylex.props(form.textarea)}
+              rows={6}
+              id='details'
+              name='details'
+              defaultValue={serviceRequest.details ?? ''}
+              placeholder='details'
             />
           </div>
         </div>
@@ -252,22 +244,7 @@ export default function ServiceRequestEditForm({
 
         {/* Status Radio Group */}
         <h1 {...stylex.props(request.h1)}>Status</h1>
-        <RadioGroup.Root
-          {...stylex.props(radioGroup.root)}
-          defaultValue={serviceRequest.status_id ?? ''}
-          aria-label='Service Request Status'
-          name='status_options'>
-          {availableStatuses.map((status) => (
-            <div key={status.id} style={{ display: 'flex', alignItems: 'center' }}>
-              <RadioGroup.Item {...stylex.props(radioGroup.item)} value={status.id} id={status.id}>
-                <RadioGroup.Indicator {...stylex.props(radioGroup.indicator)} />
-              </RadioGroup.Item>
-              <label {...stylex.props(radioGroup.label)} htmlFor={status.id}>
-                {status.status_name}
-              </label>
-            </div>
-          ))}
-        </RadioGroup.Root>
+        <RadioSet options={options} value={serviceRequest.status_id ?? ''} name='status_options' />
         <button type='submit' {...stylex.props(request.requestButton)}>
           Save Changes
         </button>

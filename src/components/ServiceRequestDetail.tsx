@@ -74,7 +74,6 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
   return (
     <div {...stylex.props(requests.base)}>
       <LinkWrapperButton href={`/servicerequests/${id}/edit`}>Edit</LinkWrapperButton>
-      {/* <Link href={`/servicerequests/${id}/edit`}  {...stylex.props(button.base)}>Edit</Link> */}
 
       <div key={serviceRequest.locations?.id} {...stylex.props(requestCard.base)}>
         <h1 {...stylex.props(requestCard.h1)}>{serviceRequest.description}</h1>
@@ -84,6 +83,7 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
           serviceRequest.locations?.unit_number ? serviceRequest.locations?.unit_number : ''
         }`}</div>
         <div>{`Status: ${serviceRequest.statuses?.status_name}`}</div>
+        {serviceRequest.details && <div>{`Details: ${serviceRequest.details}`}</div>}
       </div>
       <div>
         {serviceRequest.technicians.length === 0 && (
