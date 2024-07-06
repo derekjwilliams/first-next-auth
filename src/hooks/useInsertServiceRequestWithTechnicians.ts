@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient, UseMutationOptions } from '@tanstack/react-query'
 import { createBrowserClient } from '@supabase/ssr'
+import { redirect } from 'next/navigation'
 
 const client = createBrowserClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!)
 
@@ -29,7 +30,6 @@ const insertServiceRequestWithTechnicians = async (params: InsertServiceRequestP
       reqBy = params.requestedBy
     }
   }
-
   const { data, error } = await client.rpc('insert_service_request_with_technicians', {
     service_description: params.description,
     technician_ids: params.technicianIds,
@@ -55,6 +55,10 @@ export const useInsertServiceRequestWithTechnicians = () => {
     mutationFn: insertServiceRequestWithTechnicians,
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['insert-service-requests-with-technicians'] })
+      redirect('/servicerequests')
+    },
+    onSuccess: () => {
+      redirect('/servicerequests')
     },
   })
 }

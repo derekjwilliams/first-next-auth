@@ -8,17 +8,13 @@ import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
 import { fonts as globalFonts } from '../app/globalTokens.stylex'
 import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
 import { colors } from '@stylexjs/open-props/lib/colors.stylex'
-// import { useMutation, useQueryClient } from '@tanstack/react-query'
-import useSupabase from '../hooks/useSupabase'
 import { useInsertServiceRequestWithTechnicians } from '@/hooks/useInsertServiceRequestWithTechnicians'
-import { addServiceRequest } from '@/queries/addServiceRequest'
 import { Tables } from '@/utils/database.types'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import RadioSet from './controls/RadioSet'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { CheckIcon } from '@radix-ui/react-icons'
-
 import { borders } from '@stylexjs/open-props/lib/borders.stylex'
 
 const requests = stylex.create({
@@ -180,7 +176,9 @@ function AddServiceRequest({
   technicians,
 }: MultipleServiceRequestsProps) {
   const mutation = useInsertServiceRequestWithTechnicians()
-  const onCreateServiceRequest = (e: React.FormEvent<HTMLFormElement>) => {
+
+  const onCreateServiceRequest = (openstatusid: string) => (e: React.FormEvent<HTMLFormElement>) => {
+    // const onCreateServiceRequest = (e: React.FormEvent<HTMLFormElement>) => {
     const technicianIds: string[] = []
     const formData = new FormData(e.currentTarget)
     for (const [key, value] of formData.entries()) {
@@ -189,16 +187,16 @@ function AddServiceRequest({
         technicianIds.push(id)
       }
     }
-
+    const statusid = e.currentTarget.statuses.value ? e.currentTarget.statuses.value : openstatusid
     mutation.mutate({
       description: e.currentTarget.description.value,
       locationId: selectedLocation,
-      technicianIds: technicianIds, // //TODO, all are being added, need to get from the RadioSet
-      completed: null,
+      technicianIds: technicianIds,
+      completed: false,
       requestedBy: null,
       details: e.currentTarget.details.value,
       serviceTypeId: serviceTypeId,
-      statusId: e.currentTarget.statuses.value, // TODO, check this
+      statusId: statusid, // TODO, check this
     })
   }
 
@@ -207,13 +205,15 @@ function AddServiceRequest({
   const handleSelectChange = (event: { target: { value: React.SetStateAction<string> } }) => {
     setSelectedLocation(event.target.value)
   }
+  const openstatus = statuses.filter((status) => status.status_name.toLowerCase() === 'open')
+  const openstatusid = openstatus[0].id // should really really do better here
   const options = statuses.map((status) => {
     return { value: status.id, label: status.status_name, id: status.id }
   })
   return (
     <>
       <h1 {...stylex.props(form.h1)}>Create Service Request for {serviceDisplayName} Issue </h1>
-      <Form.Root {...stylex.props(form.root)} onSubmit={onCreateServiceRequest}>
+      <Form.Root {...stylex.props(form.root)} onSubmit={onCreateServiceRequest(openstatusid)}>
         <Form.Field {...stylex.props(form.field)} name='description'>
           <div>
             <Form.Label {...stylex.props(form.h2)}>Description</Form.Label>
@@ -264,8 +264,7 @@ function AddServiceRequest({
                   style={{
                     fontSize: fonts.size3,
                   }}
-                  // className='Label'
-                  htmlFor={technician.id}>
+                  htmlFor={`technician_${technician.id}`}>
                   <span style={{ fontWeight: 'normal' }}>{technician.name}</span>
                 </label>
               </div>
@@ -293,7 +292,6 @@ function AddServiceRequest({
         <Form.Submit asChild>
           <button {...stylex.props(form.requestButton)}>Submit Service Request</button>
         </Form.Submit>
-        {/* Location Select, TODO use radix */}
       </Form.Root>
     </>
   )
