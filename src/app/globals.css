@@ -36,7 +36,34 @@ video {
   font-display: swap;
 }
 
-*/
+.compound-grid {
+  display: grid;
+  grid-template-columns: [a1] 4fr [a2] 1fr [b2] 3fr [a3] 2fr [b3] 2fr [a4] 3fr [b4] 1fr [a5] 4fr [a6];
+  grid-column-gap: 1vw;
+  grid-row-gap: 2vh;
+  margin: 2rem;
+}
+.a1-b2 {
+  grid-column: a1 / b2;
+}
+.a1-b4 {
+  grid-column: a1 / b4;
+}
+.b2-b4 {
+  grid-column: b2 / b4;
+}
+.a5-a6 {
+  grid-column: a5 / a6;
+}
+.a1-b3 {
+  grid-column: a1 / b3;
+}
+.b2-a6 {
+  grid-column: b2 / a6;
+}
+.toes {
+  grid-column: a1 / a6;
+} */
 
 /* buttons */
 
@@ -132,15 +159,37 @@ input[type='password']:-webkit-autofill::first-line {
   font-size: 0.81333rem;
   line-height: 1.5;
 } */
-
-/* Left right white space */
-body {
-  overflow-x: hidden !important;
+/* CustomRadioButton.css */
+.custom-radio-button__item {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  margin-bottom: 8px;
 }
 
-/* mobile font size issue */
-@media screen and (max-device-width: 480px) {
-  body {
-    -webkit-text-size-adjust: 100%;
-  }
+.custom-radio-button__control {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  margin-right: 8px;
+}
+
+.custom-radio-button__item[data-state='checked'] .custom-radio-button__control::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #007bff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.custom-radio-button__label {
+  display: inline-block;
 }

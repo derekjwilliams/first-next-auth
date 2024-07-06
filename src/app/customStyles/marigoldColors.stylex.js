@@ -28,7 +28,7 @@ export const marigoldColors = stylex.defineVars({
   foregroundHoverLink: {default: 'rgb(79, 201, 79)',[DARK]: 'rgb(133, 239, 149)'},
   foregroundLinkButton: {default: environmentBrown,[DARK]: flowerGold},
   backgroundLinkButton: {default: 'transparent',[DARK]: 'transparent'},
-  foregroundHoverLinkButton: {default: environmentBrown,[DARK]: environmentBrown},
+  foregroundHoverLinkButton: {default: 'rgb(16 16 16)',[DARK]: 'rgb(16 16 16)'},
   backgroundHoverLinkButton: {default: flowerYellow,[DARK]: flowerYellow},
   foregroundButton: {default: 'rgb(16,16,16)',[DARK]: 'rgb(16,16,16)'},
   backgroundButton: {default: 'rgb(244,244,244)',[DARK]: 'rgb(244,244,244)'},

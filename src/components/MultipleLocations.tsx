@@ -126,9 +126,9 @@ function AddLocation() {
     mutation.mutate({
       street_address: e.currentTarget.street_address.value,
       location_name: '',
-      unit_number: e.currentTarget.unit_number.value,
+      unit_number: e.currentTarget.unit.value,
       city: e.currentTarget.city.value,
-      state_province: e.currentTarget.state_province.value,
+      state_province: e.currentTarget.state.value,
       postal_code: e.currentTarget.postal_code.value,
       id: '',
       notes: null,
@@ -138,7 +138,7 @@ function AddLocation() {
     <>
       <h1 {...stylex.props(header.base)}>Add Property</h1>
       <Form.Root {...stylex.props(form.root)} onSubmit={onCreateLocation}>
-        <Form.Field className='FormField' name='street_address'>
+        <Form.Field className='FormField' name='location_address'>
           <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
             <Form.Label className='FormLabel'>Street Address</Form.Label>
             <Form.Message className='FormMessage' match='valueMissing'>
@@ -149,7 +149,7 @@ function AddLocation() {
             <input className='Input' type='text' required />
           </Form.Control>
         </Form.Field>
-        <Form.Field className='FormField' name='unit_number'>
+        <Form.Field className='FormField' name='email'>
           <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
             <Form.Label className='FormLabel'>Unit</Form.Label>
             <Form.Message className='FormMessage' match='valueMissing'>
@@ -157,7 +157,7 @@ function AddLocation() {
             </Form.Message>
           </div>
           <Form.Control asChild>
-            <input className='Input' type='text' />
+            <input className='Input' type='email' required />
           </Form.Control>
         </Form.Field>
         <Form.Field className='FormField' name='city'>

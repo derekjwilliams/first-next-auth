@@ -34,6 +34,7 @@ const styles = stylex.create({
     fontFamily: `${fonts.appFont}, -apple-system, BlinkMacSystemFont, Arial`,
   },
   top: {
+    width: '100%',
     backgroundColor: marigoldColors.flowerYellow,
     paddingLeft: sizes.spacing2,
     paddingTop: sizes.spacing2,

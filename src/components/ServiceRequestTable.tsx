@@ -107,9 +107,6 @@ const styles = stylex.create({
   tableDescriptionData: {
     minWidth: '10rem',
   },
-  descriptionLink: {
-    whiteSpace: 'break-spaces',
-  },
   tableTechnicianData: {
     width: '8rem',
   },
@@ -324,7 +321,7 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                         const link = `/servicerequests/${serviceRequestId}`
                         return (
                           <td key={cell.id} {...stylex.props(styles.tableData, styles.tableDescriptionData)}>
-                            <Link {...stylex.props(styles.tableDataLink, styles.descriptionLink)} href={link}>
+                            <Link {...stylex.props(styles.tableDataLink)} href={link}>
                               {flexRender(cell.column.columnDef.cell, cell.getContext())}
                             </Link>
                           </td>

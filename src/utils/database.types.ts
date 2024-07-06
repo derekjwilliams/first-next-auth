@@ -680,7 +680,19 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      insert_service_request_with_technicians: {
+        Args: {
+          service_description: string
+          technician_ids: string[]
+          completed: boolean
+          details: string
+          location_id: string
+          requested_by: string
+          service_type_id: string
+          status_id: string
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never

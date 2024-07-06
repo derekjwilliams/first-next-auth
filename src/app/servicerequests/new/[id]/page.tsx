@@ -22,23 +22,13 @@ export default async function Page({ params }: { params: { id: string } }) {
   if (locations === null) {
     locations = []
   }
-  let { data: statuses } = await supabase.from('statuses').select('*')
-  if (statuses === null) {
-    statuses = []
-  }
-  let { data: technicians } = await supabase.from('technicians').select('*')
-  if (technicians === null) {
-    technicians = []
-  }
 
   return (
     <>
       <MultipleServiceRequests
         serviceTypeId={service_type?.id}
         locations={locations}
-        serviceDisplayName={serviceTypes.get(snakeToPascalCase(id)).displayName}
-        statuses={statuses}
-        technicians={technicians}></MultipleServiceRequests>
+        serviceDisplayName={serviceTypes.get(snakeToPascalCase(id)).displayName}></MultipleServiceRequests>
     </>
   )
 }

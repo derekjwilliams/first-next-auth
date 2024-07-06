@@ -12,8 +12,8 @@ const authButtonWrapper = stylex.create({
   base: {
     display: 'flex',
     alignItems: 'center',
-    gap: '0.5rem',
-    color: marigoldColors.slate,
+    gap: '1rem',
+    width: '20%',
   },
 })
 const authButton = stylex.create({
@@ -49,7 +49,7 @@ export default async function AuthButton() {
 
   return user ? (
     <div {...stylex.props(authButtonWrapper.base)}>
-      {user.email}
+      Hey, {user.email}!
       <form action={signOut}>
         <button {...stylex.props(authButton.base)}>Logout</button>
       </form>
