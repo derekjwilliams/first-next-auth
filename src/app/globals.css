@@ -160,7 +160,7 @@ input[type='password']:-webkit-autofill::first-line {
   line-height: 1.5;
 } */
 /* CustomRadioButton.css */
-.custom-radio-button__item {
+/* .custom-radio-button__item {
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -192,4 +192,4 @@ input[type='password']:-webkit-autofill::first-line {
 
 .custom-radio-button__label {
   display: inline-block;
-}
+} */

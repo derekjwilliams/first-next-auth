@@ -60,9 +60,6 @@ const serviceNav = stylex.create({
     width: '100%',
     display: 'flex',
     justifyContent: 'flex-end',
-    borderWidth: '1px',
-    borderStyle: 'solid',
-    borderColor: 'rgba(4, 9, 11, 0.1)',
     height: '4rem',
   },
   container: {
@@ -78,6 +75,8 @@ const serviceAuthButton = stylex.create({
     padding: '0.75rem',
     fontSize: '0.875rem',
     lineHeight: '1.25rem',
+    position: 'absolute',
+    top: 0,
     color: marigoldColors.foreground,
   },
 })
@@ -90,6 +89,7 @@ const serviceMain_container = stylex.create({
     gap: '5rem',
     fontSize: '1.5rem',
     lineHeight: '2rem',
+    paddingBottom: sizes.spacing7,
   },
 })
 const serviceMain = stylex.create({

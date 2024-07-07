@@ -42,8 +42,7 @@ const styles = stylex.create({
   },
   navigationList: {
     listStyle: 'none',
-    // padding: sizes.spacing2,
-
+    paddingLeft: 0,
     marginTop: '28px',
     backgroundColor: marigoldColors.flowerYellow,
   },
