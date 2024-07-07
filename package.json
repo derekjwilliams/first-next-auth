@@ -49,12 +49,15 @@
     "@types/node": "20.12.12",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.4.19",
     "encoding": "^0.1.13",
     "eslint": "^8.56.0",
     "eslint-config-next": "latest",
     "eslint-plugin-react-compiler": "^0.0.0-experimental-0998c1e-20240625",
     "openapi-typescript": "^5.4.0",
+    "postcss": "^8.4.39",
     "prettier-plugin-stylex-key-sort": "^1.0.1",
-    "rimraf": "^5.0.7"
+    "rimraf": "^5.0.7",
+    "tailwindcss": "^3.4.4"
   }
 }

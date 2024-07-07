@@ -98,20 +98,9 @@ export default async function Page({ params }: { params: { id: string } }) {
     .select(
       'description, features, monthly_rent, rooms, lease_terms, address_1, address_2, city, state_province, postal_code, required_legal_statement, listing_images(id, url, description)'
     )
-    //.limit(5, { referencedTable: 'listing_images' })// if we want to limit number of images, //see https://supabase.com/docs/reference/javascript/limit?queryGroups=example&example=on-a-referenced-table
     .eq('id', params.id)
     .throwOnError()
     .single()
-
-  // const { data: listings_with_locations } = await supabase
-  //   .from('listings')
-  //   .select(
-  //     'description, features, monthly_rent, rooms, lease_terms, address_1, address_2, city, state_province, postal_code, required_legal_statement, locations(street_address, bedrooms(area), bathrooms(area), kitchens(area), laundry_rooms(area))'
-  //   )
-  //   //.limit(5, { referencedTable: 'listing_images' })// if we want to limit number of images, //see https://supabase.com/docs/reference/javascript/limit?queryGroups=example&example=on-a-referenced-table
-  //   .eq('id', params.id)
-  //   .throwOnError()
-  //   .single()
 
   const listingImages = listing?.listing_images?.map(async (image) => {
     const blur = await getPlaceholderImage(image.url)
@@ -130,7 +119,6 @@ export default async function Page({ params }: { params: { id: string } }) {
       </div>
     )
   })
-  //sizes='(max-width: 768px) 125px 200px'
 
   const overview = (
     <div {...stylex.props(rental.overview)}>

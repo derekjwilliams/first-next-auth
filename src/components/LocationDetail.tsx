@@ -2,7 +2,6 @@
 
 import useLocationQuery from '@/hooks/useLocationQuery'
 import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
-import { colors } from '@stylexjs/open-props/lib/colors.stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import * as stylex from '@stylexjs/stylex'
 import Link from 'next/link'

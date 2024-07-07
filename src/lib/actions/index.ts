@@ -46,7 +46,7 @@ export async function updateServiceRequest(id: string, availableTechnicianIds: s
       console.log('error on updating service request (location)', updateServiceTypeError)
       throw updateServiceTypeError
     }
-    console.log('status: ', selectedStatus)
+
     /* update status */
     const { data: updateStatus, error: updateStatusError } = await supabase
       .from('service_requests')
