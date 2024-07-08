@@ -1,14 +1,14 @@
-'use client' // this registers <Editor> as a Client Component
-import '@blocknote/core/fonts/inter.css'
-import { useCreateBlockNote } from '@blocknote/react'
+'use client' // This makes the component a client component
+
+import React, { useRef } from 'react'
+import '@blocknote/core/style.css' // Import BlockNote styles
 import { BlockNoteView } from '@blocknote/shadcn'
 import '@blocknote/shadcn/style.css'
+import { useCreateBlockNote } from '@blocknote/react'
 
 // Our <Editor> component we can reuse later
 export default function Editor() {
   // Creates a new editor instance.
   const editor = useCreateBlockNote()
-
-  // Renders the editor instance using a React component.
   return <BlockNoteView editor={editor} />
 }
