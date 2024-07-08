@@ -28,8 +28,12 @@ import {
 import { createPortal } from 'react-dom'
 import { $createHeadingNode, $createQuoteNode, $isHeadingNode } from '@lexical/rich-text'
 import { $createCodeNode, $isCodeNode, getDefaultCodeLanguage, getCodeLanguages } from '@lexical/code'
-
+import { INSERT_IMAGE_COMMAND } from './ImagePlugin'
 const LowPriority = 1
+export function FillURL() {
+  const srcfile = prompt('Enter the URL of the image:', '')
+  return srcfile
+}
 
 const supportedBlockTypes = new Set(['paragraph', 'quote', 'code', 'h1', 'h2', 'ul', 'ol'])
 
@@ -503,8 +507,23 @@ export default function ToolbarPlugin() {
     }
   }, [editor, isLink])
 
+  const onClick = (payload) => {
+    editor.dispatchCommand(INSERT_IMAGE_COMMAND, payload)
+  }
+
   return (
     <div className='toolbar' ref={toolbarRef}>
+      <button
+        onClick={() =>
+          onClick({
+            altText: 'URL image',
+            src: FillURL() || '',
+          })
+        }
+        className={'toolbar-item spaced '}>
+        <span className='text'>Insert from URL</span>
+      </button>
+
       <button
         disabled={!canUndo}
         onClick={() => {

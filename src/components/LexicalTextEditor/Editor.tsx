@@ -30,9 +30,11 @@ import { LexicalComposer } from '@lexical/react/LexicalComposer'
 import { ContentEditable } from '@lexical/react/LexicalContentEditable'
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary'
 import ExampleTheme from './themes/ExampleTheme'
+import ImagePlugin from './plugins/ImagePlugin'
+import { ImageNode } from './nodes/ImageNode'
 
 /* Lexical Texts */
-// import { textDailyStandup } from './text-daily-standup'
+// import { textDailyStandup } from './text-daily-standup' //TODO, what is the intent here?
 
 function Placeholder() {
   return <div className='editor-placeholder'>Enter some rich text...</div>
@@ -60,6 +62,7 @@ const editorConfig = {
     TableRowNode,
     AutoLinkNode,
     LinkNode,
+    ImageNode,
   ],
 }
 
@@ -89,8 +92,9 @@ export function Editor(): JSX.Element | null {
           <LinkPlugin />
           <TabIndentationPlugin />
           <AutoLinkPlugin />
+          <ImagePlugin />
           <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
-          <TreeViewPlugin />
+          {/* <TreeViewPlugin /> */}
         </div>
       </div>
     </LexicalComposer>
