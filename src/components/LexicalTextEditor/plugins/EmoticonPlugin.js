@@ -1,3 +1,4 @@
+'use client';
 import { $createEmojiNode } from '../nodes/EmojiNode';
 import { useEffect } from 'react';
 import { TextNode } from 'lexical';
