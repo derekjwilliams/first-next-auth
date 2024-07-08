@@ -1,4 +1,5 @@
 module.exports = {
+  extends: 'next/core-web-vitals',
   plugins: ['@stylexjs', '@tanstack/query'],
   rules: {
     '@stylexjs/valid-styles': 'error',

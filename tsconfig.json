@@ -32,6 +32,6 @@
     "src/app/notes/[id]/page.jsx",
     "src/components/Button.jsx",
     "src/components/AuthButton.jsx"
-  ],
+, "src/components/LexicalTextEditor/Editor.js"  ],
   "exclude": ["node_modules"]
 }
