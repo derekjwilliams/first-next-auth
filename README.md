@@ -63,3 +63,9 @@ https://makerkit.dev/blog/saas/supabase-react-query
 ## SVG Go
 
 For optimizing SVGs https://github.com/jakearchibald/svgomg/blob/main/README.md
+
+## Lexical Editor
+
+See: https://github.com/yeehanchung/lexical-rich-text-editor-nextjs-13/tree/main
+
+https://codesandbox.io/s/lexical-rich-text-example-5tncvy?file=/src/App.js
