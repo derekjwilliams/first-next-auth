@@ -1,6 +1,7 @@
 module.exports = {
   extends: 'next/core-web-vitals',
-  plugins: ['eslint-plugin-react-compiler', '@stylexjs', '@tanstack/query'],
+  plugins: ['@stylexjs', '@tanstack/query'],
+  //  plugins: ['eslint-plugin-react-compiler', '@stylexjs', '@tanstack/query'],
   rules: {
     // 'react-compiler/react-compiler': 'error',
     '@stylexjs/valid-styles': 'error',
