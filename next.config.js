@@ -1,9 +1,6 @@
 /** @type {import('next').NextConfig} */
 stylexPlugin = require('@stylexjs/nextjs-plugin')
 const nextConfig = {
-  experimental: {
-    reactCompiler: false,
-  },
   reactStrictMode: true,
   optimizeFonts: false,
   pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
