@@ -1,6 +1,8 @@
 'use client'
 
 import { UploadButton } from '../../utils/uploadthing'
+//Your file was uploaded, but the callback request to https://marigold-property.vercel.app/api/uploadthing failed. Reason: Response 429.
+//This is most likely due to your callback URL blocking the request. Read more about potential causes in our FAQ.
 
 export default function Home() {
   return (
