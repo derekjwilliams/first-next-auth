@@ -9,6 +9,7 @@ import Image from 'next/image'
 import Navigation from '@/components/Navigation'
 import Link from 'next/link'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
+import '@uploadthing/react/styles.css'
 
 import { Analytics } from '@vercel/analytics/react'
 
