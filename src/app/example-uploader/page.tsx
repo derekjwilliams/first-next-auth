@@ -15,7 +15,7 @@ export default function Home() {
 
   const fetchFiles = async () => {
     try {
-      const response = await fetch('/api/getAllFiles') // Adjust the endpoint as necessary
+      const response = await fetch('/api/uploadthingfiles') // Adjust the endpoint as necessary
       if (!response.ok) {
         throw new Error('Failed to fetch files')
       }
