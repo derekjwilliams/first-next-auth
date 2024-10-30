@@ -62,9 +62,9 @@ export default async function Login({ params, searchParams }: { params: Params; 
       return redirect('/login?message=Could not authenticate user')
     }
 
-    const resolvedParams = await params
+    // const resolvedParams = await params
     const resolvedSearchParams = await searchParams
-    const message = resolvedSearchParams.message as string
+    // const message = resolvedSearchParams.message as string
     const redirectUrl = resolvedSearchParams.redirect as string
     return redirect(redirectUrl || '/')
   }
