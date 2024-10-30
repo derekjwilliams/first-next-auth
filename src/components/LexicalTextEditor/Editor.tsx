@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { JSX, useEffect, useRef, useState } from 'react'
 
 /* Lexical Design System */
 import { HeadingNode, QuoteNode } from '@lexical/rich-text'
@@ -112,11 +112,25 @@ export function Editor({ serviceRequestId }: EditorProps): JSX.Element | null {
   useEffect(() => {
     setIsMounted(true)
   }, [])
-
+  const theme = {
+    // Theme styling goes here
+  }
+  // Catch any errors that occur during Lexical updates and log them
+  // or throw them as needed. If you don't throw them, Lexical will
+  // try to recover gracefully without losing user data.
+  function onError(error: any) {
+    throw error
+  }
   if (!isMounted) return null
-
+  const initialConfig = {
+    namespace: 'MyEditor',
+    theme,
+    onError,
+    editorState: initialState,
+    editorConfig: editorConfig,
+  }
   return (
-    <LexicalComposer initialConfig={{ ...editorConfig, editorState: initialState }}>
+    <LexicalComposer initialConfig={initialConfig}>
       <div className='editor-container'>
         <ToolbarPlugin />
         <div className='editor-inner'>

@@ -42,15 +42,10 @@ const loginForm = stylex.create({
     textAlign: 'center',
   },
 })
+type Params = Promise<{ message: string }>
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
 
-export default function Login({
-  searchParams,
-}: {
-  searchParams: {
-    message: string
-    redirect: string
-  }
-}) {
+export default async function Login({ params, searchParams }: { params: Params; searchParams: SearchParams }) {
   const signIn = async (formData: FormData) => {
     'use server'
 
@@ -66,13 +61,19 @@ export default function Login({
     if (error) {
       return redirect('/login?message=Could not authenticate user')
     }
-    return redirect(searchParams.redirect || '/')
+
+    const resolvedParams = await params
+    const resolvedSearchParams = await searchParams
+    const message = resolvedSearchParams.message as string
+    const redirectUrl = resolvedSearchParams.redirect as string
+    return redirect(redirectUrl || '/')
   }
 
   const signUp = async (formData: FormData) => {
     'use server'
-
-    const origin = headers().get('origin')
+    const resolvedHeaders = await headers()
+    const origin = resolvedHeaders.get('origin')
+    // const origin = headers().get('origin')
     const email = formData.get('email') as string
     const password = formData.get('password') as string
     const supabase = await createClient()
@@ -104,7 +105,10 @@ export default function Login({
         <SubmitButton formAction={signUp} {...stylex.props(loginForm.button)} pendingText='Signing Up...'>
           Sign Up
         </SubmitButton>
-        {searchParams?.message && <p {...stylex.props(loginForm.searchButton)}>{searchParams.message}</p>}
+
+        {(await searchParams).message && (
+          <p {...stylex.props(loginForm.searchButton)}>{(await searchParams).message}</p>
+        )}
       </form>
       <OAuthForm />
     </div>

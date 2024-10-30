@@ -7,10 +7,12 @@ import {
   COMMAND_PRIORITY_EDITOR,
   createCommand,
   LexicalCommand,
+  LexicalNode,
 } from 'lexical'
 import { useEffect } from 'react'
 
 import { $createImageNode, ImageNode, ImagePayload } from '../nodes/ImageNode'
+import { JSX } from 'react/jsx-runtime'
 
 export type InsertImagePayload = Readonly<ImagePayload>
 
@@ -20,7 +22,7 @@ export default function ImagesPlugin({ captionsEnabled }: { captionsEnabled?: bo
   const [editor] = useLexicalComposerContext()
 
   useEffect(() => {
-    if (!editor.hasNodes([ImageNode])) {
+    if (!editor.hasNodes([ImageNode as any])) {
       throw new Error('ImagesPlugin: ImageNode not registered on editor')
     }
 
@@ -28,10 +30,12 @@ export default function ImagesPlugin({ captionsEnabled }: { captionsEnabled?: bo
       editor.registerCommand<InsertImagePayload>(
         INSERT_IMAGE_COMMAND,
         (payload) => {
-          const imageNode = $createImageNode(payload)
+          const imageNode = $createImageNode(payload) as LexicalNode
           $insertNodes([imageNode])
+
           if ($isRootOrShadowRoot(imageNode.getParentOrThrow())) {
-            $wrapNodeInElement(imageNode, $createParagraphNode).selectEnd()
+            // Pass a function returning a ParagraphNode to satisfy the type requirements.
+            $wrapNodeInElement(imageNode, () => $createParagraphNode()).selectEnd()
           }
 
           return true

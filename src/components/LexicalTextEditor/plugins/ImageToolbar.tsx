@@ -6,6 +6,7 @@ import '../styles.css'
 
 import type { InsertImagePayload } from './ImagePlugin'
 import { INSERT_IMAGE_COMMAND } from './ImagePlugin'
+import { JSX } from 'react'
 
 export function FillURL() {
   const srcfile = prompt('Enter the URL of the image:', '')

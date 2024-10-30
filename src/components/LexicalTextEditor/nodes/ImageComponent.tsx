@@ -1,7 +1,7 @@
 import type { LexicalEditor, NodeKey } from 'lexical'
 
 import * as React from 'react'
-import { Suspense, useRef } from 'react'
+import { JSX, Suspense, useRef } from 'react'
 
 const imageCache = new Set()
 

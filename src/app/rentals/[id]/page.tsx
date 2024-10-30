@@ -90,15 +90,19 @@ const rental = stylex.create({
     overflowWrap: 'break-word',
   },
 })
+type Params = Promise<{ id: string }>
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page({ params }: { params: Params }) {
+  const resolvedParams = await params
+  const id = resolvedParams.id
+
   const supabase = createClient()
   const { data: listing } = await supabase
     .from('listings')
     .select(
-      'description, features, monthly_rent, rooms, lease_terms, address_1, address_2, city, state_province, postal_code, required_legal_statement, listing_images(id, url, description)'
+      'description, features, monthly_rent, rooms, lease_terms, address_1, address_2, city, state_province, postal_code, required_legal_statement, listing_images(id, url, description)',
     )
-    .eq('id', params.id)
+    .eq('id', id)
     .throwOnError()
     .single()
 
@@ -142,9 +146,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         <h3>Highlights</h3>
         <div>
           <ul {...stylex.props(rental.highlightsList)}>
-            {listing?.features.map((feature: string, index: string) => (
-              <li key={index}>{feature}</li>
-            ))}
+            {listing?.features.map((feature: string, index: string) => <li key={index}>{feature}</li>)}
           </ul>
         </div>
       </div>

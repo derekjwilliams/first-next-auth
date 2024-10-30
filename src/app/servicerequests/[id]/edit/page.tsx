@@ -2,8 +2,11 @@ import { createClient } from '@/lib/supabase/client'
 import ServiceRequestEditForm from '@/components/ServiceRequestEditForm'
 import { QueryData } from '@supabase/supabase-js'
 
-export default async function Page({ params }: { params: { id: string } }) {
-  const id = params.id
+type Params = Promise<{ id: string }>
+
+export default async function Page({ params }: { params: Params }) {
+  const resolvedParams = await params
+  const id = resolvedParams.id
   // get this service request by id
   const supabase = await createClient()
   // let { data: serviceRequest }

@@ -237,11 +237,6 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
   })
 
   return (
-    // display: 'grid',
-    // gridTemplateColumns: '1fr',
-    // gridTemplateRows: 'auto 1fr auto',
-    // gap: '10px',
-    // width: '100%'
     <div {...stylex.props(styles.containerWrapper)}>
       <div {...stylex.props(styles.dataWrapper)}>
         <div {...stylex.props(styles.tableWrapper)}>

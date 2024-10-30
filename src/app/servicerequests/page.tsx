@@ -11,26 +11,34 @@ const styles = stylex.create({
   },
 })
 
-// See https://nextjs.org/learn/dashboard-app/adding-search-and-pagination
-export default async function Page({
-  searchParams,
-}: {
-  searchParams?: {
-    //   query?: string; // TODO add filtering
-    sortColumn?: string
-    sortDirection?: string
-    page?: string
-  }
-}) {
-  const supabase = await createClient()
-  const pageSize = 10
+type SearchParams = Promise<{
+  sortColumn?: string | string[] | undefined
+  sortDirection?: string | string[] | undefined
+  page?: string | string[] | undefined
+}>
 
-  const currentPage = Number(searchParams?.page) || 1
-  let sortColumn = searchParams?.sortColumn || 'id'
-  const sortDirection = searchParams?.sortDirection || 'asc'
+export default async function Page({ searchParams }: { searchParams: SearchParams }) {
+  const supabase = await createClient()
+
+  const resolvedSearchParams = await searchParams
+
+  const sortColumn = Array.isArray(resolvedSearchParams.sortColumn)
+    ? resolvedSearchParams.sortColumn[0]
+    : resolvedSearchParams.sortColumn || ''
+
+  const sortDirection = Array.isArray(resolvedSearchParams.sortDirection)
+    ? resolvedSearchParams.sortDirection[0]
+    : resolvedSearchParams.sortDirection || 'asc'
+
+  const page = Array.isArray(resolvedSearchParams.page)
+    ? Number(resolvedSearchParams.page[0])
+    : Number(resolvedSearchParams.page) || 1
+
+  const pageSize = 25
+  const currentPage = page
 
   let serviceRequestsCount = 0
-  let sortedBy = ''
+  let sortedBy = 'statuses(status_name)'
 
   switch (sortColumn) {
     case 'status':
@@ -46,7 +54,7 @@ export default async function Page({
       sortedBy = 'locations(street_address)'
       break
     default:
-      sortedBy = sortColumn
+      sortedBy = Array.isArray(sortColumn) ? sortColumn[0] : sortColumn || 'locations(street_address)'
   }
 
   let { data: serviceRequests, count } = await supabase
@@ -55,7 +63,7 @@ export default async function Page({
       '*, technicians(id, name, email), service_types(id, service_name), tenants(*), statuses(*), locations(id, street_address, unit_number)',
       {
         count: 'exact',
-      }
+      },
     )
     .order(sortedBy, { ascending: sortDirection === 'asc' })
     .range((currentPage - 1) * pageSize, currentPage * pageSize - 1)
@@ -64,12 +72,12 @@ export default async function Page({
   const totalPages = Math.ceil(serviceRequestsCount / pageSize)
   return (
     <div {...stylex.props(styles.tableWrapper)}>
-      <Suspense key={'' + currentPage + sortDirection + sortColumn} fallback={<ServiceRequestTableSkeleton />}>
+      <Suspense key={'' + currentPage + sortDirection + sortedBy} fallback={<ServiceRequestTableSkeleton />}>
         <ServiceRequestTable
           data={serviceRequests || []}
           currentPage={currentPage}
           totalPages={totalPages}
-          sortColumn={sortColumn}
+          sortColumn={sortedBy}
           sortDirection={sortDirection}
         />
       </Suspense>

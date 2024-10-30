@@ -9,8 +9,12 @@ const snakeToPascalCase = (value: string) => {
 
 // the param id is a string like 'safety', 'refrigerator', etc.  To make the url friendly.  If there
 // is no match in the database for the CamelCase version of this sting, then attempt with the id field
-export default async function Page({ params }: { params: { id: string } }) {
-  const id = params.id
+
+type Params = Promise<{ id: string }>
+
+export default async function Page({ params }: { params: Params }) {
+  const resolvedParams = await params
+  const id = resolvedParams.id
 
   const supabase = await createClient()
   const { data: service_type } = await supabase

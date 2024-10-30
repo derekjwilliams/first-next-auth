@@ -2,28 +2,36 @@ import ServiceTypeTable from '@/components/ServiceTypeTable'
 import ServiceTypeTableSkeleton from '@/components/ServiceTypeTableSkeleton'
 import { createClient } from '@/lib/supabase/client'
 import { Suspense } from 'react'
-interface PageProps {
-  searchParams: { page?: string }
-}
+// interface PageProps {
+//   searchParams: { page?: string }
+// }
+
+type SearchParams = Promise<{
+  sortColumn?: string | string[] | undefined
+  sortDirection?: string | string[] | undefined
+  page?: string | string[] | undefined
+}>
 
 // See https://nextjs.org/learn/dashboard-app/adding-search-and-pagination
-export default async function Page({
-  searchParams,
-}: {
-  searchParams?: {
-    //   query?: string;
-    sortColumn?: string
-    sortDirection?: string
-    page?: string
-  }
-}) {
+export default async function Page({ searchParams }: { searchParams: SearchParams }) {
   const supabase = await createClient()
-  const pageSize = 10 // Define the number of items per page
+  const resolvedSearchParams = await searchParams
+  const pageSize = 10
 
-  //   const query = searchParams?.query || '';
-  const currentPage = Number(searchParams?.page) || 1
-  const sortColumn = searchParams?.sortColumn || 'id'
-  const sortDirection = searchParams?.sortDirection || 'asc'
+  const currentPage = Number(resolvedSearchParams?.page) || 1
+
+  const sortColumn =
+    (Array.isArray(resolvedSearchParams.sortColumn)
+      ? resolvedSearchParams.sortColumn[0]
+      : resolvedSearchParams.sortColumn) ?? 'id'
+
+  const sortDirection =
+    (Array.isArray(resolvedSearchParams.sortDirection)
+      ? resolvedSearchParams.sortDirection[0]
+      : resolvedSearchParams.sortDirection) ?? 'asc'
+
+  const page =
+    (Array.isArray(resolvedSearchParams.page) ? resolvedSearchParams.page[0] : resolvedSearchParams.page) ?? 1
 
   const { data: serviceTypes, count } = await supabase
     .from('service_types')

@@ -7,6 +7,7 @@ import * as stylex from '@stylexjs/stylex'
 import Image from 'next/image'
 import { serviceTypes } from '@/utils/serviceTypes'
 import { borders } from '@stylexjs/open-props/lib/borders.stylex'
+import { JSX } from 'react'
 
 const serviceCard = stylex.create({
   base: {
@@ -143,13 +144,13 @@ export default async function Page() {
           src={`/images/${serviceType.image}`}
         />
         {serviceType.displayName}
-      </Link>
+      </Link>,
     )
   })
   serviceLinks.push(
     <Link key='all' href={`/servicerequests`} {...stylex.props(serviceCard.base)}>
       All
-    </Link>
+    </Link>,
   )
 
   return (

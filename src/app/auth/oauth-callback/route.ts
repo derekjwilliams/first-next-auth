@@ -1,4 +1,4 @@
-import { cookies } from 'next/headers'
+import { cookies, type UnsafeUnwrappedCookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 import { type CookieOptions, createServerClient } from '@supabase/ssr'
 
@@ -20,23 +20,23 @@ export async function GET(request: Request) {
   // app/auth-server-action/callback/route.ts
   // code is also different, see: https://github.com/Chensokheng/next-14-supabase-ssr/blob/demo/app/oauth/callback/route.ts
   if (code) {
-    const cookieStore = cookies()
+    const cookieStore = cookies() as unknown as UnsafeUnwrappedCookies
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
       {
         cookies: {
-          get(name: string) {
-            return cookieStore.get(name)?.value
+          async get(name: string) {
+            return await cookieStore.get(name)?.value
           },
-          set(name: string, value: string, options: CookieOptions) {
+          async set(name: string, value: string, options: CookieOptions) {
             cookieStore.set({ name, value, ...options })
           },
-          remove(name: string, options: CookieOptions) {
+          async remove(name: string, options: CookieOptions) {
             cookieStore.delete({ name, ...options })
           },
         },
-      }
+      },
     )
 
     const { error } = await supabase.auth.exchangeCodeForSession(code)

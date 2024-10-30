@@ -1,6 +1,14 @@
 import LocationDetail from '@/components/LocationDetail'
-//TODO consider using a tree, see the Canto tree implementation
-export default async function Page({ params }: { params: { id: string } }) {
-  const id = params.id
-  return <LocationDetail id={id}></LocationDetail>
+type Params = Promise<{ id: string }>
+
+export default async function Page({ params }: { params: Params }) {
+  const resolvedParams = await params
+  const id = resolvedParams.id
+
+  return <LocationDetail id={id} />
 }
+
+// export default async function Page({ params }: { params: { id: string } }) {
+//   const id = params.id
+//   return <LocationDetail id={id}></LocationDetail>
+// }
