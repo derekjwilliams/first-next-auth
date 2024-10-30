@@ -106,9 +106,9 @@ export default async function Login({ params, searchParams }: { params: Params; 
           Sign Up
         </SubmitButton>
 
-        {(await searchParams).message && (
+        {/* {(await searchParams).message && (
           <p {...stylex.props(loginForm.searchButton)}>{(await searchParams).message}</p>
-        )}
+        )} */}
       </form>
       <OAuthForm />
     </div>
