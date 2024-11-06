@@ -1,4 +1,5 @@
-import { createClient } from '@/lib/supabase/client'
+//import { createClient } from '@/lib/supabase/client'
+import { createClient } from '@/utils/supabase/client'
 import * as stylex from '@stylexjs/stylex'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -55,7 +56,7 @@ export default async function Page() {
               height={200}
               //fill
               // sizes='100vw'
-              alt={listing?.address}
+              alt={listing?.address_1 ?? ''}
               src={listing.cover_image_url}></Image>
           </div>
         </div>

@@ -13,6 +13,7 @@ import { Tables } from '@/utils/database.types'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { borders } from '@stylexjs/open-props/lib/borders.stylex'
+import { ServiceRequestMutationInput } from '@/types'
 
 const requests = stylex.create({
   base: {
@@ -137,7 +138,7 @@ const requestCard = stylex.create({
 
 function AddServiceRequest({ locations, serviceTypeId, serviceDisplayName }: MultipleServiceRequestsProps) {
   const client = useSupabase()
-  const mutationFn = async (value: Tables<'service_requests'>) => {
+  const mutationFn = async (value: ServiceRequestMutationInput) => {
     return addServiceRequest(client, value)?.then((result) => result.data)
   }
   const queryClient = useQueryClient()
@@ -150,18 +151,14 @@ function AddServiceRequest({ locations, serviceTypeId, serviceDisplayName }: Mul
       ])
     },
   })
+
   const onCreateServiceRequest = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     mutation.mutate({
       description: e.currentTarget.description.value,
       location_id: selectedLocation,
-      status_id: null,
       service_type_id: serviceTypeId,
-      completed: null,
-      date_created: null,
-      date_updated: null,
       id: '',
-      requested_by: null,
       steps: [],
       details: e.currentTarget.details.value,
     })

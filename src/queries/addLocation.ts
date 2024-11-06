@@ -1,4 +1,5 @@
-import { TypedSupabaseClient } from '@/lib/supabase/supabase'
+//import { TypedSupabaseClient } from '@/lib/supabase/supabase'
+import { TypedSupabaseClient } from '@/utils/supabase/client'
 import { Tables } from '@/utils/database.types'
 type Location = Tables<'locations'>
 

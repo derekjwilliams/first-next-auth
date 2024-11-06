@@ -1,5 +1,5 @@
 import { updateServiceRequest } from '@/lib/actions'
-import { Tables } from '@/utils/database.types'
+import { Database, Tables } from '@/utils/database.types'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { CheckIcon } from '@radix-ui/react-icons'
 import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
@@ -10,7 +10,6 @@ import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
 import { fonts as globalFonts } from '../app/globalTokens.stylex'
 import { borders } from '@stylexjs/open-props/lib/borders.stylex'
 import RadioSet from './controls/RadioSet'
-
 const request = stylex.create({
   base: {
     padding: sizes.spacing5,
@@ -128,7 +127,9 @@ export default function ServiceRequestEditForm({
   availableLocations,
   availableStatuses,
 }: {
-  serviceRequest: Tables<'service_requests'>
+  serviceRequest: Tables<'service_requests'> & {
+    technicians: Tables<'technicians'>[]
+  }
   availableTechnicians: Tables<'technicians'>[]
   availableServiceTypes: Tables<'service_types'>[]
   availableLocations: Tables<'locations'>[]
@@ -139,6 +140,7 @@ export default function ServiceRequestEditForm({
   const options = availableStatuses.map((status) => {
     return { value: status.id, label: status.status_name, id: status.id }
   })
+
   const updateServiceRequestWithId = updateServiceRequest.bind(null, serviceRequest.id, availableTechnicianIds)
   return (
     <form action={updateServiceRequestWithId}>

@@ -1,5 +1,6 @@
 import { headers } from 'next/headers'
-import { createClient } from '@/lib/supabase/client'
+//import { createClient } from '@/lib/supabase/client'
+import { createClient } from '@/utils/supabase/client'
 import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
 import { borders } from '@stylexjs/open-props/lib/borders.stylex'
 import { redirect } from 'next/navigation'

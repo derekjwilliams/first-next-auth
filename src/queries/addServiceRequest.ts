@@ -1,8 +1,7 @@
-import { TypedSupabaseClient } from '@/lib/supabase/supabase'
-import { Tables } from '@/utils/database.types'
-type ServiceRequest = Tables<'service_requests'>
+import { ServiceRequestMutationInput } from '@/types'
+import { TypedSupabaseClient } from '@/utils/supabase/client'
 
-export function addServiceRequest(client: TypedSupabaseClient, value: ServiceRequest) {
+export function addServiceRequest(client: TypedSupabaseClient, value: ServiceRequestMutationInput) {
   return client
     ?.from('service_requests')
     .insert({

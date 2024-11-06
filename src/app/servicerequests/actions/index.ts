@@ -1,10 +1,11 @@
 'use server'
-import { createClient } from '@/lib/supabase/client' //yyyy Should this be used instead of createSupabaseServerClient?
-import createSupabaseServerClient from '@/lib/supabase/server'
+import { createClient } from '@/utils/supabase/server'
+
 import { revalidatePath, unstable_noStore as noStore } from 'next/cache'
 
 export async function createServiceRequest(description: string) {
-  const supabase = await createSupabaseServerClient()
+  //const supabase = await createSupabaseServerClient()
+  const supabase = await createClient()
   const user = supabase.auth.getUser()
   const result = await supabase
     .from('service_requests')
@@ -21,13 +22,13 @@ export async function createServiceRequest(description: string) {
 
 export async function readServiceRequests() {
   noStore()
-  const supabase = await createSupabaseServerClient()
+  const supabase = await createClient()
   return await supabase.from('service_requests').select('*')
 }
 
 // delete by id, e.g. from a delete button
 export async function deleteServiceRequestById(id: string) {
-  const supabase = await createSupabaseServerClient()
+  const supabase = await createClient()
   await supabase.from('service_requests').delete().eq('id', id)
   revalidatePath('/servicerequests') //TOD create page.tsx in app/servicerequest folder
 }

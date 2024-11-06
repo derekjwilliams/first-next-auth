@@ -1,10 +1,11 @@
+// components/ServiceRequestTable.tsx
 'use client'
 import React from 'react'
 import { ColumnDef, useReactTable, getCoreRowModel, flexRender, SortingFn, Row } from '@tanstack/react-table'
 import Pagination from './Pagination'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { ServiceRequest, ServiceType, Tenant, Technician, Status, RequestLocation } from '@/utils/servicerequest.types' // todo import from supabase types
+import { Database } from '@/utils/database.types'
 import { serviceTypes } from '@/utils/serviceTypes'
 import dayjs from 'dayjs'
 import * as stylex from '@stylexjs/stylex'
@@ -15,6 +16,13 @@ import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
 import ServiceRequestDropdownMenu from './ServiceRequestDropdownMenu'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { CheckIcon } from '@radix-ui/react-icons'
+type RequestLocation = Database['public']['Tables']['locations']['Row']
+type ServiceRequest = Database['public']['Tables']['service_requests']['Row']
+type Status = Database['public']['Tables']['statuses']['Row']
+type ServiceType = Database['public']['Tables']['service_types']['Row']
+type Tenant = Database['public']['Tables']['tenants']['Row']
+type Technician = Database['public']['Tables']['technicians']['Row']
+import { ServiceRequestsWithPagination } from '@/types'
 
 const styles = stylex.create({
   html: {
@@ -155,15 +163,7 @@ const requestCard = stylex.create({
   },
 })
 
-interface ServiceRequestTableProps {
-  data: ServiceRequest[]
-  currentPage: number
-  totalPages: number
-  sortColumn: string
-  sortDirection: string
-}
-
-const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
+const ServiceRequestTable: React.FC<ServiceRequestsWithPagination> = ({
   data,
   currentPage,
   totalPages,

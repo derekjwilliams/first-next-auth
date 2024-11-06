@@ -1,5 +1,6 @@
 import MultipleServiceRequests from '@/components/MultipleServiceRequests'
-import { createClient } from '@/lib/supabase/client'
+//import { createClient } from '@/lib/supabase/client'
+import { createClient } from '@/utils/supabase/client'
 import { serviceTypes } from '@/utils/serviceTypes'
 
 const snakeToPascalCase = (value: string) => {
@@ -30,9 +31,13 @@ export default async function Page({ params }: { params: Params }) {
   return (
     <>
       <MultipleServiceRequests
-        serviceTypeId={service_type?.id}
-        locations={locations}
-        serviceDisplayName={serviceTypes.get(snakeToPascalCase(id)).displayName}></MultipleServiceRequests>
+        serviceTypeId={service_type?.id || ''}
+        locations={locations.map((location) => ({
+          ...location,
+          unit_number: location.unit_number || '', // Default to empty string if null
+        }))}
+        serviceDisplayName={serviceTypes.get(snakeToPascalCase(id)).displayName}
+      />
     </>
   )
 }

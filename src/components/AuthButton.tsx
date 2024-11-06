@@ -1,4 +1,5 @@
-import { createClient } from '@/lib/supabase/client'
+//import { createClient } from '@/lib/supabase/client'
+import { createClient } from '@/utils/supabase/client'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import * as stylex from '@stylexjs/stylex'

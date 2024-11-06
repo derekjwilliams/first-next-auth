@@ -1,6 +1,7 @@
 import ServiceTypeTable from '@/components/ServiceTypeTable'
 import ServiceTypeTableSkeleton from '@/components/ServiceTypeTableSkeleton'
-import { createClient } from '@/lib/supabase/client'
+//import { createClient } from '@/lib/supabase/client'
+import { createClient } from '@/utils/supabase/client'
 import { Suspense } from 'react'
 // interface PageProps {
 //   searchParams: { page?: string }
@@ -8,7 +9,7 @@ import { Suspense } from 'react'
 
 type SearchParams = Promise<{
   sortColumn?: string | string[] | undefined
-  sortDirection?: string | string[] | undefined
+  sortDirection?: 'asc' | 'desc' | undefined
   page?: string | string[] | undefined
 }>
 
@@ -33,11 +34,17 @@ export default async function Page({ searchParams }: { searchParams: SearchParam
   const page =
     (Array.isArray(resolvedSearchParams.page) ? resolvedSearchParams.page[0] : resolvedSearchParams.page) ?? 1
 
-  const { data: serviceTypes, count } = await supabase
-    .from('service_types')
-    .select('*', { count: 'exact' })
-    .order(sortColumn, { ascending: sortDirection === 'asc' })
-    .range((currentPage - 1) * pageSize, currentPage * pageSize - 1)
+  const fetchServiceTypes = async () => {
+    const { data, count, error } = await supabase
+      .from('service_types')
+      .select('*', { count: 'exact' })
+      .order(sortColumn, { ascending: sortDirection === 'asc' })
+      .range((currentPage - 1) * pageSize, currentPage * pageSize - 1)
+
+    if (error) throw error
+    return { data: data || [], count: count || 0 }
+  }
+  const { data: serviceTypes, count } = await fetchServiceTypes()
 
   const totalPages = Math.ceil((count || 0) / pageSize)
 
@@ -47,6 +54,7 @@ export default async function Page({ searchParams }: { searchParams: SearchParam
       <Suspense key={'' + currentPage + sortDirection + sortColumn} fallback={<ServiceTypeTableSkeleton />}>
         <ServiceTypeTable
           data={serviceTypes || []}
+          count={count}
           currentPage={currentPage}
           sortColumn={sortColumn}
           sortDirection={sortDirection}
