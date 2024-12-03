@@ -1,7 +1,6 @@
 // import ServiceRequestDetail from '@/components/ServiceRequestDetail'
 import MultipleTechnicians from '@/components/MultipleTechnicians'
-//import { createClient } from '@/lib/supabase/client'
-import { createClient } from '@/utils/supabase/client'
+import { createClient } from '@/lib/supabase/client'
 import { redirect } from 'next/navigation'
 
 type Params = Promise<{ predicate: string }>

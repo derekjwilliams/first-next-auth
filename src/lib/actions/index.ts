@@ -1,13 +1,11 @@
 'use server'
 import { redirect } from 'next/navigation'
-//import createSupabaseServerClient from '../supabase/server'
-import { createClient } from '@/utils/supabase/server'
-
+import createSupabaseServerClient from '../supabase/server'
 import { unstable_noStore as noStore, revalidatePath } from 'next/cache'
 
 export default async function readUserSession() {
   noStore()
-  const supabase = await createClient()
+  const supabase = await createSupabaseServerClient()
   return supabase.auth.getSession()
 }
 
@@ -27,7 +25,7 @@ export async function updateServiceRequest(id: string, availableTechnicianIds: s
 
   /* empty serviceType is not allowed in database, so don't proceed if it is empty*/
   if (serviceTypeSelected?.toString() !== '') {
-    const supabase = await createClient()
+    const supabase = await createSupabaseServerClient()
     /* update service type */
     const { data: updateServiceTypeData, error: updateServiceTypeError } = await supabase
       .from('service_requests')

@@ -7,7 +7,7 @@ function useMultipleServiceRequestsQuery({ serviceTypeId }: { serviceTypeId: str
   const queryKey = ['service-requests']
 
   const queryFn = async () => {
-    return getMultipleServiceRequests(client, serviceTypeId!)?.then((result) => result.data)
+    return getMultipleServiceRequests(client, serviceTypeId!)?.then((result: { data: any }) => result.data)
   }
   return useQuery({ queryKey, queryFn })
 }

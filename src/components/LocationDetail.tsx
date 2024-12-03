@@ -50,7 +50,7 @@ export default function LocationDetail({ id }: { id: string | null }) {
           <span>{location.bathrooms.length}</span>
         </div>
         <div>
-          {location.service_requests.map((serviceRequest: any, index) => {
+          {location.service_requests.map((serviceRequest: any, index: any) => {
             return (
               <div key={serviceRequest.id} {...stylex.props(locations.base)}>
                 <Link href={`/servicerequests/${serviceRequest.id}`}>{serviceRequest.description}</Link>

@@ -9,7 +9,7 @@ function useLocationQuery(locationId: string) {
   const queryKey = ['location', id]
 
   const queryFn = async () => {
-    return getLocationById(client, id!)?.then((result) => result.data)
+    return getLocationById(client, id!)?.then((result: { data: any }) => result.data)
   }
   return useQuery({ queryKey, queryFn })
 }

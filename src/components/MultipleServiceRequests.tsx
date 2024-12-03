@@ -139,26 +139,30 @@ const requestCard = stylex.create({
 function AddServiceRequest({ locations, serviceTypeId, serviceDisplayName }: MultipleServiceRequestsProps) {
   const client = useSupabase()
   const mutationFn = async (value: ServiceRequestMutationInput) => {
-    return addServiceRequest(client, value)?.then((result) => result.data)
+    return addServiceRequest(client, value)?.then((result: { data: any }) => result.data)
   }
   const queryClient = useQueryClient()
   const mutation = useMutation({
     mutationFn,
     onSuccess: (data: any) => {
-      queryClient.setQueryData(['service-requests'], (prevData: Array<Tables<'service_requests'>>) => [
+      queryClient.setQueryData(['service-requests'], (prevData: Array<ServiceRequestMutationInput>) => [
         ...prevData,
         data![0],
       ])
     },
   })
-
   const onCreateServiceRequest = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     mutation.mutate({
       description: e.currentTarget.description.value,
       location_id: selectedLocation,
+      status_id: null,
       service_type_id: serviceTypeId,
+      completed: null,
+      date_created: null,
+      date_updated: null,
       id: '',
+      requested_by: null,
       steps: [],
       details: e.currentTarget.details.value,
     })

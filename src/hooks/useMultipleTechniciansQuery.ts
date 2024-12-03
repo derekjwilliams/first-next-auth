@@ -7,7 +7,7 @@ function useMultipleTechniciansQuery() {
   const queryKey = ['technicians']
 
   const queryFn = async () => {
-    return getMultipleTechnicians(client)?.then((result) => result.data)
+    return getMultipleTechnicians(client)?.then((result: { data: any }) => result.data)
   }
   return useQuery({ queryKey, queryFn })
 }

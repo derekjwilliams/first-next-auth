@@ -8,7 +8,7 @@ function useServiceRequestMutation(value: ServiceRequest) {
   const client = useSupabase()
 
   const mutationFn = async () => {
-    return addServiceRequest(client, value)?.then((result) => result.data)
+    return addServiceRequest(client, value)?.then((result: { data: any }) => result.data)
   }
   return useMutation({ mutationFn })
 }

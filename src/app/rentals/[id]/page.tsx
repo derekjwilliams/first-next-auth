@@ -1,6 +1,5 @@
 'use server'
-//import { createClient } from '@/lib/supabase/client'
-import { createClient } from '@/utils/supabase/client'
+import { createClient } from '@/lib/supabase/client'
 import Image from 'next/image'
 import { getPlaceholderImage } from '@/utils/images'
 import * as stylex from '@stylexjs/stylex'
@@ -108,23 +107,21 @@ export default async function Page({ params }: { params: Params }) {
     .single()
 
   const listingImages = listing?.listing_images?.map(async (image) => {
-    if (image && image.url) {
-      const blur = await getPlaceholderImage(image.url)
-      return (
-        <div key={image.id} {...stylex.props(rental.mediaElement)}>
-          <Image
-            draggable={false}
-            {...stylex.props(rental.image)}
-            alt={image.description || ''}
-            width={imageSize * aspectRatio}
-            height={imageSize}
-            src={image.url}
-            placeholder='blur'
-            blurDataURL={blur.placeholder}
-            loading='lazy'></Image>
-        </div>
-      )
-    }
+    const blur = await getPlaceholderImage(image.url)
+    return (
+      <div key={image.id} {...stylex.props(rental.mediaElement)}>
+        <Image
+          draggable={false}
+          {...stylex.props(rental.image)}
+          alt={image.description}
+          width={imageSize * aspectRatio}
+          height={imageSize}
+          src={image.url}
+          placeholder='blur'
+          blurDataURL={blur.placeholder}
+          loading='lazy'></Image>
+      </div>
+    )
   })
 
   const overview = (
@@ -134,12 +131,10 @@ export default async function Page({ params }: { params: Params }) {
     </div>
   )
 
-  let features: string[] = []
-  if (listing && listing.features && Array.isArray(listing.features)) features = listing.features
   const details = (
     <div {...stylex.props(rental.details)}>
       <h2 {...stylex.props(rental.heading)}>
-        <div {...stylex.props(rental.heading)}>{`$${listing?.monthly_rent?.toLocaleString()}/mo`}</div>
+        <div {...stylex.props(rental.heading)}>{`$${listing?.monthly_rent.toLocaleString()}/mo`}</div>
       </h2>
       <div {...stylex.props(rental.rooms)}>{listing?.rooms}</div>
       <div {...stylex.props(rental.address)}>
@@ -151,9 +146,7 @@ export default async function Page({ params }: { params: Params }) {
         <h3>Highlights</h3>
         <div>
           <ul {...stylex.props(rental.highlightsList)}>
-            {features.map((feature: string, index: number) => (
-              <li key={index}>{feature}</li>
-            ))}
+            {listing?.features.map((feature: string, index: string) => <li key={index}>{feature}</li>)}
           </ul>
         </div>
       </div>

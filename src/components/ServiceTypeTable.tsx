@@ -3,10 +3,18 @@
 import React from 'react'
 import { ColumnDef, useReactTable, getCoreRowModel, flexRender, SortingState } from '@tanstack/react-table'
 import Pagination from './Pagination'
+import { ServiceType } from '@/utils/servicerequest.types'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { ServiceType, ServiceTypesWithPagination } from '@/types'
 
-const ServiceTypeTable: React.FC<ServiceTypesWithPagination> = ({
+interface ServiceTypeTableProps {
+  data: ServiceType[]
+  currentPage: number
+  totalPages: number
+  sortColumn: string
+  sortDirection: string
+}
+
+const ServiceTypeTable: React.FC<ServiceTypeTableProps> = ({
   data,
   currentPage,
   totalPages,

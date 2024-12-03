@@ -1,8 +1,6 @@
-//app/servicerequests/page.tsx
-
 import ServiceRequestTable from '@/components/ServiceRequestTable'
 import ServiceRequestTableSkeleton from '@/components/ServiceRequestTableSkeleton'
-import { createClient } from '@/utils/supabase/client'
+import { createClient } from '@/lib/supabase/client'
 import stylex from '@stylexjs/stylex'
 import { Suspense } from 'react'
 import { marigoldColors } from '../customStyles/marigoldColors.stylex'
@@ -15,7 +13,7 @@ const styles = stylex.create({
 
 type SearchParams = Promise<{
   sortColumn?: string | string[] | undefined
-  sortDirection?: 'asc' | 'desc' | undefined
+  sortDirection?: string | string[] | undefined
   page?: string | string[] | undefined
 }>
 
@@ -59,36 +57,28 @@ export default async function Page({ searchParams }: { searchParams: SearchParam
       sortedBy = Array.isArray(sortColumn) ? sortColumn[0] : sortColumn || 'locations(street_address)'
   }
 
-  const fetchServiceRequests = async () => {
-    const { data, count, error } = await supabase
-      .from('service_requests')
-      .select(
-        '*, technicians(id, name, email), service_types(id, service_name), tenants(*), statuses(*), locations(id, street_address, unit_number)',
-        {
-          count: 'exact',
-        },
-      )
-      .order(sortedBy, { ascending: sortDirection === 'asc' })
-      .range((currentPage - 1) * pageSize, currentPage * pageSize - 1)
-
-    if (error) throw error
-    return { data: data || [], count: count || 0 }
-  }
-
-  const { data: serviceRequests, count } = await fetchServiceRequests()
+  let { data: serviceRequests, count } = await supabase
+    .from('service_requests')
+    .select(
+      '*, technicians(id, name, email), service_types(id, service_name), tenants(*), statuses(*), locations(id, street_address, unit_number)',
+      {
+        count: 'exact',
+      },
+    )
+    .order(sortedBy, { ascending: sortDirection === 'asc' })
+    .range((currentPage - 1) * pageSize, currentPage * pageSize - 1)
+  serviceRequestsCount = count || 0
 
   const totalPages = Math.ceil(serviceRequestsCount / pageSize)
-
   return (
     <div {...stylex.props(styles.tableWrapper)}>
       <Suspense key={'' + currentPage + sortDirection + sortedBy} fallback={<ServiceRequestTableSkeleton />}>
         <ServiceRequestTable
-          count={count}
           data={serviceRequests || []}
           currentPage={currentPage}
+          totalPages={totalPages}
           sortColumn={sortedBy}
           sortDirection={sortDirection}
-          totalPages={totalPages}
         />
       </Suspense>
     </div>

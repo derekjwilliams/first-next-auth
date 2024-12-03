@@ -6,6 +6,20 @@ type Technician = {
   name: string
   email: string
 }
+type ServiceRequest = {
+  //location_id	service_type_id	status_id	completed	id	steps
+  id: string // UUID type
+  description: string
+  date_created: string
+  date_updated: string
+  technicians: Technician[]
+  locations: RequestLocation
+}
+
+type ServiceType = {
+  id: string // UUID type
+  service_name: string
+}
 
 type Status = {
   id: string // UUID type
@@ -24,4 +38,4 @@ type Tenant = {
   email: string
 }
 
-export type { Technician, RequestLocation, Tenant, Status }
+export type { Technician, ServiceRequest, ServiceType, RequestLocation, Tenant, Status }

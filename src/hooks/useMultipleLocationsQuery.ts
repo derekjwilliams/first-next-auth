@@ -7,7 +7,7 @@ function useMultipleLocationsQuery() {
   const queryKey = ['locations']
 
   const queryFn = async () => {
-    return getMultipleLocations(client)?.then((result: { data: any }) => result.data)
+    return getMultipleLocations(client)?.then((result) => result.data)
   }
   return useQuery({ queryKey, queryFn })
 }

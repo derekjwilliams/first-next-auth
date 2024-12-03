@@ -1,5 +1,6 @@
-import { createClient } from '@/utils/supabase/client'
+import { createClient } from '@/lib/supabase/client'
 import ServiceRequestEditForm from '@/components/ServiceRequestEditForm'
+import { QueryData } from '@supabase/supabase-js'
 
 type Params = Promise<{ id: string }>
 
@@ -8,21 +9,21 @@ export default async function Page({ params }: { params: Params }) {
   const id = resolvedParams.id
   // get this service request by id
   const supabase = await createClient()
-  const fetchSingleServiceRequest = async () => {
-    const { data, count, error } = await supabase
-      .from('service_requests')
-      .select('*, technicians(id, name, email), service_types(id, service_name), tenants(*), locations(*)', {
-        count: 'exact',
-      })
-      .eq(`id`, id)
-      .single()
+  // let { data: serviceRequest }
+  const serviceRequestWithChildrenQuery = supabase
+    .from('service_requests')
+    .select('*, technicians(id, name, email), service_types(id, service_name), tenants(*), locations(*)', {
+      count: 'exact',
+    })
+    .eq(`id`, id)
+    .single()
 
-    if (error) throw error
-    return { data: data || [], count: count || 0 }
-  }
+  type ServiceRequestWithChildren = QueryData<typeof serviceRequestWithChildrenQuery>
+  const { data: serviceRequest, error }: { data: ServiceRequestWithChildren; error: any } =
+    await serviceRequestWithChildrenQuery
 
-  let { data: serviceRequest } = await fetchSingleServiceRequest()
   let { data: technicians } = await supabase.from('technicians').select('*')
+
   let { data: serviceTypes } = await supabase.from('service_types').select('*')
   let { data: statuses } = await supabase.from('statuses').select('*')
   let { data: locations } = await supabase
@@ -30,14 +31,13 @@ export default async function Page({ params }: { params: Params }) {
     .select('*')
     .order('street_address', { ascending: true })
     .order('unit_number', { ascending: true })
-  if (serviceRequest) {
-    return (
-      <ServiceRequestEditForm
-        serviceRequest={serviceRequest}
-        availableTechnicians={technicians ?? []}
-        availableServiceTypes={serviceTypes ?? []}
-        availableLocations={locations ?? []}
-        availableStatuses={statuses ?? []}></ServiceRequestEditForm>
-    )
-  } else return <div>Error, no service request found</div>
+
+  return (
+    <ServiceRequestEditForm
+      serviceRequest={serviceRequest}
+      availableTechnicians={technicians ?? []}
+      availableServiceTypes={serviceTypes ?? []}
+      availableLocations={locations ?? []}
+      availableStatuses={statuses ?? []}></ServiceRequestEditForm>
+  )
 }

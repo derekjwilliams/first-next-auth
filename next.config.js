@@ -2,7 +2,6 @@
 stylexPlugin = require('@stylexjs/nextjs-plugin')
 const nextConfig = {
   reactStrictMode: true,
-  optimizeFonts: false,
   pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
   images: {
     remotePatterns: [

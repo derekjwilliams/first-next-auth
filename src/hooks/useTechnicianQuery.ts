@@ -8,7 +8,7 @@ function useTechnicianQuery(technicianId: string) {
   const queryKey = ['technician', id]
 
   const queryFn = async () => {
-    return getTechnicianById(client, id!)?.then((result) => result.data)
+    return getTechnicianById(client, id!)?.then((result: { data: any }) => result.data)
   }
   return useQuery({ queryKey, queryFn })
 }
