@@ -3,7 +3,7 @@
 import React from 'react'
 import { ColumnDef, useReactTable, getCoreRowModel, flexRender, SortingState } from '@tanstack/react-table'
 import Pagination from './Pagination'
-import { ServiceType } from '@/utils/servicerequest.types'
+import { ServiceType } from '../utils/servicerequest.types'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 interface ServiceTypeTableProps {

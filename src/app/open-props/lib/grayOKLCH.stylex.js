@@ -4,10 +4,10 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- *
+ * 
  */
 
-import { defineVars } from '@stylexjs/stylex'
+import { defineVars } from '@stylexjs/stylex';
 export const grayOKLCH = defineVars({
   grey0: '99%',
   grey1: '95%',
@@ -24,5 +24,5 @@ export const grayOKLCH = defineVars({
   grey12: '31%',
   grey13: '25%',
   grey14: '18%',
-  grey15: '10%',
-})
+  grey15: '10%'
+});

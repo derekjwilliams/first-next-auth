@@ -7,37 +7,40 @@
  *
  */
 
-import type { MapNamespaces, StyleXVar } from '@stylexjs/stylex/lib/StyleXTypes'
+import type {
+  MapNamespaces,
+  StyleXVar,
+} from '@stylexjs/stylex/lib/StyleXTypes';
 type Style = Readonly<{
-  animationName: string | StyleXVar<string>
-  animationDuration: string
-  animationTimingFunction: string | StyleXVar<string>
-  animationIterationCount?: string
-}>
+  animationName: string | StyleXVar<string>;
+  animationDuration: string;
+  animationTimingFunction: string | StyleXVar<string>;
+  animationIterationCount?: string;
+}>;
 type TAnimations = MapNamespaces<
   Readonly<{
-    fadeIn: Style
-    fadeInBloom: Style
-    fadeOut: Style
-    fadeOutBloom: Style
-    scaleUp: Style
-    scaleDown: Style
-    slideOutUp: Style
-    slideOutDown: Style
-    slideOutRight: Style
-    slideOutLeft: Style
-    slideInUp: Style
-    slideInDown: Style
-    slideInRight: Style
-    slideInLeft: Style
-    shakeX: Style
-    shakeY: Style
-    spin: Style
-    ping: Style
-    blink: Style
-    float: Style
-    bounce: Style
-    pulse: Style
+    fadeIn: Style;
+    fadeInBloom: Style;
+    fadeOut: Style;
+    fadeOutBloom: Style;
+    scaleUp: Style;
+    scaleDown: Style;
+    slideOutUp: Style;
+    slideOutDown: Style;
+    slideOutRight: Style;
+    slideOutLeft: Style;
+    slideInUp: Style;
+    slideInDown: Style;
+    slideInRight: Style;
+    slideInLeft: Style;
+    shakeX: Style;
+    shakeY: Style;
+    spin: Style;
+    ping: Style;
+    blink: Style;
+    float: Style;
+    bounce: Style;
+    pulse: Style;
   }>
->
-export declare const animations: TAnimations
+>;
+export declare const animations: TAnimations;

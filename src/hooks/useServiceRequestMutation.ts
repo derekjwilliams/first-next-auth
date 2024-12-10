@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
 import useSupabase from './useSupabase'
-import { addServiceRequest } from '@/queries/addServiceRequest'
-import { Tables } from '@/utils/database.types'
+import { addServiceRequest } from '../queries/addServiceRequest'
+import { Tables } from '../utils/database.types'
 type ServiceRequest = Tables<'service_requests'>
 
 function useServiceRequestMutation(value: ServiceRequest) {

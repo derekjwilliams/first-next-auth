@@ -7,10 +7,10 @@
  *
  */
 
-import type { VarGroup } from '@stylexjs/stylex/lib/StyleXTypes'
+import type { VarGroup } from '@stylexjs/stylex/lib/StyleXTypes';
 type THighlights = Readonly<{
-  highlightSize: string
-  highlightColor: string
-  highlight: string
-}>
-export declare const highlights: VarGroup<THighlights>
+  highlightSize: string;
+  highlightColor: string;
+  highlight: string;
+}>;
+export declare const highlights: VarGroup<THighlights>;

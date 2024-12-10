@@ -7,10 +7,10 @@
  *
  */
 
-import type { VarGroup } from '@stylexjs/stylex/lib/StyleXTypes'
+import type { VarGroup } from '@stylexjs/stylex/lib/StyleXTypes';
 type TSvg = Readonly<{
-  squircle1: string
-  squircle2: string
-  squircle3: string
-}>
-export declare const svg: VarGroup<TSvg>
+  squircle1: string;
+  squircle2: string;
+  squircle3: string;
+}>;
+export declare const svg: VarGroup<TSvg>;

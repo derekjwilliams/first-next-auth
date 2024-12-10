@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import useSupabase from './useSupabase'
-import { getMultipleServiceRequests } from '@/queries/getMultipleServiceRequests'
+import { getMultipleServiceRequests } from '../queries/getMultipleServiceRequests'
 
 function useMultipleServiceRequestsQuery({ serviceTypeId }: { serviceTypeId: string }) {
   const client = useSupabase()

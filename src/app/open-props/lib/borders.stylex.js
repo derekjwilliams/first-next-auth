@@ -4,16 +4,16 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- *
+ * 
  */
 
-import { defineVars } from '@stylexjs/stylex'
-const radius1 = '2px'
-const radius2 = '5px'
-const radius3 = '1rem'
-const radius4 = '2rem'
-const radius5 = '4rem'
-const radius6 = '8rem'
+import { defineVars } from '@stylexjs/stylex';
+const radius1 = '2px';
+const radius2 = '5px';
+const radius3 = '1rem';
+const radius4 = '2rem';
+const radius5 = '4rem';
+const radius6 = '8rem';
 export const borders = defineVars({
   size1: '1px',
   size2: '2px',
@@ -33,9 +33,9 @@ export const borders = defineVars({
   // radiusBlob4: '63% 37% 37% 63% / 43% 37% 63% 57%',
   // radiusBlob5: '49% 51% 48% 52% / 57% 44% 56% 43%',
   radiusConditional1: `clamp(0px, calc(100vw - 100%) * 1e5, ${radius1})`,
-  radiusConditional2: `clamp(0px, calc(100vw - 100%) * 1e5, ${radius2}))`,
-  radiusConditional3: `clamp(0px, calc(100vw - 100%) * 1e5, ${radius3}))`,
-  radiusConditional4: `clamp(0px, calc(100vw - 100%) * 1e5, ${radius4}))`,
-  radiusConditional5: `clamp(0px, calc(100vw - 100%) * 1e5, ${radius5}))`,
-  radiusConditional6: `clamp(0px, calc(100vw - 100%) * 1e5, ${radius6}))`,
-})
+  radiusConditional2: `clamp(0px, calc(100vw - 100%) * 1e5, ${radius2})`,
+  radiusConditional3: `clamp(0px, calc(100vw - 100%) * 1e5, ${radius3})`,
+  radiusConditional4: `clamp(0px, calc(100vw - 100%) * 1e5, ${radius4})`,
+  radiusConditional5: `clamp(0px, calc(100vw - 100%) * 1e5, ${radius5})`,
+  radiusConditional6: `clamp(0px, calc(100vw - 100%) * 1e5, ${radius6})`
+});

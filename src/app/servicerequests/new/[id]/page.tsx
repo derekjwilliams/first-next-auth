@@ -1,6 +1,6 @@
-import MultipleServiceRequests from '@/components/MultipleServiceRequests'
-import { createClient } from '@/lib/supabase/client'
-import { serviceTypes } from '@/utils/serviceTypes'
+import MultipleServiceRequests from '../../../../components/MultipleServiceRequests'
+import { createClient } from '../../../../lib/supabase/client'
+import { serviceTypes } from '../../../../utils/serviceTypes'
 
 const snakeToPascalCase = (value: string) => {
   let result = value.toLowerCase().replace(/([_][a-z])/g, (group) => group.toUpperCase().replace('_', ''))

@@ -1,20 +1,20 @@
 'use client'
 
-import useMultipleTechniciansQuery from '@/hooks/useMultipleTechniciansQuery'
+import useMultipleTechniciansQuery from '../hooks/useMultipleTechniciansQuery'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { CheckIcon } from '@radix-ui/react-icons'
 import * as Form from '@radix-ui/react-form'
 import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
-import { colors } from '@stylexjs/open-props/lib/colors.stylex'
-import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
-import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
+import { colors } from '../app/open-props/lib/colors.stylex'
+import { fonts } from '../app/open-props/lib/fonts.stylex'
+import { sizes } from '../app/open-props/lib/sizes.stylex'
+import { borders } from '../app/open-props/lib/borders.stylex'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import useSupabase from '../hooks/useSupabase'
-import { addTechnician } from '@/queries/addTechnician'
-import { Tables } from '@/utils/database.types'
+import { addTechnician } from '../queries/addTechnician'
+import { Tables } from '../utils/database.types'
 import Link from 'next/link'
-import { borders } from '@stylexjs/open-props/lib/borders.stylex'
 
 const items = stylex.create({
   base: {

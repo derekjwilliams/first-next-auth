@@ -1,15 +1,15 @@
 import './globals.css'
 import * as stylex from '@stylexjs/stylex'
-import { fonts } from './globalTokens.stylex'
-import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
+// import { fonts } from './globalTokens.stylex'
+import { sizes } from '../app/open-props/lib/sizes.stylex'
 import { ReactQueryClientProvider } from '@/components/ReactQueryClientProvider'
 import { Toaster } from 'react-hot-toast'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import Image from 'next/image'
-import Navigation from '@/components/Navigation'
+import Navigation from '../components/Navigation'
 import Link from 'next/link'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
-import '@uploadthing/react/styles.css'
+// import '@uploadthing/react/styles.css'
 
 import { Analytics } from '@vercel/analytics/react'
 
@@ -32,7 +32,7 @@ const styles = stylex.create({
     padding: 0,
   },
   body: {
-    fontFamily: `${fonts.appFont}, -apple-system, BlinkMacSystemFont, Arial`,
+    fontFamily: `-apple-system, BlinkMacSystemFont, Arial`,
   },
   top: {
     width: '100%',

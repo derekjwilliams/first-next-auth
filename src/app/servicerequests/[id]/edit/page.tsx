@@ -1,5 +1,5 @@
-import { createClient } from '@/lib/supabase/client'
-import ServiceRequestEditForm from '@/components/ServiceRequestEditForm'
+import { createClient } from '../../../../lib/supabase/client'
+import ServiceRequestEditForm from '../../../../components/ServiceRequestEditForm'
 import { QueryData } from '@supabase/supabase-js'
 
 type Params = Promise<{ id: string }>

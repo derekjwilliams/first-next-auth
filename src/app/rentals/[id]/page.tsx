@@ -1,12 +1,11 @@
 'use server'
-import { createClient } from '@/lib/supabase/client'
+import { createClient } from '../../../lib/supabase/client'
 import Image from 'next/image'
-import { getPlaceholderImage } from '@/utils/images'
+import { getPlaceholderImage } from '../../../utils/images'
 import * as stylex from '@stylexjs/stylex'
-import { colors } from '@stylexjs/open-props/lib/colors.stylex'
-import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
-import { borders } from '@stylexjs/open-props/lib/borders.stylex'
-import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
+import { sizes } from '../../../app/open-props/lib/sizes.stylex'
+import { borders } from '../../../app/open-props/lib/borders.stylex'
+import { fonts } from '../../../app/open-props/lib/fonts.stylex'
 import { marigoldColors } from '../../../app/customStyles/marigoldColors.stylex'
 
 const imageSize = 240

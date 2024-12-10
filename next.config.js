@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
-stylexPlugin = require('@stylexjs/nextjs-plugin')
+const stylexPlugin = require('@stylexswc/nextjs-plugin')
+const rootDir = __dirname
+const path = require('path')
 const nextConfig = {
   reactStrictMode: true,
   pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
@@ -28,6 +30,24 @@ const nextConfig = {
   },
 }
 module.exports = stylexPlugin({
-  useCSSLayers: true,
-  rootDir: __dirname,
-})(nextConfig)
+  // rootDir,
+  // Add any Stylex options here
+  // dev: process.env.NODE_ENV === 'development',
+  // genConditionalClasses: true,
+  // treeshakeCompensation: true,
+  aliases: {
+    '@/*': [path.join(rootDir, '*')],
+  },
+  unstable_moduleResolution: {
+    type: 'commonJS',
+    rootDir,
+  },
+})({
+  transpilePackages: ['@stylexjs/open-props'],
+  // Optionally, add any other Next.js config below
+  // swcMinify: true,
+})
+// module.exports = stylexPlugin({
+//   useCSSLayers: true,
+//   rootDir: __dirname,
+// })(nextConfig)

@@ -32,7 +32,7 @@ import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary'
 import ExampleTheme from './themes/ExampleTheme'
 import ImagePlugin from './plugins/ImagePlugin'
 import { ImageNode } from './nodes/ImageNode'
-import useSupabase from '@/hooks/useSupabase'
+import useSupabase from '../../hooks/useSupabase'
 
 /* Lexical Texts */
 // import { textDailyStandup } from './text-daily-standup' //TODO, what is the intent here?

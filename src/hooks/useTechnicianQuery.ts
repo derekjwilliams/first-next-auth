@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import useSupabase from './useSupabase'
-import { getTechnicianById } from '@/queries/getTechnicianById'
+import { getTechnicianById } from '../queries/getTechnicianById'
 
 function useTechnicianQuery(technicianId: string) {
   const client = useSupabase()

@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import useSupabase from './useSupabase'
-import { getServiceRequestById } from '@/queries/getServiceRequestById'
+import { getServiceRequestById } from '../queries/getServiceRequestById'
 
 function useServiceRequestQuery(serviceRequestId: string) {
   const client = useSupabase()

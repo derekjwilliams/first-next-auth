@@ -1,12 +1,12 @@
-import AuthButton from '@/components/AuthButton'
-import { createClient } from '@/lib/supabase/client'
+import AuthButton from '../../../components/AuthButton'
+import { createClient } from '../../../lib/supabase/client'
 import Link from 'next/link'
 import { marigoldColors } from '../../customStyles/marigoldColors.stylex'
-import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
+import { sizes } from '../../../app/open-props/lib/sizes.stylex'
 import * as stylex from '@stylexjs/stylex'
 import Image from 'next/image'
-import { serviceTypes } from '@/utils/serviceTypes'
-import { borders } from '@stylexjs/open-props/lib/borders.stylex'
+import { serviceTypes } from '../../../utils/serviceTypes'
+import { borders } from '../../../app/open-props/lib/borders.stylex'
 import { JSX } from 'react'
 
 const serviceCard = stylex.create({

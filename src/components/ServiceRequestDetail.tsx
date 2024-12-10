@@ -1,12 +1,12 @@
 'use client'
 
-import useServiceRequestQuery from '@/hooks/useServiceRequestQuery'
+import useServiceRequestQuery from '../hooks/useServiceRequestQuery'
 
 import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
-import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
-import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
-import { borders } from '@stylexjs/open-props/lib/borders.stylex'
+import { fonts } from '../app/open-props/lib/fonts.stylex'
+import { sizes } from '../app/open-props/lib/sizes.stylex'
+import { borders } from '../app/open-props/lib/borders.stylex'
 
 import Link from 'next/link'
 import LinkWrapperButton from './controls/LinkWrapperButton'

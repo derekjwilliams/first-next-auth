@@ -2,8 +2,8 @@ import React, { FC, HTMLAttributes } from 'react'
 import * as RadioGroup from '@radix-ui/react-radio-group'
 import './RadioSet.css'
 import stylex from '@stylexjs/stylex'
-import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
-import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
+import { fonts } from '../../app/open-props/lib/fonts.stylex'
+import { sizes } from '../../app/open-props/lib/sizes.stylex'
 
 const styles = stylex.create({
   label: {

@@ -1,4 +1,4 @@
-import TechnicianDetail from '@/components/TechnicianDetail'
+import TechnicianDetail from '../../../components/TechnicianDetail'
 
 type Params = Promise<{ id: string }>
 

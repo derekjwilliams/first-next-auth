@@ -7,13 +7,13 @@
  *
  */
 
-import type { VarGroup } from '@stylexjs/stylex/lib/StyleXTypes'
+import type { VarGroup } from '@stylexjs/stylex/lib/StyleXTypes';
 type TAspects = Readonly<{
-  ratioSquare: string
-  ratioLandscape: string
-  ratioPortrait: string
-  ratioWidescreen: string
-  ratioUltrawide: string
-  ratioGolden: string
-}>
-export declare const aspects: VarGroup<TAspects>
+  ratioSquare: string;
+  ratioLandscape: string;
+  ratioPortrait: string;
+  ratioWidescreen: string;
+  ratioUltrawide: string;
+  ratioGolden: string;
+}>;
+export declare const aspects: VarGroup<TAspects>;

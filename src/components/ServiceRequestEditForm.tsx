@@ -1,14 +1,14 @@
-import { updateServiceRequest } from '@/lib/actions'
-import { Database, Tables } from '@/utils/database.types'
+import { updateServiceRequest } from '../lib/actions'
+import { Database, Tables } from '../utils/database.types'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { CheckIcon } from '@radix-ui/react-icons'
-import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
-import { colors } from '@stylexjs/open-props/lib/colors.stylex'
+import { sizes } from '../app/open-props/lib/sizes.stylex'
+import { colors } from '../app/open-props/lib/colors.stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import stylex from '@stylexjs/stylex'
-import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
-import { fonts as globalFonts } from '../app/globalTokens.stylex'
-import { borders } from '@stylexjs/open-props/lib/borders.stylex'
+import { fonts } from '../app/open-props/lib/fonts.stylex'
+// import { fonts as globalFonts } from '../app/globalTokens.stylex'
+import { borders } from '../app/open-props/lib/borders.stylex'
 import RadioSet from './controls/RadioSet'
 const request = stylex.create({
   base: {
@@ -114,7 +114,7 @@ const form = stylex.create({
     width: 'auto',
     flex: '1',
     fontSize: fonts.size3,
-    fontFamily: `${globalFonts.appFont}, -apple-system, BlinkMacSystemFont, Arial`,
+    fontFamily: `-apple-system, BlinkMacSystemFont, Arial`,
     backgroundColor: marigoldColors.backgroundTextarea,
     color: marigoldColors.foreground,
   },

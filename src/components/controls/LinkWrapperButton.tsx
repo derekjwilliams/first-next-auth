@@ -1,12 +1,11 @@
 import React, { forwardRef } from 'react'
 import Link from 'next/link'
-import classNames from '@/utils/classnames'
+import classNames from '../../utils/classnames'
 import stylex from '@stylexjs/stylex'
-import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
-import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
-import { borders } from '@stylexjs/open-props/lib/borders.stylex'
 import { marigoldColors } from '../../app/customStyles/marigoldColors.stylex'
-
+import { fonts } from '../../app/open-props/lib/fonts.stylex'
+import { sizes } from '../../app/open-props/lib/sizes.stylex'
+import { borders } from '../../app/open-props/lib/borders.stylex'
 const button = stylex.create({
   base: {
     display: 'inline-flex',

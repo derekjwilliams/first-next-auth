@@ -2,8 +2,8 @@
 import Link from 'next/link'
 import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
-import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
-import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
+import { sizes } from '../app/open-props/lib/sizes.stylex'
+import { fonts } from '../app/open-props/lib/fonts.stylex'
 import React, { useState } from 'react'
 
 const menuStyles = stylex.create({

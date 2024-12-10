@@ -1,9 +1,9 @@
-import AuthButton from '@/components/AuthButton'
-import { createClient } from '@/lib/supabase/client'
-import Header from '@/components/Header'
+import AuthButton from '../../components/AuthButton'
+import { createClient } from '../../lib/supabase/client'
+import Header from '../../components/Header'
 import { redirect } from 'next/navigation'
 import * as stylex from '@stylexjs/stylex'
-import { colors } from '@stylexjs/open-props/lib/colors.stylex'
+import { colors } from '../open-props/lib/colors.stylex'
 import { marigoldColors } from '../customStyles/marigoldColors.stylex'
 
 const message = stylex.create({

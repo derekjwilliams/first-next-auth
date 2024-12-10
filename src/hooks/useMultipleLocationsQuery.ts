@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import useSupabase from './useSupabase'
-import { getMultipleLocations } from '@/queries/getMultipleLocations'
+import { getMultipleLocations } from '../queries/getMultipleLocations'
 
 function useMultipleLocationsQuery() {
   const client = useSupabase()

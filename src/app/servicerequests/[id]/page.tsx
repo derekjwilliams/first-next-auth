@@ -1,4 +1,4 @@
-import ServiceRequestDetail from '@/components/ServiceRequestDetail'
+import ServiceRequestDetail from '../../../components/ServiceRequestDetail'
 type Params = Promise<{ id: string }>
 
 export default async function Page({ params }: { params: Params }) {

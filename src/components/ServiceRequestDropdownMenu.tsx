@@ -1,7 +1,7 @@
 import React from 'react'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { DotsHorizontalIcon, CheckIcon } from '@radix-ui/react-icons'
-import '@/app/dropdown.css'
+import '../app/dropdown.css'
 
 const ServiceRequestDropdownMenu = () => {
   const [bookmarksChecked, setBookmarksChecked] = React.useState(true)

@@ -4,10 +4,10 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- *
+ * 
  */
 
-import { defineVars } from '@stylexjs/stylex'
+import { defineVars } from '@stylexjs/stylex';
 export const fonts = defineVars({
   sans: 'system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif',
   serif: 'ui-serif,serif',
@@ -49,5 +49,5 @@ export const fonts = defineVars({
   sizeFluid0: 'clamp(.75rem, 2vw, 1rem)',
   sizeFluid1: 'clamp(1rem, 4vw, 1.5rem)',
   sizeFluid2: 'clamp(1.5rem, 6vw, 2.5rem)',
-  sizeFluid3: 'clamp(2rem, 9vw, 3.5rem)',
-})
+  sizeFluid3: 'clamp(2rem, 9vw, 3.5rem)'
+});

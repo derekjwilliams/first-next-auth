@@ -1,10 +1,10 @@
 'use client'
 
-import useTechnicianQuery from '@/hooks/useTechnicianQuery'
-import { sizes } from '@stylexjs/open-props/lib/sizes.stylex'
-import { colors } from '@stylexjs/open-props/lib/colors.stylex'
-import { fonts } from '@stylexjs/open-props/lib/fonts.stylex'
+import useTechnicianQuery from '../hooks/useTechnicianQuery'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
+import { colors } from '../app/open-props/lib/colors.stylex'
+import { fonts } from '../app/open-props/lib/fonts.stylex'
+import { sizes } from '../app/open-props/lib/sizes.stylex'
 
 import * as stylex from '@stylexjs/stylex'
 import Link from 'next/link'
