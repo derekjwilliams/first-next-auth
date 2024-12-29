@@ -7,6 +7,8 @@ import { SubmitButton } from './submit-button'
 import * as stylex from '@stylexjs/stylex'
 import OAuthForm from '../auth/components/OAuthForm'
 
+export const dynamic = 'force-dynamic'
+
 const loginContainer = stylex.create({
   base: {
     display: 'flex',
@@ -42,13 +44,15 @@ const loginForm = stylex.create({
     textAlign: 'center',
   },
 })
-type Params = Promise<{ message: string }>
-type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
 
-export default async function Login({ params, searchParams }: { params: Params; searchParams: SearchParams }) {
+export default async function Login({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+  const resolvedSearchParams = await searchParams
   const signIn = async (formData: FormData) => {
     'use server'
-
     const email = formData.get('email') as string
     const password = formData.get('password') as string
     const supabase = await createClient()
@@ -57,16 +61,13 @@ export default async function Login({ params, searchParams }: { params: Params; 
       email,
       password,
     })
-
     if (error) {
       return redirect('/login?message=Could not authenticate user')
     }
-
-    // const resolvedParams = await params
-    const resolvedSearchParams = await searchParams
-    // const message = resolvedSearchParams.message as string
-    const redirectUrl = resolvedSearchParams.redirect as string
-    return redirect(redirectUrl || '/')
+    if (!error) {
+      const redirectTo = (resolvedSearchParams['redirect'] as string) || '/dashboard' // Redirect parameter fallback
+      redirect(redirectTo || '/')
+    }
   }
 
   const signUp = async (formData: FormData) => {

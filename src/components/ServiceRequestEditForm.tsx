@@ -10,6 +10,7 @@ import { fonts } from '../app/open-props/lib/fonts.stylex'
 // import { fonts as globalFonts } from '../app/globalTokens.stylex'
 import { borders } from '../app/open-props/lib/borders.stylex'
 import RadioSet from './controls/RadioSet'
+import { Editor } from './LexicalTextEditor/SimpleLexicalEditor'
 const request = stylex.create({
   base: {
     padding: sizes.spacing5,
@@ -177,6 +178,7 @@ export default function ServiceRequestEditForm({
             />
           </div>
         </div>
+        {/* <Editor serviceRequestId={serviceRequest.id} /> */}
         {/* Technicians Checkboxes, TODO use react-select for improved UX */}
         <div {...stylex.props(request.technicians)}>
           <h1 {...stylex.props(request.h1)}>Service Technicians</h1>
