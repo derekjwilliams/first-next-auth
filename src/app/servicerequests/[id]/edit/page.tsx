@@ -2,7 +2,7 @@ import { createClient } from '@/lib/supabase/client'
 import ServiceRequestEditForm from '@/components/ServiceRequestEditForm'
 import { QueryData } from '@supabase/supabase-js'
 import RichTextEditor from '@/components/lexical/RichTextEditor'
-
+import '@/components/lexicalstyles.css'
 type Params = Promise<{ id: string }>
 
 export default async function Page({ params }: { params: Params }) {
@@ -34,6 +34,7 @@ export default async function Page({ params }: { params: Params }) {
 
   return (
     <>
+      <RichTextEditor />
       <ServiceRequestEditForm
         serviceRequest={serviceRequest}
         availableTechnicians={technicians ?? []}
