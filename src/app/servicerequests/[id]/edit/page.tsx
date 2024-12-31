@@ -1,6 +1,7 @@
-import { createClient } from '../../../../lib/supabase/client'
-import ServiceRequestEditForm from '../../../../components/ServiceRequestEditForm'
+import { createClient } from '@/lib/supabase/client'
+import ServiceRequestEditForm from '@/components/ServiceRequestEditForm'
 import { QueryData } from '@supabase/supabase-js'
+import RichTextEditor from '@/components/lexical/RichTextEditor'
 
 type Params = Promise<{ id: string }>
 
@@ -23,7 +24,6 @@ export default async function Page({ params }: { params: Params }) {
     await serviceRequestWithChildrenQuery
 
   let { data: technicians } = await supabase.from('technicians').select('*')
-
   let { data: serviceTypes } = await supabase.from('service_types').select('*')
   let { data: statuses } = await supabase.from('statuses').select('*')
   let { data: locations } = await supabase
@@ -33,11 +33,13 @@ export default async function Page({ params }: { params: Params }) {
     .order('unit_number', { ascending: true })
 
   return (
-    <ServiceRequestEditForm
-      serviceRequest={serviceRequest}
-      availableTechnicians={technicians ?? []}
-      availableServiceTypes={serviceTypes ?? []}
-      availableLocations={locations ?? []}
-      availableStatuses={statuses ?? []}></ServiceRequestEditForm>
+    <>
+      <ServiceRequestEditForm
+        serviceRequest={serviceRequest}
+        availableTechnicians={technicians ?? []}
+        availableServiceTypes={serviceTypes ?? []}
+        availableLocations={locations ?? []}
+        availableStatuses={statuses ?? []}></ServiceRequestEditForm>
+    </>
   )
 }

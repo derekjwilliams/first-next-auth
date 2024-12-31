@@ -30,8 +30,7 @@
     ".next/types/**/*.ts",
     "src/app/notes/[id]/page.jsx",
     "src/components/Button.jsx",
-    "src/components/AuthButton.jsx",
-    "src/components/LexicalTextEditor/Editor.js"
+    "src/components/AuthButton.jsx"
   ],
   // "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]

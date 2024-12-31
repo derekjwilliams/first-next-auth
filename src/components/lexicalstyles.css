@@ -1,3 +1,4 @@
+/* Lexical toolbar and other Lexical, TODO move out of here */
 body {
   margin: 0;
   background: #eee;
@@ -360,11 +361,14 @@ pre::-webkit-scrollbar-thumb {
 .toolbar button.toolbar-item {
   border: 0;
   display: flex;
-  background: none;
+  background: rgba(223, 232, 250, 0);
   border-radius: 10px;
   padding: 8px;
   cursor: pointer;
   vertical-align: middle;
+}
+.toolbar button.toolbar-item.style-selected {
+  background: rgba(223, 232, 250, 0.5);
 }
 
 .toolbar button.toolbar-item:disabled {

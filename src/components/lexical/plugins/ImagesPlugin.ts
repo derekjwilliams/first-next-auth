@@ -11,7 +11,7 @@ import {
 } from 'lexical'
 import { useEffect } from 'react'
 
-import { $createImageNode, ImageNode, ImagePayload } from '../nodes/ImageNode'
+import { $createImageNode, ImageNode, ImagePayload } from '@/components/lexical/nodes/ImageNode'
 import { JSX } from 'react/jsx-runtime'
 
 export type InsertImagePayload = Readonly<ImagePayload>

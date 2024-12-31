@@ -3,7 +3,7 @@ import * as stylex from '@stylexjs/stylex'
 // import { fonts } from './globalTokens.stylex'
 import { sizes } from '../app/open-props/lib/sizes.stylex'
 import { ReactQueryClientProvider } from '@/components/ReactQueryClientProvider'
-import { Toaster } from 'react-hot-toast'
+// import toast, { Toaster } from 'react-hot-toast'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import Image from 'next/image'
 import Navigation from '../components/Navigation'
@@ -62,7 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {header}
         <ReactQueryClientProvider>
           <main>
-            <Toaster position='bottom-center' />
+            {/* <Toaster position='bottom-center' /> */}
             {children}
             {/* <Analytics /> seems to slow things down*/}
             <SpeedInsights />

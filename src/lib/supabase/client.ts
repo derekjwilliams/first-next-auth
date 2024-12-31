@@ -1,6 +1,7 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { UnsafeUnwrappedCookies, cookies } from 'next/headers'
 
+// TODO check latest supabase examples, should we have const cookieStore = await cookies()?
 export const createClient = () => {
   const cookieStore = cookies() as unknown as UnsafeUnwrappedCookies
   return createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, {

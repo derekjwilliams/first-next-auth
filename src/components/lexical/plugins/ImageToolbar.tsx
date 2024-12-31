@@ -2,10 +2,10 @@
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 import * as React from 'react'
 
-import '../styles.css'
+import '../nodes/ImageToolbar.css'
 
-import type { InsertImagePayload } from './ImagePlugin'
-import { INSERT_IMAGE_COMMAND } from './ImagePlugin'
+import type { InsertImagePayload } from './ImagesPlugin'
+import { INSERT_IMAGE_COMMAND } from './ImagesPlugin'
 import { JSX } from 'react'
 
 export function FillURL() {
@@ -13,7 +13,7 @@ export function FillURL() {
   return srcfile
 }
 
-export default function ToolbarPlugin(): JSX.Element {
+export default function ImageToolbar(): JSX.Element {
   const [editor] = useLexicalComposerContext()
   const onClick = (payload: InsertImagePayload) => {
     editor.dispatchCommand(INSERT_IMAGE_COMMAND, payload)
@@ -22,16 +22,7 @@ export default function ToolbarPlugin(): JSX.Element {
   return (
     <div className='toolbar'>
       <button
-        onClick={() =>
-          onClick({
-            altText: 'Pink flowers',
-            src: 'https://images.pexels.com/photos/5656637/pexels-photo-5656637.jpeg?auto=compress&cs=tinysrgb&w=200',
-          })
-        }
-        className={'toolbar-item spaced '}>
-        <span className='text'>Insert Sample</span>
-      </button>
-      <button
+        type='button'
         onClick={() =>
           onClick({
             altText: 'URL image',

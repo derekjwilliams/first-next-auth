@@ -20,14 +20,14 @@ export async function GET(request: Request) {
   // app/auth-server-action/callback/route.ts
   // code is also different, see: https://github.com/Chensokheng/next-14-supabase-ssr/blob/demo/app/oauth/callback/route.ts
   if (code) {
-    const cookieStore = cookies() as unknown as UnsafeUnwrappedCookies
+    const cookieStore = (await cookies()) as unknown as UnsafeUnwrappedCookies
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
       {
         cookies: {
           async get(name: string) {
-            return await cookieStore.get(name)?.value
+            return cookieStore.get(name)?.value
           },
           async set(name: string, value: string, options: CookieOptions) {
             cookieStore.set({ name, value, ...options })
