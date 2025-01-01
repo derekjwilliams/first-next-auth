@@ -12,14 +12,17 @@ const ratelimit = new Ratelimit({
 export async function middleware(request: NextRequest) {
   // const ip = request.ip ?? '127.0.0.1'
   const ip = request.headers.get('x-forwarded-for') || '127.0.0.1'
-  const { success, pending, limit, reset, remaining } = await ratelimit.limit(ip)
 
-  if (!success) {
-    const response = NextResponse.json({ message: 'Too many requests, please try again later.' }, { status: 429 })
-    response.headers.set('X-RateLimit-Limit', limit.toString())
-    response.headers.set('X-RateLimit-Remaining', remaining.toString())
-    response.headers.set('X-RateLimit-Reset', reset.toString())
-    return response
+  if (ip !== process.env.CIP || ip !== '127.0.0.1') {
+    const { success, pending, limit, reset, remaining } = await ratelimit.limit(ip)
+
+    if (!success) {
+      const response = NextResponse.json({ message: 'Too many requests, please try again later.' }, { status: 429 })
+      response.headers.set('X-RateLimit-Limit', limit.toString())
+      response.headers.set('X-RateLimit-Remaining', remaining.toString())
+      response.headers.set('X-RateLimit-Reset', reset.toString())
+      return response
+    }
   }
 
   return await updateSession(request)

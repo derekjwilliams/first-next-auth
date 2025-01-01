@@ -4,14 +4,14 @@ import * as stylex from '@stylexjs/stylex'
 import { sizes } from '../app/open-props/lib/sizes.stylex'
 import { ReactQueryClientProvider } from '@/components/ReactQueryClientProvider'
 // import toast, { Toaster } from 'react-hot-toast'
-import { SpeedInsights } from '@vercel/speed-insights/next'
+// import { SpeedInsights } from '@vercel/speed-insights/next'
 import Image from 'next/image'
 import Navigation from '../components/Navigation'
 import Link from 'next/link'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 // import '@uploadthing/react/styles.css'
 
-import { Analytics } from '@vercel/analytics/react'
+// import { Analytics } from '@vercel/analytics/react'
 
 const defaultUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000'
 
@@ -65,7 +65,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             {/* <Toaster position='bottom-center' /> */}
             {children}
             {/* <Analytics /> seems to slow things down*/}
-            <SpeedInsights />
+            {/* <SpeedInsights /> */}
           </main>
         </ReactQueryClientProvider>
       </body>

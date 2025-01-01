@@ -10,7 +10,7 @@
 - StyleX
 - Open Props
 - Typescript
-- Prisma
+- Lexical
 
 ## React 19 and NextJS 15 notes
 
