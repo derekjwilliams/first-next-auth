@@ -1,3 +1,5 @@
+'use client'
+
 import { updateServiceRequest } from '../lib/actions'
 import { Tables } from '../utils/database.types'
 import * as Checkbox from '@radix-ui/react-checkbox'
@@ -9,8 +11,9 @@ import stylex from '@stylexjs/stylex'
 import { fonts } from '../app/open-props/lib/fonts.stylex'
 import { borders } from '../app/open-props/lib/borders.stylex'
 import RadioSet from './controls/RadioSet'
-import RichTextEditor from '@/components/lexical/RichTextEditor'
+import { RichTextEditor } from '@/components/lexical/RichTextEditor'
 import './lexicalstyles.css'
+import React, { useState } from 'react'
 
 const request = stylex.create({
   base: {
@@ -137,13 +140,14 @@ export default function ServiceRequestEditForm({
   availableLocations: Tables<'locations'>[]
   availableStatuses: Tables<'statuses'>[]
 }) {
+  const [details, setDetails] = useState(serviceRequest.details || '')
   const assignedTechnicianIds = serviceRequest.technicians.map((t: { id: string }) => t.id)
   const availableTechnicianIds = availableTechnicians.map((t) => t.id)
   const options = availableStatuses.map((status) => {
     return { value: status.id, label: status.status_name, id: status.id }
   })
 
-  const updateServiceRequestWithId = updateServiceRequest.bind(null, serviceRequest.id, availableTechnicianIds)
+  const updateServiceRequestWithId = updateServiceRequest.bind(null, serviceRequest.id, availableTechnicianIds, details)
   return (
     <form action={updateServiceRequestWithId}>
       <div {...stylex.props(request.base)}>
@@ -165,10 +169,10 @@ export default function ServiceRequestEditForm({
         </div>
         {/* Service Request Details */}
         <div>
-          <label htmlFor='details'>
+          {/* <label htmlFor='details'>
             <h1 {...stylex.props(request.h1)}>Details</h1>
-          </label>
-          <div {...stylex.props(form.textareaWrapper)}>
+          </label> */}
+          {/* <div {...stylex.props(form.textareaWrapper)}>
             <textarea
               {...stylex.props(form.textarea)}
               rows={6}
@@ -177,9 +181,15 @@ export default function ServiceRequestEditForm({
               defaultValue={serviceRequest.details ?? ''}
               placeholder='details'
             />
-          </div>
+          </div> */}
         </div>
-        <RichTextEditor />
+        <div>
+          <label htmlFor='details'>
+            <h1 {...stylex.props(request.h1)}>Details</h1>
+          </label>
+
+          <RichTextEditor value={details} onChange={(v) => setDetails(v)} />
+        </div>
         {/* Technicians Checkboxes, TODO use react-select for improved UX */}
         <div {...stylex.props(request.technicians)}>
           <h1 {...stylex.props(request.h1)}>Service Technicians</h1>

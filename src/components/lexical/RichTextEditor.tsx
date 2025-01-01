@@ -16,12 +16,35 @@ import theme from './theme'
 import { ImageNode } from '@/components/lexical/nodes/ImageNode'
 import ImagesPlugin from '@/components/lexical/plugins/ImagesPlugin'
 import ImageToolbar from '@/components/lexical/plugins/ImageToolbar'
+import CustomOnChangePlugin from './plugins/CustomOnChangePlugin'
 
 function onError(error: any) {
   console.error(error)
 }
+// interface BlockOptionsDropdownListProps {
+//   editor: LexicalEditor // Assuming editor is a LexicalEditor type
+//   blockType: string // Assuming blockType is a string, update the type as needed
+//   toolbarRef: RefObject<HTMLElement | null> // Assuming it's a ref to an HTMLElement
+//   setShowBlockOptionsDropDown: React.Dispatch<React.SetStateAction<boolean>> // Function to update the state
+// }
+
+// const BlockOptionsDropdownList: React.FC<BlockOptionsDropdownListProps> = ({
+//   editor,
+//   blockType,
+//   toolbarRef,
+//   setShowBlockOptionsDropDown,
+// }) => {
+
+interface RichTextEditorProps {
+  value: string
+  onChange: (value: string) => void
+  // placeholder?: string
+  // name: string
+}
 // TODO handle getting the data and putting it here, could be done with a prop or maybe a hook
-export default function RichTextEditor() {
+
+//export default function RichTextEditor({ value, onChange }) {
+export const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange }) => {
   const initialConfig = {
     namespace: 'RichTextEditor-1',
     theme,
@@ -56,6 +79,7 @@ export default function RichTextEditor() {
           <ImagesPlugin />
           <HistoryPlugin />
           <AutoFocusPlugin />
+          <CustomOnChangePlugin value={value} onChange={onChange} />
         </div>
       </LexicalComposer>
     </div>

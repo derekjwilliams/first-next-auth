@@ -9,10 +9,15 @@ export default async function readUserSession() {
   return supabase.auth.getSession()
 }
 
-export async function updateServiceRequest(id: string, availableTechnicianIds: string[], formData: FormData) {
+export async function updateServiceRequest(
+  id: string,
+  availableTechnicianIds: string[],
+  details: string,
+  formData: FormData,
+) {
   const description = formData.get('description') as string
   const serviceTypeSelected = formData.get('service_types')
-  const details = formData.get('details') as string
+  // const details = formData.get('details') as string
   const locationSelected = formData.get('locations')
   const selectedStatus = formData.get('status_options')
   const technicianIds: string[] = []
@@ -26,6 +31,7 @@ export async function updateServiceRequest(id: string, availableTechnicianIds: s
 
   /* empty serviceType is not allowed in database, so don't proceed if it is empty*/
   if (serviceTypeSelected?.toString() !== '') {
+    debugger
     const supabase = await createSupabaseServerClient()
     /* update service type */
     const { data: updateServiceTypeData, error: updateServiceTypeError } = await supabase

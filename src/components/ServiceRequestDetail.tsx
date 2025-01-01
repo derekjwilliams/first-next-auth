@@ -10,6 +10,18 @@ import { borders } from '../app/open-props/lib/borders.stylex'
 
 import Link from 'next/link'
 import LinkWrapperButton from './controls/LinkWrapperButton'
+import { LexicalComposer } from '@lexical/react/LexicalComposer'
+import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin'
+import { ContentEditable } from '@lexical/react/LexicalContentEditable'
+import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary'
+import ImportHtmlPlugin from './lexical/plugins/ImportHtmlPlugin'
+import { HeadingNode, QuoteNode } from '@lexical/rich-text'
+import { ListItemNode, ListNode } from '@lexical/list'
+import { AutoLinkNode, LinkNode } from '@lexical/link'
+import { CodeHighlightNode, CodeNode } from '@lexical/code'
+import { TableCellNode, TableNode, TableRowNode } from '@lexical/table'
+import theme from '@/components/lexical/theme'
+import { ImageNode } from '@/components/lexical/nodes/ImageNode'
 
 const requests = stylex.create({
   base: {
@@ -57,6 +69,29 @@ const requestCard = stylex.create({
   },
 })
 
+const editorConfig = {
+  namespace: 'ServiceRequestDetail',
+  editable: false, // Read-only editor for viewing content
+  theme,
+  onError: (error: any) => {
+    console.error(error)
+  },
+  nodes: [
+    HeadingNode,
+    ListNode,
+    ListItemNode,
+    QuoteNode,
+    CodeNode,
+    CodeHighlightNode,
+    TableNode,
+    TableCellNode,
+    TableRowNode,
+    AutoLinkNode,
+    LinkNode,
+    ImageNode,
+  ],
+}
+
 export default function ServiceRequestDetail({ id }: { id: string | null }) {
   const { data: serviceRequest, isLoading, isError } = useServiceRequestQuery(id!)
   if (isLoading) {
@@ -83,7 +118,20 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
           serviceRequest.locations?.unit_number ? serviceRequest.locations?.unit_number : ''
         }`}</div>
         <div>{`Status: ${serviceRequest.statuses?.status_name}`}</div>
-        {serviceRequest.details && <div>{`Details: ${serviceRequest.details}`}</div>}
+        {/* {serviceRequest.details && <div>{`Details: ${serviceRequest.details}`}</div>} */}
+        <div key={'richdetails'}>
+          <LexicalComposer initialConfig={editorConfig}>
+            <div className='read-only-editor'>
+              <h1>Details:</h1>
+              <RichTextPlugin
+                contentEditable={<ContentEditable className='read-only-content' />}
+                placeholder={<span>Loading content...</span>}
+                ErrorBoundary={LexicalErrorBoundary}
+              />
+              <ImportHtmlPlugin html={serviceRequest.details} />
+            </div>
+          </LexicalComposer>
+        </div>
       </div>
       <div>
         {serviceRequest.technicians.length === 0 && (
