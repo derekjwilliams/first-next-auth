@@ -20,7 +20,7 @@ import { ListItemNode, ListNode } from '@lexical/list'
 import { AutoLinkNode, LinkNode } from '@lexical/link'
 import { CodeHighlightNode, CodeNode } from '@lexical/code'
 import { TableCellNode, TableNode, TableRowNode } from '@lexical/table'
-import theme from '@/components/lexical/theme'
+import { theme } from '@/components/lexical/theme'
 import { ImageNode } from '@/components/lexical/nodes/ImageNode'
 
 const requests = stylex.create({
