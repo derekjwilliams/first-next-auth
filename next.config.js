@@ -58,7 +58,3 @@ module.exports = stylexPlugin({
   ...nextConfig,
   transpilePackages: ['@stylexjs/open-props'],
 })
-// module.exports = stylexPlugin({
-//   useCSSLayers: true,
-//   rootDir: __dirname,
-// })(nextConfig)
