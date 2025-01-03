@@ -53,13 +53,15 @@
     "@types/node": "^22.5.1",
     "@types/react": "19.0.1",
     "@types/react-dom": "19.0.2",
+    "autoprefixer": "^10.4.20",
     "babel-plugin-react-compiler": "latest",
     "encoding": "^0.1.13",
     "eslint": "^9.13.0",
     "eslint-config-next": "latest",
     "eslint-plugin-react-compiler": "latest",
-    "postcss": "^8.4.47",
+    "postcss": "^8.4.49",
     "prettier-plugin-stylex-key-sort": "^1.0.1",
-    "rimraf": "^6.0.1"
+    "rimraf": "^6.0.1",
+    "tailwindcss": "^3.4.17"
   }
 }
