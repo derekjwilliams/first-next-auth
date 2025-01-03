@@ -30,11 +30,23 @@ const nextConfig = {
   },
 }
 module.exports = stylexPlugin({
-  // rootDir,
-  // Add any Stylex options here
-  // dev: process.env.NODE_ENV === 'development',
-  // genConditionalClasses: true,
-  // treeshakeCompensation: true,
+  rsOptions: {
+    dev: process.env.NODE_ENV !== 'production',
+    useRemForFontSize: true,
+    aliases: {
+      '@/*': [path.join(rootDir, '*')],
+    },
+    unstable_moduleResolution: {
+      type: 'commonJS',
+      rootDir,
+    },
+  },
+  useCssLayers: true,
+  transformCss: async (css) => {
+    const postcss = require('postcss')
+    const result = await postcss([require('autoprefixer')]).process(css)
+    return result.css
+  },
   aliases: {
     '@/*': [path.join(rootDir, '*')],
   },
@@ -43,9 +55,8 @@ module.exports = stylexPlugin({
     rootDir,
   },
 })({
+  ...nextConfig,
   transpilePackages: ['@stylexjs/open-props'],
-  // Optionally, add any other Next.js config below
-  // swcMinify: true,
 })
 // module.exports = stylexPlugin({
 //   useCSSLayers: true,

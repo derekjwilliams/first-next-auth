@@ -41,7 +41,7 @@
 }
 
 .toolbar {
-  display: flex;
+  display: inline-flex;
   margin-bottom: 1px;
   background: #fff;
   padding: 4px;

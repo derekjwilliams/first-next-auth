@@ -49,6 +49,7 @@ export default async function Page() {
             } ${listing?.postal_code}`}
           </div>
           <div {...stylex.props(rental.imageContainer)}>
+            {/* <img src={listing.cover_image_url}></img> */}
             <Image
               {...stylex.props(rental.image)}
               width={200 * 1.5}
