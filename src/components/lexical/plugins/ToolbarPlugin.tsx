@@ -1,8 +1,10 @@
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 import { $createHeadingNode, $createQuoteNode } from '@lexical/rich-text'
 import { $setBlocksType } from '@lexical/selection'
-import { Bold, Italic, RotateCcw, RotateCw, Strikethrough, Underline } from 'lucide-react'
+import { Bold, ImagePlus, Italic, RotateCcw, RotateCw, Strikethrough, Underline } from 'lucide-react'
 import { mergeRegister } from '@lexical/utils'
+import type { InsertImagePayload } from './ImagesPlugin'
+import { INSERT_IMAGE_COMMAND } from './ImagesPlugin'
 import {
   $createParagraphNode,
   $getSelection,
@@ -20,6 +22,11 @@ import { createPortal } from 'react-dom'
 import BlockOptionsDropdownList from '../../BlockOptionsDropdownList'
 
 const LowPriority = 1
+
+export function ImageURLPrompt() {
+  const sourcePrompt = prompt('Enter the URL of the image:', '')
+  return sourcePrompt
+}
 
 export default function ToolbarPlugin() {
   const [editor] = useLexicalComposerContext()
@@ -45,6 +52,10 @@ export default function ToolbarPlugin() {
     paragraph: 'Normal',
     quote: 'Quote',
     ul: 'Bulleted List',
+  }
+
+  const insertImage = (payload: InsertImagePayload) => {
+    editor.dispatchCommand(INSERT_IMAGE_COMMAND, payload)
   }
 
   const $updateToolbar = useCallback(() => {
@@ -169,6 +180,17 @@ export default function ToolbarPlugin() {
           className='toolbar-item-button toolbar-item spaced'
           aria-label='Redo'>
           <RotateCw />
+        </button>
+        <button
+          type='button'
+          onClick={() =>
+            insertImage({
+              altText: 'URL image',
+              src: ImageURLPrompt() || '',
+            })
+          }
+          className={'toolbar-item-button toolbar-item spaced'}>
+          <ImagePlus />
         </button>
       </div>
     </>

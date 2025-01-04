@@ -15,7 +15,6 @@ import { TableCellNode, TableNode, TableRowNode } from '@lexical/table'
 import { theme } from './theme'
 import { ImageNode } from '@/components/lexical/nodes/ImageNode'
 import ImagesPlugin from '@/components/lexical/plugins/ImagesPlugin'
-import ImageToolbar from '@/components/lexical/plugins/ImageToolbar'
 import CustomOnChangePlugin from './plugins/CustomOnChangePlugin'
 
 function onError(error: any) {
@@ -69,7 +68,6 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange 
     <div className='editor-container'>
       <LexicalComposer initialConfig={initialConfig}>
         <LexicalToolbar></LexicalToolbar>
-        <ImageToolbar></ImageToolbar>
         <div className='editor-inner'>
           <RichTextPlugin
             contentEditable={<ContentEditable className='editor-input' />}

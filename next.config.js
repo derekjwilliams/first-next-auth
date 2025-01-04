@@ -47,13 +47,6 @@ module.exports = stylexPlugin({
     const result = await postcss([require('autoprefixer')]).process(css)
     return result.css
   },
-  aliases: {
-    '@/*': [path.join(rootDir, '*')],
-  },
-  unstable_moduleResolution: {
-    type: 'commonJS',
-    rootDir,
-  },
 })({
   ...nextConfig,
   transpilePackages: ['@stylexjs/open-props'],

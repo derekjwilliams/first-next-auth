@@ -4,6 +4,7 @@ import { $createParagraphNode, $getSelection, $isRangeSelection, LexicalEditor }
 import { RefObject, useEffect, useRef } from 'react'
 import { INSERT_ORDERED_LIST_COMMAND, INSERT_UNORDERED_LIST_COMMAND, REMOVE_LIST_COMMAND } from '@lexical/list'
 import { $createCodeNode, $isCodeNode, getDefaultCodeLanguage, getCodeLanguages } from '@lexical/code'
+import { Text, Heading1, Heading2, List, ListOrdered, MessageSquare, Code } from 'lucide-react'
 
 interface BlockOptionsDropdownListProps {
   editor: LexicalEditor // Assuming editor is a LexicalEditor type
@@ -138,37 +139,37 @@ const BlockOptionsDropdownList: React.FC<BlockOptionsDropdownListProps> = ({
   return (
     <div className='dropdown' ref={dropDownRef}>
       <button className='item' onClick={formatParagraph}>
-        <span className='icon paragraph' />
+        <Text />
         <span className='text'>Normal</span>
         {blockType === 'paragraph' && <span className='active' />}
       </button>
       <button className='item' onClick={formatLargeHeading}>
-        <span className='icon large-heading' />
+        <Heading1 />
         <span className='text'>Large Heading</span>
         {blockType === 'h1' && <span className='active' />}
       </button>
       <button className='item' onClick={formatSmallHeading}>
-        <span className='icon small-heading' />
+        <Heading2 />
         <span className='text'>Small Heading</span>
         {blockType === 'h2' && <span className='active' />}
       </button>
       <button className='item' onClick={formatBulletList}>
-        <span className='icon bullet-list' />
+        <List />
         <span className='text'>Bullet List</span>
         {blockType === 'ul' && <span className='active' />}
       </button>
       <button className='item' onClick={formatNumberedList}>
-        <span className='icon numbered-list' />
+        <ListOrdered />
         <span className='text'>Numbered List</span>
         {blockType === 'ol' && <span className='active' />}
       </button>
       <button className='item' onClick={formatQuote}>
-        <span className='icon quote' />
+        <MessageSquare />
         <span className='text'>Quote</span>
         {blockType === 'quote' && <span className='active' />}
       </button>
       <button className='item' onClick={formatCode}>
-        <span className='icon code' />
+        <Code />
         <span className='text'>Code Block</span>
         {blockType === 'code' && <span className='active' />}
       </button>

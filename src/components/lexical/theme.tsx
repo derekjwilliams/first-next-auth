@@ -1,4 +1,4 @@
-const tailwindTheme = {
+const theme = {
   // Direction and Alignment
   ltr: 'text-left',
   rtl: 'text-right',
@@ -9,7 +9,7 @@ const tailwindTheme = {
 
   // Headings
   heading: {
-    h1: 'text-3xl font-bold mb-4 text-gray-900',
+    h1: 'text-3xl font-bold mb-4 text-gray-800',
     h2: 'text-2xl font-semibold mb-3 text-gray-800',
     h3: 'text-xl font-medium mb-2 text-gray-700',
     h4: 'text-lg font-medium mb-2 text-gray-600',
@@ -85,7 +85,8 @@ const tailwindTheme = {
 
 //export default tailwindTheme
 
-const theme = {
+/*
+const CssBasedTheme = {
   ltr: 'ltr',
   rtl: 'rtl',
   paragraph: '',
@@ -155,5 +156,6 @@ const theme = {
     variable: 'editor-tokenVariable',
   },
 }
+*/
 
-export { tailwindTheme, theme }
+export { theme }

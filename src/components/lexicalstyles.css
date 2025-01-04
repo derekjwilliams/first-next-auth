@@ -36,6 +36,7 @@ body {
   text-align: center;
 }
 
+/* TODO Since we have moved the Lexical theme to use tailwind we don't need these, however the tailwind theme should be updated with the following styles, especially the code parts */
 h1 {
   font-size: 24px;
   color: #333;
@@ -498,34 +499,6 @@ i.chevron-down {
   margin: 2px;
 }
 
-.block-controls span.block-type.paragraph {
-  background-image: url(/images/icons/text-paragraph.svg);
-}
-
-.block-controls span.block-type.h1 {
-  background-image: url(/images/icons/type-h1.svg);
-}
-
-.block-controls span.block-type.h2 {
-  background-image: url(/images/icons/type-h2.svg);
-}
-
-.block-controls span.block-type.quote {
-  background-image: url(/images/icons/chat-square-quote.svg);
-}
-
-.block-controls span.block-type.ul {
-  background-image: url(/images/icons/list-ul.svg);
-}
-
-.block-controls span.block-type.ol {
-  background-image: url(/images/icons/list-ol.svg);
-}
-
-.block-controls span.block-type.code {
-  background-image: url(/images/icons/code.svg);
-}
-
 .block-controls button:hover {
   background-color: #efefef;
 }
@@ -583,7 +556,9 @@ i.chevron-down {
   min-height: 40px;
   background-color: #fff;
 }
-
+.dropdown .item svg {
+  margin-right: 10px;
+}
 .dropdown .item {
   margin: 0 8px 0 8px;
   padding: 8px;
