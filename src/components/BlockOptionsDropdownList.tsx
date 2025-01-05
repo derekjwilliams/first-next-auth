@@ -2,9 +2,16 @@ import { $createHeadingNode, $createQuoteNode } from '@lexical/rich-text'
 import { $setBlocksType } from '@lexical/selection'
 import { $createParagraphNode, $getSelection, $isRangeSelection, LexicalEditor } from 'lexical'
 import { RefObject, useEffect, useRef } from 'react'
-import { INSERT_ORDERED_LIST_COMMAND, INSERT_UNORDERED_LIST_COMMAND, REMOVE_LIST_COMMAND } from '@lexical/list'
+import {
+  INSERT_ORDERED_LIST_COMMAND,
+  INSERT_UNORDERED_LIST_COMMAND,
+  insertList,
+  REMOVE_LIST_COMMAND,
+  removeList,
+} from '@lexical/list'
 import { $createCodeNode, $isCodeNode, getDefaultCodeLanguage, getCodeLanguages } from '@lexical/code'
 import { Text, Heading1, Heading2, List, ListOrdered, MessageSquare, Code } from 'lucide-react'
+import { mergeRegister } from '@lexical/utils'
 
 interface BlockOptionsDropdownListProps {
   editor: LexicalEditor // Assuming editor is a LexicalEditor type
@@ -51,6 +58,35 @@ const BlockOptionsDropdownList: React.FC<BlockOptionsDropdownListProps> = ({
       }
     }
   }, [dropDownRef, setShowBlockOptionsDropDown, toolbarRef])
+
+  useEffect(() => {
+    return mergeRegister(
+      editor.registerCommand(
+        INSERT_UNORDERED_LIST_COMMAND,
+        () => {
+          insertList(editor, 'bullet')
+          return true
+        },
+        1,
+      ),
+      editor.registerCommand(
+        INSERT_ORDERED_LIST_COMMAND,
+        () => {
+          insertList(editor, 'number')
+          return true
+        },
+        1,
+      ),
+      editor.registerCommand(
+        REMOVE_LIST_COMMAND,
+        () => {
+          removeList(editor)
+          return true
+        },
+        1,
+      ),
+    )
+  }, [editor])
 
   const formatParagraph = () => {
     // if (blockType !== "paragraph") {

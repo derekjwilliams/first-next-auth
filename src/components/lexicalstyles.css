@@ -438,12 +438,16 @@ pre::-webkit-scrollbar-thumb {
   width: 200px;
   vertical-align: middle;
   font-size: 14px;
-  color: #777;
+  color: #303030;
   text-overflow: ellipsis;
   width: 70px;
   overflow: hidden;
   height: 20px;
   text-align: left;
+}
+
+.toolbar .toolbar-item.block-controls .text {
+  width: 120px;
 }
 
 .toolbar .toolbar-item .icon {

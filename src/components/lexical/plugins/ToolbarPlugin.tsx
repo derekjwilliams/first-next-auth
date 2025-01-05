@@ -1,7 +1,25 @@
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 import { $createHeadingNode, $createQuoteNode, $isHeadingNode } from '@lexical/rich-text'
 import { $wrapNodes } from '@lexical/selection'
-import { Bold, ChevronDown, ImagePlus, Italic, RotateCcw, RotateCw, Strikethrough, Underline } from 'lucide-react'
+import {
+  Bold,
+  ChevronDown,
+  ImagePlus,
+  Italic,
+  ListOrdered,
+  RotateCcw,
+  RotateCw,
+  Strikethrough,
+  Underline,
+  Text,
+  Heading1,
+  Heading3,
+  Heading2,
+  Heading4,
+  List,
+  MessageSquareQuote,
+  Code,
+} from 'lucide-react'
 import { $getNearestNodeOfType, mergeRegister } from '@lexical/utils'
 import type { InsertImagePayload } from './ImagesPlugin'
 import { INSERT_IMAGE_COMMAND } from './ImagesPlugin'
@@ -32,7 +50,7 @@ import React, { RefObject, useCallback, useEffect, useMemo, useRef, useState } f
 import { createPortal } from 'react-dom'
 import stylex from '@stylexjs/stylex'
 import { $createCodeNode, $isCodeNode, getDefaultCodeLanguage, getCodeLanguages } from '@lexical/code'
-// import BlockOptionsDropdownList from '@/components/BlockOptionsDropdownList'
+import BlockOptionsDropdownList from '@/components/BlockOptionsDropdownList'
 
 const LowPriority = 1
 
@@ -46,180 +64,206 @@ const styles = stylex.create({
     color: '#303030',
     height: '18px',
     width: '18px',
+    marginRight: 10,
   },
 })
+//['paragraph', 'quote', 'code', 'h1', 'h2', 'ul', 'ol']
+const BlockTypeDecoration: React.FC<{ blockType: string }> = (props) => {
+  switch (props.blockType) {
+    case 'paragraph':
+      return <Text {...stylex.props(styles.icon)} />
+    case 'h1':
+      return <Heading1 {...stylex.props(styles.icon)} />
+    case 'h2':
+      return <Heading2 {...stylex.props(styles.icon)} />
+    case 'h3':
+      return <Heading3 {...stylex.props(styles.icon)} />
+    case 'h4':
+      return <Heading4 {...stylex.props(styles.icon)} />
+    case 'ul':
+      return <List {...stylex.props(styles.icon)} />
+    case 'ol':
+      return <ListOrdered {...stylex.props(styles.icon)} />
+    case 'quote':
+      return <MessageSquareQuote {...stylex.props(styles.icon)} />
+    case 'code':
+      return <Code />
+  }
 
-interface BlockOptionsDropdownListProps {
-  editor: LexicalEditor // Assuming editor is a LexicalEditor type
-  blockType: string // Assuming blockType is a string, update the type as needed
-  toolbarRef: RefObject<HTMLElement | null> // Assuming it's a ref to an HTMLElement
-  setShowBlockOptionsDropDown: React.Dispatch<React.SetStateAction<boolean>> // Function to update the state
+  return <span />
 }
-const BlockOptionsDropdownList: React.FC<BlockOptionsDropdownListProps> = ({
-  editor,
-  blockType,
-  toolbarRef,
-  setShowBlockOptionsDropDown,
-}) => {
-  // function BlockOptionsDropdownList({ editor, blockType, toolbarRef, setShowBlockOptionsDropDown }) {
-  const dropDownRef = useRef(null)
 
-  useEffect(() => {
-    const toolbar = toolbarRef.current
-    const dropDown = dropDownRef.current
+// interface BlockOptionsDropdownListProps {
+//   editor: LexicalEditor // Assuming editor is a LexicalEditor type
+//   blockType: string // Assuming blockType is a string, update the type as needed
+//   toolbarRef: RefObject<HTMLElement | null> // Assuming it's a ref to an HTMLElement
+//   setShowBlockOptionsDropDown: React.Dispatch<React.SetStateAction<boolean>> // Function to update the state
+// }
+// const BlockOptionsDropdownList: React.FC<BlockOptionsDropdownListProps> = ({
+//   editor,
+//   blockType,
+//   toolbarRef,
+//   setShowBlockOptionsDropDown,
+// }) => {
+//   // function BlockOptionsDropdownList({ editor, blockType, toolbarRef, setShowBlockOptionsDropDown }) {
+//   const dropDownRef = useRef(null)
 
-    if (toolbar !== null && dropDown !== null) {
-      const { top, left } = toolbar.getBoundingClientRect()
-      ;(dropDown as HTMLElement).style.top = `${top + 40}px`
-      ;(dropDown as HTMLElement).style.left = `${left}px`
-    }
-  }, [dropDownRef, toolbarRef])
+//   useEffect(() => {
+//     const toolbar = toolbarRef.current
+//     const dropDown = dropDownRef.current
 
-  useEffect(() => {
-    const dropDown = dropDownRef.current
-    const toolbar = toolbarRef.current
+//     if (toolbar !== null && dropDown !== null) {
+//       const { top, left } = toolbar.getBoundingClientRect()
+//       ;(dropDown as HTMLElement).style.top = `${top + 40}px`
+//       ;(dropDown as HTMLElement).style.left = `${left}px`
+//     }
+//   }, [dropDownRef, toolbarRef])
 
-    if (dropDown !== null && toolbar !== null) {
-      const handle = (event: { target: any }) => {
-        const target = event.target
+//   useEffect(() => {
+//     const dropDown = dropDownRef.current
+//     const toolbar = toolbarRef.current
 
-        if (!(dropDown as HTMLElement).contains(target) && !toolbar.contains(target)) {
-          setShowBlockOptionsDropDown(false)
-        }
-      }
-      document.addEventListener('click', handle)
+//     if (dropDown !== null && toolbar !== null) {
+//       const handle = (event: { target: any }) => {
+//         const target = event.target
 
-      return () => {
-        document.removeEventListener('click', handle)
-      }
-    }
-  }, [dropDownRef, setShowBlockOptionsDropDown, toolbarRef])
+//         if (!(dropDown as HTMLElement).contains(target) && !toolbar.contains(target)) {
+//           setShowBlockOptionsDropDown(false)
+//         }
+//       }
+//       document.addEventListener('click', handle)
 
-  const formatParagraph = () => {
-    if (blockType !== 'paragraph') {
-      editor.update(() => {
-        const selection = $getSelection()
+//       return () => {
+//         document.removeEventListener('click', handle)
+//       }
+//     }
+//   }, [dropDownRef, setShowBlockOptionsDropDown, toolbarRef])
 
-        if ($isRangeSelection(selection)) {
-          $wrapNodes(selection, () => $createParagraphNode())
-        }
-      })
-    }
-    setShowBlockOptionsDropDown(false)
-  }
+//   const formatParagraph = () => {
+//     if (blockType !== 'paragraph') {
+//       editor.update(() => {
+//         const selection = $getSelection()
 
-  const formatLargeHeading = () => {
-    if (blockType !== 'h1') {
-      editor.update(() => {
-        const selection = $getSelection()
+//         if ($isRangeSelection(selection)) {
+//           $wrapNodes(selection, () => $createParagraphNode())
+//         }
+//       })
+//     }
+//     setShowBlockOptionsDropDown(false)
+//   }
 
-        if ($isRangeSelection(selection)) {
-          $wrapNodes(selection, () => $createHeadingNode('h1'))
-        }
-      })
-    }
-    setShowBlockOptionsDropDown(false)
-  }
+//   const formatLargeHeading = () => {
+//     if (blockType !== 'h1') {
+//       editor.update(() => {
+//         const selection = $getSelection()
 
-  const formatSmallHeading = () => {
-    if (blockType !== 'h2') {
-      editor.update(() => {
-        const selection = $getSelection()
+//         if ($isRangeSelection(selection)) {
+//           $wrapNodes(selection, () => $createHeadingNode('h1'))
+//         }
+//       })
+//     }
+//     setShowBlockOptionsDropDown(false)
+//   }
 
-        if ($isRangeSelection(selection)) {
-          $wrapNodes(selection, () => $createHeadingNode('h2'))
-        }
-      })
-    }
-    setShowBlockOptionsDropDown(false)
-  }
+//   const formatSmallHeading = () => {
+//     if (blockType !== 'h2') {
+//       editor.update(() => {
+//         const selection = $getSelection()
 
-  const formatBulletList = () => {
-    if (blockType !== 'ul') {
-      //editor.focus
-      editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined)
-    } else {
-      //editor.focus
-      editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined)
-    }
-    setShowBlockOptionsDropDown(false)
-  }
+//         if ($isRangeSelection(selection)) {
+//           $wrapNodes(selection, () => $createHeadingNode('h2'))
+//         }
+//       })
+//     }
+//     setShowBlockOptionsDropDown(false)
+//   }
 
-  const formatNumberedList = () => {
-    if (blockType !== 'ol') {
-      editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined)
-    } else {
-      editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined)
-    }
-    setShowBlockOptionsDropDown(false)
-  }
+//   const formatBulletList = () => {
+//     if (blockType !== 'ul') {
+//       //editor.focus
+//       editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined)
+//     } else {
+//       //editor.focus
+//       editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined)
+//     }
+//     setShowBlockOptionsDropDown(false)
+//   }
 
-  const formatQuote = () => {
-    if (blockType !== 'quote') {
-      editor.update(() => {
-        const selection = $getSelection()
+//   const formatNumberedList = () => {
+//     if (blockType !== 'ol') {
+//       editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined)
+//     } else {
+//       editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined)
+//     }
+//     setShowBlockOptionsDropDown(false)
+//   }
 
-        if ($isRangeSelection(selection)) {
-          $wrapNodes(selection, () => $createQuoteNode())
-        }
-      })
-    }
-    setShowBlockOptionsDropDown(false)
-  }
+//   const formatQuote = () => {
+//     if (blockType !== 'quote') {
+//       editor.update(() => {
+//         const selection = $getSelection()
 
-  const formatCode = () => {
-    if (blockType !== 'code') {
-      editor.update(() => {
-        const selection = $getSelection()
+//         if ($isRangeSelection(selection)) {
+//           $wrapNodes(selection, () => $createQuoteNode())
+//         }
+//       })
+//     }
+//     setShowBlockOptionsDropDown(false)
+//   }
 
-        if ($isRangeSelection(selection)) {
-          $wrapNodes(selection, () => $createCodeNode())
-        }
-      })
-    }
-    setShowBlockOptionsDropDown(false)
-  }
+//   const formatCode = () => {
+//     if (blockType !== 'code') {
+//       editor.update(() => {
+//         const selection = $getSelection()
 
-  return (
-    <div className='dropdown' ref={dropDownRef}>
-      <button className='item' onClick={formatParagraph}>
-        <span className='icon paragraph' />
-        <span className='text'>Normal</span>
-        {blockType === 'paragraph' && <span className='active' />}
-      </button>
-      <button className='item' onClick={formatLargeHeading}>
-        <span className='icon large-heading' />
-        <span className='text'>Large Heading</span>
-        {blockType === 'h1' && <span className='active' />}
-      </button>
-      <button className='item' onClick={formatSmallHeading}>
-        <span className='icon small-heading' />
-        <span className='text'>Small Heading</span>
-        {blockType === 'h2' && <span className='active' />}
-      </button>
-      <button className='item' onClick={formatBulletList}>
-        <span className='icon bullet-list' />
-        <span className='text'>Bullet List</span>
-        {blockType === 'ul' && <span className='active' />}
-      </button>
-      <button className='item' onClick={formatNumberedList}>
-        <span className='icon numbered-list' />
-        <span className='text'>Numbered List</span>
-        {blockType === 'ol' && <span className='active' />}
-      </button>
-      <button className='item' onClick={formatQuote}>
-        <span className='icon quote' />
-        <span className='text'>Quote</span>
-        {blockType === 'quote' && <span className='active' />}
-      </button>
-      <button className='item' onClick={formatCode}>
-        <span className='icon code' />
-        <span className='text'>Code Block</span>
-        {blockType === 'code' && <span className='active' />}
-      </button>
-    </div>
-  )
-}
+//         if ($isRangeSelection(selection)) {
+//           $wrapNodes(selection, () => $createCodeNode())
+//         }
+//       })
+//     }
+//     setShowBlockOptionsDropDown(false)
+//   }
+
+//   return (
+//     <div className='dropdown' ref={dropDownRef}>
+//       <button className='item' onClick={formatParagraph}>
+//         <span className='icon paragraph' />
+//         <span className='text'>Normal</span>
+//         {blockType === 'paragraph' && <span className='active' />}
+//       </button>
+//       <button className='item' onClick={formatLargeHeading}>
+//         <span className='icon large-heading' />
+//         <span className='text'>Large Heading</span>
+//         {blockType === 'h1' && <span className='active' />}
+//       </button>
+//       <button className='item' onClick={formatSmallHeading}>
+//         <span className='icon small-heading' />
+//         <span className='text'>Small Heading</span>
+//         {blockType === 'h2' && <span className='active' />}
+//       </button>
+//       <button className='item' onClick={formatBulletList}>
+//         <span className='icon bullet-list' />
+//         <span className='text'>Bullet List</span>
+//         {blockType === 'ul' && <span className='active' />}
+//       </button>
+//       <button className='item' onClick={formatNumberedList}>
+//         <span className='icon numbered-list' />
+//         <span className='text'>Numbered List</span>
+//         {blockType === 'ol' && <span className='active' />}
+//       </button>
+//       <button className='item' onClick={formatQuote}>
+//         <span className='icon quote' />
+//         <span className='text'>Quote</span>
+//         {blockType === 'quote' && <span className='active' />}
+//       </button>
+//       <button className='item' onClick={formatCode}>
+//         <span className='icon code' />
+//         <span className='text'>Code Block</span>
+//         {blockType === 'code' && <span className='active' />}
+//       </button>
+//     </div>
+//   )
+// }
 export default function ToolbarPlugin() {
   const [editor] = useLexicalComposerContext()
   const toolbarRef = useRef<HTMLDivElement>(null)
@@ -367,8 +411,9 @@ export default function ToolbarPlugin() {
               className='toolbar-item block-controls'
               onClick={() => setShowBlockOptionsDropDown(!showBlockOptionsDropDown)}
               aria-label='Formatting Options'>
-              <span className={'icon block-type ' + blockType} />
-              <span className='text'>{blockTypeToBlockName[blockType as keyof typeof blockTypeToBlockName]}</span>
+              {/* <span className={'icon block-type ' + blockType} /> */}
+              <BlockTypeDecoration blockType={blockType} />
+              {/* <span className='text'>{blockTypeToBlockName[blockType as keyof typeof blockTypeToBlockName]}</span> */}
               <ChevronDown />
             </button>
             {/* see https://codesandbox.io/p/sandbox/vigilant-kate-5tncvy */}
