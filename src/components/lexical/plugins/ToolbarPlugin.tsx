@@ -1,12 +1,23 @@
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
-import { $createHeadingNode, $createQuoteNode } from '@lexical/rich-text'
-import { $setBlocksType } from '@lexical/selection'
+import { $createHeadingNode, $createQuoteNode, $isHeadingNode } from '@lexical/rich-text'
+import { $wrapNodes } from '@lexical/selection'
 import { Bold, ChevronDown, ImagePlus, Italic, RotateCcw, RotateCw, Strikethrough, Underline } from 'lucide-react'
-import { mergeRegister } from '@lexical/utils'
+import { $getNearestNodeOfType, mergeRegister } from '@lexical/utils'
 import type { InsertImagePayload } from './ImagesPlugin'
 import { INSERT_IMAGE_COMMAND } from './ImagesPlugin'
 import {
+  $isListNode,
+  INSERT_ORDERED_LIST_COMMAND,
+  INSERT_UNORDERED_LIST_COMMAND,
+  insertList,
+  ListNode,
+  REMOVE_LIST_COMMAND,
+  removeList,
+} from '@lexical/list'
+
+import {
   $createParagraphNode,
+  $getNodeByKey,
   $getSelection,
   $isRangeSelection,
   CAN_REDO_COMMAND,
@@ -17,10 +28,11 @@ import {
   SELECTION_CHANGE_COMMAND,
   UNDO_COMMAND,
 } from 'lexical'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { RefObject, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import BlockOptionsDropdownList from '../../BlockOptionsDropdownList'
 import stylex from '@stylexjs/stylex'
+import { $createCodeNode, $isCodeNode, getDefaultCodeLanguage, getCodeLanguages } from '@lexical/code'
+// import BlockOptionsDropdownList from '@/components/BlockOptionsDropdownList'
 
 const LowPriority = 1
 
@@ -37,6 +49,177 @@ const styles = stylex.create({
   },
 })
 
+interface BlockOptionsDropdownListProps {
+  editor: LexicalEditor // Assuming editor is a LexicalEditor type
+  blockType: string // Assuming blockType is a string, update the type as needed
+  toolbarRef: RefObject<HTMLElement | null> // Assuming it's a ref to an HTMLElement
+  setShowBlockOptionsDropDown: React.Dispatch<React.SetStateAction<boolean>> // Function to update the state
+}
+const BlockOptionsDropdownList: React.FC<BlockOptionsDropdownListProps> = ({
+  editor,
+  blockType,
+  toolbarRef,
+  setShowBlockOptionsDropDown,
+}) => {
+  // function BlockOptionsDropdownList({ editor, blockType, toolbarRef, setShowBlockOptionsDropDown }) {
+  const dropDownRef = useRef(null)
+
+  useEffect(() => {
+    const toolbar = toolbarRef.current
+    const dropDown = dropDownRef.current
+
+    if (toolbar !== null && dropDown !== null) {
+      const { top, left } = toolbar.getBoundingClientRect()
+      ;(dropDown as HTMLElement).style.top = `${top + 40}px`
+      ;(dropDown as HTMLElement).style.left = `${left}px`
+    }
+  }, [dropDownRef, toolbarRef])
+
+  useEffect(() => {
+    const dropDown = dropDownRef.current
+    const toolbar = toolbarRef.current
+
+    if (dropDown !== null && toolbar !== null) {
+      const handle = (event: { target: any }) => {
+        const target = event.target
+
+        if (!(dropDown as HTMLElement).contains(target) && !toolbar.contains(target)) {
+          setShowBlockOptionsDropDown(false)
+        }
+      }
+      document.addEventListener('click', handle)
+
+      return () => {
+        document.removeEventListener('click', handle)
+      }
+    }
+  }, [dropDownRef, setShowBlockOptionsDropDown, toolbarRef])
+
+  const formatParagraph = () => {
+    if (blockType !== 'paragraph') {
+      editor.update(() => {
+        const selection = $getSelection()
+
+        if ($isRangeSelection(selection)) {
+          $wrapNodes(selection, () => $createParagraphNode())
+        }
+      })
+    }
+    setShowBlockOptionsDropDown(false)
+  }
+
+  const formatLargeHeading = () => {
+    if (blockType !== 'h1') {
+      editor.update(() => {
+        const selection = $getSelection()
+
+        if ($isRangeSelection(selection)) {
+          $wrapNodes(selection, () => $createHeadingNode('h1'))
+        }
+      })
+    }
+    setShowBlockOptionsDropDown(false)
+  }
+
+  const formatSmallHeading = () => {
+    if (blockType !== 'h2') {
+      editor.update(() => {
+        const selection = $getSelection()
+
+        if ($isRangeSelection(selection)) {
+          $wrapNodes(selection, () => $createHeadingNode('h2'))
+        }
+      })
+    }
+    setShowBlockOptionsDropDown(false)
+  }
+
+  const formatBulletList = () => {
+    if (blockType !== 'ul') {
+      //editor.focus
+      editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined)
+    } else {
+      //editor.focus
+      editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined)
+    }
+    setShowBlockOptionsDropDown(false)
+  }
+
+  const formatNumberedList = () => {
+    if (blockType !== 'ol') {
+      editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined)
+    } else {
+      editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined)
+    }
+    setShowBlockOptionsDropDown(false)
+  }
+
+  const formatQuote = () => {
+    if (blockType !== 'quote') {
+      editor.update(() => {
+        const selection = $getSelection()
+
+        if ($isRangeSelection(selection)) {
+          $wrapNodes(selection, () => $createQuoteNode())
+        }
+      })
+    }
+    setShowBlockOptionsDropDown(false)
+  }
+
+  const formatCode = () => {
+    if (blockType !== 'code') {
+      editor.update(() => {
+        const selection = $getSelection()
+
+        if ($isRangeSelection(selection)) {
+          $wrapNodes(selection, () => $createCodeNode())
+        }
+      })
+    }
+    setShowBlockOptionsDropDown(false)
+  }
+
+  return (
+    <div className='dropdown' ref={dropDownRef}>
+      <button className='item' onClick={formatParagraph}>
+        <span className='icon paragraph' />
+        <span className='text'>Normal</span>
+        {blockType === 'paragraph' && <span className='active' />}
+      </button>
+      <button className='item' onClick={formatLargeHeading}>
+        <span className='icon large-heading' />
+        <span className='text'>Large Heading</span>
+        {blockType === 'h1' && <span className='active' />}
+      </button>
+      <button className='item' onClick={formatSmallHeading}>
+        <span className='icon small-heading' />
+        <span className='text'>Small Heading</span>
+        {blockType === 'h2' && <span className='active' />}
+      </button>
+      <button className='item' onClick={formatBulletList}>
+        <span className='icon bullet-list' />
+        <span className='text'>Bullet List</span>
+        {blockType === 'ul' && <span className='active' />}
+      </button>
+      <button className='item' onClick={formatNumberedList}>
+        <span className='icon numbered-list' />
+        <span className='text'>Numbered List</span>
+        {blockType === 'ol' && <span className='active' />}
+      </button>
+      <button className='item' onClick={formatQuote}>
+        <span className='icon quote' />
+        <span className='text'>Quote</span>
+        {blockType === 'quote' && <span className='active' />}
+      </button>
+      <button className='item' onClick={formatCode}>
+        <span className='icon code' />
+        <span className='text'>Code Block</span>
+        {blockType === 'code' && <span className='active' />}
+      </button>
+    </div>
+  )
+}
 export default function ToolbarPlugin() {
   const [editor] = useLexicalComposerContext()
   const toolbarRef = useRef<HTMLDivElement>(null)
@@ -48,6 +231,8 @@ export default function ToolbarPlugin() {
   const [isStrikethrough, setIsStrikethrough] = useState(false)
   const [blockType, setBlockType] = useState('paragraph')
   const [showBlockOptionsDropDown, setShowBlockOptionsDropDown] = useState(false)
+  const [selectedElementKey, setSelectedElementKey] = useState<string | null>(null)
+  const [codeLanguage, setCodeLanguage] = useState('')
 
   const supportedBlockTypes = new Set(['paragraph', 'quote', 'code', 'h1', 'h2', 'ul', 'ol'])
   const blockTypeToBlockName = {
@@ -70,6 +255,25 @@ export default function ToolbarPlugin() {
   const $updateToolbar = useCallback(() => {
     const selection = $getSelection()
     if ($isRangeSelection(selection)) {
+      const anchorNode = selection.anchor.getNode()
+      const element = anchorNode.getKey() === 'root' ? anchorNode : anchorNode.getTopLevelElementOrThrow()
+      const elementKey = element.getKey()
+      const elementDOM = editor.getElementByKey(elementKey)
+      if (elementDOM !== null) {
+        setSelectedElementKey(elementKey)
+        if ($isListNode(element)) {
+          const parentList = $getNearestNodeOfType(anchorNode, ListNode)
+          const type = parentList ? parentList.getTag() : element.getTag()
+          setBlockType(type)
+        } else {
+          const type = $isHeadingNode(element) ? element.getTag() : element.getType()
+          setBlockType(type)
+          if ($isCodeNode(element)) {
+            setCodeLanguage(element.getLanguage() || getDefaultCodeLanguage())
+          }
+        }
+      }
+
       setIsBold(selection.hasFormat('bold'))
       setIsItalic(selection.hasFormat('italic'))
       setIsUnderline(selection.hasFormat('underline'))
@@ -111,8 +315,47 @@ export default function ToolbarPlugin() {
         },
         LowPriority,
       ),
+      editor.registerCommand(
+        INSERT_UNORDERED_LIST_COMMAND,
+        () => {
+          insertList(editor, 'bullet')
+          return true
+        },
+        LowPriority,
+      ),
+      editor.registerCommand(
+        INSERT_ORDERED_LIST_COMMAND,
+        () => {
+          insertList(editor, 'number')
+          return true
+        },
+        LowPriority,
+      ),
+      editor.registerCommand(
+        REMOVE_LIST_COMMAND,
+        () => {
+          removeList(editor)
+          return true
+        },
+        LowPriority,
+      ),
     )
   }, [editor, $updateToolbar])
+
+  const codeLanguges = useMemo(() => getCodeLanguages(), [])
+  const onCodeLanguageSelect = useCallback(
+    (e: { target: { value: string } }) => {
+      editor.update(() => {
+        if (selectedElementKey !== null) {
+          const node = $getNodeByKey(selectedElementKey)
+          if ($isCodeNode(node)) {
+            node.setLanguage(e.target.value)
+          }
+        }
+      })
+    },
+    [editor, selectedElementKey],
+  )
 
   return (
     <>
