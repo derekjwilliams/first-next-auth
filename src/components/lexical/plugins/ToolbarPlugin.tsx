@@ -1,7 +1,7 @@
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 import { $createHeadingNode, $createQuoteNode } from '@lexical/rich-text'
 import { $setBlocksType } from '@lexical/selection'
-import { Bold, ImagePlus, Italic, RotateCcw, RotateCw, Strikethrough, Underline } from 'lucide-react'
+import { Bold, ChevronDown, ImagePlus, Italic, RotateCcw, RotateCw, Strikethrough, Underline } from 'lucide-react'
 import { mergeRegister } from '@lexical/utils'
 import type { InsertImagePayload } from './ImagesPlugin'
 import { INSERT_IMAGE_COMMAND } from './ImagesPlugin'
@@ -20,6 +20,7 @@ import {
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import BlockOptionsDropdownList from '../../BlockOptionsDropdownList'
+import stylex from '@stylexjs/stylex'
 
 const LowPriority = 1
 
@@ -27,6 +28,14 @@ export function ImageURLPrompt() {
   const sourcePrompt = prompt('Enter the URL of the image:', '')
   return sourcePrompt
 }
+
+const styles = stylex.create({
+  icon: {
+    color: '#303030',
+    height: '18px',
+    width: '18px',
+  },
+})
 
 export default function ToolbarPlugin() {
   const [editor] = useLexicalComposerContext()
@@ -65,6 +74,9 @@ export default function ToolbarPlugin() {
       setIsItalic(selection.hasFormat('italic'))
       setIsUnderline(selection.hasFormat('underline'))
       setIsStrikethrough(selection.hasFormat('strikethrough'))
+      // const anchorNode = selection.anchor.getNode()
+      // const parent = anchorNode.getTopLevelElementOrThrow()
+      // setBlockType(parent.getType() || 'paragraph')
     }
   }, [])
 
@@ -114,8 +126,9 @@ export default function ToolbarPlugin() {
               aria-label='Formatting Options'>
               <span className={'icon block-type ' + blockType} />
               <span className='text'>{blockTypeToBlockName[blockType as keyof typeof blockTypeToBlockName]}</span>
-              <i className='chevron-down' />
+              <ChevronDown />
             </button>
+            {/* see https://codesandbox.io/p/sandbox/vigilant-kate-5tncvy */}
             {showBlockOptionsDropDown &&
               createPortal(
                 <BlockOptionsDropdownList
@@ -135,7 +148,7 @@ export default function ToolbarPlugin() {
             editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold')
           }}
           className={`toolbar-item-button toolbar-item spaced ${isBold ? 'style-selected' : ''}`}>
-          <Bold />
+          <Bold {...stylex.props(styles.icon)} />
         </button>
         <button
           type='button'
@@ -143,7 +156,7 @@ export default function ToolbarPlugin() {
             editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic')
           }}
           className={`toolbar-item-button toolbar-item spaced ${isItalic ? 'style-selected' : ''}`}>
-          <Italic />
+          <Italic {...stylex.props(styles.icon)} />
         </button>
         <button
           type='button'
@@ -151,7 +164,7 @@ export default function ToolbarPlugin() {
             editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline')
           }}
           className={`toolbar-item-button toolbar-item spaced ${isUnderline ? 'style-selected' : ''}`}>
-          <Underline />
+          <Underline {...stylex.props(styles.icon)} />
         </button>
         <button
           type='button'
@@ -159,7 +172,7 @@ export default function ToolbarPlugin() {
             editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'strikethrough')
           }}
           className={`toolbar-item-button toolbar-item spaced ${isStrikethrough ? 'style-selected' : ''}`}>
-          <Strikethrough />
+          <Strikethrough {...stylex.props(styles.icon)} />
         </button>
         <button
           type='button'
@@ -169,7 +182,7 @@ export default function ToolbarPlugin() {
           }}
           className='toolbar-item-button toolbar-item spaced'
           aria-label='Undo'>
-          <RotateCcw />
+          <RotateCcw {...stylex.props(styles.icon)} />
         </button>
         <button
           type='button'
@@ -179,7 +192,7 @@ export default function ToolbarPlugin() {
           }}
           className='toolbar-item-button toolbar-item spaced'
           aria-label='Redo'>
-          <RotateCw />
+          <RotateCw {...stylex.props(styles.icon)} />
         </button>
         <button
           type='button'
@@ -190,7 +203,7 @@ export default function ToolbarPlugin() {
             })
           }
           className={'toolbar-item-button toolbar-item spaced'}>
-          <ImagePlus />
+          <ImagePlus {...stylex.props(styles.icon)} />
         </button>
       </div>
     </>

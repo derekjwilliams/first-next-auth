@@ -14,7 +14,7 @@ import { sizes } from '../app/open-props/lib/sizes.stylex'
 import { colors } from '../app/open-props/lib/colors.stylex'
 import ServiceRequestDropdownMenu from './ServiceRequestDropdownMenu'
 import * as Checkbox from '@radix-ui/react-checkbox'
-import { CheckIcon } from '@radix-ui/react-icons'
+import { Check } from 'lucide-react'
 
 const styles = stylex.create({
   html: {
@@ -148,7 +148,7 @@ const requestCard = stylex.create({
   checkboxIndicator: {
     padding: 0,
   },
-  checkIcon: {
+  icon: {
     color: '#1d2496',
     height: '100%',
     width: '100%',
@@ -285,7 +285,7 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                         id={`request_${serviceRequestId}`}
                         key={`request_${serviceRequestId}`}>
                         <Checkbox.Indicator {...stylex.props(requestCard.checkboxIndicator)}>
-                          <CheckIcon {...stylex.props(requestCard.checkIcon)} />
+                          <Check {...stylex.props(requestCard.icon)} />
                         </Checkbox.Indicator>
                       </Checkbox.Root>
                     </td>

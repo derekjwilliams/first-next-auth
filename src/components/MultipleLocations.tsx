@@ -2,7 +2,8 @@
 
 import useMultipleLocationsQuery from '../hooks/useMultipleLocationsQuery'
 import * as Checkbox from '@radix-ui/react-checkbox'
-import { CheckIcon } from '@radix-ui/react-icons'
+import { Check } from 'lucide-react'
+
 import * as Form from '@radix-ui/react-form'
 import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
@@ -102,7 +103,7 @@ const card = stylex.create({
   checkboxIndicator: {
     padding: 0,
   },
-  checkIcon: {
+  icon: {
     color: '#1d2496',
     height: '100%',
     width: '100%',
@@ -220,7 +221,7 @@ export default function MultipleLocations() {
           <div key={location.id} {...stylex.props(card.base)}>
             <Checkbox.Root {...stylex.props(card.checkboxRoot)} id={location.id}>
               <Checkbox.Indicator {...stylex.props(card.checkboxIndicator)}>
-                <CheckIcon {...stylex.props(card.checkIcon)} />
+                <Check {...stylex.props(card.icon)} />
               </Checkbox.Indicator>
             </Checkbox.Root>
             <Link href={`/properties/${location.id}`}>

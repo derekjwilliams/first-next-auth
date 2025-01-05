@@ -3,7 +3,7 @@
 import { updateServiceRequest } from '../lib/actions'
 import { Tables } from '../utils/database.types'
 import * as Checkbox from '@radix-ui/react-checkbox'
-import { CheckIcon } from '@radix-ui/react-icons'
+import { Check } from 'lucide-react'
 import { sizes } from '../app/open-props/lib/sizes.stylex'
 import { colors } from '../app/open-props/lib/colors.stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
@@ -103,7 +103,7 @@ const checkbox = stylex.create({
   checkboxIndicator: {
     padding: 0,
   },
-  checkIcon: {
+  icon: {
     color: marigoldColors.slate,
     height: '100%',
     width: '100%',
@@ -167,22 +167,6 @@ export default function ServiceRequestEditForm({
             />
           </div>
         </div>
-        {/* Service Request Details */}
-        <div>
-          {/* <label htmlFor='details'>
-            <h1 {...stylex.props(request.h1)}>Details</h1>
-          </label> */}
-          {/* <div {...stylex.props(form.textareaWrapper)}>
-            <textarea
-              {...stylex.props(form.textarea)}
-              rows={6}
-              id='details'
-              name='details'
-              defaultValue={serviceRequest.details ?? ''}
-              placeholder='details'
-            />
-          </div> */}
-        </div>
         <div>
           <label htmlFor='details'>
             <h1 {...stylex.props(request.h1)}>Details</h1>
@@ -204,7 +188,7 @@ export default function ServiceRequestEditForm({
                     key={technician.id}
                     name={`technician_${technician.id}`}>
                     <Checkbox.Indicator className='CheckboxIndicator'>
-                      <CheckIcon {...stylex.props(checkbox.checkIcon)} />
+                      <Check {...stylex.props(checkbox.icon)} />
                     </Checkbox.Indicator>
                   </Checkbox.Root>
                   <label

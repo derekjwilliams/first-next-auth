@@ -1,6 +1,6 @@
 import React from 'react'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
-import { DotsHorizontalIcon, CheckIcon } from '@radix-ui/react-icons'
+import { Check, MoreHorizontal } from 'lucide-react'
 import '../app/dropdown.css'
 
 const ServiceRequestDropdownMenu = () => {
@@ -12,7 +12,7 @@ const ServiceRequestDropdownMenu = () => {
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
         <button className='IconButton' aria-label='Customize options'>
-          <DotsHorizontalIcon />
+          <MoreHorizontal />
         </button>
       </DropdownMenu.Trigger>
 
@@ -28,13 +28,13 @@ const ServiceRequestDropdownMenu = () => {
           <DropdownMenu.Group>
             <DropdownMenu.CheckboxItem className='DropdownMenuCheckboxItem'>
               <DropdownMenu.ItemIndicator className='DropdownMenuItemIndicator'>
-                <CheckIcon />
+                <Check />
               </DropdownMenu.ItemIndicator>
               Derek Williams
             </DropdownMenu.CheckboxItem>
             <DropdownMenu.CheckboxItem className='DropdownMenuCheckboxItem'>
               <DropdownMenu.ItemIndicator className='DropdownMenuItemIndicator'>
-                <CheckIcon />
+                <Check />
               </DropdownMenu.ItemIndicator>
               Mark Tiahrt
             </DropdownMenu.CheckboxItem>

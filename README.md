@@ -75,3 +75,5 @@ See: https://github.com/yeehanchung/lexical-rich-text-editor-nextjs-13/tree/main
 https://codesandbox.io/s/lexical-rich-text-example-5tncvy?file=/src/App.js
 
 https://www.youtube.com/watch?v=yXd0z1shhoU
+
+Dropdowns https://codesandbox.io/p/sandbox/vigilant-kate-5tncvy
