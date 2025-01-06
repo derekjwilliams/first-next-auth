@@ -18,10 +18,13 @@ import ImagesPlugin from '@/components/lexical/plugins/ImagesPlugin'
 import CustomOnChangePlugin from './plugins/CustomOnChangePlugin'
 import stylex from '@stylexjs/stylex'
 import ImportHtmlPlugin from './plugins/ImportHtmlPlugin'
+import { fonts } from '../../app/open-props/lib/fonts.stylex'
+import { sizes } from '../../app/open-props/lib/sizes.stylex'
+import { borders } from '../../app/open-props/lib/borders.stylex'
 
 const styles = stylex.create({
   editorContainer: {
-    margin: '20px auto 20px auto',
+    margin: '10px auto 10px auto',
     borderRadius: '2px',
     color: '#000',
     position: 'relative',
@@ -39,7 +42,8 @@ const styles = stylex.create({
     position: 'relative',
     tabSize: 1,
     outline: '0',
-    padding: '15px 10px',
+    padding: sizes.spacing2,
+    // padding: '15px 10px',
   },
   editorInner: {
     background: '#fff',
@@ -71,9 +75,7 @@ interface RichTextEditorProps {
   // placeholder?: string
   // name: string
 }
-// TODO handle getting the data and putting it here, could be done with a prop or maybe a hook
 
-//export default function RichTextEditor({ value, onChange }) {
 export const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange, readOnly, data }) => {
   const initialConfig = {
     namespace: 'RichTextEditor-1',

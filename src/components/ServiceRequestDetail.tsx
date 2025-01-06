@@ -39,7 +39,7 @@ const requestCard = stylex.create({
     fontSize: fonts.sizeFluid3,
     fontWeight: fonts.weight7,
   },
-  details: {
+  inset: {
     fontSize: fonts.sizeFluid1,
     fontWeight: fonts.weight2,
     lineHeight: fonts.lineHeight3,
@@ -51,6 +51,20 @@ const requestCard = stylex.create({
     backgroundColor: {
       default: 'white',
     },
+  },
+  details: {
+    borderColor: marigoldColors.pansy,
+    borderRadius: borders.radius2,
+    fontSize: fonts.sizeFluid1,
+    fontWeight: fonts.weight2,
+    lineHeight: fonts.lineHeight3,
+    borderWidth: borders.size1,
+    borderStyle: 'solid',
+    padding: 0,
+    backgroundColor: {
+      default: 'white',
+    },
+    marginTop: sizes.spacing6,
   },
   technicians: {
     marginLeft: sizes.spacing4,
@@ -109,19 +123,21 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
       <div key={serviceRequest.locations?.id} {...stylex.props(requestCard.base)}>
         <h1 {...stylex.props(requestCard.h1)}>{serviceRequest.description}</h1>
       </div>
-      <div key={serviceRequest.id} {...stylex.props(requestCard.details)}>
+      <div key={serviceRequest.id} {...stylex.props(requestCard.inset)}>
         <div>{`Location: ${serviceRequest.locations?.street_address} ${
           serviceRequest.locations?.unit_number ? serviceRequest.locations?.unit_number : ''
         }`}</div>
         <div>{`Status: ${serviceRequest.statuses?.status_name}`}</div>
         {/* {serviceRequest.details && <div>{`Details: ${serviceRequest.details}`}</div>} */}
       </div>
-      <RichTextEditor
-        value={serviceRequest.details}
-        onChange={(v) => {}}
-        readOnly={true}
-        data={serviceRequest.details}
-      />
+      <div {...stylex.props(requestCard.details)}>
+        <RichTextEditor
+          value={serviceRequest.details}
+          onChange={(v) => {}}
+          readOnly={true}
+          data={serviceRequest.details}
+        />
+      </div>
 
       <div>
         {serviceRequest.technicians.length === 0 && (
