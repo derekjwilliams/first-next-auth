@@ -50,48 +50,6 @@ h1 {
   text-align: right;
 }
 
-.editor-container {
-  margin: 20px auto 20px auto;
-  border-radius: 2px;
-  color: #000;
-  position: relative;
-  line-height: 20px;
-  font-weight: 400;
-  text-align: left;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-}
-
-.editor-inner {
-  background: #fff;
-  position: relative;
-}
-
-.editor-input {
-  min-height: 150px;
-  resize: none;
-  font-size: 15px;
-  caret-color: rgb(5, 5, 5);
-  position: relative;
-  tab-size: 1;
-  outline: 0;
-  padding: 15px 10px;
-  caret-color: #444;
-}
-
-.editor-placeholder {
-  color: #999;
-  overflow: hidden;
-  position: absolute;
-  text-overflow: ellipsis;
-  top: 15px;
-  left: 10px;
-  font-size: 15px;
-  user-select: none;
-  display: inline-block;
-  pointer-events: none;
-}
-
 .editor-text-bold {
   font-weight: bold;
 }
@@ -210,12 +168,6 @@ h1 {
 
 .editor-tokenFunction {
   color: #dd4a68;
-}
-
-.editor-paragraph {
-  margin: 0;
-  margin-bottom: 8px;
-  position: relative;
 }
 
 .editor-paragraph:last-child {
@@ -517,34 +469,6 @@ i.chevron-down {
   width: 18px;
   height: 18px;
   margin: 2px;
-}
-
-#block-controls span.block-type.paragraph {
-  background-image: url(/images/icons/text-paragraph.svg);
-}
-
-#block-controls span.block-type.h1 {
-  background-image: url(/images/icons/type-h1.svg);
-}
-
-#block-controls span.block-type.h2 {
-  background-image: url(/images/icons/type-h2.svg);
-}
-
-#block-controls span.block-type.quote {
-  background-image: url(/images/icons/chat-square-quote.svg);
-}
-
-#block-controls span.block-type.ul {
-  background-image: url(/images/icons/list-ul.svg);
-}
-
-#block-controls span.block-type.ol {
-  background-image: url(/images/icons/list-ol.svg);
-}
-
-#block-controls span.block-type.code {
-  background-image: url(/images/icons/code.svg);
 }
 
 .dropdown {

@@ -16,38 +16,70 @@ import { theme } from './theme'
 import { ImageNode } from '@/components/lexical/nodes/ImageNode'
 import ImagesPlugin from '@/components/lexical/plugins/ImagesPlugin'
 import CustomOnChangePlugin from './plugins/CustomOnChangePlugin'
+import stylex from '@stylexjs/stylex'
+import ImportHtmlPlugin from './plugins/ImportHtmlPlugin'
+
+const styles = stylex.create({
+  editorContainer: {
+    margin: '20px auto 20px auto',
+    borderRadius: '2px',
+    color: '#000',
+    position: 'relative',
+    lineHeight: '20px',
+    fontWeight: 400,
+    textAlign: 'left',
+    borderTopLeftRadius: '10px',
+    borderTopRightRadius: '10px',
+  },
+  editorInput: {
+    minHeight: '150px',
+    resize: 'none',
+    fontSize: '15px',
+    caretColor: 'rgb(5, 5, 5)',
+    position: 'relative',
+    tabSize: 1,
+    outline: '0',
+    padding: '15px 10px',
+  },
+  editorInner: {
+    background: '#fff',
+    position: 'relative',
+  },
+  editorPlaceholder: {
+    color: '#999',
+    overflow: 'hidden',
+    position: 'absolute',
+    textOverflow: 'ellipsis',
+    top: '15px',
+    left: '10px',
+    fontSize: '15px',
+    userSelect: 'none',
+    display: 'inline-block',
+    pointerEvents: 'none',
+  },
+})
 
 function onError(error: any) {
   console.error(error)
 }
-// interface BlockOptionsDropdownListProps {
-//   editor: LexicalEditor // Assuming editor is a LexicalEditor type
-//   blockType: string // Assuming blockType is a string, update the type as needed
-//   toolbarRef: RefObject<HTMLElement | null> // Assuming it's a ref to an HTMLElement
-//   setShowBlockOptionsDropDown: React.Dispatch<React.SetStateAction<boolean>> // Function to update the state
-// }
-
-// const BlockOptionsDropdownList: React.FC<BlockOptionsDropdownListProps> = ({
-//   editor,
-//   blockType,
-//   toolbarRef,
-//   setShowBlockOptionsDropDown,
-// }) => {
 
 interface RichTextEditorProps {
   value: string
   onChange: (value: string) => void
+  readOnly: boolean
+  data: string
   // placeholder?: string
   // name: string
 }
 // TODO handle getting the data and putting it here, could be done with a prop or maybe a hook
 
 //export default function RichTextEditor({ value, onChange }) {
-export const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange }) => {
+export const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange, readOnly, data }) => {
   const initialConfig = {
     namespace: 'RichTextEditor-1',
     theme,
     onError,
+    editable: !readOnly,
     nodes: [
       HeadingNode,
       ListNode,
@@ -64,22 +96,42 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange 
     ],
   }
 
-  return (
-    <div className='editor-container'>
-      <LexicalComposer initialConfig={initialConfig}>
-        <LexicalToolbar></LexicalToolbar>
-        <div className='editor-inner'>
-          <RichTextPlugin
-            contentEditable={<ContentEditable className='editor-input' />}
-            placeholder={<div>Enter some text...</div>}
-            ErrorBoundary={LexicalErrorBoundary}
-          />
-          <ImagesPlugin />
-          <HistoryPlugin />
-          <AutoFocusPlugin />
-          <CustomOnChangePlugin value={value} onChange={onChange} />
-        </div>
-      </LexicalComposer>
-    </div>
-  )
+  if (readOnly === false) {
+    return (
+      <div {...stylex.props(styles.editorContainer)}>
+        <LexicalComposer initialConfig={initialConfig}>
+          <LexicalToolbar></LexicalToolbar>
+          <div {...stylex.props(styles.editorInner)}>
+            <RichTextPlugin
+              contentEditable={<ContentEditable {...stylex.props(styles.editorInput)} />}
+              placeholder={<div>Enter some text...</div>}
+              ErrorBoundary={LexicalErrorBoundary}
+            />
+            <ImagesPlugin />
+            <HistoryPlugin />
+            <AutoFocusPlugin />
+            <CustomOnChangePlugin value={value} onChange={onChange} />
+          </div>
+        </LexicalComposer>
+      </div>
+    )
+  } else
+    return (
+      <div {...stylex.props(styles.editorContainer)}>
+        <LexicalComposer initialConfig={initialConfig}>
+          <div {...stylex.props(styles.editorInner)}>
+            <ImportHtmlPlugin html={data} />
+            <RichTextPlugin
+              contentEditable={<ContentEditable {...stylex.props(styles.editorInput)} />}
+              placeholder={<div>Enter some text...</div>}
+              ErrorBoundary={LexicalErrorBoundary}
+            />
+            <ImagesPlugin />
+            <HistoryPlugin />
+            <AutoFocusPlugin />
+            <CustomOnChangePlugin value={value} onChange={onChange} />
+          </div>
+        </LexicalComposer>
+      </div>
+    )
 }

@@ -172,7 +172,7 @@ export default function ServiceRequestEditForm({
             <h1 {...stylex.props(request.h1)}>Details</h1>
           </label>
 
-          <RichTextEditor value={details} onChange={(v) => setDetails(v)} />
+          <RichTextEditor value={details} onChange={(v) => setDetails(v)} readOnly={false} data={''} />
         </div>
         {/* Technicians Checkboxes, TODO use react-select for improved UX */}
         <div {...stylex.props(request.technicians)}>

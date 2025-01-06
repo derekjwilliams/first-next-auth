@@ -10,11 +10,6 @@ import { borders } from '../app/open-props/lib/borders.stylex'
 
 import Link from 'next/link'
 import LinkWrapperButton from './controls/LinkWrapperButton'
-import { LexicalComposer } from '@lexical/react/LexicalComposer'
-import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin'
-import { ContentEditable } from '@lexical/react/LexicalContentEditable'
-import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary'
-import ImportHtmlPlugin from './lexical/plugins/ImportHtmlPlugin'
 import { HeadingNode, QuoteNode } from '@lexical/rich-text'
 import { ListItemNode, ListNode } from '@lexical/list'
 import { AutoLinkNode, LinkNode } from '@lexical/link'
@@ -22,6 +17,7 @@ import { CodeHighlightNode, CodeNode } from '@lexical/code'
 import { TableCellNode, TableNode, TableRowNode } from '@lexical/table'
 import { theme } from '@/components/lexical/theme'
 import { ImageNode } from '@/components/lexical/nodes/ImageNode'
+import { RichTextEditor } from '@/components/lexical/RichTextEditor'
 
 const requests = stylex.create({
   base: {
@@ -119,20 +115,14 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
         }`}</div>
         <div>{`Status: ${serviceRequest.statuses?.status_name}`}</div>
         {/* {serviceRequest.details && <div>{`Details: ${serviceRequest.details}`}</div>} */}
-        <div key={'richdetails'}>
-          <LexicalComposer initialConfig={editorConfig}>
-            <div className='read-only-editor'>
-              <h1>Details:</h1>
-              <RichTextPlugin
-                contentEditable={<ContentEditable className='read-only-content' />}
-                placeholder={<span>Loading content...</span>}
-                ErrorBoundary={LexicalErrorBoundary}
-              />
-              <ImportHtmlPlugin html={serviceRequest.details} />
-            </div>
-          </LexicalComposer>
-        </div>
       </div>
+      <RichTextEditor
+        value={serviceRequest.details}
+        onChange={(v) => {}}
+        readOnly={true}
+        data={serviceRequest.details}
+      />
+
       <div>
         {serviceRequest.technicians.length === 0 && (
           <>
