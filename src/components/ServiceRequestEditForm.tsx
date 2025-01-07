@@ -179,28 +179,26 @@ export default function ServiceRequestEditForm({
           <h1 {...stylex.props(request.h1)}>Service Technicians</h1>
           <div>
             {availableTechnicians.map((technician) => (
-              <>
-                <div key={technician.id} style={{ display: 'flex', alignItems: 'center' }}>
-                  <Checkbox.Root
-                    {...stylex.props(checkbox.checkboxRoot)}
-                    defaultChecked={assignedTechnicianIds.includes(technician.id)}
-                    id={`technician_${technician.id}`}
-                    key={technician.id}
-                    name={`technician_${technician.id}`}>
-                    <Checkbox.Indicator className='CheckboxIndicator'>
-                      <Check {...stylex.props(checkbox.icon)} />
-                    </Checkbox.Indicator>
-                  </Checkbox.Root>
-                  <label
-                    style={{
-                      fontSize: fonts.size3,
-                    }}
-                    // className='Label'
-                    htmlFor={technician.id}>
-                    <span style={{ fontWeight: 'normal' }}>{technician.name}</span>
-                  </label>
-                </div>
-              </>
+              <div key={'technician_' + technician.id} style={{ display: 'flex', alignItems: 'center' }}>
+                <Checkbox.Root
+                  {...stylex.props(checkbox.checkboxRoot)}
+                  defaultChecked={assignedTechnicianIds.includes(technician.id)}
+                  id={`technician_${technician.id}`}
+                  key={technician.id}
+                  name={`technician_${technician.id}`}>
+                  <Checkbox.Indicator className='CheckboxIndicator'>
+                    <Check {...stylex.props(checkbox.icon)} />
+                  </Checkbox.Indicator>
+                </Checkbox.Root>
+                <label
+                  style={{
+                    fontSize: fonts.size3,
+                  }}
+                  // className='Label'
+                  htmlFor={technician.id}>
+                  <span style={{ fontWeight: 'normal' }}>{technician.name}</span>
+                </label>
+              </div>
             ))}
           </div>
         </div>
