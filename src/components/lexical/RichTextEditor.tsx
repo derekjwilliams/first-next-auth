@@ -6,21 +6,27 @@ import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin'
 import { ContentEditable } from '@lexical/react/LexicalContentEditable'
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin'
 import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary'
+import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin'
+import { $convertFromMarkdownString, $convertToMarkdownString, TRANSFORMERS } from '@lexical/markdown'
 import LexicalToolbar from './plugins/ToolbarPlugin'
 import { HeadingNode, QuoteNode } from '@lexical/rich-text'
 import { ListItemNode, ListNode } from '@lexical/list'
 import { AutoLinkNode, LinkNode } from '@lexical/link'
-import { CodeHighlightNode, CodeNode } from '@lexical/code'
+import { $createCodeNode, $isCodeNode, CodeHighlightNode, CodeNode } from '@lexical/code'
 import { TableCellNode, TableNode, TableRowNode } from '@lexical/table'
 import { theme } from './theme'
 import { ImageNode } from '@/components/lexical/nodes/ImageNode'
 import ImagesPlugin from '@/components/lexical/plugins/ImagesPlugin'
-import CustomOnChangePlugin from './plugins/CustomOnChangePlugin'
+import CustomOnChangePlugin from './plugins/CustomOnChangePlugin' //TODO should we use the @lexical/react/LexicalOnChangePlugin?
 import stylex from '@stylexjs/stylex'
 import ImportHtmlPlugin from './plugins/ImportHtmlPlugin'
 import { fonts } from '../../app/open-props/lib/fonts.stylex'
 import { sizes } from '../../app/open-props/lib/sizes.stylex'
 import { borders } from '../../app/open-props/lib/borders.stylex'
+import { MarkdownActions } from '@/components/MarkdownActions'
+import { useState } from 'react'
+import { $createTextNode, $getRoot } from 'lexical'
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 
 const styles = stylex.create({
   editorContainer: {
@@ -76,7 +82,43 @@ interface RichTextEditorProps {
   // name: string
 }
 
+function MarkdownToggle({
+  markdownMode,
+  toggleMarkdownMode,
+}: {
+  markdownMode: boolean
+  toggleMarkdownMode: () => void
+}) {
+  const [editor] = useLexicalComposerContext()
+
+  const handleToggle = () => {
+    editor.update(() => {
+      const root = $getRoot()
+
+      // Convert content based on the mode
+      const currentContent = markdownMode
+        ? $convertToMarkdownString(TRANSFORMERS)
+        : $convertFromMarkdownString(root.getTextContent() || '', TRANSFORMERS)
+      root.clear().append($createCodeNode('markdown').append($createTextNode(currentContent || '')))
+    })
+
+    toggleMarkdownMode()
+  }
+
+  return (
+    <button type='button' className='toggle-markdown-button' onClick={handleToggle}>
+      Toggle Markdown {markdownMode ? 'Off' : 'On'}
+    </button>
+  )
+}
+
 export const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange, readOnly, data }) => {
+  const [markdownMode, setMarkdownMode] = useState(false)
+
+  const toggleMarkdownMode = () => {
+    setMarkdownMode((prev) => !prev)
+  }
+
   const initialConfig = {
     namespace: 'RichTextEditor-1',
     theme,
@@ -109,11 +151,17 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange,
               placeholder={<div>Enter some text...</div>}
               ErrorBoundary={LexicalErrorBoundary}
             />
+            {markdownMode && <MarkdownShortcutPlugin transformers={TRANSFORMERS} />}
+            <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
             <ImagesPlugin />
             <HistoryPlugin />
             <AutoFocusPlugin />
             <CustomOnChangePlugin value={value} onChange={onChange} />
           </div>
+
+          {/* <MarkdownToggle markdownMode={markdownMode} toggleMarkdownMode={toggleMarkdownMode} /> */}
+          {/* <MarkdownActions markdownMode={markdownMode} /> */}
+          {/* {markdownMode && <MarkdownShortcutPlugin transformers={TRANSFORMERS} />} */}
         </LexicalComposer>
       </div>
     )
