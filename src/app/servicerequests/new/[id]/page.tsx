@@ -3,7 +3,7 @@ import { createClient } from '../../../../lib/supabase/client'
 import { serviceTypes } from '../../../../utils/serviceTypes'
 
 const snakeToPascalCase = (value: string) => {
-  let result = value.toLowerCase().replace(/([_][a-z])/g, (group) => group.toUpperCase().replace('_', ''))
+  const result = value.toLowerCase().replace(/([_][a-z])/g, (group) => group.toUpperCase().replace('_', ''))
   return result.charAt(0).toUpperCase() + result.slice(1)
 }
 
@@ -26,13 +26,15 @@ export default async function Page({ params }: { params: Params }) {
   if (locations === null) {
     locations = []
   }
+  const serviceTypeEntry = serviceTypes.get(snakeToPascalCase(id))
+  const displayName = serviceTypeEntry ? serviceTypeEntry.displayName : '--'
 
   return (
     <>
       <MultipleServiceRequests
         serviceTypeId={service_type?.id}
         locations={locations}
-        serviceDisplayName={serviceTypes.get(snakeToPascalCase(id)).displayName}></MultipleServiceRequests>
+        serviceDisplayName={displayName}></MultipleServiceRequests>
     </>
   )
 }

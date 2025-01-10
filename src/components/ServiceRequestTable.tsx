@@ -4,7 +4,7 @@ import { ColumnDef, useReactTable, getCoreRowModel, flexRender, SortingFn, Row }
 import Pagination from './Pagination'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { ServiceRequest, ServiceType, Tenant, Technician, Status, RequestLocation } from '../utils/servicerequest.types' // todo import from supabase types
+//import { ServiceRequest, ServiceType, Tenant, Technician, Status, RequestLocation } from '../utils/servicerequest.types' // todo import from supabase types
 import { serviceTypes } from '../utils/serviceTypes'
 import dayjs from 'dayjs'
 import * as stylex from '@stylexjs/stylex'
@@ -15,6 +15,7 @@ import { colors } from '../app/open-props/lib/colors.stylex'
 import ServiceRequestDropdownMenu from './ServiceRequestDropdownMenu'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { Check } from 'lucide-react'
+import { Tables } from '@/utils/database.types'
 
 const styles = stylex.create({
   html: {
@@ -156,7 +157,7 @@ const requestCard = stylex.create({
 })
 
 interface ServiceRequestTableProps {
-  data: ServiceRequest[]
+  data: Tables<'service_requests'>[]
   currentPage: number
   totalPages: number
   sortColumn: string
@@ -191,7 +192,7 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
     return 'no_match'
   }
 
-  const columns: ColumnDef<ServiceRequest>[] = [
+  const columns: ColumnDef<Tables<'service_requests'>>[] = [
     {
       accessorKey: 'id',
       header: 'ID',
@@ -291,7 +292,7 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                     </td>
                     {row.getVisibleCells().map((cell: any) => {
                       if (cell.column.id === 'statuses') {
-                        const status = cell.getValue() as Status
+                        const status = cell.getValue() as Tables<'statuses'>
                         return (
                           <td key={cell.id} {...stylex.props(styles.tableData, styles.tableStatusData)}>
                             {status ? status.status_name : ''}
@@ -299,7 +300,7 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                         )
                       }
                       if (cell.column.id === 'locations') {
-                        const locations = cell.getValue() as RequestLocation
+                        const locations = cell.getValue() as Tables<'locations'>
 
                         if (locations) {
                           const link = `/properties/${locations.id}`
@@ -323,18 +324,21 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                         )
                       }
                       if (cell.column.id === 'service_types') {
-                        const serviceType = cell.getValue() as ServiceType
+                        const serviceType = cell.getValue() as Tables<'service_types'>
                         const link = `/servicerequests/new/${pascalToSnakeCase(serviceType.service_name)}`
+                        const displayName = serviceType?.service_name
+                          ? serviceTypes?.get(serviceType.service_name)?.displayName || ''
+                          : ''
                         return (
                           <td key={cell.id} {...stylex.props(styles.tableData)}>
                             <Link {...stylex.props(styles.tableDataLink)} href={link}>
-                              {serviceTypes.get(serviceType.service_name).displayName}
+                              {displayName}
                             </Link>
                           </td>
                         )
                       }
                       if (cell.column.id === 'tenants') {
-                        const tenant = cell.getValue() as Tenant
+                        const tenant = cell.getValue() as Tables<'tenants'>
                         return <td key={cell.id}>{tenant.name}</td>
                       }
                       if (cell.column.id === 'date_created') {
@@ -350,7 +354,7 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                         )
                       }
                       if (cell.column.id === 'technicians') {
-                        const technicians = cell.getValue() as Technician[]
+                        const technicians = cell.getValue() as Tables<'technicians'>[]
 
                         if (technicians.length) {
                           return (

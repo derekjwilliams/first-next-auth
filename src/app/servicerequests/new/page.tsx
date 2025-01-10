@@ -111,7 +111,10 @@ export default async function Page() {
   const { data: service_types } = await supabase.from('service_types').select()
   service_types?.forEach((service_type) => {
     if (serviceTypes.has(service_type.service_name)) {
-      serviceTypes.get(service_type.service_name)['id'] = service_type.id
+      const serviceType = serviceTypes.get(service_type.service_name)
+      if (serviceType) {
+        serviceType.id = service_type.id
+      }
     } else {
       serviceTypes.set(service_type.service_name, {
         displayName: service_type.service_name,

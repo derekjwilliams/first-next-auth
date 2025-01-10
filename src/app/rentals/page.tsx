@@ -36,7 +36,6 @@ const rental = stylex.create({
 
 export default async function Page() {
   const supabase = createClient()
-  supabase
   const { data: listings } = await supabase.from('listings').select(`*`)
 
   const displayListings = listings?.map((listing) => (

@@ -16,7 +16,7 @@ import * as React from 'react'
 import { JSX, Suspense } from 'react'
 
 const ImageComponent = React.lazy(
-  // @ts-ignore
+  // @ts-expect-ignore
   () => import('./ImageComponent'),
 )
 
