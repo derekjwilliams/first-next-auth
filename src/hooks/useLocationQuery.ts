@@ -9,8 +9,15 @@ function useLocationQuery(locationId: string) {
   const queryKey = ['location', id]
 
   const queryFn = async () => {
-    return getLocationById(client, id!)?.then((result: { data: any }) => result.data)
+    const result = await getLocationById(client, id!)
+
+    if (result.error || !result.data) {
+      throw new Error(result.error?.message || 'Location not found')
+    }
+
+    return result.data
   }
+
   return useQuery({ queryKey, queryFn })
 }
 
