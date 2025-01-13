@@ -1,12 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&display=swap');
-@import './open-props.min.css';
+@stylex;
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-.markdown-code {
-  font-size: 12px;
-  line-height: 1.5;
-  background-color: #dedede;
-  display: block;
-}

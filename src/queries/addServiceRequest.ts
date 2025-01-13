@@ -1,4 +1,4 @@
-import { ServiceRequestMutationInput } from '@/types'
+import { ServiceRequestMutationInput } from '@/types/index'
 import { TypedSupabaseClient } from '@/utils/supabase/client'
 
 export function addServiceRequest(client: TypedSupabaseClient, value: ServiceRequestMutationInput) {

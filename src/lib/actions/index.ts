@@ -21,12 +21,12 @@ export async function updateServiceRequest(
   const selectedStatus = formData.get('status_options')
   const technicianIds: string[] = []
   //zz
-  for (const key of formData.keys()) {
-    if (key.startsWith('technician_')) {
-      const id = key.slice('technician_'.length)
-      technicianIds.push(id)
-    }
-  }
+  // for (const key of formData.keys()) {
+  //   if (key.startsWith('technician_')) {
+  //     const id = key.slice('technician_'.length)
+  //     technicianIds.push(id)
+  //   }
+  // }
 
   /* empty serviceType is not allowed in database, so don't proceed if it is empty*/
   if (serviceTypeSelected?.toString() !== '') {
