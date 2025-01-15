@@ -13,6 +13,37 @@ const path = require('path');
 const stylexPlugin = require('@stylexswc/nextjs-plugin');
 const rootDir = __dirname;
 
+const nextConfig = {
+  experimental: {
+    reactCompiler: true, 
+  },
+  reactStrictMode: true,
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'photos.zillowstatic.com',
+        port: '',
+        pathname: '/fp/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 's3.amazonaws.co',
+        port: '',
+        pathname: '/rcp-prod-uploads/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'alysmxvvutkmqugooylp.supabase.co',
+        port: '',
+        pathname: '/storage/v1/object/public/marigold-rental-images/**',
+      },
+    ],
+    formats: ['image/webp'],
+  },
+}
+
 module.exports = stylexPlugin({
   // Add any StyleX options here
   rsOptions: {
@@ -43,6 +74,7 @@ module.exports = stylexPlugin({
 
   extractCSS: true //process.env.NODE_ENV === 'development' ? true : false
 })({
+  ...nextConfig,
   transpilePackages: ['@stylexjs/open-props'],
   // Optionally, add any other Next.js config below, e.g. 
 });
