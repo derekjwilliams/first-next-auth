@@ -1,6 +1,6 @@
 {
-  "name": "next-example",
-  "version": "0.0.0",
+  "name": "marigold-property",
+  "version": "0.4.0",
   "private": true,
   "scripts": {
     "clean": "rimraf .next",
@@ -50,10 +50,11 @@
   },
   "devDependencies": {
     "@stylexjs/eslint-plugin": "^0.10.0",
-    "@stylexswc/nextjs-plugin": "^0.6.1",
-    "@stylexswc/postcss-plugin": "^0.6.1",
-    "@stylexswc/rs-compiler": "^0.6.1",
-    "@stylexswc/webpack-plugin": "^0.6.1",
+    "@stylexswc/nextjs-plugin": "^0.6.2-rc.2",
+    "@stylexswc/postcss-plugin": "^0.6.2-rc.2",
+    "@stylexswc/rs-compiler": "^0.6.2-rc.2",
+    "@stylexswc/webpack-plugin": "^0.6.2-rc.2",
+    "@tanstack/eslint-plugin-query": "^5.62.16",
     "@types/json-schema": "^7.0.15",
     "@types/node": "^22.9.0",
     "@types/react": "^19.0.4",
