@@ -9,7 +9,7 @@ export default function Home() {
       <UploadButton
         endpoint='imageUploader'
         onClientUploadComplete={(res) => {
-          console.log('Files: ', res)
+          // console.log('Files: ', res)
           if (res.length === 1) {
             alert(`Upload Completed, ${res[0].key}, ${res[0].name}`)
           } else {
