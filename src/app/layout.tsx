@@ -1,3 +1,4 @@
+import './uploadthing.css'
 import './globals.css'
 import * as stylex from '@stylexjs/stylex'
 // import { fonts } from './globalTokens.stylex'
@@ -9,7 +10,9 @@ import Image from 'next/image'
 import Navigation from '../components/Navigation'
 import Link from 'next/link'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
-// import '@uploadthing/react/styles.css'
+import { NextSSRPlugin } from '@uploadthing/react/next-ssr-plugin'
+import { extractRouterConfig } from 'uploadthing/server'
+import { ourFileRouter } from './api/uploadthing/core'
 
 // import { Analytics } from '@vercel/analytics/react'
 
@@ -62,8 +65,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {header}
         <ReactQueryClientProvider>
           <main>
+            <NextSSRPlugin
+              /**
+               * The `extractRouterConfig` will extract **only** the route configs
+               * from the router to prevent additional information from being
+               * leaked to the client. The data passed to the client is the same
+               * as if you were to fetch `/api/uploadthing` directly.
+               */
+              routerConfig={extractRouterConfig(ourFileRouter)}
+            />
             {/* <Toaster position='bottom-center' /> */}
             {children}
+
             {/* <Analytics /> seems to slow things down*/}
             {/* <SpeedInsights /> */}
           </main>
