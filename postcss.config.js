@@ -20,7 +20,7 @@ module.exports = {
       },
       extractCSS: false,
     },
-    tailwindcss: {},
+    // tailwindcss: {},
     autoprefixer: {},
   },
 }

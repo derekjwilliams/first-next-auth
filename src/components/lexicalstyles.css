@@ -36,7 +36,6 @@ body {
   text-align: center;
 }
 
-/* TODO Since we have moved the Lexical theme to use tailwind we don't need these, however the tailwind theme should be updated with the following styles, especially the code parts */
 h1 {
   font-size: 24px;
   color: #333;
