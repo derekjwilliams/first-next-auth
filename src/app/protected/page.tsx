@@ -20,6 +20,44 @@ const message = stylex.create({
   },
 })
 
+const styles = stylex.create({
+  nav: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'flex-end',
+    borderBottom: '1px solid var(--foreground/10)',
+    height: '16',
+  },
+  navInner: {
+    width: '100%',
+    maxWidth: '4xl',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '3',
+    fontSize: 'sm',
+  },
+  mainContainer: {
+    flex: '1',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20',
+    maxWidth: '4xl',
+    paddingLeft: '3',
+    paddingRight: '3',
+  },
+  mainContent: { flex: '1', display: 'flex', flexDirection: 'column', gap: '6' },
+  footer: {
+    width: '100%',
+    borderTop: '1px solid var(--foreground/10)',
+    padding: '8',
+    display: 'flex',
+    justifyContent: 'center',
+    textAlign: 'center',
+    fontSize: 'xs',
+  },
+})
+
 export default async function ProtectedPage() {
   const supabase = await createClient()
 
@@ -29,22 +67,22 @@ export default async function ProtectedPage() {
         <div {...stylex.props(message.base)}>
           This is a protected page that you can only see as an authenticated user
         </div>
-        <nav className='w-full flex justify-end border-b border-b-foreground/10 h-16'>
-          <div className='w-full max-w-4xl flex justify-between items-center p-3 text-sm'>
+        <nav {...stylex.props(styles.nav)}>
+          <div {...stylex.props(styles.navInner)}>
             <AuthButton />
           </div>
         </nav>
       </div>
 
-      <div className='flex-1 flex flex-col gap-20 max-w-4xl px-3'>
+      <div {...stylex.props(styles.mainContainer)}>
         <Header />
-        <main className='flex-1 flex flex-col gap-6'>
+        <main {...stylex.props(styles.mainContent)}>
           {/* <h2 className="font-bold text-4xl mb-4">Next steps</h2>
           <FetchDataSteps /> */}
         </main>
       </div>
 
-      <footer className='w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs'></footer>
+      <footer {...stylex.props(styles.footer)}></footer>
     </div>
   )
 }

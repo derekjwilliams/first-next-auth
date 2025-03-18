@@ -1,4 +1,10 @@
 {
+  "eslint.useFlatConfig": true,
+  "eslint.format.enable": true,
+  "eslint.workingDirectories": [{ "mode": "auto" }],
+  "eslint.options": {
+    "overrideConfigFile": "eslint.config.js"
+  },
   "cssVariables.lookupFiles": [
     "**/*.css",
     "**/*.scss",

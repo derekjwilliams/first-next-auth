@@ -46,9 +46,7 @@ export interface paths {
       }
       responses: {
         /** OK */
-        200: {
-          schema: definitions['service_requests'][]
-        }
+        200: { schema: definitions['service_requests'][] }
         /** Partial Content */
         206: unknown
       }
@@ -152,9 +150,7 @@ export interface paths {
       }
       responses: {
         /** OK */
-        200: {
-          schema: definitions['statuses'][]
-        }
+        200: { schema: definitions['statuses'][] }
         /** Partial Content */
         206: unknown
       }
@@ -181,10 +177,7 @@ export interface paths {
     }
     delete: {
       parameters: {
-        query: {
-          status_name?: parameters['rowFilter.statuses.status_name']
-          id?: parameters['rowFilter.statuses.id']
-        }
+        query: { status_name?: parameters['rowFilter.statuses.status_name']; id?: parameters['rowFilter.statuses.id'] }
         header: {
           /** Preference */
           Prefer?: parameters['preferReturn']
@@ -197,10 +190,7 @@ export interface paths {
     }
     patch: {
       parameters: {
-        query: {
-          status_name?: parameters['rowFilter.statuses.status_name']
-          id?: parameters['rowFilter.statuses.id']
-        }
+        query: { status_name?: parameters['rowFilter.statuses.status_name']; id?: parameters['rowFilter.statuses.id'] }
         body: {
           /** statuses */
           statuses?: definitions['statuses']
@@ -242,9 +232,7 @@ export interface paths {
       }
       responses: {
         /** OK */
-        200: {
-          schema: definitions['foo'][]
-        }
+        200: { schema: definitions['foo'][] }
         /** Partial Content */
         206: unknown
       }
@@ -271,10 +259,7 @@ export interface paths {
     }
     delete: {
       parameters: {
-        query: {
-          id?: parameters['rowFilter.foo.id']
-          created_at?: parameters['rowFilter.foo.created_at']
-        }
+        query: { id?: parameters['rowFilter.foo.id']; created_at?: parameters['rowFilter.foo.created_at'] }
         header: {
           /** Preference */
           Prefer?: parameters['preferReturn']
@@ -287,10 +272,7 @@ export interface paths {
     }
     patch: {
       parameters: {
-        query: {
-          id?: parameters['rowFilter.foo.id']
-          created_at?: parameters['rowFilter.foo.created_at']
-        }
+        query: { id?: parameters['rowFilter.foo.id']; created_at?: parameters['rowFilter.foo.created_at'] }
         body: {
           /** foo */
           foo?: definitions['foo']
@@ -338,9 +320,7 @@ export interface paths {
       }
       responses: {
         /** OK */
-        200: {
-          schema: definitions['locations'][]
-        }
+        200: { schema: definitions['locations'][] }
         /** Partial Content */
         206: unknown
       }
@@ -440,9 +420,7 @@ export interface paths {
       }
       responses: {
         /** OK */
-        200: {
-          schema: definitions['rental_lessee'][]
-        }
+        200: { schema: definitions['rental_lessee'][] }
         /** Partial Content */
         206: unknown
       }
@@ -530,9 +508,7 @@ export interface paths {
       }
       responses: {
         /** OK */
-        200: {
-          schema: definitions['payment_method'][]
-        }
+        200: { schema: definitions['payment_method'][] }
         /** Partial Content */
         206: unknown
       }
@@ -637,9 +613,7 @@ export interface paths {
       }
       responses: {
         /** OK */
-        200: {
-          schema: definitions['lessee'][]
-        }
+        200: { schema: definitions['lessee'][] }
         /** Partial Content */
         206: unknown
       }
@@ -761,9 +735,7 @@ export interface paths {
       }
       responses: {
         /** OK */
-        200: {
-          schema: definitions['lessee_payment_method'][]
-        }
+        200: { schema: definitions['lessee_payment_method'][] }
         /** Partial Content */
         206: unknown
       }
@@ -851,9 +823,7 @@ export interface paths {
       }
       responses: {
         /** OK */
-        200: {
-          schema: definitions['service_types'][]
-        }
+        200: { schema: definitions['service_types'][] }
         /** Partial Content */
         206: unknown
       }
@@ -941,9 +911,7 @@ export interface paths {
       }
       responses: {
         /** OK */
-        200: {
-          schema: definitions['notes'][]
-        }
+        200: { schema: definitions['notes'][] }
         /** Partial Content */
         206: unknown
       }
@@ -970,10 +938,7 @@ export interface paths {
     }
     delete: {
       parameters: {
-        query: {
-          id?: parameters['rowFilter.notes.id']
-          title?: parameters['rowFilter.notes.title']
-        }
+        query: { id?: parameters['rowFilter.notes.id']; title?: parameters['rowFilter.notes.title'] }
         header: {
           /** Preference */
           Prefer?: parameters['preferReturn']
@@ -986,10 +951,7 @@ export interface paths {
     }
     patch: {
       parameters: {
-        query: {
-          id?: parameters['rowFilter.notes.id']
-          title?: parameters['rowFilter.notes.title']
-        }
+        query: { id?: parameters['rowFilter.notes.id']; title?: parameters['rowFilter.notes.title'] }
         body: {
           /** notes */
           notes?: definitions['notes']
@@ -1033,9 +995,7 @@ export interface paths {
       }
       responses: {
         /** OK */
-        200: {
-          schema: definitions['todo'][]
-        }
+        200: { schema: definitions['todo'][] }
         /** Partial Content */
         206: unknown
       }
@@ -1128,9 +1088,7 @@ export interface paths {
       }
       responses: {
         /** OK */
-        200: {
-          schema: definitions['tenants'][]
-        }
+        200: { schema: definitions['tenants'][] }
         /** Partial Content */
         206: unknown
       }
@@ -1221,9 +1179,7 @@ export interface paths {
       }
       responses: {
         /** OK */
-        200: {
-          schema: definitions['technicians'][]
-        }
+        200: { schema: definitions['technicians'][] }
         /** Partial Content */
         206: unknown
       }
@@ -1318,9 +1274,7 @@ export interface paths {
       }
       responses: {
         /** OK */
-        200: {
-          schema: definitions['rental_property'][]
-        }
+        200: { schema: definitions['rental_property'][] }
         /** Partial Content */
         206: unknown
       }
@@ -1887,7 +1841,5 @@ export interface parameters {
   /** Format: text */
   'rowFilter.rental_property.notes': string
 }
-
 export interface operations {}
-
 export interface external {}

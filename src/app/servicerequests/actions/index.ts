@@ -8,12 +8,7 @@ export async function createServiceRequest(description: string) {
   const user = supabase.auth.getUser()
   const result = await supabase
     .from('service_requests')
-    .insert({
-      description: description,
-      location_id: null,
-      status_id: null,
-      service_type_id: null,
-    })
+    .insert({ description: description, location_id: null, status_id: null, service_type_id: null })
     .single()
   revalidatePath('/servicerequests') // to display the service requests
   return JSON.stringify(result)
