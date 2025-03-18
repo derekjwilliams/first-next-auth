@@ -4,6 +4,7 @@ import { createUploadthing, type FileRouter } from 'uploadthing/next'
 import { UploadThingError } from 'uploadthing/server'
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
+import createSupabaseServerClient from '@/lib/supabase/server'
 
 const f = createUploadthing()
 
@@ -31,23 +32,22 @@ const auth = async (req: Request) => {
 
     // Get the current user session
     const {
-      data: { session },
+      data: { user },
       error,
-    } = await supabase.auth.getSession()
+    } = await supabase.auth.getUser() //supabase.auth.getSession()
 
-    if (error || !session || !session.user) {
+    if (error || !user) {
       console.error('Supabase auth error:', error)
       return null
     }
 
-    return session.user
+    return user
   } catch (error) {
     console.error('Auth error:', error)
     return null
   }
 }
 
-// FileRouter for your app
 export const ourFileRouter = {
   imageUploader: f({
     image: {
@@ -70,8 +70,36 @@ export const ourFileRouter = {
       console.log('Upload complete, User email:', metadata.email)
       console.log('Upload complete for file, url:', file.ufsUrl)
 
+      const supabase = await createSupabaseServerClient()
+      const user = supabase.auth.getUser()
+      const { error } = await supabase
+        .from('saved_images')
+        .insert({
+          file_key: file.key,
+          file_url: file.ufsUrl,
+        })
+        .single()
+
+      // const cookieStore = await cookies()
+      // const supabase = createServerClient(
+      //   process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      //   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      //   {
+      //     cookies: {
+      //       getAll() {
+      //         return cookieStore.getAll()
+      //       },
+      //       setAll() {},
+      //     },
+      //   },
+      // )
+
+      if (error) {
+        console.error('Error saving file record:', error)
+      }
       return { uploadedBy: metadata.userId, fileUrl: file.ufsUrl }
     }),
 } satisfies FileRouter
 
 export type OurFileRouter = typeof ourFileRouter
+export { auth }

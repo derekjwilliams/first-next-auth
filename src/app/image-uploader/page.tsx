@@ -1,6 +1,7 @@
 /* src/app/image-uploader/page.tsx */
 'use client'
 
+import UploadThingFileList from '@/components/UploadThingFileList'
 import { UploadButton } from '@/utils/uploadthing'
 
 export default function Home() {
@@ -20,6 +21,7 @@ export default function Home() {
           alert(`ERROR! ${error.message}`)
         }}
       />
+      <UploadThingFileList></UploadThingFileList>
     </main>
   )
 }
