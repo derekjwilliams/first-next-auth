@@ -486,6 +486,27 @@ export type Database = {
         }
         Relationships: []
       }
+      saved_images: {
+        Row: {
+          created_at: string
+          file_key: string
+          file_url: string
+          id: number
+        }
+        Insert: {
+          created_at?: string
+          file_key: string
+          file_url: string
+          id?: number
+        }
+        Update: {
+          created_at?: string
+          file_key?: string
+          file_url?: string
+          id?: number
+        }
+        Relationships: []
+      }
       service_request_technicians: {
         Row: {
           service_request_id: string

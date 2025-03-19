@@ -17,7 +17,7 @@ export async function GET(req: Request) {
     // Filter files by user if needed (assuming metadata.userId was stored)
     // const userFiles = files.filter((file: { metadata: { userId: any } }) => file.metadata?.userId === user.id)
 
-    // return NextResponse.json(userFiles, { status: 200 })
+    return NextResponse.json([], { status: 200 })
   } catch (error) {
     console.error('Error fetching files:', error)
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })

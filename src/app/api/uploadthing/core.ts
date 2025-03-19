@@ -4,7 +4,6 @@ import { createUploadthing, type FileRouter } from 'uploadthing/next'
 import { UploadThingError } from 'uploadthing/server'
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
-import createSupabaseServerClient from '@/lib/supabase/server'
 
 const f = createUploadthing()
 
@@ -41,7 +40,7 @@ const auth = async (req: Request) => {
       return null
     }
 
-    return user
+    return { user, cookieStore }
   } catch (error) {
     console.error('Auth error:', error)
     return null
@@ -57,48 +56,82 @@ export const ourFileRouter = {
   })
     .middleware(async ({ req }) => {
       console.log('Authenticating user with Supabase SSR...')
-      const user = await auth(req)
+      const authData = await auth(req)
 
-      if (!user) {
+      if (!authData || !authData.user) {
         console.log("core.ts, No authenticated user. Throwing UploadThingError('Unauthorized')")
         throw new UploadThingError('Unauthorized')
       }
 
-      return { userId: user.id, email: user.email }
+      return {
+        userId: authData.user.id,
+        email: authData.user.email,
+        cookies: Object.fromEntries(authData.cookieStore.getAll().map((cookie) => [cookie.name, cookie.value])), // Ensure it's always an object, this is a hack
+      }
     })
     .onUploadComplete(async ({ metadata, file }) => {
-      console.log('Upload complete, User email:', metadata.email)
-      console.log('Upload complete for file, url:', file.ufsUrl)
+      const cookieStore = new Map(Object.entries(metadata.cookies ?? {}))
+      try {
+        const supabase = createServerClient(
+          process.env.NEXT_PUBLIC_SUPABASE_URL!,
+          process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+          {
+            cookies: {
+              getAll: () => Array.from(cookieStore.entries()).map(([name, value]) => ({ name, value })), // hack due to uploadthing issues
 
-      const supabase = await createSupabaseServerClient()
-      const user = supabase.auth.getUser()
-      const { error } = await supabase
-        .from('saved_images')
-        .insert({
-          file_key: file.key,
+              setAll() {
+                // We don't set cookies in this context
+              },
+            },
+          },
+        )
+
+        const { error } = await supabase.from('saved_images').insert({
           file_url: file.ufsUrl,
+          // user_id: metadata.userId,
+          file_key: file.key, // optional
+          // Add other columns as needed
         })
-        .single()
 
-      // const cookieStore = await cookies()
-      // const supabase = createServerClient(
-      //   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      //   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-      //   {
-      //     cookies: {
-      //       getAll() {
-      //         return cookieStore.getAll()
-      //       },
-      //       setAll() {},
-      //     },
-      //   },
-      // )
+        if (error) {
+          console.error('Error inserting image URL into Supabase:', error)
+        } else {
+          console.log('Image URL inserted into Supabase successfully.')
+        }
 
-      if (error) {
-        console.error('Error saving file record:', error)
+        return { uploadedBy: metadata.userId, fileUrl: file.ufsUrl }
+      } catch (error) {
+        console.error('Error in onUploadComplete:', error)
+        return { uploadedBy: metadata.userId, fileUrl: file.ufsUrl }
       }
-      return { uploadedBy: metadata.userId, fileUrl: file.ufsUrl }
     }),
+  // const { error } = await supabase
+  //   .from('saved_images')
+  //   .insert({
+  //     file_key: file.key,
+  //     file_url: file.ufsUrl,
+  //   })
+  //   .single()
+
+  // const cookieStore = await cookies()
+  // const supabase = createServerClient(
+  //   process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  //   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+  //   {
+  //     cookies: {
+  //       getAll() {
+  //         return cookieStore.getAll()
+  //       },
+  //       setAll() {},
+  //     },
+  //   },
+  // )
+
+  //   if (error) {
+  //     console.error('Error saving file record:', error)
+  //   }
+  //   return { uploadedBy: metadata.userId, fileUrl: file.ufsUrl }
+  // }),
 } satisfies FileRouter
 
 export type OurFileRouter = typeof ourFileRouter
