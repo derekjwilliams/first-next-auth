@@ -40,6 +40,12 @@ const nextConfig = {
         port: '',
         pathname: '/storage/v1/object/public/marigold-rental-images/**',
       },
+      {
+        protocol: 'https',
+        hostname: '018i0wgyr2.ufs.sh',
+        port: '',
+        pathname: '/f/**',
+      },
     ],
     formats: ['image/webp'],
   },

@@ -1,4 +1,5 @@
 /* src/app/api/uploadthing/core.ts */
+/* see https://docs.uploadthing.com/getting-started/appdir */
 
 import { createUploadthing, type FileRouter } from 'uploadthing/next'
 import { UploadThingError } from 'uploadthing/server'
@@ -105,33 +106,6 @@ export const ourFileRouter = {
         return { uploadedBy: metadata.userId, fileUrl: file.ufsUrl }
       }
     }),
-  // const { error } = await supabase
-  //   .from('saved_images')
-  //   .insert({
-  //     file_key: file.key,
-  //     file_url: file.ufsUrl,
-  //   })
-  //   .single()
-
-  // const cookieStore = await cookies()
-  // const supabase = createServerClient(
-  //   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  //   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-  //   {
-  //     cookies: {
-  //       getAll() {
-  //         return cookieStore.getAll()
-  //       },
-  //       setAll() {},
-  //     },
-  //   },
-  // )
-
-  //   if (error) {
-  //     console.error('Error saving file record:', error)
-  //   }
-  //   return { uploadedBy: metadata.userId, fileUrl: file.ufsUrl }
-  // }),
 } satisfies FileRouter
 
 export type OurFileRouter = typeof ourFileRouter
