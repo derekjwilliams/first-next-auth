@@ -32,13 +32,11 @@ export default async function Page({ params }: { params: Params }) {
     .order('unit_number', { ascending: true })
 
   return (
-    <>
       <ServiceRequestEditForm
         serviceRequest={serviceRequest}
         availableTechnicians={technicians ?? []}
         availableServiceTypes={serviceTypes ?? []}
         availableLocations={locations ?? []}
         availableStatuses={statuses ?? []}></ServiceRequestEditForm>
-    </>
   )
 }
