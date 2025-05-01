@@ -1,3 +1,4 @@
+// import { TypedSupabaseClient } from '@/lib/supabase/supabase'
 import { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@/utils/database.types'
 type TypedSupabaseClient = SupabaseClient<Database>

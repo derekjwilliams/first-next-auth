@@ -1,13 +1,10 @@
 //
-import { createSupabaseServerClient } from '../../../../lib/supabase-api/server'
-// import createSupabaseServerClient from '../../../../lib/supabase-api/server'
+import createSupabaseServerClient from '@/lib/supabase/server'
 import { NextResponse } from 'next/server'
-import { cookies } from 'next/headers'
 
 export async function GET(req: Request) {
   try {
-    const cookieStore = await cookies()
-    const supabase = await createSupabaseServerClient(cookieStore)
+    const supabase = await createSupabaseServerClient()
     const { data, error } = await supabase.from('saved_images').select('*').order('created_at', { ascending: false })
     if (error) {
       console.error('Supabase error:', error)

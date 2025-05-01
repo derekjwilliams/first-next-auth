@@ -21,8 +21,6 @@ export async function GET(request: Request) {
   // code is also different, see: https://github.com/Chensokheng/next-14-supabase-ssr/blob/demo/app/oauth/callback/route.ts
   if (code) {
     const cookieStore = cookies() as unknown as UnsafeUnwrappedCookies
-    console.log('src/app/login/callback/route.ts')
-
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -32,7 +30,7 @@ export async function GET(request: Request) {
             return await cookieStore.get(name)?.value
           },
           async set(name: string, value: string, options: CookieOptions) {
-            cookieStore.set({ name, value, httpOnly: true, sameSite: 'none', ...options })
+            cookieStore.set({ name, value, ...options })
           },
           async remove(name: string, options: CookieOptions) {
             cookieStore.delete({ name, ...options })

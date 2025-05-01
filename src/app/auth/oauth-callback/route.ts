@@ -14,7 +14,7 @@ export async function GET(request: Request) {
   const code = searchParams.get('code')
   // if "next" is in param, use it as the redirect URL
   const next = searchParams.get('next') ?? '/'
-  console.log('src/app/auth/oauth-callback/route.ts')
+
   // NOTE, competed code in the demo branch has the functionality in
   // app/oauth/callback/route.ts not
   // app/auth-server-action/callback/route.ts
@@ -30,7 +30,7 @@ export async function GET(request: Request) {
             return cookieStore.get(name)?.value
           },
           async set(name: string, value: string, options: CookieOptions) {
-            cookieStore.set({ name, value, httpOnly: true, sameSite: 'none', ...options })
+            cookieStore.set({ name, value, ...options })
           },
           async remove(name: string, options: CookieOptions) {
             cookieStore.delete({ name, ...options })

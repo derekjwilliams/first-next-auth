@@ -1,5 +1,5 @@
 import AuthButton from '../../../components/AuthButton'
-import { createClient } from '../../../lib/supabase-api/client'
+import { createClient } from '../../../lib/supabase/client'
 import Link from 'next/link'
 import { marigoldColors } from '../../customStyles/marigoldColors.stylex'
 import { sizes } from '../../../app/open-props/lib/sizes.stylex'

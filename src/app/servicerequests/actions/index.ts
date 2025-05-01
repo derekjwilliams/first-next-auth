@@ -1,11 +1,10 @@
 'use server'
-import { createSupabaseServerClient } from '../../../lib/supabase-api/server'
+import { createClient } from '../../../lib/supabase/client' //yyyy Should this be used instead of createSupabaseServerClient?
+import createSupabaseServerClient from '../../../lib/supabase/server'
 import { revalidatePath, unstable_noStore as noStore } from 'next/cache'
-import { cookies } from 'next/headers'
 
 export async function createServiceRequest(description: string) {
-  const cookieStore = await cookies()
-  const supabase = await createSupabaseServerClient(cookieStore)
+  const supabase = await createSupabaseServerClient()
   const user = supabase.auth.getUser()
   const result = await supabase
     .from('service_requests')
@@ -17,15 +16,13 @@ export async function createServiceRequest(description: string) {
 
 export async function readServiceRequests() {
   noStore()
-  const cookieStore = await cookies()
-  const supabase = await createSupabaseServerClient(cookieStore)
+  const supabase = await createSupabaseServerClient()
   return await supabase.from('service_requests').select('*')
 }
 
 // delete by id, e.g. from a delete button
 export async function deleteServiceRequestById(id: string) {
-  const cookieStore = await cookies()
-  const supabase = await createSupabaseServerClient(cookieStore)
+  const supabase = await createSupabaseServerClient()
   await supabase.from('service_requests').delete().eq('id', id)
   revalidatePath('/servicerequests') //TOD create page.tsx in app/servicerequest folder
 }

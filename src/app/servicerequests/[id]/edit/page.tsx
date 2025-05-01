@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase-api/client'
+import { createClient } from '@/lib/supabase/client'
 import ServiceRequestEditForm from '@/components/ServiceRequestEditForm'
 import { QueryData } from '@supabase/supabase-js'
 import '@/components/lexicalstyles.css'
@@ -32,11 +32,11 @@ export default async function Page({ params }: { params: Params }) {
     .order('unit_number', { ascending: true })
 
   return (
-    <ServiceRequestEditForm
-      serviceRequest={serviceRequest}
-      availableTechnicians={technicians ?? []}
-      availableServiceTypes={serviceTypes ?? []}
-      availableLocations={locations ?? []}
-      availableStatuses={statuses ?? []}></ServiceRequestEditForm>
+      <ServiceRequestEditForm
+        serviceRequest={serviceRequest}
+        availableTechnicians={technicians ?? []}
+        availableServiceTypes={serviceTypes ?? []}
+        availableLocations={locations ?? []}
+        availableStatuses={statuses ?? []}></ServiceRequestEditForm>
   )
 }

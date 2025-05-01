@@ -1,5 +1,5 @@
 import MultipleServiceRequests from '../../../../components/MultipleServiceRequests'
-import { createClient } from '../../../../lib/supabase-api/client'
+import { createClient } from '../../../../lib/supabase/client'
 import { serviceTypes } from '../../../../utils/serviceTypes'
 
 const snakeToPascalCase = (value: string) => {

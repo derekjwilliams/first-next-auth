@@ -1,4 +1,4 @@
-import { TypedSupabaseClient } from '@/lib/supabase-api/client'
+import { TypedSupabaseClient } from '@/lib/supabase/supabase'
 
 export function getMultipleServiceRequests(client: TypedSupabaseClient, service_type_id: string) {
   if (service_type_id) {

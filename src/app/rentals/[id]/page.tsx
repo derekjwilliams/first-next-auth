@@ -1,5 +1,5 @@
 'use server'
-import { createClient } from '../../../lib/supabase-api/client'
+import { createClient } from '../../../lib/supabase/client'
 import Image from 'next/image'
 import { getPlaceholderImage } from '../../../utils/images'
 import * as stylex from '@stylexjs/stylex'

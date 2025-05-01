@@ -2,7 +2,7 @@
 'use client' // Mark this as a Client Component
 
 import React, { useState, useEffect } from 'react'
-import { Tables } from '@/utils/database.types'
+import { Tables } from '@/utils/database.types' // Adjust path as needed
 
 export default function DocumentTable() {
   const [documents, setDocuments] = useState<Tables<'documents'>[]>([])

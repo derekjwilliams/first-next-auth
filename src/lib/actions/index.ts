@@ -1,13 +1,11 @@
 'use server'
 import { redirect } from 'next/navigation'
-import { createSupabaseServerClient } from '../supabase-api/server'
+import createSupabaseServerClient from '../supabase/server'
 import { unstable_noStore as noStore, revalidatePath } from 'next/cache'
-import { cookies } from 'next/headers'
 
 export default async function readUserSession() {
   noStore()
-  const cookieStore = await cookies()
-  const supabase = await createSupabaseServerClient(cookieStore)
+  const supabase = await createSupabaseServerClient()
   return supabase.auth.getSession()
 }
 
@@ -31,8 +29,8 @@ export async function updateServiceRequest(
 
   /* empty serviceType is not allowed in database, so don't proceed if it is empty*/
   if (serviceTypeSelected?.toString() !== '') {
-    const cookieStore = await cookies()
-    const supabase = await createSupabaseServerClient(cookieStore)
+    debugger
+    const supabase = await createSupabaseServerClient()
     /* update service type TODO handle data correctly */
     const { data: updateServiceTypeData, error: updateServiceTypeError } = await supabase
       .from('service_requests')

@@ -1,4 +1,4 @@
-import { TypedSupabaseClient } from '@/lib/supabase-api/client'
+import { TypedSupabaseClient } from '@/lib/supabase/supabase'
 import { Tables } from '@/utils/database.types'
 
 import { PostgrestSingleResponse } from '@supabase/supabase-js'
