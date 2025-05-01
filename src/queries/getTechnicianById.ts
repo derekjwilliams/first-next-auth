@@ -1,4 +1,4 @@
-import { TypedSupabaseClient } from '@/lib/supabase/supabase'
+import { TypedSupabaseClient } from '@/lib/supabase-api/client'
 
 export function getTechnicianById(client: TypedSupabaseClient, id: string) {
   return client

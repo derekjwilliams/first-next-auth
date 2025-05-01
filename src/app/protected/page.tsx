@@ -1,5 +1,5 @@
 import AuthButton from '../../components/AuthButton'
-import { createClient } from '../../lib/supabase/client'
+import { createClient } from '../../lib/supabase-api/client'
 import Header from '../../components/Header'
 import { redirect } from 'next/navigation'
 import * as stylex from '@stylexjs/stylex'

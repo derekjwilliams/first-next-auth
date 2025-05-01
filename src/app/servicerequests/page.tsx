@@ -1,6 +1,6 @@
 import ServiceRequestTable from '../../components/ServiceRequestTable'
 import ServiceRequestTableSkeleton from '../../components/ServiceRequestTableSkeleton'
-import { createClient } from '../../lib/supabase/client'
+import { createClient } from '../../lib/supabase-api/client'
 import stylex from '@stylexjs/stylex'
 import { Suspense } from 'react'
 import { marigoldColors } from '../customStyles/marigoldColors.stylex'

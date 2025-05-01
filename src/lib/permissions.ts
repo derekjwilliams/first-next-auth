@@ -8,8 +8,8 @@ export interface UserAttributes {
 }
 
 export interface ResourceAttributes {
-  ownerId?: string
-  department?: string
+  owner_id?: string
+  department?: string | null
   sensitivity?: 'public' | 'internal' | 'confidential'
   // Add other relevant attributes: project, tags, etc.
 }
@@ -42,7 +42,7 @@ export function can(user: UserAttributes | null, action: Action, resource?: Reso
       if (resource?.sensitivity === 'internal' && resource?.department === user.department) {
         return true
       }
-      if (resource?.sensitivity === 'confidential' && resource?.ownerId === user.id) {
+      if (resource?.sensitivity === 'confidential' && resource?.owner_id === user.id) {
         return true // Only owner can read confidential
       }
       // Fallthrough denial for read
@@ -50,7 +50,7 @@ export function can(user: UserAttributes | null, action: Action, resource?: Reso
 
     case 'edit':
       // Only editors can edit documents they own
-      return user.roles.includes('editor') && resource?.ownerId === user.id
+      return user.roles.includes('editor') && resource?.owner_id === user.id
 
     case 'delete':
       // Only admins can delete (handled by admin override above)

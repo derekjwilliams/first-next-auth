@@ -1,6 +1,6 @@
 import ServiceTypeTable from '../../components/ServiceTypeTable'
 import ServiceTypeTableSkeleton from '../../components/ServiceTypeTableSkeleton'
-import { createClient } from '../../lib/supabase/client'
+import { createClient } from '../../lib/supabase-api/client'
 import { Suspense } from 'react'
 // interface PageProps {
 //   searchParams: { page?: string }

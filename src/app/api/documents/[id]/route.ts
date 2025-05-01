@@ -1,243 +1,215 @@
-// // app/api/documents/[id]/route.ts
+// app/api/documents/[id]/route.ts
 import { NextRequest, NextResponse } from 'next/server'
-// Removed 'cookies' import here as it's handled within the helper
-import { createSupabaseServerClient, getCurrentUserAttributes } from '@/lib/supabase-api/server' // Use updated helpers
-// import { createSupabaseServerClient, getCurrentUserAttributes } from '@/lib/supabase-api/server' // Use updated helpers
-import { can, ResourceAttributes } from '@/lib/permissions'
-import { z } from 'zod'
 import { cookies } from 'next/headers'
-import { documentsDb } from '../testdata'
+import { createSupabaseServerClient, getCurrentUserAttributes } from '@/lib/supabase-api/server' // Correct path to server helpers
+import { can, ResourceAttributes } from '@/lib/permissions' // Import ABAC logic
+import { z } from 'zod'
+import { Tables } from '@/utils/database.types'
 
-// ... (getDocumentAttributes function remains the same) ...
-// ... (updateSchema remains the same) ...
-async function getDocumentAttributes(id: string): Promise<ResourceAttributes | null> {
-  console.log(`API: Fetching attributes for request ${id}`)
-  // In real app: const supabase = createSupabaseServerClient();
-  // await supabase.from('documents').select('owner_id, department, sensitivity').eq('id', id).single();
+// Removed simulation imports and data
+// Removed local Document interface if defined here
+// Removed simulation functions: getDocumentAttributes, getDocument, deleteDocument, updateDocument
 
-  // HACK mock data
-  if (id === 'doc-2') {
-    return { ownerId: 'user-123', department: 'Engineering', sensitivity: 'internal' }
-  }
-  if (id === 'doc-4') {
-    return { ownerId: 'user-123', sensitivity: 'confidential' }
-  }
-  return null
-}
-interface Document extends ResourceAttributes {
-  id: string
-  title: string
-  content?: string // Added content field
-}
-
-// Simulate fetching a single document's full data and attributes
-async function getDocument(id: string): Promise<Document | null> {
-  console.log(`API [id]: Fetching document ${id}`)
-  // In real app: Use Supabase client passed in or created with cookieStore
-  // const { data, error } = await supabase.from('documents').select('*').eq('id', id).maybeSingle();
-  // if (error) throw error; return data;
-  const doc = documentsDb.find((d) => d.id === id)
-  return doc ? { ...doc } : null // Return a copy
-}
-
-// Simulate deleting a document
-async function deleteDocument(id: string): Promise<boolean> {
-  console.log(`API [id]: Deleting document ${id}`)
-  const initialLength = documentsDb.length
-  // documentsDb = documentsDb.filter((d) => d.id !== id)
-  return documentsDb.length < initialLength
-}
-
-// Simulate updating a document
-async function updateDocument(id: string, data: Partial<Document>): Promise<Document | null> {
-  console.log(`API [id]: Updating document ${id} with`, data)
-  const docIndex = documentsDb.findIndex((d) => d.id === id)
-  if (docIndex === -1) return null
-  documentsDb[docIndex] = { ...documentsDb[docIndex], ...data }
-  return { ...documentsDb[docIndex] } // Return a copy
-}
-// --- End Simulation ---
-
+// Zod schema for validating PATCH request body (keep this)
 const updateSchema = z.object({
   title: z.string().min(1).optional(),
   content: z.string().optional(),
-  // Add other updatable fields, but be careful about sensitivity, ownerId etc.
+  // Add other fields allowed for update, e.g., sensitivity, department
+  // Be cautious about allowing changes to owner_id or critical fields via PATCH
+  sensitivity: z.enum(['public', 'internal', 'confidential']).optional(),
+  department: z.string().nullable().optional(),
 })
 
-// --- GET /api/documents/[id] ---
-export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params
-  const cookieStore = await cookies() // Use await as per Supabase docs
+// --- GET /api/documents/[id] --- (Fetch Single Document)
+export async function GET(
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }, // Correct context signature
+) {
+  const { id } = await context.params // Await params
+  const cookieStore = await cookies()
+  const supabase = createSupabaseServerClient(cookieStore)
 
   try {
-    // 1. Auth: Get user (can be null for public reads)
-    const user = await getCurrentUserAttributes() // Uses await cookies() internally
+    // 1. Fetch the document from Supabase
+    // maybeSingle() returns data or null, doesn't error if not found (unless DB error)
+    // RLS policy is applied automatically by Supabase based on the user's session
+    const { data: document, error: dbError } = await supabase
+      .from('documents')
+      .select('*') // Select all columns for the response
+      .eq('id', id) // Filter by the provided ID
+      .maybeSingle() // Fetch one or null
 
-    // 2. Fetch Resource (needed for ABAC check and response)
-    const document = await getDocument(id)
+    // Handle potential database errors during fetch
+    if (dbError) {
+      console.error(`API GET /documents/${id}: Supabase error:`, dbError)
+      return NextResponse.json({ error: 'Failed to fetch document' }, { status: 500 })
+    }
+
+    // 2. Check if document exists (or if RLS prevented access)
     if (!document) {
-      return NextResponse.json({ error: 'Document not found' }, { status: 404 })
+      // RLS might have returned null even if the doc exists but user can't see it
+      return NextResponse.json({ error: 'Document not found or access denied' }, { status: 404 })
     }
 
-    // 3. Authorization Check (ABAC)
-    // Pass the fetched document attributes to can()
-    if (!can(user, 'read', document)) {
-      // Even if the doc exists, if they can't read it, treat as not found or forbidden
-      // Returning 404 hides existence, 403 reveals existence but denies access.
-      console.warn(`API: Permission Denied - User ${user?.id ?? 'anon'} tried 'read' on doc ${id}`)
-      return NextResponse.json({ error: 'Document not found' }, { status: 404 }) // Or 403
-    }
+    // 3. Optional: Application-level ABAC check (Defense-in-depth)
+    // Although RLS should handle this, an extra check here can catch complex rules
+    // or provide a safety net. Requires fetching user attributes.
+    // const user = await getCurrentUserAttributes();
+    // if (!can(user, 'read', document)) {
+    //   console.warn(`API GET /documents/${id}: App-level permission denied for user ${user?.id ?? 'anon'}`);
+    //   return NextResponse.json({ error: 'Access Denied' }, { status: 403 });
+    // }
 
-    // 4. Return Data
-    // Important: Supabase RLS *should* have already prevented fetching if not allowed,
-    // but the `can()` check provides defense-in-depth and handles complex app logic.
+    // 4. Return the fetched document data
     return NextResponse.json(document)
-  } catch (error) {
-    console.error(`API GET /documents/${id}: Error`, error)
+  } catch (err) {
+    console.error(`API GET /documents/${id}: Unexpected error:`, err)
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
   }
 }
 
-// --- PATCH /api/documents/[id] ---
-
-export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params
-  // No need to get cookieStore or pass it here anymore
+// --- PATCH /api/documents/[id] --- (Update Single Document)
+export async function PATCH(request: NextRequest, context: { params: Promise<{ id: string }> }) {
+  const { id } = await context.params
+  const cookieStore = await cookies()
+  const supabase = createSupabaseServerClient(cookieStore)
 
   try {
-    // 1. Authentication & User Attributes (uses the updated helper)
     const user = await getCurrentUserAttributes()
-
     if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      /* ... TODO Unauthorized ... */
     }
 
-    // 2. Fetch Resource Attributes
-    const resource = await getDocumentAttributes(id)
-    if (!resource) {
+    // Fetch Current Document Attributes for Authorization Check
+    // Select fields defined in the ResourceAttributes interface
+    const { data: currentDocAttrsData, error: fetchError } = await supabase
+      .from('documents')
+      .select('owner_id, department, sensitivity') // Ensure these match ResourceAttributes fields
+      .eq('id', id)
+      .maybeSingle()
+
+    if (fetchError) {
+      /* ... Handle fetch error ... */
+    }
+    let currentDocResource
+
+    if (currentDocAttrsData) {
+      currentDocResource = {
+        owner_id: currentDocAttrsData.owner_id,
+        department: currentDocAttrsData.department,
+        sensitivity: currentDocAttrsData.sensitivity,
+      }
+    } else {
+      currentDocResource = null
+    }
+    if (!currentDocResource) {
       return NextResponse.json({ error: 'Document not found' }, { status: 404 })
     }
 
-    // 3. Authorization Check (ABAC) - No change here
-    if (!can(user, 'edit', resource)) {
-      console.warn(`API: Permission Denied - User ${user.id} tried 'edit' on doc ${id}`)
+    // Authorization Check (Application-level ABAC) - Pass the correctly typed resource
+    if (!can(user, 'edit', currentDocResource)) {
+      console.warn(`API PATCH /documents/${id}: Permission Denied - User ${user ? user.id : '[NO USER]'} tried 'edit'`)
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
-    // 4. Input Validation - No change here
-    let updateData
+    let validatedUpdateData
     try {
       const body = await request.json()
-      updateData = updateSchema.parse(body)
+
+      validatedUpdateData = updateSchema.parse(body)
+
+      // 3. Check if any valid update fields were provided
+      if (Object.keys(validatedUpdateData).length === 0) {
+        return NextResponse.json(
+          { error: 'Bad Request', details: 'No valid fields provided for update.' },
+          { status: 400 },
+        )
+      }
     } catch (error) {
-      console.error('API: Invalid request body:', error)
-      return NextResponse.json({ error: 'Bad Request', details: (error as Error).message }, { status: 400 })
+      // Handle JSON parsing errors or Zod validation errors
+      console.error(`API PATCH /documents/${id}: Invalid request body:`, error)
+      // Provide specific validation errors if using Zod
+      const details = error instanceof z.ZodError ? error.errors : (error as Error).message
+      return NextResponse.json({ error: 'Bad Request', details }, { status: 400 })
     }
 
-    // 5. Perform Update (Simulated)
-    // If you need DB access here, create a client *instance* for this operation
-    const cookieStore = await cookies()
-    const supabase = createSupabaseServerClient(cookieStore) // Create client instance if needed for DB op
-    console.log(`API: User ${user.id} authorized. Updating doc ${id} with:`, updateData)
-    // const { error: updateError } = await supabase.from('documents')... // Use the instance
+    // Perform Supabase Update
+    const { data: updatedDocument, error: updateError } = await supabase
+      .from('documents')
+      .update(validatedUpdateData)
+      .eq('id', id)
+      .select()
+      .single()
 
-    // 6. Return Success Response
-    return NextResponse.json({ success: true, message: `Document ${id} updated.` })
-  } catch (error) {
-    console.error(`API: Error updating document ${id}:`, error)
-    // Ensure sensitive details aren't leaked in production errors
+    if (updateError) {
+      console.error(`API PATCH /documents/${id}: Supabase update error:`, updateError)
+      if (updateError.code === '42501') {
+        // RLS permission denied
+        return NextResponse.json({ error: 'Forbidden by database policy' }, { status: 403 })
+      }
+      return NextResponse.json({ error: 'Failed to update document' }, { status: 500 })
+    }
+
+    return NextResponse.json(updatedDocument)
+  } catch (err) {
+    console.error(`API PATCH /documents/${id}: Unexpected error:`, err)
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
   }
 }
-
-// export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
-//   const { id } = params
-//   const cookieStore = await cookies() // Use await
-
-//   try {
-//     // 1. Authentication & User Attributes
-//     const user = await getCurrentUserAttributes()
-//     if (!user) {
-//       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-//     }
-
-//     // 2. Fetch Resource Attributes (needed for ABAC check)
-//     // In a real app, you might fetch only necessary fields for the check first
-//     const currentDocument = await getDocument(id)
-//     if (!currentDocument) {
-//       return NextResponse.json({ error: 'Document not found' }, { status: 404 })
-//     }
-
-//     // 3. Authorization Check (ABAC)
-//     if (!can(user, 'edit', currentDocument)) {
-//       console.warn(`API: Permission Denied - User ${user.id} tried 'edit' on doc ${id}`)
-//       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
-//     }
-
-//     // 4. Input Validation
-//     let updateData
-//     try {
-//       const body = await request.json()
-//       updateData = updateSchema.parse(body)
-//     } catch (error) {
-//       console.error('API PATCH: Invalid request body:', error)
-//       return NextResponse.json({ error: 'Bad Request', details: (error as Error).message }, { status: 400 })
-//     }
-//     if (Object.keys(updateData).length === 0) {
-//       return NextResponse.json({ error: 'Bad Request', details: 'No update data provided.' }, { status: 400 })
-//     }
-
-//     // 5. Perform Update (Simulated)
-//     // const supabase = createSupabaseServerClient(cookieStore); // Create client if needed
-//     const updatedDoc = await updateDocument(id, updateData)
-//     // In real app: check for errors from updateDocument/supabase call
-
-//     // 6. Return Success Response
-//     return NextResponse.json(updatedDoc) // Return updated document
-//   } catch (error) {
-//     console.error(`API PATCH /documents/${id}: Error`, error)
-//     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
-//   }
-// }
-
-// --- DELETE /api/documents/[id] ---
-export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params
-  const cookieStore = await cookies() // Use await
+// --- DELETE /api/documents/[id] --- (Delete Single Document)
+export async function DELETE(request: NextRequest, context: { params: Promise<{ id: string }> }) {
+  const { id } = await context.params
+  const cookieStore = await cookies()
+  const supabase = createSupabaseServerClient(cookieStore)
 
   try {
-    // 1. Authentication & User Attributes
     const user = await getCurrentUserAttributes()
     if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      /* ... Unauthorized ... */
     }
 
-    // 2. Fetch Resource Attributes (needed for ABAC check)
-    const currentDocument = await getDocument(id)
-    if (!currentDocument) {
-      // If it doesn't exist, we can arguably return success (idempotent) or 404.
-      // Let's return 404 for clarity.
-      return NextResponse.json({ error: 'Document not found' }, { status: 404 })
+    // Fetch Current Document Attributes for Authorization Check (Optional but good practice)
+    const { data: currentDocAttrsData, error: fetchError } = await supabase
+      .from('documents')
+      .select('owner_id, department, sensitivity') // Ensure these match ResourceAttributes fields
+      .eq('id', id)
+      .maybeSingle()
+
+    if (fetchError) {
+      /* ... TODO Handle fetch error ... */
     }
 
-    // 3. Authorization Check (ABAC)
-    if (!can(user, 'delete', currentDocument)) {
-      console.warn(`API: Permission Denied - User ${user.id} tried 'delete' on doc ${id}`)
+    // Explicitly type the fetched data
+    const currentDocResource: ResourceAttributes | null = currentDocAttrsData
+      ? {
+          owner_id: currentDocAttrsData.owner_id, // Map DB column name to interface property name
+          department: currentDocAttrsData.department,
+          sensitivity: currentDocAttrsData.sensitivity,
+        }
+      : null
+
+    if (!currentDocResource) {
+      // Document not found, return 204 for idempotency
+      return new NextResponse(null, { status: 204 })
+    }
+
+    // Authorization Check (Application-level ABAC) - Pass the correctly typed resource
+    if (!can(user, 'delete', currentDocResource)) {
+      console.warn(
+        `API DELETE /documents/${id}: Permission Denied - User ${user ? user.id : '[NO USER]'} tried 'delete'`,
+      )
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
-    // 4. Perform Deletion (Simulated)
-    // const supabase = createSupabaseServerClient(cookieStore); // Create client if needed
-    const deleted = await deleteDocument(id)
-    if (!deleted) {
-      // Should ideally not happen if check passed, but good practice
-      throw new Error('Simulated deletion failed unexpectedly.')
+    // Perform Supabase Deletion
+    const { error: deleteError } = await supabase.from('documents').delete().eq('id', id)
+
+    if (deleteError) {
+      /* ... TODO Handle delete error ... */
     }
 
-    // 5. Return Success Response (No Content)
-    return new NextResponse(null, { status: 204 }) // Standard for successful DELETE
-  } catch (error) {
-    console.error(`API DELETE /documents/${id}: Error`, error)
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
+    return new NextResponse(null, { status: 204 })
+  } catch (err) {
+    /* ... TODO Handle unexpected error ... */
   }
 }

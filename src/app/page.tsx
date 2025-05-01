@@ -1,5 +1,5 @@
 import AuthButton from '../components/AuthButton'
-import { createClient } from '../lib/supabase/client'
+import { createClient } from '../lib/supabase-api/client'
 import Header from '../components/Header'
 import stylex from '@stylexjs/stylex'
 import { sizes } from '../app/open-props/lib/sizes.stylex'
