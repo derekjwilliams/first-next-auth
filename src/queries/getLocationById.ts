@@ -1,3 +1,4 @@
+// src/queries/getLocationById.ts
 import { TypedSupabaseClient } from '@/lib/supabase/supabase'
 import { Tables } from '@/utils/database.types'
 
@@ -18,7 +19,7 @@ export async function getLocationById(
   return client!
     .from('locations')
     .select(
-      'id, location_name, street_address, unit_number, city, state_province, postal_code, service_requests(*, technicians(*)), bedrooms(id), bathrooms(id)',
+      'id, location_name, street_address, unit_number, city, state_province, postal_code, bedrooms(*), bathrooms(*), service_requests(*, technicians(*), locations(*))',
     )
     .eq('id', id)
     .throwOnError()

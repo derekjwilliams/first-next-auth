@@ -1,14 +1,9 @@
-import LocationDetail from '../../../components/LocationDetail'
+//src/app/properties/[id]/page.tsx
+import LocationDetailsPage from '../../../components/LocationDetailsPage'
 type Params = Promise<{ id: string }>
-
 export default async function Page({ params }: { params: Params }) {
   const resolvedParams = await params
   const id = resolvedParams.id
 
-  return <LocationDetail id={id} />
+  return <LocationDetailsPage locationId={id} />
 }
-
-// export default async function Page({ params }: { params: { id: string } }) {
-//   const id = params.id
-//   return <LocationDetail id={id}></LocationDetail>
-// }
