@@ -13,6 +13,9 @@ import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import { NextSSRPlugin } from '@uploadthing/react/next-ssr-plugin'
 import { extractRouterConfig } from 'uploadthing/server'
 import { ourFileRouter } from './api/uploadthing/core'
+// TODO import { PermissionsProvider } from '@/context/PermissionsContext'
+// import LoginButtons from '@/components/LoginButtons'; // Keep or modify as needed
+import { getCurrentUserAttributes } from '@/lib/supabase-api/server' // Use the new helper
 
 // import { Analytics } from '@vercel/analytics/react'
 
@@ -46,7 +49,8 @@ const styles = stylex.create({
   },
 })
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const userAttributes = await getCurrentUserAttributes()
   const header = (
     <div {...stylex.props(styles.top)}>
       <Link href='/'>
@@ -62,6 +66,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel='preconnect' href='https://fonts.gstatic.com' crossOrigin='anonymous' />
       </head>
       <body {...stylex.props(styles.reset, styles.body)}>
+        {/* <PermissionsProvider initialUser={userAttributes}> */}
         {header}
         <ReactQueryClientProvider>
           <main>
@@ -81,6 +86,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             {/* <SpeedInsights /> */}
           </main>
         </ReactQueryClientProvider>
+        {/* </PermissionsProvider> */}
       </body>
     </html>
   )
