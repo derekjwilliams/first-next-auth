@@ -1,3 +1,4 @@
+//src/hooks/useLocationQuery.ts
 import { useQuery } from '@tanstack/react-query'
 import useSupabase from './useSupabase'
 import { getLocationById } from '../queries/getLocationById'
