@@ -5,6 +5,7 @@ import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import { sizes } from '../app/open-props/lib/sizes.stylex'
 import { fonts } from '../app/open-props/lib/fonts.stylex'
+import { getCoreRowModel, getFilteredRowModel, useReactTable, flexRender, type ColumnDef } from '@tanstack/react-table'
 
 interface SimpleServiceRequestsTableProps {
   serviceRequests: Array<
@@ -15,14 +16,114 @@ interface SimpleServiceRequestsTableProps {
   >
 }
 
+type ServiceRequestRow = Tables<'service_requests'> & {
+  service_types: Tables<'service_types'>
+  technicians: Array<Tables<'technicians'>>
+}
+
+interface SimpleServiceRequestsTableProps {
+  serviceRequests: ServiceRequestRow[]
+}
+
+export default function SimpleServiceRequestsTable({
+  serviceRequests = [],
+}: SimpleServiceRequestsTableProps): React.JSX.Element {
+  const columns: ColumnDef<ServiceRequestRow>[] = [
+    {
+      accessorKey: 'description',
+      header: 'Description',
+      cell: ({ row, getValue }) => (
+        <Link href={`/servicerequests/${row.original.id}`} {...stylex.props(styles.descriptionLink)}>
+          {getValue() as string}
+        </Link>
+      ),
+    },
+    {
+      accessorFn: (row) => row.service_types.service_name,
+      id: 'service_type',
+      header: 'Type',
+      cell: (info) => info.getValue() as string,
+    },
+    {
+      accessorKey: 'technicians',
+      header: 'Assigned Technicians',
+      cell: ({ getValue }) => {
+        const technicians = getValue() as Array<Tables<'technicians'>>
+        if (!technicians?.length) return <div>Unassigned</div>
+
+        return (
+          <div {...stylex.props(styles.techniciansList)}>
+            {technicians.map((tech) => (
+              <Link key={tech.id} href={`/technicians/${tech.id}`} {...stylex.props(styles.technicianLink)}>
+                {tech.name}
+              </Link>
+            ))}
+          </div>
+        )
+      },
+      enableSorting: false,
+      enableColumnFilter: false,
+    },
+  ]
+
+  const table = useReactTable({
+    data: serviceRequests,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+  })
+
+  if (!serviceRequests.length) {
+    return <div {...stylex.props(styles.emptyState)}>No service requests found.</div>
+  }
+
+  return (
+    <div {...stylex.props(styles.container)}>
+      <div {...stylex.props(styles.tableContainer)}>
+        <table {...stylex.props(styles.table)} aria-label='Service requests'>
+          <thead>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <th key={header.id} scope='col' {...stylex.props(styles.headerCell)}>
+                    {flexRender(header.column.columnDef.header, header.getContext())}
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody>
+            {table.getRowModel().rows.map((row) => (
+              <tr key={row.id} {...stylex.props(styles.row)}>
+                {row.getVisibleCells().map((cell) => (
+                  <td key={cell.id} {...stylex.props(styles.cell)}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
 const styles = stylex.create({
-  html: {
-    colorScheme: 'light dark',
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
   },
-  reset: {
-    minHeight: '100%',
-    margin: 0,
-    padding: 0,
+  headerCell: {
+    padding: '12px 16px',
+    textAlign: 'left',
+    fontWeight: 600,
+    borderBottom: '1px solid #e2e8f0',
+  },
+  row: {
+    ':hover': {
+      backgroundColor: '#f7fafc',
+    },
   },
   containerWrapper: {
     paddingTop: '10px',
@@ -75,7 +176,7 @@ const styles = stylex.create({
     paddingRight: sizes.spacing1,
   },
 
-  tableData: {
+  cell: {
     textAlign: 'left',
     borderWidth: '1px',
     borderStyle: 'solid',
@@ -89,87 +190,36 @@ const styles = stylex.create({
     fontSize: fonts.size2,
     minWidth: '8rem',
   },
-  tableDataLink: {
-    textDecoration: 'none',
-    color: {
-      default: marigoldColors.foregroundLink,
-      ':hover': marigoldColors.foregroundHoverLink,
-    },
-  },
-  tableCheckboxData: {
-    minWidth: 'auto',
-  },
-  tableStatusData: {
-    minWidth: 'auto',
-    whiteSpace: 'nowrap',
-  },
-  tableDescriptionData: {
-    minWidth: '10rem',
-  },
-  tableTechnicianData: {
-    width: '8rem',
-  },
   tableDateData: {
     width: '2rem',
     minWidth: 'auto',
   },
-  dataDate: {
-    whiteSpace: 'nowrap',
+  tableContainer: {
+    overflowX: 'auto',
+    width: '100%',
   },
-  dataTime: {
-    marginLeft: '0.5rem',
-    whiteSpace: 'nowrap',
+  descriptionLink: {
+    color: '#3182ce',
+    textDecoration: 'none',
+    ':hover': {
+      textDecoration: 'underline',
+    },
   },
-  tableDropdownData: {
-    width: 'auto',
-    minWidth: 'auto',
+  techniciansList: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '4px',
+  },
+  technicianLink: {
+    color: '#3182ce',
+    textDecoration: 'none',
+    ':hover': {
+      textDecoration: 'underline',
+    },
+  },
+  emptyState: {
+    padding: '24px',
+    textAlign: 'center',
+    color: '#718096',
   },
 })
-
-export default function SimpleServiceRequestsTable({ serviceRequests }: SimpleServiceRequestsTableProps) {
-  if (!serviceRequests || serviceRequests.length === 0) {
-    return <p>No service requests found for this property.</p>
-  }
-
-  return (
-    <div {...stylex.props(styles.containerWrapper)}>
-      <div {...stylex.props(styles.dataWrapper)}>
-        <div {...stylex.props(styles.tableWrapper)}>
-          <table {...stylex.props(styles.table)}>
-            <thead>
-              <tr {...stylex.props(styles.tableHeaderRow)}>
-                <th {...stylex.props(styles.tableHead)}>Description</th>
-                <th {...stylex.props(styles.tableHead)}>Type</th>
-                <th {...stylex.props(styles.tableHead)}>Assigned Technicians</th>
-              </tr>
-            </thead>
-            <tbody>
-              {serviceRequests.map((request) => (
-                <tr key={request.id}>
-                  <td {...stylex.props(styles.tableData)}>
-                    <Link href={`/servicerequests/${request.id}`}>{request.description}</Link>
-                  </td>
-                  <td {...stylex.props(styles.tableData)}>
-                    {request.service_types.service_name}
-                    {/* <Link href={`/servicerequests/${request.service_type_id}`}>{request.service_types.service_name}</Link> */}
-                  </td>
-                  <td {...stylex.props(styles.tableData)}>
-                    {request.technicians && request.technicians.length > 0 ? (
-                      request.technicians.map((technician) => (
-                        <div key={technician.id}>
-                          <Link href={`/technicians/${technician.id}`}>{technician.name}</Link>
-                        </div>
-                      ))
-                    ) : (
-                      <div>Unassigned</div>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  )
-}
