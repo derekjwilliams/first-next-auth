@@ -1,8 +1,7 @@
 'use client'
 
-import { useCallback, useEffect } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { type SortingState } from '@tanstack/react-table'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { type SortingState, type PaginationState } from '@tanstack/react-table'
 import useLocationQuery from '../hooks/useLocationQuery'
 import useServiceRequestsByLocationIdQuery from '../hooks/useServiceRequestsByLocationIdQuery'
 import LocationDetails from './LocationDetails'
@@ -24,46 +23,34 @@ const styles = stylex.create({
 
 export default function LocationDetailsPage({ locationId }: LocationDetailsPageProps) {
   const router = useRouter()
+  const pathname = usePathname()
   const searchParams = useSearchParams()
 
-  // Parse sorting from URL
-  const getSortingFromUrl = useCallback((): SortingState => {
-    const sortField = searchParams.get('sortField')
-    const sortDirection = searchParams.get('sortDir')
+  const sorting = parseSortingFromURL(searchParams)
+  const pagination = parsePaginationFromURL(searchParams)
 
-    if (!sortField) return []
+  const handleStateChange = (newState: { sorting?: SortingState; pagination?: PaginationState }) => {
+    const params = new URLSearchParams(searchParams.toString())
 
-    return [
-      {
-        id: sortField,
-        desc: sortDirection === 'desc',
-      },
-    ]
-  }, [searchParams])
-
-  // Get current sorting from URL
-  const sorting = getSortingFromUrl()
-
-  // Update URL when sorting changes
-  const handleSortingChange = useCallback(
-    (newSorting: SortingState) => {
-      const params = new URLSearchParams(searchParams.toString())
-
-      if (newSorting.length === 0) {
-        // Remove sorting parameters if no sorting
-        params.delete('sortField')
-        params.delete('sortDir')
+    // Update sorting
+    if (newState.sorting) {
+      if (newState.sorting.length > 0) {
+        params.set('sort', newState.sorting[0].id)
+        params.set('order', newState.sorting[0].desc ? 'desc' : 'asc')
       } else {
-        // Update sorting parameters
-        params.set('sortField', newSorting[0].id)
-        params.set('sortDir', newSorting[0].desc ? 'desc' : 'asc')
+        params.delete('sort')
+        params.delete('order')
       }
+    }
 
-      // Update URL without refreshing the page
-      router.push(`?${params.toString()}`, { scroll: false })
-    },
-    [router, searchParams],
-  )
+    // Update pagination
+    if (newState.pagination) {
+      params.set('page', (newState.pagination.pageIndex + 1).toString())
+      params.set('pageSize', newState.pagination.pageSize.toString())
+    }
+
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false })
+  }
 
   const {
     data: location,
@@ -79,6 +66,7 @@ export default function LocationDetailsPage({ locationId }: LocationDetailsPageP
     error: errorServiceRequests,
   } = useServiceRequestsByLocationIdQuery(locationId, {
     sorting,
+    pagination,
   })
 
   const isLoading = isLoadingLocation || isLoadingServiceRequests
@@ -109,11 +97,25 @@ export default function LocationDetailsPage({ locationId }: LocationDetailsPageP
             serviceRequests={serviceRequests}
             totalCount={totalCount}
             sorting={sorting}
-            onSortingChange={handleSortingChange}
+            onSortingChange={(sorting) => handleStateChange({ sorting })}
+            pagination={pagination}
+            onPaginationChange={(pagination) => handleStateChange({ pagination })}
             isLoading={isLoadingServiceRequests}
           />
         )}
       </div>
     </div>
   )
+}
+function parseSortingFromURL(searchParams: URLSearchParams): SortingState {
+  const sort = searchParams.get('sort')
+  const order = searchParams.get('order')
+  return sort ? [{ id: sort, desc: order === 'desc' }] : []
+}
+
+function parsePaginationFromURL(searchParams: URLSearchParams): PaginationState {
+  return {
+    pageIndex: Math.max(0, parseInt(searchParams.get('page') || '1', 10) - 1),
+    pageSize: Math.min(100, Math.max(1, parseInt(searchParams.get('pageSize') || '10', 10))),
+  }
 }

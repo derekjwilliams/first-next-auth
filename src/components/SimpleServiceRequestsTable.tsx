@@ -1,5 +1,5 @@
 'use client'
-'use no memo' // needed for react compiler
+'use no memo' // needed for react compiler with Tanstack table
 
 import Link from 'next/link'
 import * as stylex from '@stylexjs/stylex'
@@ -10,20 +10,22 @@ import {
   type ColumnDef,
   type SortingState,
   type OnChangeFn,
+  type PaginationState,
 } from '@tanstack/react-table'
-import { Tables } from '@/utils/database.types'
-import { useState } from 'react'
+import { Database, Tables } from '@/utils/database.types'
+import { ServiceRequestRow } from '../types'
 
-type ServiceRequestRow = Tables<'service_requests'> & {
-  service_types: Tables<'service_types'>
-  technicians: Array<Tables<'technicians'>>
-}
+const DEFAULT_PAGE_SIZE = process.env.NEXT_PUBLIC_DEFAULT_SERVICE_REQUEST_PAGE_SIZE
+  ? parseInt(process.env.NEXT_PUBLIC_DEFAULT_SERVICE_REQUEST_PAGE_SIZE, 5)
+  : 5
 
 interface SimpleServiceRequestsTableProps {
   serviceRequests: ServiceRequestRow[]
   totalCount: number
   sorting: SortingState
   onSortingChange: (sorting: SortingState) => void
+  pagination: PaginationState
+  onPaginationChange: (pagination: PaginationState) => void
   isLoading: boolean
 }
 
@@ -105,6 +107,67 @@ const styles = stylex.create({
     justifyContent: 'center',
     zIndex: 10,
   },
+  paginationControls: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '1rem',
+    marginTop: '1rem',
+    marginBottom: '1rem',
+    padding: '0.5rem',
+    backgroundColor: 'white',
+    borderRadius: '8px',
+    boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+  },
+
+  paginationButton: {
+    padding: '0.5rem 1rem',
+    border: '1px solid #e2e8f0',
+    borderRadius: '6px',
+    backgroundColor: '#f8fafc',
+    color: '#334155',
+    cursor: 'pointer',
+    fontWeight: 500,
+    transition: 'all 0.2s ease',
+    ':hover': {
+      backgroundColor: '#e2e8f0',
+      borderColor: '#cbd5e1',
+    },
+    ':disabled': {
+      opacity: 0.5,
+      cursor: 'not-allowed',
+      backgroundColor: '#f1f5f9',
+    },
+    ':focus-visible': {
+      outline: '2px solid #3b82f6',
+      outlineOffset: '2px',
+    },
+  },
+
+  pageInfo: {
+    margin: '0 0.5rem',
+    color: '#475569',
+    fontSize: '0.875rem',
+    fontWeight: 500,
+  },
+
+  pageSizeSelect: {
+    padding: '0.5rem 0.75rem',
+    border: '1px solid #e2e8f0',
+    borderRadius: '6px',
+    backgroundColor: '#f8fafc',
+    color: '#334155',
+    fontSize: '0.875rem',
+    cursor: 'pointer',
+    transition: 'all 0.2s ease',
+    ':hover': {
+      borderColor: '#cbd5e1',
+    },
+    ':focus': {
+      outline: '2px solid #3b82f6',
+      outlineOffset: '2px',
+    },
+  },
 })
 
 export default function SimpleServiceRequestsTable({
@@ -112,11 +175,11 @@ export default function SimpleServiceRequestsTable({
   totalCount = 0,
   sorting = [],
   onSortingChange,
+  pagination = { pageIndex: 0, pageSize: 10 },
+  onPaginationChange,
   isLoading = false,
 }: SimpleServiceRequestsTableProps): React.JSX.Element {
   // Using the direct ColumnDef syntax
-  const [debugTick, setDebugTick] = useState(0)
-  const forceRefresh = () => setDebugTick((n) => n + 1)
   const columns: ColumnDef<ServiceRequestRow>[] = [
     {
       accessorKey: 'description',
@@ -128,10 +191,18 @@ export default function SimpleServiceRequestsTable({
       ),
     },
     {
-      accessorFn: (row) => row.service_types.service_name,
+      accessorFn: (row) => {
+        // Handle all possible null/undefined cases
+        if (!row.service_types) return 'Unknown'
+        return row.service_types.service_name || 'Unnamed Service'
+      },
       id: 'service_type',
       header: 'Type',
-      cell: (info) => info.getValue() as string,
+      cell: (info) => {
+        // Additional safety in the cell renderer
+        const value = info.getValue()
+        return typeof value === 'string' ? value : 'Unknown'
+      },
     },
     {
       accessorKey: 'technicians',
@@ -154,39 +225,32 @@ export default function SimpleServiceRequestsTable({
     },
   ]
 
-  // Custom handler for column header clicks to manage the sorting cycle
   const handleHeaderClick = (columnId: string) => {
     console.log('Current sorting:', sorting)
 
-    // Find if this column is already being sorted
     const currentSort = sorting.find((sort) => sort.id === columnId)
 
     let newSorting: SortingState = []
 
     if (!currentSort) {
-      // Not currently sorted - set to ascending
-      console.log(`Not currently sorted - set to ascending, columnId: ${columnId}`)
       newSorting = [{ id: columnId, desc: false }]
     } else if (!currentSort.desc) {
-      // Currently ascending - change to descending
-      console.log(`Change to descending, columnId: ${columnId}`)
       newSorting = [{ id: columnId, desc: true }]
     } else {
-      // Currently descending - change back to ascending
-      console.log(`Change back to ascending, columnId: ${columnId}`)
       newSorting = [{ id: columnId, desc: false }]
     }
 
-    // Call the parent's onSortingChange with the new sorting state
     onSortingChange(newSorting)
   }
   // Create a handler that matches the expected OnChangeFn type
   const handleSortingChange: OnChangeFn<SortingState> = (updaterOrValue) => {
-    // For our custom implementation, we'll ignore the updater function
-    // and rely on our custom handleHeaderClick instead
     if (typeof updaterOrValue !== 'function') {
       onSortingChange(updaterOrValue)
     }
+  }
+  const handlePaginationChange: OnChangeFn<PaginationState> = (updaterOrValue) => {
+    const newPagination = typeof updaterOrValue === 'function' ? updaterOrValue(pagination) : updaterOrValue
+    onPaginationChange(newPagination)
   }
 
   const table = useReactTable({
@@ -194,9 +258,13 @@ export default function SimpleServiceRequestsTable({
     columns,
     state: {
       sorting,
+      pagination,
     },
     onSortingChange: handleSortingChange,
+    onPaginationChange: handlePaginationChange,
     manualSorting: true, // Tell the table we're handling sorting manually
+    manualPagination: true,
+    pageCount: Math.ceil(totalCount / (pagination?.pageSize || DEFAULT_PAGE_SIZE)),
     getCoreRowModel: getCoreRowModel(),
   })
 
@@ -251,11 +319,39 @@ export default function SimpleServiceRequestsTable({
           </tbody>
         </table>
       </div>
-      {totalCount > serviceRequests.length && (
-        <div {...stylex.props(styles.footer)}>
-          Showing {serviceRequests.length} of {totalCount} service requests
-        </div>
-      )}
+      <div {...stylex.props(styles.paginationControls)}>
+        <button
+          onClick={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
+          {...stylex.props(styles.paginationButton)}>
+          Previous
+        </button>
+        <span {...stylex.props(styles.pageInfo)}>
+          Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+        </span>
+        <button
+          onClick={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
+          {...stylex.props(styles.paginationButton)}>
+          Next
+        </button>
+        <select
+          value={table.getState().pagination.pageSize}
+          onChange={(e) => {
+            table.setPageSize(Number(e.target.value))
+          }}
+          {...stylex.props(styles.pageSizeSelect)}>
+          {[10, 20, 30, 40, 50].map((pageSize) => (
+            <option key={pageSize} value={pageSize}>
+              Show {pageSize}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div {...stylex.props(styles.footer)}>
+        Showing {serviceRequests.length} of {totalCount} service requests
+      </div>
     </div>
   )
 }

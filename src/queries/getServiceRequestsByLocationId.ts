@@ -1,18 +1,23 @@
 // src/queries/getServiceRequestsByLocationId.ts
 import { SupabaseClient } from '@supabase/supabase-js'
-import { type SortingState } from '@tanstack/react-table'
+import { type SortingState, type PaginationState } from '@tanstack/react-table'
 import { Database } from '../utils/database.types' // Adjust import path as needed
 
 interface QueryOptions {
   sorting?: SortingState
-  pageSize?: number
+  pagination?: PaginationState
 }
+const DEFAULT_PAGE_SIZE = process.env.NEXT_PUBLIC_DEFAULT_SERVICE_REQUEST_PAGE_SIZE
+  ? parseInt(process.env.NEXT_PUBLIC_DEFAULT_SERVICE_REQUEST_PAGE_SIZE, 5)
+  : 5
 
 export async function getServiceRequestsByLocationId(
   supabase: SupabaseClient<Database>,
   locationId: string,
   options: QueryOptions = {},
 ) {
+  const pageSize = options.pagination?.pageSize || DEFAULT_PAGE_SIZE
+  const pageIndex = options.pagination?.pageIndex || 0
   let query = supabase
     .from('service_requests')
     .select(
@@ -24,7 +29,7 @@ export async function getServiceRequestsByLocationId(
     )
     .eq('location_id', locationId)
 
-  // Apply sorting if provided
+  // Apply sorting and pagination if provided
   if (options.sorting && options.sorting.length > 0) {
     const sort = options.sorting[0] // Use the first sort criteria
 
@@ -38,11 +43,6 @@ export async function getServiceRequestsByLocationId(
       query = query.order(sort.id, { ascending: sort.desc === false })
     }
   }
-
-  // Apply limit if specified
-  if (options.pageSize) {
-    query = query.limit(options.pageSize)
-  }
-
+  query = query.range(pageIndex * pageSize, (pageIndex + 1) * pageSize - 1)
   return await query
 }

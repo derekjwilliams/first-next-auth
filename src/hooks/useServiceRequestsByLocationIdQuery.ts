@@ -1,49 +1,40 @@
 // src/hooks/useServiceRequestsByLocationIdQuery.ts
 import { useQuery } from '@tanstack/react-query'
-import { type SortingState } from '@tanstack/react-table'
+import { type SortingState, type PaginationState } from '@tanstack/react-table'
 import useSupabase from './useSupabase'
 import { getServiceRequestsByLocationId } from '../queries/getServiceRequestsByLocationId'
 import { PostgrestError } from '@supabase/supabase-js' // Import PostgrestError
-import { useEffect } from 'react'
+import { ServiceRequestRow, ServiceRequestsResult } from '../types'
 
 interface QueryOptions {
   sorting?: SortingState
-  pageSize?: number
-}
-
-interface ServiceRequestsResult {
-  data: any[] // TODO: Replace with proper type
-  totalCount: number
+  pagination?: PaginationState
 }
 
 function useServiceRequestsByLocationIdQuery(locationId: string, options: QueryOptions = {}) {
   const client = useSupabase()
-  const id = locationId
-  const queryKey = ['serviceRequests', locationId, options.sorting]
-  const pageSize = options.sorting?.length ? 2 : undefined // Only limit if sorting is applied
-
-  useEffect(() => {
-    console.log('Query key changed:', JSON.stringify(queryKey))
-  }, [JSON.stringify(queryKey)])
-
+  const queryKey = ['serviceRequests', locationId, options.sorting, options.pagination]
   const queryFn = async (): Promise<ServiceRequestsResult> => {
+    if (!locationId) {
+      return { data: [], totalCount: 0 }
+    }
     try {
       // Get the total count first
+
       const countResult = await client
         .from('service_requests')
         .select('*', { count: 'exact', head: true })
-        .eq('location_id', id!)
+        .eq('location_id', locationId!)
 
       const totalCount = countResult.count || 0
 
-      // Then get the data with sorting and pagination
-      const result = await getServiceRequestsByLocationId(client, id!, {
+      const result = await getServiceRequestsByLocationId(client, locationId, {
         sorting: options.sorting,
-        pageSize: 10,
+        pagination: options.pagination,
       })
 
       return {
-        data: [...(result?.data || [])],
+        data: result.data ?? [],
         totalCount,
       }
     } catch (error) {
