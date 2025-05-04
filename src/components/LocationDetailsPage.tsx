@@ -3,11 +3,11 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { type SortingState, type PaginationState } from '@tanstack/react-table'
 import useLocationQuery from '../hooks/useLocationQuery'
-import useServiceRequestsByLocationIdQuery from '../hooks/useServiceRequestsByLocationIdQuery'
+import { useServiceRequestsByLocationId } from '../hooks/useServiceRequestsQuery' // Updated import
 import LocationDetails from './LocationDetails'
 import SimpleServiceRequestsTable from './SimpleServiceRequestsTable'
 import * as stylex from '@stylexjs/stylex'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 
 interface LocationDetailsPageProps {
   locationId: string
@@ -30,26 +30,39 @@ export default function LocationDetailsPage({ locationId }: LocationDetailsPageP
   const sorting = useMemo(() => parseSortingFromURL(searchParams), [searchParams])
   const pagination = useMemo(() => parsePaginationFromURL(searchParams), [searchParams])
 
+  // Debug log for sorting changes
+  useEffect(() => {
+    console.log('Current sorting state:', sorting)
+  }, [sorting])
+
+
   const handleStateChange = (newState: { sorting?: SortingState; pagination?: PaginationState }) => {
     const params = new URLSearchParams(searchParams.toString())
 
-    // Update sorting
-    if (newState.sorting) {
+    // Update sorting with debug logs
+    if (newState.sorting !== undefined) {
+      console.log('New sorting state:', newState.sorting)
       if (newState.sorting.length > 0) {
-        params.set('sort', newState.sorting[0].id)
-        params.set('order', newState.sorting[0].desc ? 'desc' : 'asc')
+        const { id, desc } = newState.sorting[0]
+        params.set('sort', id)
+        params.set('order', desc ? 'desc' : 'asc')
+        console.log(`Setting URL params: sort=${id}, order=${desc ? 'desc' : 'asc'}`)
       } else {
         params.delete('sort')
         params.delete('order')
+        console.log('Clearing sort parameters')
       }
     }
 
     // Update pagination
-    if (newState.pagination) {
+    if (newState.pagination !== undefined) {
       params.set('page', (newState.pagination.pageIndex + 1).toString())
       params.set('pageSize', newState.pagination.pageSize.toString())
     }
-    router.replace(`${pathname}?${params.toString()}`, { scroll: false })
+    
+    const newUrl = `${pathname}?${params.toString()}`
+    console.log(`Navigating to: ${newUrl}`)
+    router.replace(newUrl, { scroll: false })
   }
 
   const {
@@ -64,7 +77,7 @@ export default function LocationDetailsPage({ locationId }: LocationDetailsPageP
     isLoading: isLoadingServiceRequests,
     isError: isErrorServiceRequests,
     error: errorServiceRequests,
-  } = useServiceRequestsByLocationIdQuery(locationId, {
+  } = useServiceRequestsByLocationId(locationId, {
     sorting,
     pagination,
   })
@@ -97,7 +110,10 @@ export default function LocationDetailsPage({ locationId }: LocationDetailsPageP
             serviceRequests={serviceRequests}
             totalCount={totalCount}
             sorting={sorting}
-            onSortingChange={(sorting) => handleStateChange({ sorting })}
+            onSortingChange={(newSorting) => {
+              console.log('Table sorting changed:', newSorting)
+              handleStateChange({ sorting: newSorting })
+            }}
             pagination={pagination}
             onPaginationChange={(pagination) => handleStateChange({ pagination })}
             isLoading={isLoadingServiceRequests}
@@ -107,10 +123,17 @@ export default function LocationDetailsPage({ locationId }: LocationDetailsPageP
     </div>
   )
 }
+
 function parseSortingFromURL(searchParams: URLSearchParams): SortingState {
   const sort = searchParams.get('sort')
   const order = searchParams.get('order')
-  return sort ? [{ id: sort, desc: order === 'desc' }] : []
+  
+  if (!sort) return []
+  
+  const isDesc = order === 'desc'
+  console.log(`Parsing sort from URL: ${sort}, order: ${order}, isDesc: ${isDesc}`)
+  
+  return [{ id: sort, desc: isDesc }]
 }
 
 function parsePaginationFromURL(searchParams: URLSearchParams): PaginationState {

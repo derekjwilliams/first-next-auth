@@ -1,5 +1,5 @@
 'use client'
-// 'use no memo' // needed for react compiler with Tanstack table
+'use no memo' // needed for react compiler with Tanstack table
 
 import Link from 'next/link'
 import * as stylex from '@stylexjs/stylex'
