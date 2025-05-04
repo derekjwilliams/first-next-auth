@@ -4,7 +4,8 @@ import { type SortingState, type PaginationState } from '@tanstack/react-table'
 import useSupabase from './useSupabase'
 import { getServiceRequestsByLocationId } from '../queries/getServiceRequestsByLocationId'
 import { PostgrestError } from '@supabase/supabase-js' // Import PostgrestError
-import { ServiceRequestRow, ServiceRequestsResult } from '../types'
+import { ServiceRequestsResult } from '../types'
+import { useEffect } from 'react'
 
 interface QueryOptions {
   sorting?: SortingState
@@ -13,7 +14,16 @@ interface QueryOptions {
 
 function useServiceRequestsByLocationIdQuery(locationId: string, options: QueryOptions = {}) {
   const client = useSupabase()
-  const queryKey = ['serviceRequests', locationId, options.sorting, options.pagination]
+
+  useEffect(() => {
+    console.log('[Query Hook] locationId:', locationId)
+  }, [locationId])
+  const queryKey = [
+  'serviceRequests',
+  locationId,
+  JSON.stringify(options.sorting?.map(s => ({ id: s.id, desc: s.desc })) ?? []),
+  JSON.stringify(options.pagination ?? {}),
+  ]
   const queryFn = async (): Promise<ServiceRequestsResult> => {
     if (!locationId) {
       return { data: [], totalCount: 0 }
@@ -53,6 +63,7 @@ function useServiceRequestsByLocationIdQuery(locationId: string, options: QueryO
     queryKey,
     queryFn,
     enabled: !!locationId,
+    staleTime: 5 * 60 * 1000, // 5 minutes
   })
 }
 

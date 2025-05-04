@@ -7,7 +7,7 @@ import { SubmitButton } from './submit-button'
 import * as stylex from '@stylexjs/stylex'
 import OAuthForm from '../auth/components/OAuthForm'
 
-export const dynamic = 'force-dynamic'
+// export const dynamic = 'force-dynamic'
 
 const loginContainer = stylex.create({
   base: {

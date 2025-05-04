@@ -1,5 +1,5 @@
 // src/types/index.ts
-import { Database, Tables } from '@/utils/database.types'
+import { Tables } from '@/utils/database.types'
 type ServiceRequest = Tables<'service_requests'>
 export type ServiceType = Tables<'service_types'>
 
@@ -21,9 +21,9 @@ export type ServiceTypesWithPagination = {
 }
 export type ServiceRequestMutationInput = Partial<Tables<'service_requests'>>
 
-export type ServiceRequestRow = Database['public']['Tables']['service_requests']['Row'] & {
-  service_types: Database['public']['Tables']['service_types']['Row'] | null
-  technicians: Database['public']['Tables']['technicians']['Row'][]
+export type ServiceRequestRow = Tables<'service_requests'> & {
+  service_types: Tables<'service_types'> | null
+  technicians: Tables<'technicians'>[]
 }
 
 export interface ServiceRequestsResult {

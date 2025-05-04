@@ -7,6 +7,7 @@ import useServiceRequestsByLocationIdQuery from '../hooks/useServiceRequestsByLo
 import LocationDetails from './LocationDetails'
 import SimpleServiceRequestsTable from './SimpleServiceRequestsTable'
 import * as stylex from '@stylexjs/stylex'
+import { useMemo } from 'react'
 
 interface LocationDetailsPageProps {
   locationId: string
@@ -26,8 +27,8 @@ export default function LocationDetailsPage({ locationId }: LocationDetailsPageP
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
-  const sorting = parseSortingFromURL(searchParams)
-  const pagination = parsePaginationFromURL(searchParams)
+  const sorting = useMemo(() => parseSortingFromURL(searchParams), [searchParams])
+  const pagination = useMemo(() => parsePaginationFromURL(searchParams), [searchParams])
 
   const handleStateChange = (newState: { sorting?: SortingState; pagination?: PaginationState }) => {
     const params = new URLSearchParams(searchParams.toString())
@@ -48,7 +49,6 @@ export default function LocationDetailsPage({ locationId }: LocationDetailsPageP
       params.set('page', (newState.pagination.pageIndex + 1).toString())
       params.set('pageSize', newState.pagination.pageSize.toString())
     }
-
     router.replace(`${pathname}?${params.toString()}`, { scroll: false })
   }
 

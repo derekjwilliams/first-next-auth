@@ -1,5 +1,5 @@
 'use client'
-'use no memo' // needed for react compiler with Tanstack table
+// 'use no memo' // needed for react compiler with Tanstack table
 
 import Link from 'next/link'
 import * as stylex from '@stylexjs/stylex'
@@ -12,7 +12,7 @@ import {
   type OnChangeFn,
   type PaginationState,
 } from '@tanstack/react-table'
-import { Database, Tables } from '@/utils/database.types'
+import { Tables } from '@/utils/database.types'
 import { ServiceRequestRow } from '../types'
 
 const DEFAULT_PAGE_SIZE = process.env.NEXT_PUBLIC_DEFAULT_SERVICE_REQUEST_PAGE_SIZE
@@ -226,8 +226,6 @@ export default function SimpleServiceRequestsTable({
   ]
 
   const handleHeaderClick = (columnId: string) => {
-    console.log('Current sorting:', sorting)
-
     const currentSort = sorting.find((sort) => sort.id === columnId)
 
     let newSorting: SortingState = []
