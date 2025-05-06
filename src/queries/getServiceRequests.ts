@@ -43,10 +43,6 @@ export async function getServiceRequests(
     query = query.eq('location_id', filters.locationId)
   }
   
-  if (filters.technicianId) {
-    query = query.contains('technicians.id', [filters.technicianId])
-  }
-  
   if (filters.serviceTypeId) {
     query = query.eq('service_type_id', filters.serviceTypeId)
   }

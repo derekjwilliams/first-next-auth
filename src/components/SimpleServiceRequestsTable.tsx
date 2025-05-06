@@ -274,7 +274,6 @@ export default function SimpleServiceRequestsTable({
     <div {...stylex.props(styles.container)}>
       <div {...stylex.props(styles.tableContainer)}>
         {isLoading && <div {...stylex.props(styles.loadingOverlay)}>Loading...</div>}
-
         <table {...stylex.props(styles.table)} aria-label='Service requests'>
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (

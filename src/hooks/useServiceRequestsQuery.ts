@@ -5,7 +5,6 @@ import useSupabase from './useSupabase'
 import { getServiceRequests, FilterParams } from '../queries/getServiceRequests'
 import { PostgrestError } from '@supabase/supabase-js'
 import { ServiceRequestsResult } from '../types'
-import { useEffect } from 'react'
 
 export interface QueryOptions {
   sorting?: SortingState
@@ -14,13 +13,6 @@ export interface QueryOptions {
 
 function useServiceRequestsQuery(filters: FilterParams = {}, options: QueryOptions = {}) {
   const client = useSupabase()
-
-  useEffect(() => {
-    console.log('[Query Hook] filters:', filters)
-    if (options.sorting) {
-      console.log('[Query Hook] sorting:', options.sorting)
-    }
-  }, [filters, options.sorting])
 
   const queryKey = [
     'serviceRequests',
@@ -41,10 +33,6 @@ function useServiceRequestsQuery(filters: FilterParams = {}, options: QueryOptio
       
       if (filters.locationId) {
         countQuery = countQuery.eq('location_id', filters.locationId)
-      }
-      
-      if (filters.technicianId) {
-        countQuery = countQuery.contains('technicians.id', [filters.technicianId])
       }
       
       if (filters.serviceTypeId) {
@@ -83,7 +71,7 @@ function useServiceRequestsQuery(filters: FilterParams = {}, options: QueryOptio
     queryKey,
     queryFn,
     enabled: Object.keys(filters).length > 0,
-    staleTime: 5 * 60 * 1000, // 5 minutes
+    // staleTime: 5 * 60 * 1000, // 5 minutes
   })
 }
 
@@ -92,10 +80,6 @@ export default useServiceRequestsQuery
 // For backward compatibility and convenience, create specialized hooks
 export function useServiceRequestsByLocationId(locationId: string, options: QueryOptions = {}) {
   return useServiceRequestsQuery({ locationId }, options)
-}
-
-export function useServiceRequestsByTechnicianId(technicianId: string, options: QueryOptions = {}) {
-  return useServiceRequestsQuery({ technicianId }, options)
 }
 
 export function useServiceRequestsByServiceTypeId(serviceTypeId: string, options: QueryOptions = {}) {

@@ -1,0 +1,55 @@
+'use client'
+
+import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
+import { fonts } from '../app/open-props/lib/fonts.stylex'
+import { sizes } from '../app/open-props/lib/sizes.stylex'
+import * as stylex from '@stylexjs/stylex'
+import { TechnicianWithDetails } from 'src/queries/getTechnicianById'
+
+const requests = stylex.create({
+  base: {
+    padding: sizes.spacing5,
+    backgroundColor: marigoldColors.background,
+  },
+  list: {
+    margin: sizes.spacing5,
+  },
+})
+const form = stylex.create({
+  heading: {
+    color: marigoldColors.foreground,
+    fontWeight: fonts.weight7,
+  },
+  h1: {
+    fontSize: fonts.size7,
+  },
+})
+
+const requestCard = stylex.create({
+  base: {
+    margin: sizes.spacing2,
+    display: 'flex',
+    color: marigoldColors.foreground,
+    fontSize: fonts.size4,
+  },
+})
+
+interface TechnicianDetailsProps {
+  technician: TechnicianWithDetails
+}
+
+export default function TechnicianDetails({ technician }: TechnicianDetailsProps) {
+  if (!location) {
+    return <p>Location not found.</p> // Improved message
+  }
+  return (
+    <form>
+      <div {...stylex.props(requests.base)}>
+        <h1 {...stylex.props(form.heading, form.h1)}>Technician Detail</h1>
+        <div key={technician.id} {...stylex.props(requestCard.base)}>
+          {technician.name} {technician.email}
+        </div>
+      </div>
+    </form>
+  )
+}

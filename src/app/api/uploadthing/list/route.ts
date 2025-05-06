@@ -10,8 +10,6 @@ export async function GET(req: Request) {
       console.error('Supabase error:', error)
       return NextResponse.json({ error: 'Database error' }, { status: 500 })
     }
-    console.log('here we are', data)
-    console.log('here we are', data)
     return NextResponse.json(data)
   } catch (error) {
     console.error('Server error:', error)

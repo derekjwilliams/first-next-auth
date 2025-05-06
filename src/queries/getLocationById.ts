@@ -12,6 +12,7 @@ export interface LocationWithDetails extends Tables<'locations'> {
   bedrooms: Array<Pick<Tables<'bedrooms'>, 'id'>>
   bathrooms: Array<Pick<Tables<'bathrooms'>, 'id'>>
 }
+
 export async function getLocationById(
   client: TypedSupabaseClient,
   id: string,

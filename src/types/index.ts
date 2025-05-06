@@ -30,3 +30,13 @@ export interface ServiceRequestsResult {
   data: ServiceRequestRow[]
   totalCount: number
 }
+
+export type ServiceRequestForTechnicianRow = Tables<'service_requests'> & {
+  service_types: Tables<'service_types'> | null
+  technicians: Tables<'technicians'>[]
+}
+
+export interface ServiceRequestsForTechnicianResult {
+  data: ServiceRequestForTechnicianRow[]
+  totalCount: number
+}
