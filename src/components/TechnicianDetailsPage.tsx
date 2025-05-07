@@ -31,12 +31,6 @@ export default function TechnicialDetailsPage({ technicianId }: TechnicianDetail
   const sorting = useMemo(() => parseSortingFromURL(searchParams), [searchParams])
   const pagination = useMemo(() => parsePaginationFromURL(searchParams), [searchParams])
 
-  // Debug log for sorting changes
-  // useEffect(() => {
-  //   console.log('Current sorting state:', sorting)
-  // }, [sorting])
-
-
   const handleStateChange = (newState: { sorting?: SortingState; pagination?: PaginationState }) => {
     const params = new URLSearchParams(searchParams.toString())
 

@@ -25,10 +25,16 @@ function useServiceRequestsByTechnicianIdQuery(technicianId: string, options: Qu
   const queryFn = async (): Promise<ServiceRequestsResult> => {
     try {
       // Build the count query with the same filters
-      let countQuery = client
-        .from('technicians')
-        .select('service_requests(*)', { count: 'exact', head: true })
-        .eq('id', technicianId);
+      const countQuery = await client
+        .from('service_requests')
+        .select(`
+          id,
+          technicians:service_request_technicians!inner(
+            technician_id
+          )
+        `, { count: 'exact', head: true }) // `head: true` avoids fetching row data
+        .eq('technicians.technician_id', technicianId)
+        .throwOnError()
       
       const countResult = await countQuery
       const totalCount = countResult.count || 0
