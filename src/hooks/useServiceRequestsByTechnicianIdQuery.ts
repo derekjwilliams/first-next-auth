@@ -5,36 +5,88 @@ import useSupabase from './useSupabase'
 import { getServiceRequestsByTechnicianId } from '../queries/getServiceRequestsByTechnicianId'
 import { PostgrestError } from '@supabase/supabase-js'
 import { ServiceRequestRow, ServiceRequestsResult } from '../types'
+import { useMemo } from 'react'
 
 export interface QueryOptions {
   sorting?: SortingState
   pagination?: PaginationState
+  includeArchived?: boolean
 }
 
-function useServiceRequestsByTechnicianIdQuery(technicianId: string, options: QueryOptions = {}) {
+const findArchivedStatusId = (
+  statusMap: Record<string, string> | undefined,
+): string | undefined => {
+  if (!statusMap) return undefined
+  for (const id in statusMap) {
+    if (statusMap[id].toLowerCase() === "archived") {
+      return id
+    }
+  }
+  return undefined
+}
+
+function useServiceRequestsByTechnicianIdQuery(technicianId: string,
+  options: QueryOptions = {},
+  statusMap: Record<string, string> | undefined,
+  statusMapLoading: boolean,
+  ) {
   const client = useSupabase()
 
+  const {
+    sorting,
+    pagination,
+    includeArchived = false,
+  } = options
+
+  // Derive archivedStatusId using useMemo
+  const archivedStatusId = useMemo(
+    () => findArchivedStatusId(statusMap),
+    [statusMap],
+  )
+
   const queryKey = [
-    'serviceRequests',
-    'serviceRequestsByTechnicianId',
+    "serviceRequests",
+    "serviceRequestsByTechnicianId",
     technicianId,
-    JSON.stringify(options.sorting?.map(s => ({ id: s.id, desc: s.desc })) ?? []),
-    JSON.stringify(options.pagination ?? {}),
+    JSON.stringify(sorting?.map((s) => ({ id: s.id, desc: s.desc })) ?? []),
+    JSON.stringify(pagination ?? {}),
+    `includeArchived:${includeArchived}`,
+    `archivedStatusId:${archivedStatusId ?? "none"}`, // <-- Added archivedStatusId to queryKey
   ]
 
   const queryFn = async (): Promise<ServiceRequestsResult> => {
     try {
       // Build the count query with the same filters
-      const countQuery = await client
+      let countQuery 
+
+      if (!includeArchived && archivedStatusId) {
+      countQuery = await client
         .from('service_requests')
         .select(`
           id,
+          status:statuses(*),
+          technicians:service_request_technicians!inner(
+            technician_id
+          )
+        `, { count: 'exact', head: true }) // `head: true` avoids fetching row data
+        .eq('technicians.technician_id', technicianId)
+        .not("status_id",
+          "eq",
+          archivedStatusId)
+        .throwOnError()
+      } else {
+      countQuery = await client
+        .from('service_requests')
+        .select(`
+          id,
+          status:statuses(*),
           technicians:service_request_technicians!inner(
             technician_id
           )
         `, { count: 'exact', head: true }) // `head: true` avoids fetching row data
         .eq('technicians.technician_id', technicianId)
         .throwOnError()
+      }
       
       const countResult = await countQuery
       const totalCount = countResult.count || 0
@@ -42,8 +94,11 @@ function useServiceRequestsByTechnicianIdQuery(technicianId: string, options: Qu
       const result = await getServiceRequestsByTechnicianId(
         client, 
         {
-          sorting: options.sorting,
-          pagination: options.pagination
+          sorting: sorting,
+          pagination: pagination,
+          includeArchived: includeArchived,
+          archivedStatusId: archivedStatusId
+
         },
         technicianId
       )
@@ -72,7 +127,7 @@ function useServiceRequestsByTechnicianIdQuery(technicianId: string, options: Qu
   return useQuery<ServiceRequestsResult>({
     queryKey,
     queryFn,
-    enabled: !!technicianId,
+    enabled: !!technicianId  && !statusMapLoading,
   })
 }
     

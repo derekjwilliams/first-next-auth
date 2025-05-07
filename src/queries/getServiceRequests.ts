@@ -6,6 +6,8 @@ import { Database } from '../utils/database.types'
 export interface QueryOptions {
   sorting?: SortingState
   pagination?: PaginationState
+  includeArchived?: boolean; // To indicate if archived items should be included
+  archivedStatusId?: string; // The actual ID of the "Archived" status
 }
 
 export interface FilterParams {
@@ -34,6 +36,7 @@ export async function getServiceRequests(
       `
       *,
       service_types (*),
+      status:statuses(*),
       technicians (*)
     `,
     )
@@ -49,6 +52,10 @@ export async function getServiceRequests(
   
   if (filters.statusId) {
     query = query.eq('status_id', filters.statusId)
+  }
+  
+  if (!options.includeArchived && options.archivedStatusId) {
+    query = query.not("status_id", "eq", options.archivedStatusId);
   }
 
   // Apply sorting if provided
@@ -66,7 +73,10 @@ export async function getServiceRequests(
     }
   }
   
-  query = query.range(pageIndex * pageSize, (pageIndex + 1) * pageSize - 1)
+  query = query.range(
+    pageIndex * pageSize, 
+    (pageIndex + 1) * pageSize - 1
+  )
   return await query
 }
 // For backward compatibility

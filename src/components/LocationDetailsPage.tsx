@@ -7,7 +7,8 @@ import { useServiceRequestsByLocationId } from '../hooks/useServiceRequestsQuery
 import LocationDetails from './LocationDetails'
 import SimpleServiceRequestsTable from './SimpleServiceRequestsTable'
 import * as stylex from '@stylexjs/stylex'
-import { useEffect, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
+import { useStatusMapQuery } from 'src/hooks/useStatusMapQuery'
 
 interface LocationDetailsPageProps {
   locationId: string
@@ -22,6 +23,14 @@ const styles = stylex.create({
   },
 })
 
+// Helper to get current page size, falling back to a default
+const getCurrentPageSize = (
+  paginationState: PaginationState,
+  defaultSize = 10,
+): number => {
+  return paginationState?.pageSize || defaultSize;
+}
+
 export default function LocationDetailsPage({ locationId }: LocationDetailsPageProps) {
   const router = useRouter()
   const pathname = usePathname()
@@ -29,6 +38,10 @@ export default function LocationDetailsPage({ locationId }: LocationDetailsPageP
 
   const sorting = useMemo(() => parseSortingFromURL(searchParams), [searchParams])
   const pagination = useMemo(() => parsePaginationFromURL(searchParams), [searchParams])
+  const includeArchived = useMemo(
+    () => parseIncludeArchivedFromURL(searchParams),
+    [searchParams],
+  );
 
   // Debug log for sorting changes
   // useEffect(() => {
@@ -36,34 +49,82 @@ export default function LocationDetailsPage({ locationId }: LocationDetailsPageP
   // }, [sorting])
 
 
-  const handleStateChange = (newState: { sorting?: SortingState; pagination?: PaginationState }) => {
-    const params = new URLSearchParams(searchParams.toString())
+  const handleStateChange = useCallback(
+    (newState: {
+      sorting?: SortingState;
+      pagination?: PaginationState;
+      includeArchived?: boolean;
+    }) => {
+      const params = new URLSearchParams(searchParams.toString())
 
-    // Update sorting with debug logs
-    if (newState.sorting !== undefined) {
-      console.log('New sorting state:', newState.sorting)
-      if (newState.sorting.length > 0) {
-        const { id, desc } = newState.sorting[0]
-        params.set('sort', id)
-        params.set('order', desc ? 'desc' : 'asc')
-        console.log(`Setting URL params: sort=${id}, order=${desc ? 'desc' : 'asc'}`)
-      } else {
-        params.delete('sort')
-        params.delete('order')
-        console.log('Clearing sort parameters')
+      // Update sorting with debug logs
+      if (newState.sorting !== undefined) {
+        console.log('New sorting state:', newState.sorting)
+        if (newState.sorting.length > 0) {
+          const { id, desc } = newState.sorting[0]
+          params.set('sort', id)
+          params.set('order', desc ? 'desc' : 'asc')
+        } else {
+          params.delete('sort')
+          params.delete('order')
+        }
       }
-    }
 
-    // Update pagination
-    if (newState.pagination !== undefined) {
-      params.set('page', (newState.pagination.pageIndex + 1).toString())
-      params.set('pageSize', newState.pagination.pageSize.toString())
-    }
-    
-    const newUrl = `${pathname}?${params.toString()}`
-    console.log(`Navigating to: ${newUrl}`)
-    router.replace(newUrl, { scroll: false })
-  }
+      // Update pagination
+      if (newState.pagination !== undefined) {
+        params.set('page', (newState.pagination.pageIndex + 1).toString())
+        params.set('pageSize', newState.pagination.pageSize.toString())
+      }
+
+      if (newState.includeArchived !== undefined) {
+        if (newState.includeArchived) {
+          params.set("includeArchived", "true")
+        } else {
+          params.delete("includeArchived")
+        }
+      }
+      
+      const newUrl = `${pathname}?${params.toString()}`
+      router.replace(newUrl, { scroll: false })
+    },
+    [pathname, router, searchParams],
+  )
+
+  // --- Specific event handlers for the table ---
+  const handleSortingChange = useCallback(
+    (newSorting: SortingState) => {
+      handleStateChange({
+        sorting: newSorting,
+        // Reset to page 1 when sorting changes, keep current page size
+        pagination: {
+          pageIndex: 0,
+          pageSize: getCurrentPageSize(pagination),
+        },
+      });
+    },
+    [handleStateChange, pagination],
+  )
+
+  const handlePaginationChange = useCallback(
+    (newPagination: PaginationState) => {
+      handleStateChange({ pagination: newPagination });
+    },
+    [handleStateChange],
+  )
+  
+  const handleIncludeArchivedToggle = useCallback(
+    (newIncludeArchivedValue: boolean) => {
+      handleStateChange({
+        includeArchived: newIncludeArchivedValue,
+        // Reset to page 1 when 'includeArchived' changes, keep current page size
+        pagination: {
+          pageIndex: 0,
+          pageSize: getCurrentPageSize(pagination),
+        },
+      });
+    },
+    [handleStateChange, pagination],
+  )
 
   const {
     data: location,
@@ -71,6 +132,9 @@ export default function LocationDetailsPage({ locationId }: LocationDetailsPageP
     isError: isErrorLocation,
     error: errorLocation,
   } = useLocationQuery(locationId)
+
+  const { data: statusMap = {}, isLoading: statusMapLoading } =
+    useStatusMapQuery();
 
   const {
     data: serviceRequestsData,
@@ -80,7 +144,11 @@ export default function LocationDetailsPage({ locationId }: LocationDetailsPageP
   } = useServiceRequestsByLocationId(locationId, {
     sorting,
     pagination,
-  })
+    includeArchived
+  }, 
+    statusMap,
+    statusMapLoading,
+  )
 
   const isLoading = isLoadingLocation || isLoadingServiceRequests
   const serviceRequests = serviceRequestsData?.data || []
@@ -110,20 +178,22 @@ export default function LocationDetailsPage({ locationId }: LocationDetailsPageP
             serviceRequests={serviceRequests}
             totalCount={totalCount}
             sorting={sorting}
-            onSortingChange={(newSorting) => {
-              console.log('Table sorting changed:', newSorting)
-              handleStateChange({ sorting: newSorting })
-            }}
+            onSortingChange={handleSortingChange}
             pagination={pagination}
-            onPaginationChange={(pagination) => handleStateChange({ pagination })}
+            onPaginationChange={handlePaginationChange}
+            includeArchived={includeArchived}
+            onIncludeArchivedChange={handleIncludeArchivedToggle}
             isLoading={isLoadingServiceRequests}
+            statusMap={statusMap}
           />
         )}
       </div>
     </div>
   )
 }
-
+function parseIncludeArchivedFromURL(searchParams: URLSearchParams): boolean {
+  return searchParams.get("includeArchived") === "true";
+}
 function parseSortingFromURL(searchParams: URLSearchParams): SortingState {
   const sort = searchParams.get('sort')
   const order = searchParams.get('order')

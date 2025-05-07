@@ -26,7 +26,10 @@ interface SimpleServiceRequestsTableProps {
   onSortingChange: (sorting: SortingState) => void
   pagination: PaginationState
   onPaginationChange: (pagination: PaginationState) => void
+  includeArchived: boolean // <-- New prop
+  onIncludeArchivedChange: (includeArchived: boolean) => void;
   isLoading: boolean
+  statusMap: Record<string, string>
 }
 
 // Define styles
@@ -177,10 +180,20 @@ export default function SimpleServiceRequestsTable({
   onSortingChange,
   pagination = { pageIndex: 0, pageSize: 10 },
   onPaginationChange,
+  includeArchived = false,
+  onIncludeArchivedChange,
   isLoading = false,
+  statusMap
 }: SimpleServiceRequestsTableProps): React.JSX.Element {
   // Using the direct ColumnDef syntax
   const columns: ColumnDef<ServiceRequestRow>[] = [
+    {
+      accessorKey: 'status_id',
+      header: 'Status',
+      cell: (info) => {
+        const statusId = info.getValue() as string
+        return statusMap[statusId] ?? 'Unknown'      },
+    },
     {
       accessorKey: 'description',
       header: 'Description',
@@ -251,6 +264,12 @@ export default function SimpleServiceRequestsTable({
     onPaginationChange(newPagination)
   }
 
+  const handleIncludeArchivedChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    onIncludeArchivedChange(event.target.checked);
+  };
+
   const table = useReactTable({
     data: serviceRequests,
     columns,
@@ -317,6 +336,15 @@ export default function SimpleServiceRequestsTable({
         </table>
       </div>
       <div {...stylex.props(styles.paginationControls)}>
+      <div>
+        <input
+            id="include-archived"
+            type="checkbox"
+            checked={includeArchived} // <-- Set checked state
+            onChange={handleIncludeArchivedChange} // <-- Attach handler
+          />
+        <label htmlFor='include-archived'>Include Archived</label>
+      </div>
         <button
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
