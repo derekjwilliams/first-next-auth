@@ -724,31 +724,53 @@ export type Database = {
         Row: {
           id: string
           service_name: string
+          tenant_organization_id: string
         }
         Insert: {
           id?: string
           service_name: string
+          tenant_organization_id: string
         }
         Update: {
           id?: string
           service_name?: string
+          tenant_organization_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "service_types_tenant_organization_id_fkey"
+            columns: ["tenant_organization_id"]
+            isOneToOne: false
+            referencedRelation: "tenant_organization"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       statuses: {
         Row: {
           id: string
           status_name: string
+          tenant_organization_id: string
         }
         Insert: {
           id?: string
           status_name: string
+          tenant_organization_id: string
         }
         Update: {
           id?: string
           status_name?: string
+          tenant_organization_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "statuses_tenant_organization_id_fkey"
+            columns: ["tenant_organization_id"]
+            isOneToOne: false
+            referencedRelation: "tenant_organization"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       technicians: {
         Row: {
