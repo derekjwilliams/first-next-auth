@@ -411,6 +411,7 @@ export type Database = {
           postal_code: string
           state_province: string
           street_address: string
+          tenant_organization_id: string
           unit_number: string | null
         }
         Insert: {
@@ -421,6 +422,7 @@ export type Database = {
           postal_code: string
           state_province: string
           street_address: string
+          tenant_organization_id: string
           unit_number?: string | null
         }
         Update: {
@@ -431,9 +433,18 @@ export type Database = {
           postal_code?: string
           state_province?: string
           street_address?: string
+          tenant_organization_id?: string
           unit_number?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "locations_tenant_organization_id_fkey"
+            columns: ["tenant_organization_id"]
+            isOneToOne: false
+            referencedRelation: "tenant_organization"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       notes: {
         Row: {
@@ -583,14 +594,17 @@ export type Database = {
         Row: {
           service_request_id: string
           technician_id: string
+          tenant_organization_id: string
         }
         Insert: {
           service_request_id: string
           technician_id: string
+          tenant_organization_id: string
         }
         Update: {
           service_request_id?: string
           technician_id?: string
+          tenant_organization_id?: string
         }
         Relationships: [
           {
@@ -605,6 +619,13 @@ export type Database = {
             columns: ["technician_id"]
             isOneToOne: false
             referencedRelation: "technicians"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "service_request_technicians_tenant_organization_id_fkey"
+            columns: ["tenant_organization_id"]
+            isOneToOne: false
+            referencedRelation: "tenant_organization"
             referencedColumns: ["id"]
           },
         ]
@@ -625,6 +646,7 @@ export type Database = {
           service_type_id: string | null
           status_id: string | null
           steps: string[] | null
+          tenant_organization_id: string
         }
         Insert: {
           completed?: boolean | null
@@ -641,6 +663,7 @@ export type Database = {
           service_type_id?: string | null
           status_id?: string | null
           steps?: string[] | null
+          tenant_organization_id: string
         }
         Update: {
           completed?: boolean | null
@@ -657,6 +680,7 @@ export type Database = {
           service_type_id?: string | null
           status_id?: string | null
           steps?: string[] | null
+          tenant_organization_id?: string
         }
         Relationships: [
           {
@@ -685,6 +709,13 @@ export type Database = {
             columns: ["status_id"]
             isOneToOne: false
             referencedRelation: "statuses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "service_requests_tenant_organization_id_fkey"
+            columns: ["tenant_organization_id"]
+            isOneToOne: false
+            referencedRelation: "tenant_organization"
             referencedColumns: ["id"]
           },
         ]
@@ -724,15 +755,47 @@ export type Database = {
           email: string | null
           id: string
           name: string
+          tenant_organization_id: string
         }
         Insert: {
           email?: string | null
           id?: string
           name: string
+          tenant_organization_id: string
         }
         Update: {
           email?: string | null
           id?: string
+          name?: string
+          tenant_organization_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "technicians_tenant_organization_id_fkey"
+            columns: ["tenant_organization_id"]
+            isOneToOne: false
+            referencedRelation: "tenant_organization"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tenant_organization: {
+        Row: {
+          created_at: string | null
+          id: string
+          is_default: boolean | null
+          name: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          is_default?: boolean | null
+          name: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          is_default?: boolean | null
           name?: string
         }
         Relationships: []
