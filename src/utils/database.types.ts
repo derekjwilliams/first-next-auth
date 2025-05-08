@@ -617,7 +617,9 @@ export type Database = {
           description: string | null
           details: string | null
           id: string
+          labor_cost: number | null
           location_id: string | null
+          material_cost: number | null
           requested_by: string | null
           rich_details: Json | null
           service_type_id: string | null
@@ -631,7 +633,9 @@ export type Database = {
           description?: string | null
           details?: string | null
           id?: string
+          labor_cost?: number | null
           location_id?: string | null
+          material_cost?: number | null
           requested_by?: string | null
           rich_details?: Json | null
           service_type_id?: string | null
@@ -645,7 +649,9 @@ export type Database = {
           description?: string | null
           details?: string | null
           id?: string
+          labor_cost?: number | null
           location_id?: string | null
+          material_cost?: number | null
           requested_by?: string | null
           rich_details?: Json | null
           service_type_id?: string | null
