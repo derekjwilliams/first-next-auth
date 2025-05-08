@@ -139,6 +139,19 @@ const requestCard = stylex.create({
 function AddServiceRequest({ locations, serviceTypeId, serviceDisplayName }: MultipleServiceRequestsProps) {
   const client = useSupabase()
   const mutationFn = async (value: ServiceRequestMutationInput) => {
+    let statusId = value.status_id;
+    if (!statusId) {
+    const { data: openStatus, error } = await client
+      .from('statuses')
+      .select('id')
+      .eq('status_name', 'open')
+      .single();
+
+    if (error || !openStatus) {
+      throw new Error('Could not find "open" status');
+    }
+    statusId = openStatus.id;
+  }
     return addServiceRequest(client, value)?.then((result: { data: any }) => result.data)
   }
   const queryClient = useQueryClient()

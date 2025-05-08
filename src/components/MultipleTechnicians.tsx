@@ -127,6 +127,7 @@ function AddTechnician() {
       name: e.currentTarget.technician_name.value,
       email: e.currentTarget.email.value,
       id: '',
+      tenant_organization_id: null
     })
   }
   return (

@@ -1,7 +1,9 @@
+// src/queries/addServiceRequest.ts
 import { ServiceRequestMutationInput } from '@/types/index'
 import { TypedSupabaseClient } from '@/utils/supabase/client'
 
 export function addServiceRequest(client: TypedSupabaseClient, value: ServiceRequestMutationInput) {
+  
   return client
     ?.from('service_requests')
     .insert({
