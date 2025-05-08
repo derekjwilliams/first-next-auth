@@ -1,3 +1,4 @@
+// src/components/ServiceRequestEditForm.tsx
 'use client'
 
 import { updateServiceRequest } from '../lib/actions'
@@ -123,6 +124,24 @@ const form = stylex.create({
     backgroundColor: marigoldColors.backgroundTextarea,
     color: marigoldColors.foreground,
   },
+  input: {
+    padding: sizes.spacing3,
+    fontSize: fonts.size2,
+    borderWidth: borders.size1,
+    borderStyle: 'solid',
+    borderColor: marigoldColors.pansy,
+    borderRadius: borders.radius2,
+    width: '100%',
+    marginBottom: sizes.spacing3,
+  },
+  costInput: {
+    width: '200px', // Fixed width for cost inputs
+  },
+  costContainer: {
+    display: 'flex',
+    gap: sizes.spacing4,
+    marginBottom: sizes.spacing3,
+  },
 })
 
 export default function ServiceRequestEditForm({
@@ -147,6 +166,37 @@ export default function ServiceRequestEditForm({
     return { value: status.id, label: status.status_name, id: status.id }
   })
 
+  const handleCostChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    // Enforce cents precision during input
+    if (value.includes('.')) {
+      const [whole, decimal] = value.split('.')
+      if (decimal && decimal.length > 2) {
+        e.target.value = `${whole}.${decimal.slice(0, 2)}`
+      }
+    }
+  }
+  const handleCostBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    // Ensure proper formatting on blur
+    const num = parseFloat(e.target.value) || 0;
+    e.target.value = num.toFixed(2);
+  };
+
+  const costFields = [
+    {
+      label: "Material Cost",
+      id: "material_cost",
+      name: "material_cost",
+      value: serviceRequest.material_cost,
+    },
+    {
+      label: "Labor Cost",
+      id: "labor_cost",
+      name: "labor_cost",
+      value: serviceRequest.labor_cost,
+    },
+  ]
+
   const updateServiceRequestWithId = updateServiceRequest.bind(null, serviceRequest.id, availableTechnicianIds, details)
   return (
     <form action={updateServiceRequestWithId}>
@@ -167,6 +217,31 @@ export default function ServiceRequestEditForm({
             />
           </div>
         </div>
+
+        <div {...stylex.props(form.costContainer)}>
+          {costFields.map((field) => (
+            <div key={field.id}>
+              <label htmlFor={field.id}>
+                <h1 {...stylex.props(request.h1)}>{field.label}</h1>
+              </label>
+              <input
+                {...stylex.props(form.input, form.costInput)}
+                type="text"
+                inputMode="decimal"
+                id={field.id}
+                name={field.name}
+                pattern="^\d+\.\d{2}$" // Requires exactly 2 decimal places
+                defaultValue={
+                  field.value !== null ? field.value.toFixed(2) : '0.00'
+                }
+                placeholder="0.00"
+                onChange={handleCostChange}
+                onBlur={handleCostBlur}
+              />
+            </div>
+          ))}
+        </div>
+
         <div>
           <label htmlFor='details'>
             <h1 {...stylex.props(request.h1)}>Details</h1>

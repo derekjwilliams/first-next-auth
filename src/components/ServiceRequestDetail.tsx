@@ -1,3 +1,4 @@
+// src/components/ServiceRequestDetail.tsx
 'use client'
 
 import useServiceRequestQuery from '../hooks/useServiceRequestQuery'
@@ -10,13 +11,6 @@ import { borders } from '../app/open-props/lib/borders.stylex'
 
 import Link from 'next/link'
 import LinkWrapperButton from './controls/LinkWrapperButton'
-import { HeadingNode, QuoteNode } from '@lexical/rich-text'
-import { ListItemNode, ListNode } from '@lexical/list'
-import { AutoLinkNode, LinkNode } from '@lexical/link'
-import { CodeHighlightNode, CodeNode } from '@lexical/code'
-import { TableCellNode, TableNode, TableRowNode } from '@lexical/table'
-import { theme } from '@/components/lexical/theme'
-import { ImageNode } from '@/components/lexical/nodes/ImageNode'
 import { RichTextEditor } from '@/components/lexical/RichTextEditor'
 
 const requests = stylex.create({
@@ -77,30 +71,21 @@ const requestCard = stylex.create({
       ':hover': marigoldColors.foregroundHoverLink,
     },
   },
-})
-
-const editorConfig = {
-  namespace: 'ServiceRequestDetail',
-  editable: false, // Read-only editor for viewing content
-  theme,
-  onError: (error: any) => {
-    console.error(error)
+  costs: {
+    padding: sizes.spacing6
   },
-  nodes: [
-    HeadingNode,
-    ListNode,
-    ListItemNode,
-    QuoteNode,
-    CodeNode,
-    CodeHighlightNode,
-    TableNode,
-    TableCellNode,
-    TableRowNode,
-    AutoLinkNode,
-    LinkNode,
-    ImageNode,
-  ],
-}
+  costItem: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: sizes.spacing2,
+  },
+  costTotal: {
+    fontWeight: fonts.weight6,
+    borderTop: `1px solid ${marigoldColors.pansy}`,
+    paddingTop: sizes.spacing2,
+    marginTop: sizes.spacing2,
+  },
+})
 
 export default function ServiceRequestDetail({ id }: { id: string | null }) {
   const { data: serviceRequest, isLoading, isError } = useServiceRequestQuery(id!)
@@ -115,6 +100,17 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
       </>
     )
   }
+  // Format costs to 2 decimal places
+  const formatCost = (cost: number | null | undefined) => {
+    const amount = cost ?? 0; // Convert null/undefined to 0
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }).format(amount)
+  }
+  const totalCost = (serviceRequest.material_cost || 0) + (serviceRequest.labor_cost || 0)
 
   return (
     <div {...stylex.props(requests.base)}>
@@ -129,6 +125,22 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
         }`}</div>
         <div>{`Status: ${serviceRequest.statuses?.status_name}`}</div>
         {/* {serviceRequest.details && <div>{`Details: ${serviceRequest.details}`}</div>} */}
+      </div>
+      <div {...stylex.props(requestCard.details)}>
+        <div {...stylex.props(requestCard.costs)}>
+          <div {...stylex.props(requestCard.costItem)}>
+            <span>Material Cost:</span>
+            <span>{formatCost(serviceRequest.material_cost)}</span>
+          </div>
+          <div {...stylex.props(requestCard.costItem)}>
+            <span>Labor Cost:</span>
+            <span>{formatCost(serviceRequest.labor_cost)}</span>
+          </div>
+          <div {...stylex.props(requestCard.costItem, requestCard.costTotal)}>
+            <span>Total Cost:</span>
+            <span>{formatCost(totalCost)}</span>
+          </div>
+        </div>
       </div>
       <div {...stylex.props(requestCard.details)}>
         <RichTextEditor
