@@ -6,6 +6,7 @@ import { marigoldColors } from '../../app/customStyles/marigoldColors.stylex'
 import { fonts } from '../../app/open-props/lib/fonts.stylex'
 import { sizes } from '../../app/open-props/lib/sizes.stylex'
 import { borders } from '../../app/open-props/lib/borders.stylex'
+
 const button = stylex.create({
   base: {
     display: 'inline-flex',
@@ -60,15 +61,19 @@ const LinkWrapperButton = ({
   href,
   children,
   className,
-  defaultClassName = { ...stylex.props(button.base) }['className'], // Default className
+  defaultClassName = { ...stylex.props(button.base) }['className'],
   ...props
 }: LinkWrapperProps) => {
-  const combinedClassName = classNames(defaultClassName || '', className || '') // Merge classNames
+  const combinedClassName = classNames(defaultClassName || '', className || '')
+  
   return (
-    <Link href={href} passHref legacyBehavior>
-      <LinkButton href={href} className={combinedClassName} {...props}>
-        {children}
-      </LinkButton>
+    <Link
+      href={href}
+      passHref
+      className={combinedClassName}
+      {...props}
+    >
+      {children}
     </Link>
   )
 }
