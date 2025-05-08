@@ -411,7 +411,7 @@ export type Database = {
           postal_code: string
           state_province: string
           street_address: string
-          tenant_organization_id: string
+          tenant_organization_id: string | null
           unit_number: string | null
         }
         Insert: {
@@ -422,7 +422,7 @@ export type Database = {
           postal_code: string
           state_province: string
           street_address: string
-          tenant_organization_id: string
+          tenant_organization_id?: string | null
           unit_number?: string | null
         }
         Update: {
@@ -433,7 +433,7 @@ export type Database = {
           postal_code?: string
           state_province?: string
           street_address?: string
-          tenant_organization_id?: string
+          tenant_organization_id?: string | null
           unit_number?: string | null
         }
         Relationships: [
@@ -594,17 +594,17 @@ export type Database = {
         Row: {
           service_request_id: string
           technician_id: string
-          tenant_organization_id: string
+          tenant_organization_id: string | null
         }
         Insert: {
           service_request_id: string
           technician_id: string
-          tenant_organization_id: string
+          tenant_organization_id?: string | null
         }
         Update: {
           service_request_id?: string
           technician_id?: string
-          tenant_organization_id?: string
+          tenant_organization_id?: string | null
         }
         Relationships: [
           {
@@ -646,7 +646,7 @@ export type Database = {
           service_type_id: string | null
           status_id: string | null
           steps: string[] | null
-          tenant_organization_id: string
+          tenant_organization_id: string | null
         }
         Insert: {
           completed?: boolean | null
@@ -663,7 +663,7 @@ export type Database = {
           service_type_id?: string | null
           status_id?: string | null
           steps?: string[] | null
-          tenant_organization_id: string
+          tenant_organization_id?: string | null
         }
         Update: {
           completed?: boolean | null
@@ -680,7 +680,7 @@ export type Database = {
           service_type_id?: string | null
           status_id?: string | null
           steps?: string[] | null
-          tenant_organization_id?: string
+          tenant_organization_id?: string | null
         }
         Relationships: [
           {
@@ -724,17 +724,17 @@ export type Database = {
         Row: {
           id: string
           service_name: string
-          tenant_organization_id: string
+          tenant_organization_id: string | null
         }
         Insert: {
           id?: string
           service_name: string
-          tenant_organization_id: string
+          tenant_organization_id?: string | null
         }
         Update: {
           id?: string
           service_name?: string
-          tenant_organization_id?: string
+          tenant_organization_id?: string | null
         }
         Relationships: [
           {
@@ -750,17 +750,17 @@ export type Database = {
         Row: {
           id: string
           status_name: string
-          tenant_organization_id: string
+          tenant_organization_id: string | null
         }
         Insert: {
           id?: string
           status_name: string
-          tenant_organization_id: string
+          tenant_organization_id?: string | null
         }
         Update: {
           id?: string
           status_name?: string
-          tenant_organization_id?: string
+          tenant_organization_id?: string | null
         }
         Relationships: [
           {
@@ -777,19 +777,19 @@ export type Database = {
           email: string | null
           id: string
           name: string
-          tenant_organization_id: string
+          tenant_organization_id: string | null
         }
         Insert: {
           email?: string | null
           id?: string
           name: string
-          tenant_organization_id: string
+          tenant_organization_id?: string | null
         }
         Update: {
           email?: string | null
           id?: string
           name?: string
-          tenant_organization_id?: string
+          tenant_organization_id?: string | null
         }
         Relationships: [
           {
