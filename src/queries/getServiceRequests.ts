@@ -65,7 +65,8 @@ export async function getServiceRequests(
     // Handle special cases for relations
     if (sort.id === 'service_type') {
       query = query.order('service_types(service_name)', { ascending: !sort.desc })
-    } else if (sort.id === 'technicians') {
+    } else 
+    if (sort.id === 'technicians') {
       // Sorting by technicians might be complex - you may need a different approach
       console.warn('Sorting by technicians is not supported')
     } else {

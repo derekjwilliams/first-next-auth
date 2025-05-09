@@ -7,8 +7,8 @@ export interface TechnicianWithDetails extends Tables<'technicians'> {
       locations: Array<Tables<'technicians'>>
     }
   >
-  bedrooms: Array<Pick<Tables<'bedrooms'>, 'id'>>
-  bathrooms: Array<Pick<Tables<'bathrooms'>, 'id'>>
+  // bedrooms: Array<Pick<Tables<'bedrooms'>, 'id'>>
+  // bathrooms: Array<Pick<Tables<'bathrooms'>, 'id'>>
 }
 
 export function getTechnicianById(client: TypedSupabaseClient, id: string) {

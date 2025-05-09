@@ -9,6 +9,7 @@ import useTechnicianQuery from "src/hooks/useTechnicianQuery";
 import TechnicianDetails from "./TechnicianDetails";
 import useServiceRequestsByTechnicianIdQuery from "src/hooks/useServiceRequestsByTechnicianIdQuery";
 import { useStatusMapQuery } from "src/hooks/useStatusMapQuery";
+import { parseIncludeArchivedFromURL, parsePaginationFromURL, parseSortingFromURL} from '../utils/serviceRequestUtils'
 
 interface TechnicianDetailsPageProps {
   technicianId: string;
@@ -208,38 +209,4 @@ export default function TechnicianDetailsPage({
       </div>
     </div>
   );
-}
-
-// --- URL Parsing Functions (these seem fine) ---
-function parseIncludeArchivedFromURL(searchParams: URLSearchParams): boolean {
-  return searchParams.get("includeArchived") === "true";
-}
-
-function parseSortingFromURL(searchParams: URLSearchParams): SortingState {
-  const sort = searchParams.get("sort");
-  const order = searchParams.get("order");
-
-  if (!sort) return [];
-
-  const isDesc = order === "desc";
-  return [{ id: sort, desc: isDesc }];
-}
-
-function parsePaginationFromURL(
-  searchParams: URLSearchParams,
-): PaginationState {
-  const pageParam = searchParams.get("page");
-  const pageSizeParam = searchParams.get("pageSize");
-
-  // Ensure pageIndex is not negative and pageSize has a sane default/min/max
-  const pageIndex = Math.max(0, parseInt(pageParam || "1", 10) - 1);
-  const pageSize = Math.min(
-    100,
-    Math.max(1, parseInt(pageSizeParam || "10", 10)),
-  );
-
-  return {
-    pageIndex,
-    pageSize,
-  };
 }

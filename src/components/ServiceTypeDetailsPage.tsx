@@ -2,17 +2,17 @@
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { type SortingState, type PaginationState } from '@tanstack/react-table'
-import useLocationQuery from '../hooks/useLocationQuery'
-import { useServiceRequestsByLocationId } from '../hooks/useServiceRequestsQuery' // Updated import
-import LocationDetails from './LocationDetails'
+import useServiceTypeQuery from '../hooks/useServiceTypeQuery'
+import { useServiceRequestsByServiceTypeId } from '../hooks/useServiceRequestsQuery' // Updated import
+import ServiceTypeDetails from './ServiceTypeDetails'
 import SimpleServiceRequestsTable from './SimpleServiceRequestsTable'
 import * as stylex from '@stylexjs/stylex'
 import { useCallback, useMemo } from 'react'
 import { useStatusMapQuery } from 'src/hooks/useStatusMapQuery'
 import { parseIncludeArchivedFromURL, parsePaginationFromURL, parseSortingFromURL} from '../utils/serviceRequestUtils'
 
-interface LocationDetailsPageProps {
-  locationId: string
+interface ServicedTypeDetailsPageProps {
+  serviceTypeId: string
 }
 
 const styles = stylex.create({
@@ -32,7 +32,7 @@ const getCurrentPageSize = (
   return paginationState?.pageSize || defaultSize;
 }
 
-export default function LocationDetailsPage({ locationId }: LocationDetailsPageProps) {
+export default function ServiceTypeDetailsPage({ serviceTypeId }: ServicedTypeDetailsPageProps) {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -43,12 +43,6 @@ export default function LocationDetailsPage({ locationId }: LocationDetailsPageP
     () => parseIncludeArchivedFromURL(searchParams),
     [searchParams],
   );
-
-  // Debug log for sorting changes
-  // useEffect(() => {
-  //   console.log('Current sorting state:', sorting)
-  // }, [sorting])
-
 
   const handleStateChange = useCallback(
     (newState: {
@@ -128,11 +122,11 @@ export default function LocationDetailsPage({ locationId }: LocationDetailsPageP
   )
 
   const {
-    data: location,
-    isLoading: isLoadingLocation,
-    isError: isErrorLocation,
-    error: errorLocation,
-  } = useLocationQuery(locationId)
+    data: serviceType,
+    isLoading: isLoadingServiceType,
+    isError: isErrorServiceType,
+    error: errorServiceType,
+  } = useServiceTypeQuery(serviceTypeId)
 
   const { data: statusMap = {}, isLoading: statusMapLoading } =
     useStatusMapQuery();
@@ -142,7 +136,7 @@ export default function LocationDetailsPage({ locationId }: LocationDetailsPageP
     isLoading: isLoadingServiceRequests,
     isError: isErrorServiceRequests,
     error: errorServiceRequests,
-  } = useServiceRequestsByLocationId(locationId, {
+  } = useServiceRequestsByServiceTypeId(serviceTypeId, {
     sorting,
     pagination,
     includeArchived
@@ -151,7 +145,9 @@ export default function LocationDetailsPage({ locationId }: LocationDetailsPageP
     statusMapLoading,
   )
 
-  const isLoading = isLoadingLocation || isLoadingServiceRequests
+  const isLoading =
+    isLoadingServiceType || isLoadingServiceRequests || statusMapLoading;
+
   const serviceRequests = serviceRequestsData?.data || []
   const totalCount = serviceRequestsData?.totalCount || 0
 
@@ -159,16 +155,16 @@ export default function LocationDetailsPage({ locationId }: LocationDetailsPageP
     return <div>Loading property data...</div>
   }
 
-  if (isErrorLocation) {
-    return <div>Error loading property details: {errorLocation?.message || 'An unknown error occurred.'}</div>
+  if (isErrorServiceType) {
+    return <div>Error loading service type details: {errorServiceType?.message || 'An unknown error occurred.'}</div>
   }
 
   return (
     <div>
       <div {...stylex.props(styles.detailsWrapper)}>
-        <h1>Property Details</h1>
-        {location && <LocationDetails location={location} />}
-        {!location && <strong>{`Location with ${locationId} not found`}</strong>}
+        <h1>Service Type Details</h1>
+        {serviceType && <ServiceTypeDetails serviceType={serviceType} />}
+        {!serviceType && <strong>{`Service Type with ${serviceTypeId} not found`}</strong>}
       </div>
       <div {...stylex.props(styles.serviceRequestsWrapper)}>
         <h2>Service Requests</h2>
