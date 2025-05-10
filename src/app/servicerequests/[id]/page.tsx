@@ -1,3 +1,4 @@
+// src/app/servicerequests/[id]/page.tsx
 import ServiceRequestDetail from '../../../components/ServiceRequestDetail'
 type Params = Promise<{ id: string }>
 

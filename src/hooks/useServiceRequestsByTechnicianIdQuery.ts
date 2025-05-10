@@ -25,7 +25,7 @@ const findArchivedStatusId = (
   return undefined
 }
 
-function useServiceRequestsByTechnicianIdQuery(technicianId: string,
+function useServiceRequestsByTechnicianId(technicianId: string,
   options: QueryOptions = {},
   statusMap: Record<string, string> | undefined,
   statusMapLoading: boolean,
@@ -131,4 +131,4 @@ function useServiceRequestsByTechnicianIdQuery(technicianId: string,
   })
 }
     
-export default useServiceRequestsByTechnicianIdQuery
+export default useServiceRequestsByTechnicianId
