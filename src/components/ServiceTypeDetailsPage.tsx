@@ -8,7 +8,7 @@ import * as stylex from '@stylexjs/stylex'
 import { useStatusMapQuery } from '../hooks/useStatusMapQuery'
 import { useServiceRequestsByServiceTypeId } from '../hooks/useServiceRequestsQuery'
 import { useServiceTypeById, useServiceTypeByName } from '../hooks/useServiceTypeQuery'
-import { isUUID } from '../utils/stringUtils'
+import { isUUID, snakeToPascalCase } from '../utils/stringUtils'
 
 interface ServiceTypeDetailsPageProps {
   serviceTypeIdentifier: string
@@ -29,7 +29,7 @@ export default function ServiceTypeDetailsPage({ serviceTypeIdentifier }: Servic
 
   // If not a UUID, fetch the ID from the name
   const { data: serviceTypeByName, isLoading: isLoadingByName } = useServiceTypeByName(
-    isIdDirectlyUsable ? null : serviceTypeIdentifier,
+    isIdDirectlyUsable ? null : snakeToPascalCase(serviceTypeIdentifier),
   )
 
   // Set the service type ID once we have it (either directly or after lookup)

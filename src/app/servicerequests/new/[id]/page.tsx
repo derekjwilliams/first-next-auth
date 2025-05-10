@@ -1,11 +1,7 @@
+import { snakeToPascalCase } from '@/utils/stringUtils'
 import MultipleServiceRequests from '../../../../components/MultipleServiceRequests'
 import { createClient } from '../../../../lib/supabase/client'
 import { serviceTypes } from '../../../../utils/serviceTypes'
-
-const snakeToPascalCase = (value: string) => {
-  const result = value.toLowerCase().replace(/([_][a-z])/g, (group) => group.toUpperCase().replace('_', ''))
-  return result.charAt(0).toUpperCase() + result.slice(1)
-}
 
 // the param id is a string like 'safety', 'refrigerator', etc.  To make the url friendly.  If there
 // is no match in the database for the CamelCase version of this sting, then attempt with the id field
