@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
 import useMultipleServiceRequestsQuery from '../hooks/useMultipleServiceRequestsQuery'
@@ -10,7 +11,6 @@ import { borders } from '../app/open-props/lib/borders.stylex'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import useSupabase from '../hooks/useSupabase'
 import { addServiceRequest } from '../queries/addServiceRequest'
-import { Tables } from '../utils/database.types'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { ServiceRequestMutationInput } from '../types'
@@ -138,20 +138,16 @@ const requestCard = stylex.create({
 
 function AddServiceRequest({ locations, serviceTypeId, serviceDisplayName }: MultipleServiceRequestsProps) {
   const client = useSupabase()
-  
+
   const mutationFn = async (value: ServiceRequestMutationInput) => {
-    let statusId = value.status_id;
+    let statusId = value.status_id
     if (!statusId) {
-      const { data: openStatus, error } = await client
-        .from('statuses')
-        .select('id')
-        .eq('status_name', 'open')
-        .single();
+      const { data: openStatus, error } = await client.from('statuses').select('id').eq('status_name', 'open').single()
 
       if (error || !openStatus) {
-        throw new Error('Could not find "open" status');
+        throw new Error('Could not find "open" status')
       }
-      value.status_id = openStatus.id;
+      value.status_id = openStatus.id
     }
     return addServiceRequest(client, value)?.then((result: { data: any }) => result.data)
   }
@@ -234,7 +230,6 @@ function AddServiceRequest({ locations, serviceTypeId, serviceDisplayName }: Mul
         <Form.Submit asChild>
           <button {...stylex.props(form.requestButton)}>Submit {serviceDisplayName} Request</button>
         </Form.Submit>
-        {/* Location Select, TODO use radix */}
       </Form.Root>
     </>
   )

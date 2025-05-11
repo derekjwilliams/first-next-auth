@@ -3,7 +3,22 @@ import { useQuery } from '@tanstack/react-query'
 import useSupabase from './useSupabase'
 import { getLocationById } from '../queries/getLocationById'
 
-function useLocationQuery(locationId: string) {
+export function useLocationsQuery() {
+  const client = useSupabase()
+
+  return useQuery({
+    queryKey: ['locations'],
+    queryFn: async () => {
+      const { data, error } = await client.from('locations').select('*').order('location_name')
+
+      if (error) throw error
+
+      return data || []
+    },
+  })
+}
+
+export function useLocationQuery(locationId: string) {
   const client = useSupabase()
   const id = locationId
 
@@ -21,5 +36,3 @@ function useLocationQuery(locationId: string) {
 
   return useQuery({ queryKey, queryFn })
 }
-
-export default useLocationQuery

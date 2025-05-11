@@ -1,3 +1,4 @@
+// src/hooks/useSupabase.tsx
 import { useMemo } from 'react'
 import { getSupabaseBrowserClient } from '../lib/supabase/supabase'
 

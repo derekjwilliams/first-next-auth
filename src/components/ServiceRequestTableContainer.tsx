@@ -1,12 +1,21 @@
-// src/components/ServiceRequestTableContainer.tsx
+// src/components/ServiceRequestTableContainer.tsx (modified)
 'use client'
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { type SortingState, type PaginationState } from '@tanstack/react-table'
 import SimpleServiceRequestsTable from './SimpleServiceRequestsTable'
+import CreateServiceRequestDialog from './CreateServiceRequestDialog'
 import * as stylex from '@stylexjs/stylex'
-import { useCallback, useMemo } from 'react'
+import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
+import { colors } from '../app/open-props/lib/colors.stylex'
+import { fonts } from '../app/open-props/lib/fonts.stylex'
+import { sizes } from '../app/open-props/lib/sizes.stylex'
+import { borders } from '../app/open-props/lib/borders.stylex'
+import { useCallback, useMemo, useState } from 'react'
+import { useQueryClient } from '@tanstack/react-query'
 import { parseIncludeArchivedFromURL, parsePaginationFromURL, parseSortingFromURL } from '../utils/serviceRequestUtils'
+import { useLocationsQuery } from 'src/hooks/useLocationQuery'
+import { useTechniciansQuery } from 'src/hooks/useTechnicianQuery'
 
 interface ServiceRequestTableContainerProps {
   entityId: string
@@ -21,12 +30,42 @@ interface ServiceRequestTableContainerProps {
     },
     statusMap: Record<string, string>,
     isStatusMapLoading: boolean,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ) => any
+  serviceTypeOptions?: { id: string; name: string }[]
+  statusOptions?: { id: string; name: string }[]
+  locationOptions?: { id: string; name: string }[]
+  technicianOptions?: { id: string; name: string }[]
+  entityType: 'location' | 'serviceType' | 'technician' // required to determine context
 }
 
 const styles = stylex.create({
   serviceRequestsWrapper: {
     padding: '20px',
+  },
+  headerContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '16px',
+  },
+  createButton: {
+    cursor: 'pointer',
+    textDecoration: 'none',
+    color: 'black',
+    fontSize: fonts.size2,
+    borderRadius: borders.radius2,
+    placeItems: 'center',
+    display: 'grid',
+    minWidth: 200,
+    padding: sizes.spacing2,
+    backgroundColor: {
+      default: colors.gray2,
+      ':hover': marigoldColors.flowerYellow,
+    },
+    transitionDuration: '500ms',
+    transitionProperty: 'backgroundColor',
+    marginTop: '10px',
   },
 })
 
@@ -39,14 +78,34 @@ export default function ServiceRequestTableContainer({
   statusMap,
   isStatusMapLoading,
   useServiceRequestsQuery,
+  serviceTypeOptions = [],
+  statusOptions = [],
+  locationOptions = [],
+  technicianOptions = [],
+  entityType,
 }: ServiceRequestTableContainerProps) {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
+  const queryClient = useQueryClient()
+  const { data: locations = [] } = useLocationsQuery()
+  const { data: technicians = [] } = useTechniciansQuery()
+  // State for dialog
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
 
   const sorting = useMemo(() => parseSortingFromURL(searchParams), [searchParams])
   const pagination = useMemo(() => parsePaginationFromURL(searchParams), [searchParams])
   const includeArchived = useMemo(() => parseIncludeArchivedFromURL(searchParams), [searchParams])
+
+  const formattedLocationOptions =
+    locationOptions.length > 0
+      ? locationOptions
+      : locations.map((loc) => ({ id: loc.id, name: loc.location_name || loc.street_address || `Location ${loc.id}` }))
+
+  const formattedTechOptions =
+    technicianOptions.length > 0
+      ? technicianOptions
+      : technicians.map((tech) => ({ id: tech.id, name: tech.name || `Technician ${tech.id}` }))
 
   const handleStateChange = useCallback(
     (newState: { sorting?: SortingState; pagination?: PaginationState; includeArchived?: boolean }) => {
@@ -115,6 +174,39 @@ export default function ServiceRequestTableContainer({
     [handleStateChange, pagination],
   )
 
+  // Dialog handlers
+  const openDialog = () => setIsDialogOpen(true)
+  const closeDialog = () => setIsDialogOpen(false)
+
+  const handleCreateSuccess = useCallback(() => {
+    // Reset to first page
+    handleStateChange({
+      pagination: {
+        pageIndex: 0,
+        pageSize: getCurrentPageSize(pagination),
+      },
+    })
+
+    // Create a filter string matching what your hook uses
+    const filterString = JSON.stringify(
+      entityType === 'location'
+        ? { locationId: entityId }
+        : entityType === 'serviceType'
+          ? { serviceTypeId: entityId }
+          : entityType === 'technician'
+            ? { statusId: entityId }
+            : {},
+    )
+
+    // Force an immediate refetch with the current filters
+    queryClient.refetchQueries({
+      predicate: (query) => {
+        return (
+          Array.isArray(query.queryKey) && query.queryKey[0] === 'serviceRequests' && query.queryKey[1] === filterString
+        )
+      },
+    })
+  }, [handleStateChange, pagination, queryClient, entityType, entityId])
   // Use the query hook passed as a prop
   const {
     data: serviceRequestsData,
@@ -132,13 +224,18 @@ export default function ServiceRequestTableContainer({
     isStatusMapLoading,
   )
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const serviceRequests = serviceRequestsData?.data || []
   const totalCount = serviceRequestsData?.totalCount || 0
 
   return (
     <div {...stylex.props(styles.serviceRequestsWrapper)}>
-      <h2>Service Requests</h2>
+      <div {...stylex.props(styles.headerContainer)}>
+        <h2>Service Requests</h2>
+        <button {...stylex.props(styles.createButton)} onClick={openDialog}>
+          New Service Request
+        </button>
+      </div>
+
       {isErrorServiceRequests ? (
         <div>Error loading service requests: {errorServiceRequests?.message || 'An unknown error occurred.'}</div>
       ) : (
@@ -155,6 +252,26 @@ export default function ServiceRequestTableContainer({
           statusMap={statusMap}
         />
       )}
+
+      {/* Dialog for creating new service requests */}
+      <CreateServiceRequestDialog
+        open={isDialogOpen}
+        onClose={closeDialog}
+        onSuccess={handleCreateSuccess}
+        // Pass IDs based on context
+        locationId={entityType === 'location' ? entityId : undefined}
+        serviceTypeId={entityType === 'serviceType' ? entityId : undefined}
+        technicianId={entityType === 'technician' ? entityId : undefined}
+        // Pass options lists
+        statusOptions={statusOptions}
+        serviceTypeOptions={serviceTypeOptions}
+        locationOptions={formattedLocationOptions}
+        technicianOptions={formattedTechOptions}
+        // Hide selects based on context
+        hideLocationSelect={entityType === 'location'}
+        hideServiceTypeSelect={entityType === 'serviceType'}
+        hideTechnicianSelect={false}
+      />
     </div>
   )
 }

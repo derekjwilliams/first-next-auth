@@ -7,6 +7,7 @@ import TechnicianDetails from './TechnicianDetails'
 import ServiceRequestTableContainer from './ServiceRequestTableContainer'
 import { useStatusMapQuery } from 'src/hooks/useStatusMapQuery'
 import useServiceRequestsByTechnicianId from 'src/hooks/useServiceRequestsByTechnicianIdQuery'
+import { useServiceTypesQuery } from 'src/hooks/useServiceTypeQuery'
 
 interface TechnicianDetailsPageProps {
   technicianId: string
@@ -28,6 +29,18 @@ export default function TechnicianDetailsPage({ technicianId }: TechnicianDetail
   } = useTechnicianQuery(technicianId)
 
   const { data: statusMap = {}, isLoading: statusMapLoading } = useStatusMapQuery()
+
+  const { data: serviceTypes = [] } = useServiceTypesQuery()
+
+  const serviceTypeOptions = serviceTypes.map((type) => ({
+    id: type.id,
+    name: type.service_name || 'Unnamed Service',
+  }))
+
+  const statusOptions = Object.entries(statusMap).map(([id, name]) => ({
+    id,
+    name: name as string,
+  }))
 
   if (isLoadingTechnician && !technician) {
     return <div>Loading technician data...</div>
@@ -52,6 +65,9 @@ export default function TechnicianDetailsPage({ technicianId }: TechnicianDetail
           statusMap={statusMap}
           isStatusMapLoading={statusMapLoading}
           useServiceRequestsQuery={useServiceRequestsByTechnicianId}
+          serviceTypeOptions={serviceTypeOptions}
+          statusOptions={statusOptions}
+          entityType='technician'
         />
       )}
     </div>

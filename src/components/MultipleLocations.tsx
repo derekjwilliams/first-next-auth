@@ -133,7 +133,7 @@ function AddLocation() {
       postal_code: e.currentTarget.postal_code.value,
       id: '',
       notes: null,
-      tenant_organization_id: null
+      tenant_organization_id: null,
     })
   }
   return (

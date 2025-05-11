@@ -7,7 +7,7 @@ import ServiceRequestTableContainer from './ServiceRequestTableContainer'
 import * as stylex from '@stylexjs/stylex'
 import { useStatusMapQuery } from '../hooks/useStatusMapQuery'
 import { useServiceRequestsByServiceTypeId } from '../hooks/useServiceRequestsQuery'
-import { useServiceTypeById, useServiceTypeByName } from '../hooks/useServiceTypeQuery'
+import { useServiceTypeById, useServiceTypeByName, useServiceTypesQuery } from '../hooks/useServiceTypeQuery'
 import { isUUID, snakeToPascalCase } from '../utils/stringUtils'
 
 interface ServiceTypeDetailsPageProps {
@@ -28,7 +28,7 @@ export default function ServiceTypeDetailsPage({ serviceTypeIdentifier }: Servic
   const isIdDirectlyUsable = isUUID(serviceTypeIdentifier)
 
   // If not a UUID, fetch the ID from the name
-  const { data: serviceTypeByName, isLoading: isLoadingByName } = useServiceTypeByName(
+  const { data: serviceTypeByName } = useServiceTypeByName(
     isIdDirectlyUsable ? null : snakeToPascalCase(serviceTypeIdentifier),
   )
 
@@ -53,6 +53,18 @@ export default function ServiceTypeDetailsPage({ serviceTypeIdentifier }: Servic
 
   const { data: statusMap = {}, isLoading: statusMapLoading } = useStatusMapQuery()
 
+  const { data: serviceTypes = [] } = useServiceTypesQuery()
+
+  const serviceTypeOptions = serviceTypes.map((type) => ({
+    id: type.id,
+    name: type.service_name || 'Unnamed Service',
+  }))
+
+  const statusOptions = Object.entries(statusMap).map(([id, name]) => ({
+    id,
+    name: name as string,
+  }))
+
   if ((isLoadingIdentifier || isLoadingServiceType) && !serviceType) {
     return <div>Loading service type data...</div>
   }
@@ -64,7 +76,6 @@ export default function ServiceTypeDetailsPage({ serviceTypeIdentifier }: Servic
   return (
     <div>
       <div {...stylex.props(styles.detailsWrapper)}>
-        <h1>Service Type Details</h1>
         {serviceType && <ServiceTypeDetails serviceType={serviceType} />}
         {!serviceType && <strong>{`Service Type "${serviceTypeIdentifier}" not found`}</strong>}
       </div>
@@ -72,10 +83,14 @@ export default function ServiceTypeDetailsPage({ serviceTypeIdentifier }: Servic
       {/* Only render the table container when service type data is loaded */}
       {serviceType && serviceTypeId && (
         <ServiceRequestTableContainer
-          entityId={serviceTypeId} // Use the actual ID here, not the name
+          entityId={serviceTypeId}
           statusMap={statusMap}
           isStatusMapLoading={statusMapLoading}
           useServiceRequestsQuery={useServiceRequestsByServiceTypeId}
+          serviceTypeOptions={serviceTypeOptions}
+          statusOptions={statusOptions}
+          entityType='serviceType'
+          //          entityType='location'
         />
       )}
     </div>

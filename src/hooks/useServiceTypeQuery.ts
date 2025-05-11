@@ -8,6 +8,7 @@ export function useServiceTypeById(serviceTypeId: string) {
   const queryKey = ['serviceType', 'byId', , id]
 
   const queryFn = async () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return getServiceTypeById(client, id!)?.then((result: { data: any }) => result.data)
   }
   return useQuery({ queryKey, queryFn })
@@ -28,5 +29,20 @@ export function useServiceTypeByName(serviceName: string | null) {
     },
     enabled: !!serviceName,
     staleTime: 60 * 60 * 24000, // 1 day - since service types rarely change
+  })
+}
+
+export function useServiceTypesQuery() {
+  const client = useSupabase()
+
+  return useQuery({
+    queryKey: ['serviceTypes'],
+    queryFn: async () => {
+      const { data, error } = await client.from('service_types').select('*').order('service_name')
+
+      if (error) throw error
+
+      return data || []
+    },
   })
 }

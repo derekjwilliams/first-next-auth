@@ -20,8 +20,8 @@ const form = stylex.create({
     color: marigoldColors.foreground,
     fontWeight: fonts.weight7,
   },
-  h1: {
-    fontSize: fonts.size7,
+  h3: {
+    fontSize: fonts.size5,
   },
 })
 
@@ -45,7 +45,7 @@ export default function TechnicianDetails({ technician }: TechnicianDetailsProps
   return (
     <form>
       <div {...stylex.props(requests.base)}>
-        <h1 {...stylex.props(form.heading, form.h1)}>Technician Detail</h1>
+        <h3 {...stylex.props(form.heading, form.h3)}>Technician Detail</h3>
         <div key={technician.id} {...stylex.props(requestCard.base)}>
           {technician.name} {technician.email}
         </div>
