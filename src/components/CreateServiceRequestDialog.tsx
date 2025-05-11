@@ -8,6 +8,7 @@ import { colors } from '../app/open-props/lib/colors.stylex'
 import { fonts } from '../app/open-props/lib/fonts.stylex'
 import { sizes } from '../app/open-props/lib/sizes.stylex'
 import { borders } from '../app/open-props/lib/borders.stylex'
+import { shadows } from '../app/open-props/lib/shadows.stylex'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { ServiceRequestMutationInput } from '@/types/index'
 import useSupabase from 'src/hooks/useSupabase'
@@ -31,106 +32,158 @@ interface CreateServiceRequestDialogProps {
 
 const styles = stylex.create({
   dialog: {
-    padding: '24px',
-    borderRadius: '8px',
+    padding: {
+      default: sizes.spacing4,
+      '@media (max-width: 600px)': sizes.spacing3,
+    },
+    borderRadius: borders.radius2,
     maxWidth: '500px',
-    width: '100%',
+    width: {
+      default: '100%',
+      '@media (max-width: 600px)': `calc(100% - ${sizes.spacing10})`,
+    },
+    maxHeight: {
+      '@media (max-width: 600px)': '90vh',
+    },
+    overflowY: 'auto',
+    margin: 'auto',
+    background: colors.stone1,
+    color: colors.stone12,
+    boxShadow: shadows.shadow3,
   },
   form: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '16px',
+    gap: {
+      default: sizes.spacing3,
+      '@media (max-width: 600px)': sizes.spacing2,
+    },
   },
   formGroup: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '8px',
+    gap: sizes.spacing2,
   },
   label: {
-    fontWeight: '500',
+    fontWeight: fonts.weight4,
+    fontSize: {
+      default: fonts.size1,
+      '@media (max-width: 600px)': fonts.size0,
+    },
   },
   input: {
-    padding: '8px 12px',
-    borderRadius: '4px',
-    border: '1px solid #ccc',
-    fontSize: '16px',
+    padding: {
+      default: `${sizes.spacing2} ${sizes.spacing3}`,
+      '@media (max-width: 600px)': sizes.spacing2,
+    },
+    borderRadius: borders.radius2,
+    border: `1px solid ${colors.stone3}`,
+    fontSize: fonts.size1,
+    width: '100%',
+    boxSizing: 'border-box',
   },
   textarea: {
-    padding: '8px 12px',
-    borderRadius: '4px',
-    border: '1px solid #ccc',
-    fontSize: '16px',
-    minHeight: '120px',
+    padding: {
+      default: `${sizes.spacing2} ${sizes.spacing3}`,
+      '@media (max-width: 600px)': sizes.spacing2,
+    },
+    borderRadius: borders.radius2,
+    border: `1px solid ${colors.stone3}`,
+    fontSize: fonts.size1,
+    minHeight: {
+      default: sizes.spacing12,
+      '@media (max-width: 600px)': sizes.spacing10,
+    },
     resize: 'vertical',
+    width: '100%',
+    boxSizing: 'border-box',
   },
   select: {
-    padding: '8px 12px',
-    borderRadius: '4px',
-    border: '1px solid #ccc',
-    fontSize: '16px',
+    padding: {
+      default: `${sizes.spacing2} ${sizes.spacing3}`,
+      '@media (max-width: 600px)': sizes.spacing2,
+    },
+    borderRadius: borders.radius2,
+    border: `1px solid ${colors.stone3}`,
+    fontSize: fonts.size1,
+    width: '100%',
+    boxSizing: 'border-box',
+    background: colors.stone1,
   },
   buttonGroup: {
     display: 'flex',
-    justifyContent: 'flex-end',
-    gap: '12px',
-    marginTop: '16px',
+    justifyContent: {
+      default: 'flex-end',
+      '@media (max-width: 600px)': 'space-between',
+    },
+    gap: sizes.spacing3,
+    marginTop: sizes.spacing4,
   },
   cancelButton: {
-    cursor: 'pointer',
-    textDecoration: 'none',
-    color: 'black',
-    fontSize: fonts.size2,
-    borderRadius: borders.radius2,
-    placeItems: 'center',
-    display: 'grid',
-    minWidth: 200,
-    padding: sizes.spacing2,
-    backgroundColor: {
-      default: colors.gray0,
-      ':hover': marigoldColors.flowerGold,
+    padding: {
+      default: `${sizes.spacing2} ${sizes.spacing4}`,
+      '@media (max-width: 600px)': `${sizes.spacing2} ${sizes.spacing3}`,
     },
-    transitionDuration: '500ms',
-    transitionProperty: 'backgroundColor',
-    marginTop: '10px',
+    borderRadius: borders.radius2,
+    border: `1px solid ${colors.stone3}`,
+    background: 'transparent',
+    cursor: 'pointer',
+    fontSize: fonts.size1,
+    minWidth: {
+      '@media (max-width: 600px)': sizes.spacing8,
+    },
+    ':hover': {
+      background: colors.stone2,
+    },
   },
   submitButton: {
-    cursor: 'pointer',
-    textDecoration: 'none',
-    color: 'black',
-    fontSize: fonts.size2,
+    padding: {
+      default: `${sizes.spacing2} ${sizes.spacing4}`,
+      '@media (max-width: 600px)': `${sizes.spacing2} ${sizes.spacing3}`,
+    },
     borderRadius: borders.radius2,
-    placeItems: 'center',
-    display: 'grid',
-    minWidth: 200,
-    padding: sizes.spacing2,
+    border: `1px solid ${colors.stone3}`,
     backgroundColor: {
       default: marigoldColors.leafHighlight,
       ':hover': marigoldColors.flowerGold,
     },
+    color: marigoldColors.foregroundButton,
+    cursor: 'pointer',
+    fontSize: fonts.size1,
+    textDecoration: 'none',
+
+    minWidth: {
+      '@media (max-width: 600px)': sizes.spacing8,
+    },
+    ':disabled': {
+      background: colors.stone0,
+      cursor: 'not-allowed',
+    },
+    placeItems: 'center',
+    display: 'grid',
     transitionDuration: '500ms',
     transitionProperty: 'backgroundColor',
-    marginTop: '10px',
   },
   errorMessage: {
-    color: 'red',
-    fontSize: '14px',
-    marginTop: '4px',
+    color: colors.red0,
+    fontSize: fonts.size0,
+    marginTop: sizes.spacing1,
   },
   successMessage: {
-    color: 'green',
-    fontSize: '14px',
-    marginTop: '4px',
+    color: colors.green0,
+    fontSize: fonts.size0,
+    marginTop: sizes.spacing1,
   },
   techniciansList: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '8px',
-    marginTop: '8px',
+    gap: sizes.spacing2,
+    marginTop: sizes.spacing2,
   },
   technicianItem: {
     display: 'flex',
     alignItems: 'center',
-    gap: '8px',
+    gap: sizes.spacing2,
   },
 })
 
