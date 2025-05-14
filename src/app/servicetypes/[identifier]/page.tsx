@@ -1,9 +1,9 @@
 // src/app/servicetypes/[id]/page.tsx
-import ServiceTypeDetailsPage from '../../../components/ServiceTypeDetailsPage'
+import ServiceTypeDetailsContainer from '../../../components/ServiceTypeDetailsContainer'
 type Params = Promise<{ identifier: string }>
 export default async function Page({ params }: { params: Params }) {
   const resolvedParams = await params
   const identifier = resolvedParams.identifier
 
-  return <ServiceTypeDetailsPage serviceTypeIdentifier={identifier} />
+  return <ServiceTypeDetailsContainer serviceTypeIdentifier={identifier} />
 }
