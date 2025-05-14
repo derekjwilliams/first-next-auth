@@ -325,7 +325,7 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                       }
                       if (cell.column.id === 'service_types') {
                         const serviceType = cell.getValue() as Tables<'service_types'>
-                        const link = `/servicerequests/new/${pascalToSnakeCase(serviceType.service_name)}`
+                        const link = `/servicetypes/${pascalToSnakeCase(serviceType.service_name)}`
                         const displayName = serviceType?.service_name
                           ? serviceTypes?.get(serviceType.service_name)?.displayName || ''
                           : ''

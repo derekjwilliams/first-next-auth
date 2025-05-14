@@ -65,7 +65,7 @@ export default async function Login({
       return redirect('/login?message=Could not authenticate user')
     }
     if (!error) {
-      const redirectTo = (resolvedSearchParams['redirect'] as string) || '/servicerequests/new' // Redirect parameter fallback
+      const redirectTo = (resolvedSearchParams['redirect'] as string) || '/servicetypes' // Redirect parameter fallback
       redirect(redirectTo || '/')
     }
   }

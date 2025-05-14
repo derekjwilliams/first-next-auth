@@ -100,10 +100,6 @@ const serviceMain = stylex.create({
     flexDirection: 'column',
     gap: 1.5,
   },
-  heading: {
-    color: marigoldColors.foreground,
-    padding: '0 0 1rem 2rem',
-  },
 })
 export default async function Page() {
   const supabase = await createClient()
@@ -168,7 +164,6 @@ export default async function Page() {
 
       <div {...stylex.props(serviceMain_container.base)}>
         <main {...stylex.props(serviceMain.base)}>
-          <div {...stylex.props(serviceMain.heading)}>Make a Service Request</div>
           <div {...stylex.props(servicePage.grid)}>{serviceLinks}</div>
         </main>
       </div>
