@@ -10,6 +10,7 @@ import { borders } from '../../app/open-props/lib/borders.stylex'
 import { JSX } from 'react'
 import { colors } from '../open-props/lib/colors.stylex'
 import { fonts } from '../open-props/lib/fonts.stylex'
+import { Plus } from 'lucide-react'
 
 const serviceCard = stylex.create({
   linkOverlay: {
@@ -33,7 +34,7 @@ const serviceCard = stylex.create({
     boxShadow: {
       default: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.1) 0px 4px 6px -4px',
     },
-    borderRadius: borders.radius2,
+    borderRadius: borders.radius4,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -47,17 +48,13 @@ const serviceCard = stylex.create({
     transitionDuration: '500ms',
     transitionProperty: 'backgroundColor',
   },
-
   newRequest: {
-    padding: {
-      default: `${sizes.spacing1} ${sizes.spacing4}`,
-      '@media (max-width: 600px)': `${sizes.spacing1} ${sizes.spacing3}`,
-    },
-    borderRadius: borders.radius2,
-    border: `1px solid ${colors.stone3}`,
+    padding: `${sizes.spacing1}`,
+    borderRadius: borders.radius6,
+    // border: `2px solid ${colors.stone5}`,
     backgroundColor: {
-      default: marigoldColors.leafHighlight,
-      ':hover': marigoldColors.backgroundButton,
+      default: marigoldColors.backgroundButton,
+      ':hover': marigoldColors.flowerGold,
     },
     color: marigoldColors.foregroundButton,
     cursor: 'pointer',
@@ -68,6 +65,8 @@ const serviceCard = stylex.create({
       background: colors.stone0,
       cursor: 'not-allowed',
     },
+    height: sizes.fluid4,
+    width: sizes.fluid4,
     placeItems: 'center',
     display: 'grid',
     transitionDuration: '500ms',
@@ -174,8 +173,9 @@ export default async function Page() {
       <div {...stylex.props(serviceCard.base)}>
         <Link
           href={`/servicetypes/${pascalToSnakeCase(key)}?createDialog=open`}
+          key={`/servicetypes/${pascalToSnakeCase(key)}`}
           {...stylex.props(serviceCard.newRequest)}>
-          New
+          <Plus size={20} />
         </Link>
         <Link href={`/servicetypes/${pascalToSnakeCase(key)}`} {...stylex.props(serviceCard.linkOverlay)}>
           <Image
