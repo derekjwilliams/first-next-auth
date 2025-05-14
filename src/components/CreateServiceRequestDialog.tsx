@@ -402,7 +402,7 @@ export default function CreateServiceRequestDialog({
 
   return (
     <dialog ref={dialogRef} {...stylex.props(styles.dialog)} onClose={onClose}>
-      <h2>Create New Service Request</h2>
+      <h2>Create Service Request</h2>
 
       <form onSubmit={handleSubmit} {...stylex.props(styles.form)}>
         <div {...stylex.props(styles.formGroup)}>
