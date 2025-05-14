@@ -257,7 +257,6 @@ export default function ServiceRequestTableContainer({
           New Service Request
         </button>
       </div>
-
       {isErrorServiceRequests ? (
         <div>Error loading service requests: {errorServiceRequests?.message || 'An unknown error occurred.'}</div>
       ) : (
@@ -274,7 +273,6 @@ export default function ServiceRequestTableContainer({
           statusMap={statusMap}
         />
       )}
-
       {/* Dialog for creating new service requests */}
       <CreateServiceRequestDialog
         open={isDialogOpen}

@@ -53,9 +53,9 @@ export default function ServiceTypeDetailsPage({ serviceTypeIdentifier }: Servic
 
   const { data: statusMap = {}, isLoading: statusMapLoading } = useStatusMapQuery()
 
-  const { data: serviceTypes = [] } = useServiceTypesQuery()
+  const { data: serviceTypesResult = [] } = useServiceTypesQuery()
 
-  const serviceTypeOptions = serviceTypes.map((type) => ({
+  const serviceTypeOptions = serviceTypesResult.map((type) => ({
     id: type.id,
     name: type.service_name || 'Unnamed Service',
   }))

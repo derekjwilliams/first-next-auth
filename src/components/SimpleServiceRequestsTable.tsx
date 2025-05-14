@@ -1,3 +1,4 @@
+// src/components/SimpleServiceRequestsTable.tsx
 'use client'
 'use no memo' // needed for react compiler with Tanstack table
 
@@ -19,7 +20,7 @@ const DEFAULT_PAGE_SIZE = process.env.NEXT_PUBLIC_DEFAULT_SERVICE_REQUEST_PAGE_S
   ? parseInt(process.env.NEXT_PUBLIC_DEFAULT_SERVICE_REQUEST_PAGE_SIZE, 5)
   : 5
 
-const CURRENCY_SYMBOL = '$'  
+const CURRENCY_SYMBOL = '$'
 
 interface SimpleServiceRequestsTableProps {
   serviceRequests: ServiceRequestRow[]
@@ -29,7 +30,7 @@ interface SimpleServiceRequestsTableProps {
   pagination: PaginationState
   onPaginationChange: (pagination: PaginationState) => void
   includeArchived: boolean // <-- New prop
-  onIncludeArchivedChange: (includeArchived: boolean) => void;
+  onIncludeArchivedChange: (includeArchived: boolean) => void
   isLoading: boolean
   statusMap: Record<string, string>
 }
@@ -194,7 +195,7 @@ export default function SimpleServiceRequestsTable({
   isLoading = false,
   statusMap,
 }: SimpleServiceRequestsTableProps): React.JSX.Element {
-const formatCurrency = (value: number | null | undefined) => {
+  const formatCurrency = (value: number | null | undefined) => {
     if (value === null || typeof value === 'undefined') {
       return 'N/A' // Or '-' or an empty string if preferred
     }
@@ -216,18 +217,14 @@ const formatCurrency = (value: number | null | undefined) => {
       accessorKey: 'description',
       header: 'Description',
       cell: ({ row, getValue }) => (
-        <Link
-          href={`/servicerequests/${row.original.id}`}
-          {...stylex.props(styles.descriptionLink)}
-        >
+        <Link href={`/servicerequests/${row.original.id}`} {...stylex.props(styles.descriptionLink)}>
           {getValue() as string}
         </Link>
       ),
       // enableSorting: true, // Sorting by description is often useful
     },
     {
-      accessorFn: (row) =>
-        row.service_types?.service_name || 'Unnamed Service',
+      accessorFn: (row) => row.service_types?.service_name || 'Unnamed Service',
       id: 'service_type',
       header: 'Type',
       cell: (info) => info.getValue() as string,
@@ -260,11 +257,7 @@ const formatCurrency = (value: number | null | undefined) => {
         return (
           <div {...stylex.props(styles.techniciansList)}>
             {technicians.map((tech) => (
-              <Link
-                key={tech.id}
-                href={`/technicians/${tech.id}`}
-                {...stylex.props(styles.technicianLink)}
-              >
+              <Link key={tech.id} href={`/technicians/${tech.id}`} {...stylex.props(styles.technicianLink)}>
                 {tech.name}
               </Link>
             ))}
@@ -295,26 +288,16 @@ const formatCurrency = (value: number | null | undefined) => {
 
   const handleSortingChange: OnChangeFn<SortingState> = (updaterOrValue) => {
     // TanStack Table can pass a value or an updater function
-    const newSorting =
-      typeof updaterOrValue === 'function'
-        ? updaterOrValue(sorting)
-        : updaterOrValue
+    const newSorting = typeof updaterOrValue === 'function' ? updaterOrValue(sorting) : updaterOrValue
     onSortingChange(newSorting)
   }
 
-  const handlePaginationChange: OnChangeFn<PaginationState> = (
-    updaterOrValue,
-  ) => {
-    const newPagination =
-      typeof updaterOrValue === 'function'
-        ? updaterOrValue(pagination)
-        : updaterOrValue
+  const handlePaginationChange: OnChangeFn<PaginationState> = (updaterOrValue) => {
+    const newPagination = typeof updaterOrValue === 'function' ? updaterOrValue(pagination) : updaterOrValue
     onPaginationChange(newPagination)
   }
 
-  const handleIncludeArchivedChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleIncludeArchivedChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onIncludeArchivedChange(event.target.checked)
   }
 
@@ -329,46 +312,31 @@ const formatCurrency = (value: number | null | undefined) => {
     onPaginationChange: handlePaginationChange,
     manualSorting: true,
     manualPagination: true,
-    pageCount: Math.ceil(
-      totalCount / (pagination?.pageSize || DEFAULT_PAGE_SIZE),
-    ),
+    pageCount: Math.ceil(totalCount / (pagination?.pageSize || DEFAULT_PAGE_SIZE)),
     getCoreRowModel: getCoreRowModel(),
     // debugTable: process.env.NODE_ENV === 'development', // Optional: for debugging
   })
 
   if (!serviceRequests.length && !isLoading) {
-    return (
-      <div {...stylex.props(styles.emptyState)}>
-        No service requests found.
-      </div>
-    )
+    return <div {...stylex.props(styles.emptyState)}>No service requests found.</div>
   }
 
   return (
     <div {...stylex.props(styles.container)}>
       <div {...stylex.props(styles.tableContainer)}>
-        {isLoading && (
-          <div {...stylex.props(styles.loadingOverlay)}>Loading...</div>
-        )}
-        <table {...stylex.props(styles.table)} aria-label="Service requests">
+        {isLoading && <div {...stylex.props(styles.loadingOverlay)}>Loading...</div>}
+        <table {...stylex.props(styles.table)} aria-label='Service requests'>
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
-                    scope="col"
-                    {...stylex.props(
-                      styles.headerCell
-                    )}
-                    onClick={() =>
-                      header.column.getCanSort() &&
-                      handleHeaderClick(header.column.id)
-                    }
+                    scope='col'
+                    {...stylex.props(styles.headerCell)}
+                    onClick={() => header.column.getCanSort() && handleHeaderClick(header.column.id)}
                     style={{
-                      cursor: header.column.getCanSort()
-                        ? 'pointer'
-                        : 'default',
+                      cursor: header.column.getCanSort() ? 'pointer' : 'default',
                     }}
                     aria-sort={
                       header.column.getIsSorted()
@@ -376,19 +344,14 @@ const formatCurrency = (value: number | null | undefined) => {
                           ? 'ascending'
                           : 'descending'
                         : undefined
-                    }
-                  >
-                    {flexRender(
-                      header.column.columnDef.header,
-                      header.getContext(),
-                    )}
+                    }>
+                    {flexRender(header.column.columnDef.header, header.getContext())}
                     {header.column.getCanSort() && (
                       <span {...stylex.props(styles.sortIndicator)}>
                         {{
                           asc: ' 🔼',
                           desc: ' 🔽',
-                        }
-                        [header.column.getIsSorted() as string] ?? ''}
+                        }[header.column.getIsSorted() as string] ?? ''}
                       </span>
                     )}
                   </th>
@@ -400,16 +363,8 @@ const formatCurrency = (value: number | null | undefined) => {
             {table.getRowModel().rows.map((row) => (
               <tr key={row.id} {...stylex.props(styles.row)}>
                 {row.getVisibleCells().map((cell) => (
-                  <td
-                    key={cell.id}
-                    {...stylex.props(
-                      styles.cell
-                    )}
-                  >
-                    {flexRender(
-                      cell.column.columnDef.cell,
-                      cell.getContext(),
-                    )}
+                  <td key={cell.id} {...stylex.props(styles.cell)}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}
               </tr>
@@ -420,30 +375,27 @@ const formatCurrency = (value: number | null | undefined) => {
       <div {...stylex.props(styles.paginationControls)}>
         <div {...stylex.props(styles.archivedCheckboxContainer)}>
           <input
-            id="include-archived"
-            type="checkbox"
+            id='include-archived'
+            type='checkbox'
             checked={includeArchived}
             onChange={handleIncludeArchivedChange}
           />
-          <label htmlFor="include-archived">Include Archived</label>
+          <label htmlFor='include-archived'>Include Archived</label>
         </div>
         <div>
           <button
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
-            {...stylex.props(styles.paginationButton)}
-          >
+            {...stylex.props(styles.paginationButton)}>
             Previous
           </button>
           <span {...stylex.props(styles.pageInfo)}>
-            Page {table.getState().pagination.pageIndex + 1} of{' '}
-            {table.getPageCount() || 1}
+            Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount() || 1}
           </span>
           <button
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
-            {...stylex.props(styles.paginationButton)}
-          >
+            {...stylex.props(styles.paginationButton)}>
             Next
           </button>
         </div>
@@ -452,8 +404,7 @@ const formatCurrency = (value: number | null | undefined) => {
           onChange={(e) => {
             table.setPageSize(Number(e.target.value))
           }}
-          {...stylex.props(styles.pageSizeSelect)}
-        >
+          {...stylex.props(styles.pageSizeSelect)}>
           {[5, 10, 20, 30, 40, 50].map((size) => (
             <option key={size} value={size}>
               Show {size}
@@ -463,8 +414,7 @@ const formatCurrency = (value: number | null | undefined) => {
       </div>
 
       <div {...stylex.props(styles.footer)}>
-        Showing {table.getRowModel().rows.length} of {totalCount} service
-        requests
+        Showing {table.getRowModel().rows.length} of {totalCount} service requests
       </div>
     </div>
   )

@@ -8,7 +8,6 @@ export const serviceTypes = new Map<string, DisplayAndImage>()
 serviceTypes.set('Safety', { id: '', displayName: 'Safety', image: 'safety.svg' })
 serviceTypes.set('Hvac', { id: '', displayName: 'Heating and Cooling', image: 'heating_and_cooling.svg' })
 serviceTypes.set('Pests', { id: '', displayName: 'Pests', image: 'pests.svg' })
-serviceTypes.set('Safety', { id: '', displayName: 'Safety', image: 'safety.svg' })
 serviceTypes.set('FloorsWallsDoorsWindows', {
   id: '',
   displayName: 'Floors Walls Doors Windows',
@@ -17,7 +16,7 @@ serviceTypes.set('FloorsWallsDoorsWindows', {
 serviceTypes.set('Electrical', { id: '', displayName: 'Electrical', image: 'electrical.svg' })
 serviceTypes.set('Broadband', { id: '', displayName: 'Broadband', image: 'broadband.svg' })
 serviceTypes.set('Laundry', { id: '', displayName: 'Laundry', image: 'laundry.svg' })
-serviceTypes.set('Locks', { id: '', displayName: 'Safety', image: 'lock.svg' })
+serviceTypes.set('Locks', { id: '', displayName: 'Locks', image: 'lock.svg' })
 serviceTypes.set('Dishwasher', { id: '', displayName: 'Dishwasher', image: 'dishwasher.svg' })
 serviceTypes.set('Refrigerator', { id: '', displayName: 'Refrigerator', image: 'refrigerator.svg' })
 serviceTypes.set('KitchenPlumbing', { id: '', displayName: 'Kitchen Plumbing', image: 'kitchen_under_plumbing.svg' })

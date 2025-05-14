@@ -1,5 +1,6 @@
 'use client'
 
+import { serviceTypes } from '../utils/serviceTypes'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import { fonts } from '../app/open-props/lib/fonts.stylex'
 import { sizes } from '../app/open-props/lib/sizes.stylex'
@@ -11,23 +12,9 @@ const requests = stylex.create({
     padding: sizes.spacing2,
     backgroundColor: marigoldColors.background,
   },
-  list: {
-    // margin: sizes.spacing5,
-  },
 })
-const form = stylex.create({
-  heading: {
-    color: marigoldColors.foreground,
-    fontWeight: fonts.weight7,
-  },
-  h3: {
-    fontSize: fonts.size5,
-  },
-})
-
 const requestCard = stylex.create({
   base: {
-    // margin: sizes.spacing2,
     display: 'flex',
     color: marigoldColors.foreground,
     fontSize: fonts.size4,
@@ -39,6 +26,8 @@ interface ServiceTypeDetailsProps {
 }
 
 export default function ServiceTypeDetails({ serviceType }: ServiceTypeDetailsProps) {
+  const serviceTypeDisplayName = serviceTypes.get(serviceType.service_name)?.displayName ?? serviceType.service_name
+
   if (!serviceType) {
     return <p>ServiceType not found.</p> // Improved message
   }
@@ -46,7 +35,7 @@ export default function ServiceTypeDetails({ serviceType }: ServiceTypeDetailsPr
     <form>
       <div {...stylex.props(requests.base)}>
         <h3 key={serviceType.id} {...stylex.props(requestCard.base)}>
-          {`${serviceType.service_name} Service Requests`}
+          {`${serviceTypeDisplayName} Service Requests`}
         </h3>
       </div>
     </form>

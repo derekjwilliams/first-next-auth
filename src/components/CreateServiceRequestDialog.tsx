@@ -13,6 +13,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { ServiceRequestMutationInput } from '@/types/index'
 import useSupabase from 'src/hooks/useSupabase'
 import { addServiceRequestMutation } from 'src/queries/addServiceRequest'
+import { serviceTypes } from '../utils/serviceTypes'
 
 interface CreateServiceRequestDialogProps {
   locationId?: string
@@ -399,10 +400,13 @@ export default function CreateServiceRequestDialog({
       return prev
     })
   }
+  const serviceType = serviceTypeOptions.find((e) => e.id === serviceTypeId)
+  const serviceTypeName = serviceType ? serviceType.name : ''
+  const serviceTypeDisplayName = serviceTypes.get(serviceTypeName)?.displayName ?? serviceTypeName
 
   return (
     <dialog ref={dialogRef} {...stylex.props(styles.dialog)} onClose={onClose}>
-      <h2>Create Service Request</h2>
+      <h2>Create {serviceTypeDisplayName} Service Request</h2>
 
       <form onSubmit={handleSubmit} {...stylex.props(styles.form)}>
         <div {...stylex.props(styles.formGroup)}>
