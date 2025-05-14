@@ -5,13 +5,7 @@
   "eslint.options": {
     "overrideConfigFile": "eslint.config.js"
   },
-  "cssVariables.lookupFiles": [
-    "**/*.css",
-    "**/*.scss",
-    "**/*.sass",
-    "**/*.less",
-    "node_modules/open-props/open-props.min.css"
-  ],
+  "cssVariables.lookupFiles": ["**/*.css", "**/*.scss", "**/*.sass", "**/*.less"],
   "cSpell.words": [
     "datasource",
     "easings",

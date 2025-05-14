@@ -64,6 +64,6 @@ module.exports = stylexPlugin({
   extractCSS: true, //process.env.NODE_ENV === 'development' ? true : false
 })({
   ...nextConfig,
-  transpilePackages: ['@stylexjs/open-props'],
+  // transpilePackages: ['@stylexjs/open-props'],
   // Optionally, add any other Next.js config below, e.g.
 })

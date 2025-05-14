@@ -3,10 +3,10 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
-import { colors } from '../app/open-props/lib/colors.stylex'
-import { fonts } from '../app/open-props/lib/fonts.stylex'
-import { borders } from '../app/open-props/lib/borders.stylex'
-import { sizes } from '../app/open-props/lib/sizes.stylex'
+import { colors } from '@derekjwilliams/stylextras-open-props-pr/colors.stylex'
+import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
+import { borders } from '@derekjwilliams/stylextras-open-props-pr/borders.stylex'
+import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
 
 const authButtonWrapper = stylex.create({
   base: {

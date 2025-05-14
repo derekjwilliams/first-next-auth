@@ -5,12 +5,12 @@ import { updateServiceRequest } from '../lib/actions'
 import { Tables } from '../utils/database.types'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { Check } from 'lucide-react'
-import { sizes } from '../app/open-props/lib/sizes.stylex'
-import { colors } from '../app/open-props/lib/colors.stylex'
+import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
+import { colors } from '@derekjwilliams/stylextras-open-props-pr/colors.stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import stylex from '@stylexjs/stylex'
-import { fonts } from '../app/open-props/lib/fonts.stylex'
-import { borders } from '../app/open-props/lib/borders.stylex'
+import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
+import { borders } from '@derekjwilliams/stylextras-open-props-pr/borders.stylex'
 import RadioSet from './controls/RadioSet'
 import { RichTextEditor } from '@/components/lexical/RichTextEditor'
 import './lexicalstyles.css'
@@ -178,21 +178,21 @@ export default function ServiceRequestEditForm({
   }
   const handleCostBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     // Ensure proper formatting on blur
-    const num = parseFloat(e.target.value) || 0;
-    e.target.value = num.toFixed(2);
-  };
+    const num = parseFloat(e.target.value) || 0
+    e.target.value = num.toFixed(2)
+  }
 
   const costFields = [
     {
-      label: "Material Cost",
-      id: "material_cost",
-      name: "material_cost",
+      label: 'Material Cost',
+      id: 'material_cost',
+      name: 'material_cost',
       value: serviceRequest.material_cost,
     },
     {
-      label: "Labor Cost",
-      id: "labor_cost",
-      name: "labor_cost",
+      label: 'Labor Cost',
+      id: 'labor_cost',
+      name: 'labor_cost',
       value: serviceRequest.labor_cost,
     },
   ]
@@ -226,15 +226,13 @@ export default function ServiceRequestEditForm({
               </label>
               <input
                 {...stylex.props(form.input, form.costInput)}
-                type="text"
-                inputMode="decimal"
+                type='text'
+                inputMode='decimal'
                 id={field.id}
                 name={field.name}
-                pattern="^\d+\.\d{2}$" // Requires exactly 2 decimal places
-                defaultValue={
-                  field.value !== null ? field.value.toFixed(2) : '0.00'
-                }
-                placeholder="0.00"
+                pattern='^\d+\.\d{2}$' // Requires exactly 2 decimal places
+                defaultValue={field.value !== null ? field.value.toFixed(2) : '0.00'}
+                placeholder='0.00'
                 onChange={handleCostChange}
                 onBlur={handleCostBlur}
               />

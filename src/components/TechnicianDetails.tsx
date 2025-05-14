@@ -1,8 +1,8 @@
 'use client'
 
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
-import { fonts } from '../app/open-props/lib/fonts.stylex'
-import { sizes } from '../app/open-props/lib/sizes.stylex'
+import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
+import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
 import * as stylex from '@stylexjs/stylex'
 import { TechnicianWithDetails } from 'src/queries/getTechnicianById'
 

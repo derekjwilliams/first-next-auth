@@ -3,9 +3,9 @@ import { createClient } from '../../../lib/supabase/client'
 import Image from 'next/image'
 import { getPlaceholderImage } from '../../../utils/images'
 import * as stylex from '@stylexjs/stylex'
-import { sizes } from '../../../app/open-props/lib/sizes.stylex'
-import { borders } from '../../../app/open-props/lib/borders.stylex'
-import { fonts } from '../../../app/open-props/lib/fonts.stylex'
+import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
+import { borders } from '@derekjwilliams/stylextras-open-props-pr/borders.stylex'
+import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
 import { marigoldColors } from '../../../app/customStyles/marigoldColors.stylex'
 
 const imageSize = 240

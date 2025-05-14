@@ -5,9 +5,9 @@ import useServiceRequestQuery from '../hooks/useServiceRequestQuery'
 
 import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
-import { fonts } from '../app/open-props/lib/fonts.stylex'
-import { sizes } from '../app/open-props/lib/sizes.stylex'
-import { borders } from '../app/open-props/lib/borders.stylex'
+import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
+import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
+import { borders } from '@derekjwilliams/stylextras-open-props-pr/borders.stylex'
 
 import Link from 'next/link'
 import LinkWrapperButton from './controls/LinkWrapperButton'
@@ -72,7 +72,7 @@ const requestCard = stylex.create({
     },
   },
   costs: {
-    padding: sizes.spacing6
+    padding: sizes.spacing6,
   },
   costItem: {
     display: 'flex',
@@ -102,12 +102,12 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
   }
   // Format costs to 2 decimal places
   const formatCost = (cost: number | null | undefined) => {
-    const amount = cost ?? 0; // Convert null/undefined to 0
+    const amount = cost ?? 0 // Convert null/undefined to 0
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
       minimumFractionDigits: 2,
-      maximumFractionDigits: 2
+      maximumFractionDigits: 2,
     }).format(amount)
   }
   const totalCost = (serviceRequest.material_cost || 0) + (serviceRequest.labor_cost || 0)
