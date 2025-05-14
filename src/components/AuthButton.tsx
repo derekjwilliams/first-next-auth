@@ -4,7 +4,6 @@ import { redirect } from 'next/navigation'
 import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import { colors } from '@derekjwilliams/stylextras-open-props-pr/colors.stylex'
-import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
 import { borders } from '@derekjwilliams/stylextras-open-props-pr/borders.stylex'
 import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
 

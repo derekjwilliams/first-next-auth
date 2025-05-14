@@ -9,7 +9,7 @@ import { useStatusMapQuery } from 'src/hooks/useStatusMapQuery'
 import useServiceRequestsByTechnicianId from 'src/hooks/useServiceRequestsByTechnicianIdQuery'
 import { useServiceTypesQuery } from 'src/hooks/useServiceTypeQuery'
 
-interface TechnicianDetailsPageProps {
+interface TechnicianDetailsContainerProps {
   technicianId: string
 }
 
@@ -19,7 +19,7 @@ const styles = stylex.create({
   },
 })
 
-export default function TechnicianDetailsPage({ technicianId }: TechnicianDetailsPageProps) {
+export default function TechnicianDetailsContainer({ technicianId }: TechnicianDetailsContainerProps) {
   // --- Data Fetching ---
   const {
     data: technician,

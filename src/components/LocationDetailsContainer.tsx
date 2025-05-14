@@ -9,7 +9,7 @@ import { useStatusMapQuery } from 'src/hooks/useStatusMapQuery'
 import { useServiceRequestsByLocationId } from '../hooks/useServiceRequestsQuery'
 import { useServiceTypesQuery } from 'src/hooks/useServiceTypeQuery'
 
-interface LocationDetailsPageProps {
+interface LocationDetailsContainerProps {
   locationId: string
 }
 
@@ -19,7 +19,7 @@ const styles = stylex.create({
   },
 })
 
-export default function LocationDetailsPage({ locationId }: LocationDetailsPageProps) {
+export default function LocationDetailsContainer({ locationId }: LocationDetailsContainerProps) {
   const {
     data: location,
     isLoading: isLoadingLocation,

@@ -4,10 +4,6 @@ import { Check, MoreHorizontal } from 'lucide-react'
 import '../app/dropdown.css'
 
 const ServiceRequestDropdownMenu = () => {
-  const [bookmarksChecked, setBookmarksChecked] = React.useState(true)
-  const [urlsChecked, setUrlsChecked] = React.useState(false)
-  const [person, setPerson] = React.useState('pedro')
-
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>

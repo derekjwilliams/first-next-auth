@@ -20,10 +20,7 @@ import ImagesPlugin from '@/components/lexical/plugins/ImagesPlugin'
 import CustomOnChangePlugin from './plugins/CustomOnChangePlugin' //TODO should we use the @lexical/react/LexicalOnChangePlugin?
 import stylex from '@stylexjs/stylex'
 import ImportHtmlPlugin from './plugins/ImportHtmlPlugin'
-import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
 import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
-import { borders } from '@derekjwilliams/stylextras-open-props-pr/borders.stylex'
-import { MarkdownActions } from '@/components/MarkdownActions'
 import { useState } from 'react'
 import { $createTextNode, $getRoot } from 'lexical'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
@@ -82,6 +79,7 @@ interface RichTextEditorProps {
   // name: string
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function MarkdownToggle({
   markdownMode,
   toggleMarkdownMode,

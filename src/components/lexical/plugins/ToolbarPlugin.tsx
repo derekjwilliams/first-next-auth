@@ -1,6 +1,5 @@
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
-import { $createHeadingNode, $createQuoteNode, $isHeadingNode } from '@lexical/rich-text'
-import { $wrapNodes } from '@lexical/selection'
+import { $isHeadingNode } from '@lexical/rich-text'
 import {
   Bold,
   ChevronDown,
@@ -34,22 +33,20 @@ import {
 } from '@lexical/list'
 
 import {
-  $createParagraphNode,
   $getNodeByKey,
   $getSelection,
   $isRangeSelection,
   CAN_REDO_COMMAND,
   CAN_UNDO_COMMAND,
   FORMAT_TEXT_COMMAND,
-  LexicalEditor,
   REDO_COMMAND,
   SELECTION_CHANGE_COMMAND,
   UNDO_COMMAND,
 } from 'lexical'
-import React, { RefObject, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import stylex from '@stylexjs/stylex'
-import { $createCodeNode, $isCodeNode, getDefaultCodeLanguage, getCodeLanguages } from '@lexical/code'
+import { $isCodeNode, getDefaultCodeLanguage, getCodeLanguages } from '@lexical/code'
 import BlockOptionsDropdownList from '@/components/BlockOptionsDropdownList'
 
 const LowPriority = 1

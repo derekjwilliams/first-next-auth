@@ -53,19 +53,6 @@ const request = stylex.create({
     marginTop: '10px',
   },
 })
-const radioGroup = stylex.create({
-  label: {
-    fontSize: fonts.size3,
-    lineHeight: fonts.lineHeight0,
-    paddingLeft: sizes.spacing3,
-  },
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: sizes.spacing2,
-    marginBottom: sizes.spacing5,
-  },
-})
 const select = stylex.create({
   base: {
     display: 'block',

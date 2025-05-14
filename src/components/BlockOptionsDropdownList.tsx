@@ -9,7 +9,7 @@ import {
   REMOVE_LIST_COMMAND,
   removeList,
 } from '@lexical/list'
-import { $createCodeNode, $isCodeNode, getDefaultCodeLanguage, getCodeLanguages } from '@lexical/code'
+import { $createCodeNode } from '@lexical/code'
 import { Text, Heading1, Heading2, List, ListOrdered, MessageSquare, Code } from 'lucide-react'
 import { mergeRegister } from '@lexical/utils'
 

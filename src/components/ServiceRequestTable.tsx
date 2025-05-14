@@ -1,12 +1,12 @@
 'use client'
 import React from 'react'
-import { ColumnDef, useReactTable, getCoreRowModel, flexRender, SortingFn, Row } from '@tanstack/react-table'
+import { ColumnDef, useReactTable, getCoreRowModel, flexRender } from '@tanstack/react-table'
 import Pagination from './Pagination'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-//import { ServiceRequest, ServiceType, Tenant, Technician, Status, RequestLocation } from '../utils/servicerequest.types' // todo import from supabase types
 import { serviceTypes } from '../utils/serviceTypes'
 import dayjs from 'dayjs'
+
 import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
