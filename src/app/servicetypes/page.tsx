@@ -8,8 +8,20 @@ import Image from 'next/image'
 import { serviceTypes } from '../../utils/serviceTypes'
 import { borders } from '../../app/open-props/lib/borders.stylex'
 import { JSX } from 'react'
+import { colors } from '../open-props/lib/colors.stylex'
+import { fonts } from '../open-props/lib/fonts.stylex'
 
 const serviceCard = stylex.create({
+  linkOverlay: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
+    textDecoration: 'none',
+    color: 'inherit',
+  },
   base: {
     cursor: 'pointer',
     textDecoration: 'none',
@@ -22,8 +34,9 @@ const serviceCard = stylex.create({
       default: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.1) 0px 4px 6px -4px',
     },
     borderRadius: borders.radius2,
-    placeItems: 'center',
-    display: 'grid',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
     minWidth: 200,
     minHeight: 200,
     padding: sizes.spacing2,
@@ -33,6 +46,33 @@ const serviceCard = stylex.create({
     },
     transitionDuration: '500ms',
     transitionProperty: 'backgroundColor',
+  },
+
+  newRequest: {
+    padding: {
+      default: `${sizes.spacing1} ${sizes.spacing4}`,
+      '@media (max-width: 600px)': `${sizes.spacing1} ${sizes.spacing3}`,
+    },
+    borderRadius: borders.radius2,
+    border: `1px solid ${colors.stone3}`,
+    backgroundColor: {
+      default: marigoldColors.leafHighlight,
+      ':hover': marigoldColors.backgroundButton,
+    },
+    color: marigoldColors.foregroundButton,
+    cursor: 'pointer',
+    fontSize: fonts.size1,
+    textDecoration: 'none',
+
+    ':disabled': {
+      background: colors.stone0,
+      cursor: 'not-allowed',
+    },
+    placeItems: 'center',
+    display: 'grid',
+    transitionDuration: '500ms',
+    transitionProperty: 'backgroundColor',
+    alignSelf: 'flex-end',
   },
 })
 const servicePage = stylex.create({
@@ -131,19 +171,23 @@ export default async function Page() {
   const serviceLinks: JSX.Element[] = []
   serviceTypes.forEach((serviceType: any, key: any) => {
     serviceLinks.push(
-      <Link
-        key={`/servicetypes/${pascalToSnakeCase(key)}`}
-        href={`/servicetypes/${pascalToSnakeCase(key)}`}
-        {...stylex.props(serviceCard.base)}>
-        <Image
-          draggable={false}
-          height={160}
-          width={160}
-          alt={`${serviceType.displayName}`}
-          src={`/images/${serviceType.image}`}
-        />
-        {serviceType.displayName}
-      </Link>,
+      <div {...stylex.props(serviceCard.base)}>
+        <Link
+          href={`/servicetypes/${pascalToSnakeCase(key)}?createDialog=open`}
+          {...stylex.props(serviceCard.newRequest)}>
+          New
+        </Link>
+        <Link href={`/servicetypes/${pascalToSnakeCase(key)}`} {...stylex.props(serviceCard.linkOverlay)}>
+          <Image
+            draggable={false}
+            height={160}
+            width={160}
+            alt={`${serviceType.displayName}`}
+            src={`/images/${serviceType.image}`}
+          />
+          {serviceType.displayName}
+        </Link>
+      </div>,
     )
   })
   serviceLinks.push(

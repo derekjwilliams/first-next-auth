@@ -11,7 +11,7 @@ import { colors } from '../app/open-props/lib/colors.stylex'
 import { fonts } from '../app/open-props/lib/fonts.stylex'
 import { sizes } from '../app/open-props/lib/sizes.stylex'
 import { borders } from '../app/open-props/lib/borders.stylex'
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 import { parseIncludeArchivedFromURL, parsePaginationFromURL, parseSortingFromURL } from '../utils/serviceRequestUtils'
 import { useLocationsQuery } from 'src/hooks/useLocationQuery'
@@ -88,10 +88,16 @@ export default function ServiceRequestTableContainer({
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const queryClient = useQueryClient()
+
   const { data: locations = [] } = useLocationsQuery()
   const { data: technicians = [] } = useTechniciansQuery()
-  // State for dialog
-  const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const dialogOpenInUrl = searchParams.get('createDialog') === 'open'
+  const [isDialogOpen, setIsDialogOpen] = useState(dialogOpenInUrl)
+  // const [isDialogOpen, setIsDialogOpen] = useState(false)
+
+  useEffect(() => {
+    setIsDialogOpen(dialogOpenInUrl)
+  }, [dialogOpenInUrl])
 
   const sorting = useMemo(() => parseSortingFromURL(searchParams), [searchParams])
   const pagination = useMemo(() => parsePaginationFromURL(searchParams), [searchParams])
@@ -175,8 +181,23 @@ export default function ServiceRequestTableContainer({
   )
 
   // Dialog handlers
-  const openDialog = () => setIsDialogOpen(true)
-  const closeDialog = () => setIsDialogOpen(false)
+  // Open dialog handler - updates URL
+  const openDialog = useCallback(() => {
+    const params = new URLSearchParams(searchParams.toString())
+    params.set('createDialog', 'open')
+    const newUrl = `${pathname}?${params.toString()}`
+    router.replace(newUrl, { scroll: false })
+    // State will be updated via the effect that watches dialogOpenInUrl
+  }, [pathname, router, searchParams])
+
+  // Close dialog handler - updates URL
+  const closeDialog = useCallback(() => {
+    const params = new URLSearchParams(searchParams.toString())
+    params.delete('createDialog')
+    const newUrl = `${pathname}?${params.toString()}`
+    router.replace(newUrl, { scroll: false })
+    // State will be updated via the effect that watches dialogOpenInUrl
+  }, [pathname, router, searchParams])
 
   const handleCreateSuccess = useCallback(() => {
     // Reset to first page
@@ -206,7 +227,8 @@ export default function ServiceRequestTableContainer({
         )
       },
     })
-  }, [handleStateChange, pagination, queryClient, entityType, entityId])
+    closeDialog()
+  }, [handleStateChange, pagination, queryClient, entityType, entityId, closeDialog])
   // Use the query hook passed as a prop
   const {
     data: serviceRequestsData,
