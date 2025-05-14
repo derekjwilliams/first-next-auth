@@ -8,11 +8,11 @@ import { ServiceTypeWithDetails } from 'src/queries/getServiceTypeById'
 
 const requests = stylex.create({
   base: {
-    padding: sizes.spacing5,
+    padding: sizes.spacing2,
     backgroundColor: marigoldColors.background,
   },
   list: {
-    margin: sizes.spacing5,
+    // margin: sizes.spacing5,
   },
 })
 const form = stylex.create({
@@ -27,7 +27,7 @@ const form = stylex.create({
 
 const requestCard = stylex.create({
   base: {
-    margin: sizes.spacing2,
+    // margin: sizes.spacing2,
     display: 'flex',
     color: marigoldColors.foreground,
     fontSize: fonts.size4,
@@ -45,10 +45,9 @@ export default function ServiceTypeDetails({ serviceType }: ServiceTypeDetailsPr
   return (
     <form>
       <div {...stylex.props(requests.base)}>
-        <h3 {...stylex.props(form.heading, form.h3)}>Service Type Detail</h3>
-        <div key={serviceType.id} {...stylex.props(requestCard.base)}>
-          {serviceType.service_name}
-        </div>
+        <h3 key={serviceType.id} {...stylex.props(requestCard.base)}>
+          {`${serviceType.service_name} Service Requests`}
+        </h3>
       </div>
     </form>
   )

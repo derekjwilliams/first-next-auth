@@ -252,7 +252,7 @@ export default function ServiceRequestTableContainer({
   return (
     <div {...stylex.props(styles.serviceRequestsWrapper)}>
       <div {...stylex.props(styles.headerContainer)}>
-        <h2>Service Requests</h2>
+        {/* <h2>Service Requests</h2> */}
         <button {...stylex.props(styles.createButton)} onClick={openDialog}>
           New Service Request
         </button>
