@@ -1,42 +1,13 @@
 /* Radix Primitives Radio Group */
-.RadioGroupItem {
+button {
   all: unset;
 }
-.RadioGroupRoot {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 10px;
-}
-.RadioGroupItem {
-  background-color: white;
-  width: 25px;
-  height: 25px;
-  border: 1px solid rgb(127, 127, 127);
-  border-radius: 100%;
-}
-.RadioGroupItem:hover {
-  background-color: rgb(255 213 95);
-}
-.RadioGroupItem:focus {
-  border: 1px solid rgb(68, 68, 68);
-}
-.RadioGroupIndicator {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
+
 .RadioGroupIndicator::after {
   content: '';
   display: block;
-  width: 11px;
-  height: 11px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background-color: rgb(68, 68, 68);
-}
-.Label {
-  margin-left: 0.5rem;
 }

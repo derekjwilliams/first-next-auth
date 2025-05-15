@@ -36,6 +36,7 @@ const styles = stylex.create({
     textAlign: 'left',
     borderTopLeftRadius: '10px',
     borderTopRightRadius: '10px',
+    border: '1px solid rgb(188,188,188)',
   },
   editorInput: {
     minHeight: '150px',
@@ -46,6 +47,7 @@ const styles = stylex.create({
     tabSize: 1,
     outline: '0',
     padding: sizes.spacing2,
+    backgroundColor: 'rgb(248, 249, 250)',
     // padding: '15px 10px',
   },
   editorInner: {
@@ -104,7 +106,10 @@ function MarkdownToggle({
   }
 
   return (
-    <button type='button' className='toggle-markdown-button' onClick={handleToggle}>
+    <button
+      type='button'
+      className='toggle-markdown-button'
+      onClick={handleToggle}>
       Toggle Markdown {markdownMode ? 'Off' : 'On'}
     </button>
   )
@@ -154,7 +159,10 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange,
             <ImagesPlugin />
             <HistoryPlugin />
             <AutoFocusPlugin />
-            <CustomOnChangePlugin value={value} onChange={onChange} />
+            <CustomOnChangePlugin
+              value={value}
+              onChange={onChange}
+            />
           </div>
 
           {/* <MarkdownToggle markdownMode={markdownMode} toggleMarkdownMode={toggleMarkdownMode} /> */}
@@ -177,7 +185,10 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange,
             <ImagesPlugin />
             <HistoryPlugin />
             <AutoFocusPlugin />
-            <CustomOnChangePlugin value={value} onChange={onChange} />
+            <CustomOnChangePlugin
+              value={value}
+              onChange={onChange}
+            />
           </div>
         </LexicalComposer>
       </div>

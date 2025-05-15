@@ -400,7 +400,10 @@ export default function ToolbarPlugin() {
 
   return (
     <>
-      <div className='toolbar' ref={toolbarRef}>
+      <div
+        className='toolbar'
+        ref={toolbarRef}
+        style={{ backgroundColor: 'rgb(252, 253, 254)' }}>
         {supportedBlockTypes.has(blockType) && (
           <>
             <button

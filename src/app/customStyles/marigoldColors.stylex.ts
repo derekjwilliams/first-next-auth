@@ -1,3 +1,4 @@
+import { colors } from '@derekjwilliams/stylextras-open-props-pr/lib/colors.stylex'
 import * as stylex from '@stylexjs/stylex'
 
 const DARK = '@media (prefers-color-scheme: dark)'
@@ -36,4 +37,16 @@ export const marigoldColors = stylex.defineVars({
   navigationLink: { default: pansy, [DARK]: environmentBrown },
   tableBorder: { default: 'rgb(16 16 16)', [DARK]: 'rgb(16 16 16)' },
   link: { default: pansy, [DARK]: leafHighlight },
+  primary: {
+    default: 'rgb(255 213 95)', // Your flowerYellow softened
+    [DARK]: 'rgb(214 122 0)',
+  },
+  primaryDark: {
+    default: 'rgb(255 194 0)', // Your flowerGold
+    [DARK]: 'rgb(180 90 0)',
+  },
+  primaryText: {
+    default: colors.gray9, // Using Open Props dark gray
+    [DARK]: leafHighlight,
+  },
 })
