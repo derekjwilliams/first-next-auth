@@ -45,17 +45,6 @@ const styles = stylex.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  backLink: {
-    textDecoration: 'none',
-    color: marigoldColors.leafHighlight,
-    display: 'flex',
-    alignItems: 'center',
-    gap: sizes.spacing2,
-    fontSize: fonts.size2,
-    ':hover': {
-      textDecoration: 'underline',
-    },
-  },
   form: {
     display: 'flex',
     flexDirection: 'column',
@@ -408,11 +397,6 @@ export default function CreateServiceRequestForm({
         <h1>
           Create Service Request for {locationLabel} {technicialLabel} {serviceTypeDisplayName}
         </h1>
-        <Link
-          href={getBackLink()}
-          {...stylex.props(styles.backLink)}>
-          ← Back
-        </Link>
       </div>
 
       {formError && <div {...stylex.props(styles.errorMessage)}>{formError}</div>}

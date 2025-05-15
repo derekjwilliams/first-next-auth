@@ -47,22 +47,31 @@ const styles = stylex.create({
     marginBottom: '16px',
   },
   createButton: {
-    cursor: 'pointer',
-    textDecoration: 'none',
-    color: 'black',
-    fontSize: fonts.size2,
+    padding: {
+      default: `${sizes.spacing2} ${sizes.spacing4}`,
+      '@media (max-width: 600px)': `${sizes.spacing2} ${sizes.spacing3}`,
+    },
     borderRadius: borders.radius2,
+    border: `1px solid ${colors.stone3}`,
+    backgroundColor: {
+      default: marigoldColors.leafHighlight,
+      ':hover': marigoldColors.flowerGold,
+    },
+    color: marigoldColors.foregroundButton,
+    cursor: 'pointer',
+    fontSize: fonts.size1,
+    textDecoration: 'none',
+    minWidth: {
+      '@media (max-width: 600px)': sizes.spacing8,
+    },
+    ':disabled': {
+      background: colors.stone0,
+      cursor: 'not-allowed',
+    },
     placeItems: 'center',
     display: 'grid',
-    minWidth: 200,
-    padding: sizes.spacing2,
-    backgroundColor: {
-      default: colors.gray2,
-      ':hover': marigoldColors.flowerYellow,
-    },
     transitionDuration: '500ms',
     transitionProperty: 'backgroundColor',
-    marginTop: '10px',
   },
 })
 
