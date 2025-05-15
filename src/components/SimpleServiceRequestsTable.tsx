@@ -15,6 +15,7 @@ import {
 } from '@tanstack/react-table'
 import { Tables } from '@/utils/database.types'
 import { ServiceRequestRow } from '../types'
+import { ArrowUpDown, SortAsc, SortDesc } from 'lucide-react'
 
 const DEFAULT_PAGE_SIZE = process.env.NEXT_PUBLIC_DEFAULT_SERVICE_REQUEST_PAGE_SIZE
   ? parseInt(process.env.NEXT_PUBLIC_DEFAULT_SERVICE_REQUEST_PAGE_SIZE, 5)
@@ -217,7 +218,9 @@ export default function SimpleServiceRequestsTable({
       accessorKey: 'description',
       header: 'Description',
       cell: ({ row, getValue }) => (
-        <Link href={`/servicerequests/${row.original.id}`} {...stylex.props(styles.descriptionLink)}>
+        <Link
+          href={`/servicerequests/${row.original.id}`}
+          {...stylex.props(styles.descriptionLink)}>
           {getValue() as string}
         </Link>
       ),
@@ -235,7 +238,6 @@ export default function SimpleServiceRequestsTable({
       header: 'Material Cost',
       cell: (info) => formatCurrency(info.getValue() as number | null),
       meta: {
-        // Optional: for custom styling or logic if needed
         cellStyle: styles.costCell,
       },
     },
@@ -251,13 +253,18 @@ export default function SimpleServiceRequestsTable({
       accessorKey: 'technicians',
       header: 'Assigned Technicians',
       cell: ({ getValue }) => {
-        const technicians = getValue() as Array<Tables<'technicians'>> // Assuming Tables<'technicians'> has id and name
-        if (!technicians?.length) return <div>Unassigned</div>
+        const technicians = getValue() as Array<Tables<'technicians'>>
+        if (!technicians?.length) {
+          return <div>Unassigned</div>
+        }
 
         return (
           <div {...stylex.props(styles.techniciansList)}>
             {technicians.map((tech) => (
-              <Link key={tech.id} href={`/technicians/${tech.id}`} {...stylex.props(styles.technicianLink)}>
+              <Link
+                key={tech.id}
+                href={`/technicians/${tech.id}`}
+                {...stylex.props(styles.technicianLink)}>
                 {tech.name}
               </Link>
             ))}
@@ -314,18 +321,15 @@ export default function SimpleServiceRequestsTable({
     manualPagination: true,
     pageCount: Math.ceil(totalCount / (pagination?.pageSize || DEFAULT_PAGE_SIZE)),
     getCoreRowModel: getCoreRowModel(),
-    // debugTable: process.env.NODE_ENV === 'development', // Optional: for debugging
   })
-
-  if (!serviceRequests.length && !isLoading) {
-    return <div {...stylex.props(styles.emptyState)}>No service requests found.</div>
-  }
 
   return (
     <div {...stylex.props(styles.container)}>
       <div {...stylex.props(styles.tableContainer)}>
         {isLoading && <div {...stylex.props(styles.loadingOverlay)}>Loading...</div>}
-        <table {...stylex.props(styles.table)} aria-label='Service requests'>
+        <table
+          {...stylex.props(styles.table)}
+          aria-label='Service requests'>
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
@@ -348,10 +352,13 @@ export default function SimpleServiceRequestsTable({
                     {flexRender(header.column.columnDef.header, header.getContext())}
                     {header.column.getCanSort() && (
                       <span {...stylex.props(styles.sortIndicator)}>
-                        {{
-                          asc: ' 🔼',
-                          desc: ' 🔽',
-                        }[header.column.getIsSorted() as string] ?? ''}
+                        {header.column.getIsSorted() === 'asc' ? (
+                          <SortAsc size={16} />
+                        ) : header.column.getIsSorted() === 'desc' ? (
+                          <SortDesc size={16} />
+                        ) : (
+                          <ArrowUpDown size={16} />
+                        )}
                       </span>
                     )}
                   </th>
@@ -361,9 +368,13 @@ export default function SimpleServiceRequestsTable({
           </thead>
           <tbody>
             {table.getRowModel().rows.map((row) => (
-              <tr key={row.id} {...stylex.props(styles.row)}>
+              <tr
+                key={row.id}
+                {...stylex.props(styles.row)}>
                 {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id} {...stylex.props(styles.cell)}>
+                  <td
+                    key={cell.id}
+                    {...stylex.props(styles.cell)}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}
@@ -406,7 +417,9 @@ export default function SimpleServiceRequestsTable({
           }}
           {...stylex.props(styles.pageSizeSelect)}>
           {[5, 10, 20, 30, 40, 50].map((size) => (
-            <option key={size} value={size}>
+            <option
+              key={size}
+              value={size}>
               Show {size}
             </option>
           ))}

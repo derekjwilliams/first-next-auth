@@ -6,8 +6,8 @@ import { Database } from '../utils/database.types'
 export interface QueryOptions {
   sorting?: SortingState
   pagination?: PaginationState
-  includeArchived?: boolean; // To indicate if archived items should be included
-  archivedStatusId?: string; // The actual ID of the "Archived" status
+  includeArchived?: boolean
+  archivedStatusId?: string
 }
 
 export interface FilterParams {
@@ -15,7 +15,6 @@ export interface FilterParams {
   technicianId?: string
   serviceTypeId?: string
   statusId?: string
-  // Add other filter parameters as needed
 }
 
 const DEFAULT_PAGE_SIZE = process.env.NEXT_PUBLIC_DEFAULT_SERVICE_REQUEST_PAGE_SIZE
@@ -29,33 +28,30 @@ export async function getServiceRequests(
 ) {
   const pageSize = options.pagination?.pageSize || DEFAULT_PAGE_SIZE
   const pageIndex = options.pagination?.pageIndex || 0
-  
-  let query = supabase
-    .from('service_requests')
-    .select(
-      `
-      *,
-      service_types (*),
-      status:statuses(*),
-      technicians (*)
-    `,
-    )
 
-  // Apply filters conditionally
+  let query = supabase.from('service_requests').select(
+    `
+      *,
+      service_types(*),
+      status:statuses(*),
+      technicians(*)
+    `,
+  )
+
   if (filters.locationId) {
     query = query.eq('location_id', filters.locationId)
   }
-  
+
   if (filters.serviceTypeId) {
     query = query.eq('service_type_id', filters.serviceTypeId)
   }
-  
+
   if (filters.statusId) {
     query = query.eq('status_id', filters.statusId)
   }
-  
+
   if (!options.includeArchived && options.archivedStatusId) {
-    query = query.not("status_id", "eq", options.archivedStatusId);
+    query = query.not('status_id', 'eq', options.archivedStatusId)
   }
 
   // Apply sorting if provided
@@ -65,19 +61,15 @@ export async function getServiceRequests(
     // Handle special cases for relations
     if (sort.id === 'service_type') {
       query = query.order('service_types(service_name)', { ascending: !sort.desc })
-    } else 
-    if (sort.id === 'technicians') {
+    } else if (sort.id === 'technicians') {
       // Sorting by technicians might be complex - you may need a different approach
       console.warn('Sorting by technicians is not supported')
     } else {
       query = query.order(sort.id, { ascending: !sort.desc })
     }
   }
-  
-  query = query.range(
-    pageIndex * pageSize, 
-    (pageIndex + 1) * pageSize - 1
-  )
+
+  query = query.range(pageIndex * pageSize, (pageIndex + 1) * pageSize - 1)
   return await query
 }
 // For backward compatibility

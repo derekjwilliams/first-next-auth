@@ -1,3 +1,5 @@
+// src/app/servicetypes/page.tsx
+
 import AuthButton from '../../components/AuthButton'
 import { createClient } from '../../lib/supabase/client'
 import Link from 'next/link'
@@ -6,11 +8,9 @@ import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
 import { borders } from '@derekjwilliams/stylextras-open-props-pr/borders.stylex'
 import { colors } from '@derekjwilliams/stylextras-open-props-pr/colors.stylex'
 import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
-// import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
 import * as stylex from '@stylexjs/stylex'
 import Image from 'next/image'
 import { serviceTypes } from '../../utils/serviceTypes'
-//import { borders } from '@derekjwilliams/stylextras-open-props-pr/borders.stylex'
 import { JSX } from 'react'
 import { Plus } from 'lucide-react'
 
@@ -171,15 +171,18 @@ export default async function Page() {
 
   const serviceLinks: JSX.Element[] = []
   serviceTypes.forEach((serviceType: any, key: any) => {
+    const snakeCaseKey = pascalToSnakeCase(key)
+
     serviceLinks.push(
       <div {...stylex.props(serviceCard.base)}>
+        {/* Updated link to point to the new service request page with serviceTypeName parameter */}
         <Link
-          href={`/servicetypes/${pascalToSnakeCase(key)}?createDialog=open`}
-          key={`/servicetypes/${pascalToSnakeCase(key)}`}
+          href={`/servicerequests/new?serviceTypeName=${snakeCaseKey}`}
+          key={`new-request-${snakeCaseKey}`}
           {...stylex.props(serviceCard.newRequest)}>
           <Plus size={20} />
         </Link>
-        <Link href={`/servicetypes/${pascalToSnakeCase(key)}`} {...stylex.props(serviceCard.linkOverlay)}>
+        <Link href={`/servicetypes/${snakeCaseKey}`} {...stylex.props(serviceCard.linkOverlay)}>
           <Image
             draggable={false}
             height={160}

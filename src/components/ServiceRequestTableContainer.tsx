@@ -1,4 +1,4 @@
-// src/components/ServiceRequestTableContainer.tsx (modified)
+// src/components/ServiceRequestTableContainer.tsx
 'use client'
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
@@ -16,6 +16,7 @@ import { useQueryClient } from '@tanstack/react-query'
 import { parseIncludeArchivedFromURL, parsePaginationFromURL, parseSortingFromURL } from '../utils/serviceRequestUtils'
 import { useLocationsQuery } from 'src/hooks/useLocationQuery'
 import { useTechniciansQuery } from 'src/hooks/useTechnicianQuery'
+import Link from 'next/link'
 
 interface ServiceRequestTableContainerProps {
   entityId: string
@@ -181,15 +182,6 @@ export default function ServiceRequestTableContainer({
   )
 
   // Dialog handlers
-  // Open dialog handler - updates URL
-  const openDialog = useCallback(() => {
-    const params = new URLSearchParams(searchParams.toString())
-    params.set('createDialog', 'open')
-    const newUrl = `${pathname}?${params.toString()}`
-    router.replace(newUrl, { scroll: false })
-    // State will be updated via the effect that watches dialogOpenInUrl
-  }, [pathname, router, searchParams])
-
   // Close dialog handler - updates URL
   const closeDialog = useCallback(() => {
     const params = new URLSearchParams(searchParams.toString())
@@ -253,9 +245,19 @@ export default function ServiceRequestTableContainer({
     <div {...stylex.props(styles.serviceRequestsWrapper)}>
       <div {...stylex.props(styles.headerContainer)}>
         {/* <h2>Service Requests</h2> */}
-        <button {...stylex.props(styles.createButton)} onClick={openDialog}>
+        <Link
+          href={`/servicerequests/new?${
+            entityType === 'location'
+              ? `locationId=${entityId}`
+              : entityType === 'serviceType'
+                ? `serviceTypeId=${entityId}`
+                : entityType === 'technician'
+                  ? `technicianId=${entityId}`
+                  : ''
+          }`}
+          {...stylex.props(styles.createButton)}>
           New Service Request
-        </button>
+        </Link>
       </div>
       {isErrorServiceRequests ? (
         <div>Error loading service requests: {errorServiceRequests?.message || 'An unknown error occurred.'}</div>
