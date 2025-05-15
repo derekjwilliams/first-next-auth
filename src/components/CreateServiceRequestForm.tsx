@@ -400,11 +400,17 @@ export default function CreateServiceRequestForm({
     return '/servicerequests'
   }
 
+  const locationLabel = locationOptions.find((lo) => lo.id === locationId)?.name
+  const technicialLabel = technicianOptions.find((v) => v.id === technicianId)?.name
   return (
     <div {...stylex.props(styles.container)}>
       <div {...stylex.props(styles.header)}>
-        <h1>Create {serviceTypeDisplayName} Service Request</h1>
-        <Link href={getBackLink()} {...stylex.props(styles.backLink)}>
+        <h1>
+          Create Service Request for {locationLabel} {technicialLabel} {serviceTypeDisplayName}
+        </h1>
+        <Link
+          href={getBackLink()}
+          {...stylex.props(styles.backLink)}>
           ← Back
         </Link>
       </div>
@@ -412,9 +418,13 @@ export default function CreateServiceRequestForm({
       {formError && <div {...stylex.props(styles.errorMessage)}>{formError}</div>}
       {formSuccess && <div {...stylex.props(styles.successMessage)}>{formSuccess}</div>}
 
-      <form onSubmit={handleSubmit} {...stylex.props(styles.form)}>
+      <form
+        onSubmit={handleSubmit}
+        {...stylex.props(styles.form)}>
         <div {...stylex.props(styles.formGroup)}>
-          <label htmlFor='description' {...stylex.props(styles.label)}>
+          <label
+            htmlFor='description'
+            {...stylex.props(styles.label)}>
             Description *
           </label>
           <input
@@ -431,7 +441,9 @@ export default function CreateServiceRequestForm({
         {/* Location select - conditionally rendered */}
         {!hideLocationSelect && (
           <div {...stylex.props(styles.formGroup)}>
-            <label htmlFor='location_id' {...stylex.props(styles.label)}>
+            <label
+              htmlFor='location_id'
+              {...stylex.props(styles.label)}>
               Location *
             </label>
             <select
@@ -443,7 +455,9 @@ export default function CreateServiceRequestForm({
               {...stylex.props(styles.select)}>
               <option value=''>Select a location</option>
               {locationOptions.map((option) => (
-                <option key={option.id} value={option.id}>
+                <option
+                  key={option.id}
+                  value={option.id}>
                   {option.name}
                 </option>
               ))}
@@ -454,7 +468,9 @@ export default function CreateServiceRequestForm({
         {/* Service Type select - conditionally rendered */}
         {!hideServiceTypeSelect && (
           <div {...stylex.props(styles.formGroup)}>
-            <label htmlFor='service_type_id' {...stylex.props(styles.label)}>
+            <label
+              htmlFor='service_type_id'
+              {...stylex.props(styles.label)}>
               Service Type *
             </label>
             <select
@@ -466,7 +482,9 @@ export default function CreateServiceRequestForm({
               {...stylex.props(styles.select)}>
               <option value=''>Select a service type</option>
               {serviceTypeOptions.map((option) => (
-                <option key={option.id} value={option.id}>
+                <option
+                  key={option.id}
+                  value={option.id}>
                   {option.name}
                 </option>
               ))}
@@ -475,7 +493,9 @@ export default function CreateServiceRequestForm({
         )}
 
         <div {...stylex.props(styles.formGroup)}>
-          <label htmlFor='status_id' {...stylex.props(styles.label)}>
+          <label
+            htmlFor='status_id'
+            {...stylex.props(styles.label)}>
             Status *
           </label>
           <select
@@ -487,7 +507,9 @@ export default function CreateServiceRequestForm({
             {...stylex.props(styles.select)}>
             <option value=''>Select a status</option>
             {statusOptions.map((option) => (
-              <option key={option.id} value={option.id}>
+              <option
+                key={option.id}
+                value={option.id}>
                 {option.name}
               </option>
             ))}
@@ -500,7 +522,9 @@ export default function CreateServiceRequestForm({
             <label {...stylex.props(styles.label)}>Assign Technicians</label>
             <div {...stylex.props(styles.techniciansList)}>
               {technicianOptions.map((tech) => (
-                <div key={tech.id} {...stylex.props(styles.technicianItem)}>
+                <div
+                  key={tech.id}
+                  {...stylex.props(styles.technicianItem)}>
                   <input
                     type='checkbox'
                     id={`tech-${tech.id}`}
@@ -515,7 +539,9 @@ export default function CreateServiceRequestForm({
         )}
 
         <div {...stylex.props(styles.formGroup)}>
-          <label htmlFor='details' {...stylex.props(styles.label)}>
+          <label
+            htmlFor='details'
+            {...stylex.props(styles.label)}>
             Details
           </label>
           <textarea
@@ -528,10 +554,16 @@ export default function CreateServiceRequestForm({
         </div>
 
         <div {...stylex.props(styles.buttonGroup)}>
-          <button type='button' onClick={() => router.back()} {...stylex.props(styles.cancelButton)}>
+          <button
+            type='button'
+            onClick={() => router.back()}
+            {...stylex.props(styles.cancelButton)}>
             Cancel
           </button>
-          <button type='submit' disabled={mutation.isPending} {...stylex.props(styles.submitButton)}>
+          <button
+            type='submit'
+            disabled={mutation.isPending}
+            {...stylex.props(styles.submitButton)}>
             {mutation.isPending ? 'Creating...' : 'Create Service Request'}
           </button>
         </div>

@@ -4,18 +4,14 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { type SortingState, type PaginationState } from '@tanstack/react-table'
 import SimpleServiceRequestsTable from './SimpleServiceRequestsTable'
-import CreateServiceRequestDialog from './CreateServiceRequestDialog'
 import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import { colors } from '@derekjwilliams/stylextras-open-props-pr/colors.stylex'
 import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
 import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
 import { borders } from '@derekjwilliams/stylextras-open-props-pr/borders.stylex'
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useQueryClient } from '@tanstack/react-query'
+import { useCallback, useMemo } from 'react'
 import { parseIncludeArchivedFromURL, parsePaginationFromURL, parseSortingFromURL } from '../utils/serviceRequestUtils'
-import { useLocationsQuery } from 'src/hooks/useLocationQuery'
-import { useTechniciansQuery } from 'src/hooks/useTechnicianQuery'
 import Link from 'next/link'
 
 interface ServiceRequestTableContainerProps {
@@ -79,40 +75,15 @@ export default function ServiceRequestTableContainer({
   statusMap,
   isStatusMapLoading,
   useServiceRequestsQuery,
-  serviceTypeOptions = [],
-  statusOptions = [],
-  locationOptions = [],
-  technicianOptions = [],
   entityType,
 }: ServiceRequestTableContainerProps) {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const queryClient = useQueryClient()
-
-  const { data: locations = [] } = useLocationsQuery()
-  const { data: technicians = [] } = useTechniciansQuery()
-  const dialogOpenInUrl = searchParams.get('createDialog') === 'open'
-  const [isDialogOpen, setIsDialogOpen] = useState(dialogOpenInUrl)
-  // const [isDialogOpen, setIsDialogOpen] = useState(false)
-
-  useEffect(() => {
-    setIsDialogOpen(dialogOpenInUrl)
-  }, [dialogOpenInUrl])
 
   const sorting = useMemo(() => parseSortingFromURL(searchParams), [searchParams])
   const pagination = useMemo(() => parsePaginationFromURL(searchParams), [searchParams])
   const includeArchived = useMemo(() => parseIncludeArchivedFromURL(searchParams), [searchParams])
-
-  const formattedLocationOptions =
-    locationOptions.length > 0
-      ? locationOptions
-      : locations.map((loc) => ({ id: loc.id, name: loc.location_name || loc.street_address || `Location ${loc.id}` }))
-
-  const formattedTechOptions =
-    technicianOptions.length > 0
-      ? technicianOptions
-      : technicians.map((tech) => ({ id: tech.id, name: tech.name || `Technician ${tech.id}` }))
 
   const handleStateChange = useCallback(
     (newState: { sorting?: SortingState; pagination?: PaginationState; includeArchived?: boolean }) => {
@@ -181,46 +152,6 @@ export default function ServiceRequestTableContainer({
     [handleStateChange, pagination],
   )
 
-  // Dialog handlers
-  // Close dialog handler - updates URL
-  const closeDialog = useCallback(() => {
-    const params = new URLSearchParams(searchParams.toString())
-    params.delete('createDialog')
-    const newUrl = `${pathname}?${params.toString()}`
-    router.replace(newUrl, { scroll: false })
-    // State will be updated via the effect that watches dialogOpenInUrl
-  }, [pathname, router, searchParams])
-
-  const handleCreateSuccess = useCallback(() => {
-    // Reset to first page
-    handleStateChange({
-      pagination: {
-        pageIndex: 0,
-        pageSize: getCurrentPageSize(pagination),
-      },
-    })
-
-    // Create a filter string matching what your hook uses
-    const filterString = JSON.stringify(
-      entityType === 'location'
-        ? { locationId: entityId }
-        : entityType === 'serviceType'
-          ? { serviceTypeId: entityId }
-          : entityType === 'technician'
-            ? { statusId: entityId }
-            : {},
-    )
-
-    // Force an immediate refetch with the current filters
-    queryClient.refetchQueries({
-      predicate: (query) => {
-        return (
-          Array.isArray(query.queryKey) && query.queryKey[0] === 'serviceRequests' && query.queryKey[1] === filterString
-        )
-      },
-    })
-    closeDialog()
-  }, [handleStateChange, pagination, queryClient, entityType, entityId, closeDialog])
   // Use the query hook passed as a prop
   const {
     data: serviceRequestsData,
@@ -275,25 +206,6 @@ export default function ServiceRequestTableContainer({
           statusMap={statusMap}
         />
       )}
-      {/* Dialog for creating new service requests */}
-      <CreateServiceRequestDialog
-        open={isDialogOpen}
-        onClose={closeDialog}
-        onSuccess={handleCreateSuccess}
-        // Pass IDs based on context
-        locationId={entityType === 'location' ? entityId : undefined}
-        serviceTypeId={entityType === 'serviceType' ? entityId : undefined}
-        technicianId={entityType === 'technician' ? entityId : undefined}
-        // Pass options lists
-        statusOptions={statusOptions}
-        serviceTypeOptions={serviceTypeOptions}
-        locationOptions={formattedLocationOptions}
-        technicianOptions={formattedTechOptions}
-        // Hide selects based on context
-        hideLocationSelect={entityType === 'location'}
-        hideServiceTypeSelect={entityType === 'serviceType'}
-        hideTechnicianSelect={false}
-      />
     </div>
   )
 }

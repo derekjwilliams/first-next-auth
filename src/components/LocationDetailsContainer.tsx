@@ -1,4 +1,4 @@
-// src/components/LocationDetailsPage.tsx
+// src/components/LocationDetailsContainer.tsx
 'use client'
 
 import LocationDetails from './LocationDetails'
