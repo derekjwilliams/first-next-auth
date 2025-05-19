@@ -13,96 +13,184 @@ import Link from 'next/link'
 import LinkWrapperButton from './controls/LinkWrapperButton'
 import { RichTextEditor } from '@/components/lexical/RichTextEditor'
 
-const requests = stylex.create({
-  base: {
+const bp = '@media (min-width: 900px)'
+
+const styles = stylex.create({
+  container: {
     padding: sizes.spacing5,
     backgroundColor: marigoldColors.background,
-  },
-  list: {
-    margin: sizes.spacing5,
-  },
-})
-
-const requestCard = stylex.create({
-  base: {
-    color: marigoldColors.foreground,
-    margin: sizes.spacing2,
+    minHeight: '100vh',
     display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
-  h1: {
-    fontSize: fonts.sizeFluid3,
+  card: {
+    width: '100%',
+    maxWidth: '1400px',
+    backgroundColor: marigoldColors.backgroundData,
+    borderRadius: borders.radius3,
+    boxShadow: '0 2px 12px 0 rgba(0,0,0,0.07)',
+    marginBottom: sizes.spacing6,
+    padding: sizes.spacing6,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: sizes.spacing6,
+  },
+  headerRow: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    gap: sizes.spacing3,
+    flexWrap: 'wrap',
+  },
+  title: {
+    fontSize: fonts.sizeFluid2,
     fontWeight: fonts.weight7,
+    color: marigoldColors.pansy,
+    margin: 0,
+    lineHeight: 1.2,
   },
-  inset: {
-    fontSize: fonts.sizeFluid1,
-    fontWeight: fonts.weight2,
-    lineHeight: fonts.lineHeight3,
-    borderWidth: borders.size1,
-    borderStyle: 'solid',
-    borderColor: marigoldColors.pansy,
+  statusEditGroup: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: sizes.spacing3,
+  },
+  status: {
+    fontSize: fonts.size1,
+    fontWeight: fonts.weight6,
+    color: marigoldColors.environmentBrown,
+    backgroundColor: marigoldColors.backgroundDetails,
     borderRadius: borders.radius2,
-    padding: sizes.spacing6,
-    backgroundColor: {
-      default: 'white',
+    padding: `${sizes.spacing1} ${sizes.spacing3}`,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
+  },
+  editBtn: {
+    marginLeft: sizes.spacing2,
+  },
+  infoRow: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: sizes.spacing4,
+    [bp]: {
+      flexDirection: 'row',
+      gap: sizes.spacing5,
     },
   },
-  details: {
-    borderColor: marigoldColors.pansy,
+  infoCard: {
+    flex: 1,
+    minWidth: 220,
+    backgroundColor: marigoldColors.backgroundDetails,
     borderRadius: borders.radius2,
-    fontSize: fonts.sizeFluid1,
-    fontWeight: fonts.weight2,
-    lineHeight: fonts.lineHeight3,
-    borderWidth: borders.size1,
-    borderStyle: 'solid',
-    padding: 0,
-    backgroundColor: {
-      default: 'white',
-    },
-    marginTop: sizes.spacing6,
+    border: `1px solid ${marigoldColors.pansy}`,
+    padding: sizes.spacing5,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: sizes.spacing2,
   },
-  technicians: {
-    marginLeft: sizes.spacing4,
+  sectionTitle: {
+    fontSize: fonts.size1,
+    fontWeight: fonts.weight6,
+    color: marigoldColors.leaf,
+    marginBottom: sizes.spacing2,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
   },
-  link: {
-    textDecoration: 'none',
-    fontSize: fonts.size3,
-    color: {
-      default: marigoldColors.foregroundLink,
-      ':hover': marigoldColors.foregroundHoverLink,
-    },
+  fieldRow: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: sizes.spacing2,
+    fontSize: fonts.size1,
+    marginBottom: sizes.spacing1,
   },
-  costs: {
-    padding: sizes.spacing6,
+  fieldLabel: {
+    fontWeight: fonts.weight5,
+    color: marigoldColors.slate,
+    minWidth: 80,
+  },
+  fieldValue: {
+    color: marigoldColors.foreground,
+    wordBreak: 'break-word',
+  },
+  costList: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: sizes.spacing1,
   },
   costItem: {
     display: 'flex',
     justifyContent: 'space-between',
-    marginBottom: sizes.spacing2,
+    fontSize: fonts.size1,
   },
   costTotal: {
-    fontWeight: fonts.weight6,
+    fontWeight: fonts.weight7,
+    color: marigoldColors.flowerRed,
     borderTop: `1px solid ${marigoldColors.pansy}`,
-    paddingTop: sizes.spacing2,
-    marginTop: sizes.spacing2,
+    paddingTop: sizes.spacing1,
+    marginTop: sizes.spacing1,
+  },
+  technicianList: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: sizes.spacing2,
+  },
+  technicianCard: {
+    backgroundColor: marigoldColors.background,
+    borderRadius: borders.radius2,
+    border: `1px solid ${marigoldColors.leafHighlight}`,
+    padding: `${sizes.spacing1} ${sizes.spacing3}`,
+    minWidth: 120,
+    display: 'inline-block',
+    fontWeight: fonts.weight6,
+    color: marigoldColors.pansy,
+    textDecoration: 'none',
+    transition: 'background 0.2s',
+    ':hover': {
+      backgroundColor: marigoldColors.flowerYellow,
+      color: marigoldColors.flowerRed,
+    },
+  },
+  noTech: {
+    color: marigoldColors.flowerRed,
+    fontWeight: fonts.weight5,
+    fontSize: fonts.size1,
+  },
+  detailsSection: {
+    backgroundColor: marigoldColors.backgroundDetails,
+    borderRadius: borders.radius2,
+    border: `1px solid ${marigoldColors.pansy}`,
+    padding: sizes.spacing5,
+    marginTop: sizes.spacing6,
+    width: '100%',
+    boxSizing: 'border-box',
+    // If using grid, span all columns:
+    gridColumn: '1 / -1',
+  },
+  detailsTitle: {
+    fontSize: fonts.size1,
+    fontWeight: fonts.weight6,
+    color: marigoldColors.leaf,
+    marginBottom: sizes.spacing2,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
   },
 })
 
 export default function ServiceRequestDetail({ id }: { id: string | null }) {
   const { data: serviceRequest, isLoading, isError } = useServiceRequestQuery(id!)
-  if (isLoading) {
-    return <div>Loading...</div>
-  }
-  if (isError || !serviceRequest) {
+  if (isLoading) return <div>Loading...</div>
+  if (isError || !serviceRequest)
     return (
       <>
         <div>{isError}</div>
         <div>Error</div>
       </>
     )
-  }
-  // Format costs to 2 decimal places
+
   const formatCost = (cost: number | null | undefined) => {
-    const amount = cost ?? 0 // Convert null/undefined to 0
+    const amount = cost ?? 0
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
@@ -113,64 +201,82 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
   const totalCost = (serviceRequest.material_cost || 0) + (serviceRequest.labor_cost || 0)
 
   return (
-    <div {...stylex.props(requests.base)}>
-      <LinkWrapperButton href={`/servicerequests/${id}/edit`}>Edit</LinkWrapperButton>
-
-      <div key={serviceRequest.locations?.id} {...stylex.props(requestCard.base)}>
-        <h1 {...stylex.props(requestCard.h1)}>{serviceRequest.description}</h1>
-      </div>
-      <div key={serviceRequest.id} {...stylex.props(requestCard.inset)}>
-        <div>{`Location: ${serviceRequest.locations?.street_address} ${
-          serviceRequest.locations?.unit_number ? serviceRequest.locations?.unit_number : ''
-        }`}</div>
-        <div>{`Status: ${serviceRequest.statuses?.status_name}`}</div>
-        {/* {serviceRequest.details && <div>{`Details: ${serviceRequest.details}`}</div>} */}
-      </div>
-      <div {...stylex.props(requestCard.details)}>
-        <div {...stylex.props(requestCard.costs)}>
-          <div {...stylex.props(requestCard.costItem)}>
-            <span>Material Cost:</span>
-            <span>{formatCost(serviceRequest.material_cost)}</span>
-          </div>
-          <div {...stylex.props(requestCard.costItem)}>
-            <span>Labor Cost:</span>
-            <span>{formatCost(serviceRequest.labor_cost)}</span>
-          </div>
-          <div {...stylex.props(requestCard.costItem, requestCard.costTotal)}>
-            <span>Total Cost:</span>
-            <span>{formatCost(totalCost)}</span>
+    <div {...stylex.props(styles.container)}>
+      <div {...stylex.props(styles.card)}>
+        <div {...stylex.props(styles.headerRow)}>
+          <h1 {...stylex.props(styles.title)}>{serviceRequest.description || 'Service Request'}</h1>
+          <div {...stylex.props(styles.statusEditGroup)}>
+            <span {...stylex.props(styles.status)}>{serviceRequest.statuses?.status_name}</span>
+            <div {...stylex.props(styles.editBtn)}>
+              <LinkWrapperButton href={`/servicerequests/${id}/edit`}>Edit</LinkWrapperButton>
+            </div>
           </div>
         </div>
-      </div>
-      <div {...stylex.props(requestCard.details)}>
-        <RichTextEditor
-          value={serviceRequest.details}
-          onChange={(v) => {}}
-          readOnly={true}
-          data={serviceRequest.details}
-        />
-      </div>
 
-      <div>
-        {serviceRequest.technicians.length === 0 && (
-          <>
-            <h2 {...stylex.props(requestCard.base)}>No Technicians Assigned</h2>
-          </>
-        )}
-        {serviceRequest.technicians.length > 0 && (
-          <>
-            <h2 {...stylex.props(requestCard.base)}>Technicians Assigned</h2>
-            <div {...stylex.props(requestCard.technicians)}>
-              {serviceRequest.technicians.map((technician: any) => (
-                <div key={technician.id}>
-                  <Link {...stylex.props(requestCard.link)} href={`/technicians/${technician.id}`}>
+        {/* Info row: Location, Costs, Technicians */}
+        <div {...stylex.props(styles.infoRow)}>
+          {/* Location */}
+          <section {...stylex.props(styles.infoCard)}>
+            <div {...stylex.props(styles.sectionTitle)}>Location</div>
+            <div {...stylex.props(styles.fieldRow)}>
+              <span {...stylex.props(styles.fieldLabel)}>Address:</span>
+              <span {...stylex.props(styles.fieldValue)}>
+                {serviceRequest.locations?.street_address}
+                {serviceRequest.locations?.unit_number ? `, Unit ${serviceRequest.locations.unit_number}` : ''}
+              </span>
+            </div>
+            {/* Add more location fields here */}
+          </section>
+
+          {/* Costs */}
+          <section {...stylex.props(styles.infoCard)}>
+            <div {...stylex.props(styles.sectionTitle)}>Costs</div>
+            <div {...stylex.props(styles.costList)}>
+              <div {...stylex.props(styles.costItem)}>
+                <span>Material Cost</span>
+                <span>{formatCost(serviceRequest.material_cost)}</span>
+              </div>
+              <div {...stylex.props(styles.costItem)}>
+                <span>Labor Cost</span>
+                <span>{formatCost(serviceRequest.labor_cost)}</span>
+              </div>
+              <div {...stylex.props(styles.costItem, styles.costTotal)}>
+                <span>Total</span>
+                <span>{formatCost(totalCost)}</span>
+              </div>
+            </div>
+          </section>
+
+          {/* Technicians */}
+          <section {...stylex.props(styles.infoCard)}>
+            <div {...stylex.props(styles.sectionTitle)}>Technicians</div>
+            {serviceRequest.technicians.length === 0 ? (
+              <div {...stylex.props(styles.noTech)}>No Technicians Assigned</div>
+            ) : (
+              <div {...stylex.props(styles.technicianList)}>
+                {serviceRequest.technicians.map((technician: any) => (
+                  <Link
+                    key={technician.id}
+                    {...stylex.props(styles.technicianCard)}
+                    href={`/technicians/${technician.id}`}>
                     {technician.name}
                   </Link>
-                </div>
-              ))}
-            </div>
-          </>
-        )}
+                ))}
+              </div>
+            )}
+          </section>
+        </div>
+
+        {/* Details section, full width */}
+        <section {...stylex.props(styles.detailsSection)}>
+          <div {...stylex.props(styles.detailsTitle)}>Details</div>
+          <RichTextEditor
+            value={serviceRequest.details}
+            onChange={() => {}}
+            readOnly={true}
+            data={serviceRequest.details}
+          />
+        </section>
       </div>
     </div>
   )
