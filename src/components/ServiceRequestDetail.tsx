@@ -27,7 +27,9 @@ const styles = stylex.create({
   card: {
     width: '100%',
     maxWidth: '1400px',
-    backgroundColor: marigoldColors.backgroundData,
+    backgroundColor: marigoldColors.backgroundCard,
+    border: `1px solid ${marigoldColors.tableBorder}`,
+    color: marigoldColors.foreground,
     borderRadius: borders.radius3,
     boxShadow: '0 2px 12px 0 rgba(0,0,0,0.07)',
     marginBottom: sizes.spacing6,
@@ -82,13 +84,14 @@ const styles = stylex.create({
   infoCard: {
     flex: 1,
     minWidth: 220,
-    backgroundColor: marigoldColors.backgroundDetails,
+    backgroundColor: marigoldColors.backgroundDetails, // adapts to dark mode
     borderRadius: borders.radius2,
     border: `1px solid ${marigoldColors.pansy}`,
     padding: sizes.spacing5,
     display: 'flex',
     flexDirection: 'column',
     gap: sizes.spacing2,
+    color: marigoldColors.foreground, // ensures text is readable
   },
   sectionTitle: {
     fontSize: fonts.size1,
@@ -107,7 +110,7 @@ const styles = stylex.create({
   },
   fieldLabel: {
     fontWeight: fonts.weight5,
-    color: marigoldColors.slate,
+    color: marigoldColors.foregroundMuted,
     minWidth: 80,
   },
   fieldValue: {
@@ -139,7 +142,7 @@ const styles = stylex.create({
   technicianCard: {
     backgroundColor: marigoldColors.background,
     borderRadius: borders.radius2,
-    border: `1px solid ${marigoldColors.leafHighlight}`,
+    border: `1px solid ${marigoldColors.leaf}`,
     padding: `${sizes.spacing1} ${sizes.spacing3}`,
     minWidth: 120,
     display: 'inline-block',
@@ -165,8 +168,8 @@ const styles = stylex.create({
     marginTop: sizes.spacing6,
     width: '100%',
     boxSizing: 'border-box',
-    // If using grid, span all columns:
     gridColumn: '1 / -1',
+    color: marigoldColors.foreground,
   },
   detailsTitle: {
     fontSize: fonts.size1,
