@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   width="900"
+   width="1100"
    height="900"
    style="background:#fff;font-family:sans-serif"
    version="1.1"
-   id="svg60"
+   id="svg71"
    sodipodi:docname="palette.svg"
    inkscape:version="1.4 (e7c3feb1, 2024-10-09)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -12,9 +12,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
-     id="defs60" />
+     id="defs71" />
   <sodipodi:namedview
-     id="namedview60"
+     id="namedview71"
      pagecolor="#ffffff"
      bordercolor="#666666"
      borderopacity="1.0"
@@ -22,529 +22,795 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="1.1455556"
-     inkscape:cx="449.56353"
-     inkscape:cy="450"
-     inkscape:window-width="2096"
+     inkscape:zoom="0.99576147"
+     inkscape:cx="499.61764"
+     inkscape:cy="523.7198"
+     inkscape:window-width="2480"
      inkscape:window-height="1186"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="0"
-     inkscape:current-layer="svg60" />
+     inkscape:current-layer="svg71" />
   <style
      id="style1">
     .label { font-size: 14px; fill: #222; }
     .hex { font-size: 12px; fill: #555; }
     .title { font-size: 18px; font-weight: bold; fill: #222; }
   </style>
+  <!-- Titles -->
   <text
-     x="20"
-     y="30"
+     x="20.166624"
+     y="27.671076"
      class="title"
-     id="text1">Colors</text>
+     id="text1"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">Marigold Color Primitives</text>
+  <text
+     x="20.801479"
+     y="412.27386"
+     class="title"
+     id="text2"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">Desaturated Colors</text>
+  <text
+     x="20.166624"
+     y="678.88354"
+     class="title"
+     id="text3"
+     transform="scale(0.99173763,1.0083312)"
+     style="stroke-width:1">Stone/Gray Tones</text>
   <!-- Row 1: Brights -->
   <rect
      x="20"
-     y="50"
-     width="60"
-     height="60"
-     fill="#FF9912"
-     id="rect1" />
+     y="44.949902"
+     width="50.303207"
+     height="51.144875"
+     fill="#ff9912"
+     id="rect3"
+     style="stroke-width:1" />
   <text
-     x="90"
-     y="75"
+     x="79.342636"
+     y="65.712799"
      class="label"
-     id="text2">marigoldPetal</text>
+     id="text4"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">marigoldPetal</text>
   <text
-     x="90"
-     y="95"
+     x="79.342636"
+     y="82.620224"
      class="hex"
-     id="text3">#FF9912</text>
+     id="text5"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">#FF9912</text>
   <rect
-     x="250"
-     y="50"
-     width="60"
-     height="60"
-     fill="#FFC200"
-     id="rect3" />
+     x="212.82896"
+     y="44.949902"
+     width="50.303207"
+     height="51.144875"
+     fill="#ffc200"
+     id="rect5"
+     style="stroke-width:1" />
   <text
-     x="320"
-     y="75"
+     x="273.77811"
+     y="65.712799"
      class="label"
-     id="text4">marigoldGold</text>
+     id="text6"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">marigoldGold</text>
   <text
-     x="320"
-     y="95"
+     x="273.77811"
+     y="82.620224"
      class="hex"
-     id="text5">#FFC200</text>
+     id="text7"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">#FFC200</text>
   <rect
-     x="480"
-     y="50"
-     width="60"
-     height="60"
-     fill="#E8680E"
-     id="rect5" />
+     x="405.65793"
+     y="44.949902"
+     width="50.303207"
+     height="51.144875"
+     fill="#e8680e"
+     id="rect7"
+     style="stroke-width:1" />
   <text
-     x="550"
-     y="75"
+     x="468.21356"
+     y="65.712799"
      class="label"
-     id="text6">marigoldAmber</text>
+     id="text8"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">marigoldAmber</text>
   <text
-     x="550"
-     y="95"
+     x="468.21356"
+     y="82.620224"
      class="hex"
-     id="text7">#E8680E</text>
+     id="text9"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">#E8680E</text>
   <rect
-     x="20"
-     y="130"
-     width="60"
-     height="60"
-     fill="#C83C00"
-     id="rect7" />
+     x="598.48694"
+     y="44.949902"
+     width="50.303207"
+     height="51.144875"
+     fill="#c83c00"
+     id="rect9"
+     style="stroke-width:1" />
   <text
-     x="90"
-     y="155"
+     x="662.64905"
+     y="65.712799"
      class="label"
-     id="text8">marigoldRust</text>
+     id="text10"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">marigoldRust</text>
   <text
-     x="90"
-     y="175"
+     x="662.64905"
+     y="82.620224"
      class="hex"
-     id="text9">#C83C00</text>
+     id="text11"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">#C83C00</text>
   <rect
-     x="250"
-     y="130"
-     width="60"
-     height="60"
-     fill="#F74600"
-     id="rect9" />
+     x="791.31586"
+     y="44.949902"
+     width="50.303207"
+     height="51.144875"
+     fill="#f74600"
+     id="rect11"
+     style="stroke-width:1" />
   <text
-     x="320"
-     y="155"
+     x="857.08453"
+     y="65.712799"
      class="label"
-     id="text10">marigoldRed</text>
+     id="text12"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">marigoldRed</text>
   <text
-     x="320"
-     y="175"
+     x="857.08453"
+     y="82.620224"
      class="hex"
-     id="text11">#F74600</text>
+     id="text13"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">#F74600</text>
   <!-- Row 2: Darks -->
   <rect
      x="20"
-     y="210"
-     width="60"
-     height="60"
-     fill="#A85000"
-     id="rect11" />
+     y="113.14307"
+     width="50.303207"
+     height="51.144875"
+     fill="#a85000"
+     id="rect13"
+     style="stroke-width:1" />
   <text
-     x="90"
-     y="235"
+     x="79.342636"
+     y="133.34251"
      class="label"
-     id="text12">marigoldCenter</text>
+     id="text14"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">marigoldCenter</text>
   <text
-     x="90"
-     y="255"
+     x="79.342636"
+     y="150.24995"
      class="hex"
-     id="text13">#A85000</text>
+     id="text15"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">#A85000</text>
   <rect
-     x="250"
-     y="210"
-     width="60"
-     height="60"
-     fill="#D67A00"
-     id="rect13" />
+     x="212.82896"
+     y="113.14307"
+     width="50.303207"
+     height="51.144875"
+     fill="#d67a00"
+     id="rect15"
+     style="stroke-width:1" />
   <text
-     x="320"
-     y="235"
+     x="273.77811"
+     y="133.34251"
      class="label"
-     id="text14">marigoldBrown</text>
+     id="text16"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">marigoldBrown</text>
   <text
-     x="320"
-     y="255"
+     x="273.77811"
+     y="150.24995"
      class="hex"
-     id="text15">#D67A00</text>
+     id="text17"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">#D67A00</text>
   <rect
-     x="480"
-     y="210"
-     width="60"
-     height="60"
+     x="405.65793"
+     y="113.14307"
+     width="50.303207"
+     height="51.144875"
      fill="#005145"
-     id="rect15" />
+     id="rect17"
+     style="stroke-width:1" />
   <text
-     x="550"
-     y="235"
+     x="468.21356"
+     y="133.34251"
      class="label"
-     id="text16">marigoldLeaf</text>
+     id="text18"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">marigoldLeaf</text>
   <text
-     x="550"
-     y="255"
+     x="468.21356"
+     y="150.24995"
      class="hex"
-     id="text17">#005145</text>
+     id="text19"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">#005145</text>
+  <rect
+     x="598.48694"
+     y="113.14307"
+     width="50.303207"
+     height="51.144875"
+     fill="#bddba3"
+     id="rect19"
+     style="stroke-width:1" />
+  <text
+     x="662.64905"
+     y="133.34251"
+     class="label"
+     id="text20"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">marigoldLeafLight</text>
+  <text
+     x="662.64905"
+     y="150.24995"
+     class="hex"
+     id="text21"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">#BDDBA3</text>
+  <rect
+     x="791.31586"
+     y="113.14307"
+     width="50.303207"
+     height="51.144875"
+     fill="#2c783c"
+     id="rect21"
+     style="stroke-width:1" />
+  <text
+     x="857.08453"
+     y="133.34251"
+     class="label"
+     id="text22"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">marigoldStem</text>
+  <text
+     x="857.08453"
+     y="150.24995"
+     class="hex"
+     id="text23"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">#2C783C</text>
   <rect
      x="20"
-     y="290"
-     width="60"
-     height="60"
-     fill="#BDDBA3"
-     id="rect17" />
-  <text
-     x="90"
-     y="315"
-     class="label"
-     id="text18">marigoldLeafLight</text>
-  <text
-     x="90"
-     y="335"
-     class="hex"
-     id="text19">#BDDBA3</text>
-  <rect
-     x="250"
-     y="290"
-     width="60"
-     height="60"
-     fill="#2C783C"
-     id="rect19" />
-  <text
-     x="320"
-     y="315"
-     class="label"
-     id="text20">marigoldStem</text>
-  <text
-     x="320"
-     y="335"
-     class="hex"
-     id="text21">#2C783C</text>
-  <rect
-     x="480"
-     y="290"
-     width="60"
-     height="60"
+     y="181.33624"
+     width="50.303207"
+     height="51.144875"
      fill="#444444"
-     id="rect21" />
+     id="rect23"
+     style="stroke-width:1" />
   <text
-     x="550"
-     y="315"
+     x="79.342636"
+     y="200.97226"
      class="label"
-     id="text22">marigoldSlate</text>
+     id="text24"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">marigoldSlate</text>
   <text
-     x="550"
-     y="335"
+     x="79.342636"
+     y="217.87968"
      class="hex"
-     id="text23">#444444</text>
+     id="text25"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">#444444</text>
   <!-- Row 3: Neutrals -->
   <rect
-     x="20"
-     y="370"
-     width="60"
-     height="60"
-     fill="#78B4EB"
-     id="rect23" />
+     x="212.82896"
+     y="181.33624"
+     width="50.303207"
+     height="51.144875"
+     fill="#78b4eb"
+     id="rect25"
+     style="stroke-width:1" />
   <text
-     x="90"
-     y="395"
+     x="273.77811"
+     y="200.97226"
      class="label"
-     id="text24">marigoldSky</text>
+     id="text26"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">marigoldSky</text>
   <text
-     x="90"
-     y="415"
+     x="273.77811"
+     y="217.87968"
      class="hex"
-     id="text25">#78B4EB</text>
+     id="text27"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">#78B4EB</text>
   <rect
-     x="250"
-     y="370"
-     width="60"
-     height="60"
-     fill="#F0F5FA"
-     id="rect25" />
+     x="405.65793"
+     y="181.33624"
+     width="50.303207"
+     height="51.144875"
+     fill="#f0f5fa"
+     id="rect27"
+     style="stroke-width:1" />
   <text
-     x="320"
-     y="395"
+     x="468.21356"
+     y="200.97226"
      class="label"
-     id="text26">marigoldCloud</text>
+     id="text28"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">marigoldCloud</text>
   <text
-     x="320"
-     y="415"
+     x="468.21356"
+     y="217.87968"
      class="hex"
-     id="text27">#F0F5FA</text>
+     id="text29"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">#F0F5FA</text>
   <rect
-     x="480"
-     y="370"
-     width="60"
-     height="60"
+     x="598.48694"
+     y="181.33624"
+     width="50.303207"
+     height="51.144875"
      fill="#828282"
-     id="rect27" />
+     id="rect29"
+     style="stroke-width:1" />
   <text
-     x="550"
-     y="395"
+     x="662.64905"
+     y="200.97226"
      class="label"
-     id="text28">marigoldPath</text>
+     id="text30"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">marigoldPath</text>
   <text
-     x="550"
-     y="415"
+     x="662.64905"
+     y="217.87968"
      class="hex"
-     id="text29">#828282</text>
+     id="text31"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">#828282</text>
   <!-- Row 4: Dark mode/neutral -->
   <rect
-     x="20"
-     y="450"
-     width="60"
-     height="60"
+     x="791.31586"
+     y="181.33624"
+     width="50.303207"
+     height="51.144875"
      fill="#242428"
-     id="rect29" />
+     id="rect31"
+     style="stroke-width:1" />
   <text
-     x="90"
-     y="475"
+     x="857.08453"
+     y="200.97226"
      class="label"
-     id="text30">marigoldEggplant</text>
+     id="text32"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">marigoldEggplant</text>
   <text
-     x="90"
-     y="495"
+     x="857.08453"
+     y="217.87968"
      class="hex"
-     id="text31">#242428</text>
-  <rect
-     x="250"
-     y="450"
-     width="60"
-     height="60"
-     fill="#18181C"
-     id="rect31" />
-  <text
-     x="320"
-     y="475"
-     class="label"
-     id="text32">marigoldNight</text>
-  <text
-     x="320"
-     y="495"
-     class="hex"
-     id="text33">#18181C</text>
-  <rect
-     x="480"
-     y="450"
-     width="60"
-     height="60"
-     fill="#EBE6FF"
-     id="rect33" />
-  <text
-     x="550"
-     y="475"
-     class="label"
-     id="text34">marigoldMist</text>
-  <text
-     x="550"
-     y="495"
-     class="hex"
-     id="text35">#EBE6FF</text>
-  <rect
-     x="650"
-     y="450"
-     width="60"
-     height="60"
-     fill="#B4B4C8"
-     id="rect35" />
-  <text
-     x="720"
-     y="475"
-     class="label"
-     id="text36">marigoldFog</text>
-  <text
-     x="720"
-     y="495"
-     class="hex"
-     id="text37">#B4B4C8</text>
-  <!-- Desaturated Colors Title -->
-  <text
-     x="20"
-     y="540"
-     class="title"
-     id="text38">Desaturated Colors</text>
-  <!-- Row 5: Desaturated Brights -->
+     id="text33"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">#242428</text>
   <rect
      x="20"
-     y="560"
-     width="60"
-     height="60"
-     fill="#E0AA61"
-     id="rect38" />
+     y="249.5294"
+     width="50.303207"
+     height="51.144875"
+     fill="#18181c"
+     id="rect33"
+     style="stroke-width:1" />
   <text
-     x="90"
-     y="585"
+     x="79.342636"
+     y="268.60199"
      class="label"
-     id="text39">marigoldPetalDesaturated</text>
+     id="text34"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">marigoldNight</text>
   <text
-     x="90"
-     y="605"
+     x="79.342636"
+     y="285.5094"
      class="hex"
-     id="text40">#E0AA61</text>
+     id="text35"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">#18181C</text>
   <rect
-     x="310"
-     y="560"
-     width="60"
-     height="60"
+     x="212.82896"
+     y="249.5294"
+     width="50.303207"
+     height="51.144875"
+     fill="#ebe6ff"
+     id="rect35"
+     style="stroke-width:1" />
+  <text
+     x="273.77811"
+     y="268.60199"
+     class="label"
+     id="text36"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">marigoldMist</text>
+  <text
+     x="273.77811"
+     y="285.5094"
+     class="hex"
+     id="text37"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">#EBE6FF</text>
+  <rect
+     x="405.65793"
+     y="249.5294"
+     width="50.303207"
+     height="51.144875"
+     fill="#b4b4c8"
+     id="rect37"
+     style="stroke-width:1" />
+  <text
+     x="468.21356"
+     y="268.60199"
+     class="label"
+     id="text38"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">marigoldFog</text>
+  <text
+     x="468.21356"
+     y="285.5094"
+     class="hex"
+     id="text39"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">#B4B4C8</text>
+  <!-- Desaturated Colors -->
+  <rect
+     x="20"
+     y="431.43585"
+     width="50.303207"
+     height="51.144875"
+     fill="#e0aa61"
+     id="rect39"
+     style="stroke-width:1" />
+  <text
+     x="79.342636"
+     y="449.00543"
+     class="label"
+     id="text40"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">marigoldPetalDesaturated</text>
+  <text
+     x="79.342636"
+     y="465.91284"
+     class="hex"
+     id="text41"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">#E0AA61</text>
+  <rect
+     x="279.81766"
+     y="429.62738"
+     width="50.303207"
+     height="51.144875"
      fill="#e0c861"
-     id="rect40" />
+     id="rect41"
+     style="stroke-width:1" />
   <text
-     x="380"
-     y="585"
+     x="341.32489"
+     y="447.21191"
      class="label"
-     id="text41">marigoldGoldDesaturated</text>
+     id="text42"
+     transform="scale(0.99173763,1.0083312)"
+     style="stroke-width:1">marigoldGoldDesaturated</text>
   <text
-     x="380"
-     y="605"
+     x="341.32489"
+     y="464.11932"
      class="hex"
-     id="text42">#E0C861</text>
+     id="text43"
+     transform="scale(0.99173763,1.0083312)"
+     style="stroke-width:1">#E0C861</text>
   <rect
-     x="580"
-     y="560"
-     width="60"
-     height="60"
+     x="537.23541"
+     y="429.62738"
+     width="50.303207"
+     height="51.144875"
      fill="#c88c61"
-     id="rect42" />
+     id="rect43"
+     style="stroke-width:1" />
   <text
-     x="650"
-     y="585"
+     x="600.88721"
+     y="447.21191"
      class="label"
-     id="text43">marigoldAmberDesaturated</text>
+     id="text44"
+     transform="scale(0.99173763,1.0083312)"
+     style="stroke-width:1">marigoldAmberDesaturated</text>
   <text
-     x="650"
-     y="605"
+     x="600.88721"
+     y="464.11932"
      class="hex"
-     id="text44">#C88C61</text>
+     id="text45"
+     transform="scale(0.99173763,1.0083312)"
+     style="stroke-width:1">#C88C61</text>
   <rect
-     x="20"
-     y="640"
-     width="60"
-     height="60"
-     fill="#B46E50"
-     id="rect44" />
+     x="796.47675"
+     y="429.62738"
+     width="50.303207"
+     height="51.144875"
+     fill="#b46e50"
+     id="rect45"
+     style="stroke-width:1" />
   <text
-     x="90"
-     y="665"
+     x="862.28839"
+     y="447.21191"
      class="label"
-     id="text45">marigoldRustDesaturated</text>
+     id="text46"
+     transform="scale(0.99173763,1.0083312)"
+     style="stroke-width:1">marigoldRustDesaturated</text>
   <text
-     x="90"
-     y="685"
+     x="862.28839"
+     y="464.11932"
      class="hex"
-     id="text46">#B46E50</text>
+     id="text47"
+     transform="scale(0.99173763,1.0083312)"
+     style="stroke-width:1">#B46E50</text>
   <rect
-     x="310"
-     y="640"
-     width="60"
-     height="60"
+     x="279.81766"
+     y="566.01367"
+     width="50.303207"
+     height="51.144875"
      fill="#d27861"
-     id="rect46" />
+     id="rect47"
+     style="stroke-width:1" />
   <text
-     x="380"
-     y="665"
+     x="341.32483"
+     y="582.47131"
      class="label"
-     id="text47">marigoldRedDesaturated</text>
+     id="text48"
+     transform="scale(0.99173763,1.0083312)"
+     style="stroke-width:1">marigoldRedDesaturated</text>
   <text
-     x="380"
-     y="685"
+     x="341.32483"
+     y="599.37872"
      class="hex"
-     id="text48">#D27861</text>
-  <!-- Row 6: Desaturated Darks -->
+     id="text49"
+     transform="scale(0.99173763,1.0083312)"
+     style="stroke-width:1">#D27861</text>
   <rect
      x="20"
-     y="720"
-     width="60"
-     height="60"
-     fill="#966E50"
-     id="rect48" />
+     y="499.629"
+     width="50.303207"
+     height="51.144875"
+     fill="#966e50"
+     id="rect49"
+     style="stroke-width:1" />
   <text
-     x="90"
-     y="745"
+     x="79.342636"
+     y="516.63519"
      class="label"
-     id="text49">marigoldCenterDesaturated</text>
+     id="text50"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">marigoldCenterDesaturated</text>
   <text
-     x="90"
-     y="765"
+     x="79.342636"
+     y="533.5426"
      class="hex"
-     id="text50">#966E50</text>
+     id="text51"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">#966E50</text>
   <rect
-     x="310"
-     y="720"
-     width="60"
-     height="60"
+     x="279.81766"
+     y="497.82053"
+     width="50.303207"
+     height="51.144875"
      fill="#b48c61"
-     id="rect50" />
+     id="rect51"
+     style="stroke-width:1" />
   <text
-     x="380"
-     y="745"
+     x="341.32489"
+     y="514.84167"
      class="label"
-     id="text51">marigoldBrownDesaturated</text>
+     id="text52"
+     transform="scale(0.99173763,1.0083312)"
+     style="stroke-width:1">marigoldBrownDesaturated</text>
   <text
-     x="380"
-     y="765"
+     x="341.32489"
+     y="531.74908"
      class="hex"
-     id="text52">#B48C61</text>
+     id="text53"
+     transform="scale(0.99173763,1.0083312)"
+     style="stroke-width:1">#B48C61</text>
   <rect
-     x="580"
-     y="720"
-     width="60"
-     height="60"
+     x="537.23541"
+     y="497.82053"
+     width="50.303207"
+     height="51.144875"
      fill="#3c645a"
-     id="rect52" />
+     id="rect53"
+     style="stroke-width:1" />
   <text
-     x="650"
-     y="745"
+     x="600.88721"
+     y="514.84167"
      class="label"
-     id="text53">marigoldLeafDesaturated</text>
+     id="text54"
+     transform="scale(0.99173763,1.0083312)"
+     style="stroke-width:1">marigoldLeafDesaturated</text>
   <text
-     x="650"
-     y="765"
+     x="600.88721"
+     y="531.74908"
      class="hex"
-     id="text54">#3C645A</text>
+     id="text55"
+     transform="scale(0.99173763,1.0083312)"
+     style="stroke-width:1">#3C645A</text>
+  <rect
+     x="796.47675"
+     y="497.82053"
+     width="50.303207"
+     height="51.144875"
+     fill="#aac8aa"
+     id="rect55"
+     style="stroke-width:1" />
+  <text
+     x="862.28839"
+     y="514.84167"
+     class="label"
+     id="text56"
+     transform="scale(0.99173763,1.0083312)"
+     style="stroke-width:1">marigoldLeafLightDesaturated</text>
+  <text
+     x="862.28839"
+     y="531.74908"
+     class="hex"
+     id="text57"
+     transform="scale(0.99173763,1.0083312)"
+     style="stroke-width:1">#AAC8AA</text>
+  <rect
+     x="537.23541"
+     y="566.01367"
+     width="50.303207"
+     height="51.144875"
+     fill="#5a8264"
+     id="rect57"
+     style="stroke-width:1" />
+  <text
+     x="600.88715"
+     y="582.47137"
+     class="label"
+     id="text58"
+     transform="scale(0.99173763,1.0083312)"
+     style="stroke-width:1">marigoldStemDesaturated</text>
+  <text
+     x="600.88715"
+     y="599.37878"
+     class="hex"
+     id="text59"
+     transform="scale(0.99173763,1.0083312)"
+     style="stroke-width:1">#5A8264</text>
   <rect
      x="20"
-     y="800"
-     width="60"
-     height="60"
-     fill="#AAC8AA"
-     id="rect54" />
-  <text
-     x="90"
-     y="825"
-     class="label"
-     id="text55">marigoldLeafLightDesaturated</text>
-  <text
-     x="90"
-     y="845"
-     class="hex"
-     id="text56">#AAC8AA</text>
-  <rect
-     x="310"
-     y="800"
-     width="60"
-     height="60"
-     fill="#5a8264"
-     id="rect56" />
-  <text
-     x="380"
-     y="825"
-     class="label"
-     id="text57">marigoldStemDesaturated</text>
-  <text
-     x="380"
-     y="845"
-     class="hex"
-     id="text58">#5A8264</text>
-  <rect
-     x="580"
-     y="800"
-     width="60"
-     height="60"
+     y="567.82214"
+     width="50.303207"
+     height="51.144875"
      fill="#646464"
-     id="rect58" />
+     id="rect59"
+     style="stroke-width:1" />
   <text
-     x="650"
-     y="825"
+     x="79.342636"
+     y="584.26489"
      class="label"
-     id="text59">marigoldSlateDesaturated</text>
+     id="text60"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">marigoldSlateDesaturated</text>
   <text
-     x="650"
-     y="845"
+     x="79.342636"
+     y="601.1723"
      class="hex"
-     id="text60">#646464</text>
+     id="text61"
+     transform="scale(0.99173762,1.0083312)"
+     style="stroke-width:1">#646464</text>
+  <!-- Stone/Gray Tones -->
+  <rect
+     x="20"
+     y="701.58777"
+     width="50.303207"
+     height="51.144875"
+     fill="#f7f8fa"
+     id="rect61"
+     style="stroke-width:1" />
+  <text
+     x="79.342636"
+     y="716.92523"
+     class="label"
+     id="text62"
+     transform="scale(0.99173763,1.0083312)"
+     style="stroke-width:1">marigoldStoneLight</text>
+  <text
+     x="79.342636"
+     y="733.8327"
+     class="hex"
+     id="text63"
+     transform="scale(0.99173763,1.0083312)"
+     style="stroke-width:1">#F7F8FA</text>
+  <rect
+     x="212.82896"
+     y="701.58777"
+     width="50.303207"
+     height="51.144875"
+     fill="#eceff1"
+     id="rect63"
+     style="stroke-width:1" />
+  <text
+     x="273.77811"
+     y="716.92523"
+     class="label"
+     id="text64"
+     transform="scale(0.99173763,1.0083312)"
+     style="stroke-width:1">marigoldStone</text>
+  <text
+     x="273.77811"
+     y="733.8327"
+     class="hex"
+     id="text65"
+     transform="scale(0.99173763,1.0083312)"
+     style="stroke-width:1">#ECEFF1</text>
+  <rect
+     x="405.65793"
+     y="701.58777"
+     width="50.303207"
+     height="51.144875"
+     fill="#d3d6da"
+     id="rect65"
+     style="stroke-width:1" />
+  <text
+     x="468.21356"
+     y="716.92523"
+     class="label"
+     id="text66"
+     transform="scale(0.99173763,1.0083312)"
+     style="stroke-width:1">marigoldStoneMid</text>
+  <text
+     x="468.21356"
+     y="733.8327"
+     class="hex"
+     id="text67"
+     transform="scale(0.99173763,1.0083312)"
+     style="stroke-width:1">#D3D6DA</text>
+  <rect
+     x="598.48694"
+     y="701.58777"
+     width="50.303207"
+     height="51.144875"
+     fill="#a0a4aa"
+     id="rect67"
+     style="stroke-width:1" />
+  <text
+     x="662.64905"
+     y="716.92523"
+     class="label"
+     id="text68"
+     transform="scale(0.99173763,1.0083312)"
+     style="stroke-width:1">marigoldStoneDark</text>
+  <text
+     x="662.64905"
+     y="733.8327"
+     class="hex"
+     id="text69"
+     transform="scale(0.99173763,1.0083312)"
+     style="stroke-width:1">#A0A4AA</text>
+  <rect
+     x="791.31586"
+     y="701.58777"
+     width="50.303207"
+     height="51.144875"
+     fill="#6b6e74"
+     id="rect69"
+     style="stroke-width:1" />
+  <text
+     x="857.08453"
+     y="716.92523"
+     class="label"
+     id="text70"
+     transform="scale(0.99173763,1.0083312)"
+     style="stroke-width:1">marigoldStoneDarker</text>
+  <text
+     x="857.08453"
+     y="733.8327"
+     class="hex"
+     id="text71"
+     transform="scale(0.99173763,1.0083312)"
+     style="stroke-width:1">#6B6E74</text>
 </svg>

@@ -1,64 +1,96 @@
-// betterMarigoldColors.d.ts
+// marigoldColors.d.ts
 import type { VarGroup } from '@stylexjs/stylex/lib/StyleXTypes'
 import type { ColorPrimitives } from './colorPrimitives'
 
-type BackgroundColors = Readonly<{
-  page: string
-  data: string
-  card: string
-  details: string
-  textarea: string
-  button: string
-  buttonHover: string
-  linkButton: string
-  hoverLinkButton: string
-  accent: string
-  shadow: string
-}>
+export type ColorPrimitives = Readonly<{
+  // Brights
+  marigoldPetal: string // #FF9912
+  marigoldGold: string // #FFC200
+  marigoldAmber: string // #E8680E
+  marigoldRust: string // #C83C00
+  marigoldRed: string // #F74600
 
-type TextColors = Readonly<{
-  primary: string
-  muted: string
-  link: string
-  linkHover: string
-  button: string
-  linkButton: string
-  hoverLinkButton: string
-  accent: string
-  primaryText: string
-}>
+  // Darks
+  marigoldCenter: string // #A85000
+  marigoldBrown: string // #D67A00
+  marigoldLeaf: string // #005145
+  marigoldLeafLight: string // #BDDBA3
+  marigoldStem: string // #2C783C
+  marigoldSlate: string // #444444
 
-type BorderColors = Readonly<{
-  table: string
-  accent: string
-  subtle: string
-}>
+  // Neutrals
+  marigoldSky: string // #78B4EB
+  marigoldCloud: string // #F0F5FA
+  marigoldPath: string // #828282
 
-type IconColors = Readonly<{
-  primary: string
-  accent: string
-  success: string
-  error: string
-}>
+  // Dark mode/neutral
+  marigoldEggplant: string // #242428
+  marigoldNight: string // #18181C
+  marigoldMist: string // #EBE6FF
+  marigoldFog: string // #B4B4C8
 
-type StateColors = Readonly<{
-  primary: string
-  primaryDark: string
-  error: string
-  success: string
-  warning: string
-  info: string
-}>
+  // Desaturated brights
+  marigoldPetalDesaturated: string // #E0AA61
+  marigoldGoldDesaturated: string // #E0C861
+  marigoldAmberDesaturated: string // #C88C61
+  marigoldRustDesaturated: string // #B46E50
+  marigoldRedDesaturated: string // #D27861
 
-type Primitives = ColorPrimitives
+  // Desaturated darks
+  marigoldCenterDesaturated: string // #966E50
+  marigoldBrownDesaturated: string // #B48C61
+  marigoldLeafDesaturated: string // #3C645A
+  marigoldLeafLightDesaturated: string // #AAC8AA
+  marigoldStemDesaturated: string // #5A8264
+  marigoldSlateDesaturated: string // #646464
+}>
 
 export type MarigoldColors = Readonly<{
-  background: BackgroundColors
-  text: TextColors
-  border: BorderColors
-  icon: IconColors
-  state: StateColors
-  primitives: Primitives
+  // Backgrounds
+  backgroundPage: string
+  backgroundData: string
+  backgroundCard: string
+  backgroundDetails: string
+  backgroundTextarea: string
+  backgroundButton: string
+  backgroundButtonHover: string
+  backgroundLinkButton: string
+  backgroundHoverLinkButton: string
+  backgroundAccent: string
+  backgroundShadow: string
+
+  // Text
+  textPrimary: string
+  textMuted: string
+  textLink: string
+  textLinkHover: string
+  textButton: string
+  textLinkButton: string
+  textHoverLinkButton: string
+  textAccent: string
+  textPrimaryText: string
+
+  // Borders
+  borderTable: string
+  borderAccent: string
+  borderSubtle: string
+
+  // Icons
+  iconPrimary: string
+  iconAccent: string
+  iconSuccess: string
+  iconError: string
+
+  // States
+  statePrimary: string
+  statePrimaryDark: string
+  stateError: string
+  stateSuccess: string
+  stateWarning: string
+  stateInfo: string
+
+  // Primitives (optional, for direct use)
+  // primitives: ColorPrimitives
 }>
 
 export declare const marigoldColors: VarGroup<MarigoldColors>

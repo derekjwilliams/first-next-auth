@@ -4,7 +4,7 @@
 import useServiceRequestQuery from '../hooks/useServiceRequestQuery'
 
 import * as stylex from '@stylexjs/stylex'
-import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
+import { marigoldColors } from '../app/customStyles/betterMarigoldColors.stylex'
 import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
 import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
 import { borders } from '@derekjwilliams/stylextras-open-props-pr/borders.stylex'
@@ -18,7 +18,7 @@ const bp = '@media (min-width: 900px)'
 const styles = stylex.create({
   container: {
     padding: sizes.spacing5,
-    backgroundColor: marigoldColors.background,
+    backgroundColor: marigoldColors.backgroundPage,
     minHeight: '100vh',
     display: 'flex',
     flexDirection: 'column',
@@ -28,8 +28,8 @@ const styles = stylex.create({
     width: '100%',
     maxWidth: '1400px',
     backgroundColor: marigoldColors.backgroundCard,
-    border: `1px solid ${marigoldColors.tableBorder}`,
-    color: marigoldColors.foreground,
+    border: `1px solid ${marigoldColors.borderTable}`,
+    color: marigoldColors.textPrimary,
     borderRadius: borders.radius3,
     boxShadow: '0 2px 12px 0 rgba(0,0,0,0.07)',
     marginBottom: sizes.spacing6,
@@ -49,7 +49,7 @@ const styles = stylex.create({
   title: {
     fontSize: fonts.sizeFluid2,
     fontWeight: fonts.weight7,
-    color: marigoldColors.pansy,
+    color: marigoldColors.textPrimary,
     margin: 0,
     lineHeight: 1.2,
   },
@@ -60,14 +60,14 @@ const styles = stylex.create({
     gap: sizes.spacing3,
   },
   status: {
-    fontSize: fonts.size1,
-    fontWeight: fonts.weight6,
-    color: marigoldColors.environmentBrown,
-    backgroundColor: marigoldColors.backgroundDetails,
+    color: '#fff',
+    backgroundColor: marigoldColors.textAccent, // strong marigold
+    fontWeight: fonts.weight7,
     borderRadius: borders.radius2,
     padding: `${sizes.spacing1} ${sizes.spacing3}`,
     textTransform: 'uppercase',
     letterSpacing: 1,
+    fontSize: fonts.size1,
   },
   editBtn: {
     marginLeft: sizes.spacing2,
@@ -84,19 +84,19 @@ const styles = stylex.create({
   infoCard: {
     flex: 1,
     minWidth: 220,
-    backgroundColor: marigoldColors.backgroundDetails, // adapts to dark mode
+    backgroundColor: marigoldColors.backgroundDetails,
     borderRadius: borders.radius2,
-    border: `1px solid ${marigoldColors.pansy}`,
+    border: `1px solid ${marigoldColors.borderSubtle}`,
     padding: sizes.spacing5,
     display: 'flex',
     flexDirection: 'column',
     gap: sizes.spacing2,
-    color: marigoldColors.foreground, // ensures text is readable
+    color: marigoldColors.textPrimary,
   },
   sectionTitle: {
     fontSize: fonts.size1,
     fontWeight: fonts.weight6,
-    color: marigoldColors.leaf,
+    color: marigoldColors.textAccent,
     marginBottom: sizes.spacing2,
     textTransform: 'uppercase',
     letterSpacing: 0.5,
@@ -110,11 +110,11 @@ const styles = stylex.create({
   },
   fieldLabel: {
     fontWeight: fonts.weight5,
-    color: marigoldColors.foregroundMuted,
+    color: marigoldColors.textMuted,
     minWidth: 80,
   },
   fieldValue: {
-    color: marigoldColors.foreground,
+    color: marigoldColors.textPrimary,
     wordBreak: 'break-word',
   },
   costList: {
@@ -129,8 +129,8 @@ const styles = stylex.create({
   },
   costTotal: {
     fontWeight: fonts.weight7,
-    color: marigoldColors.flowerRed,
-    borderTop: `1px solid ${marigoldColors.pansy}`,
+    color: marigoldColors.textAccent,
+    borderTop: `1px solid ${marigoldColors.borderAccent}`,
     paddingTop: sizes.spacing1,
     marginTop: sizes.spacing1,
   },
@@ -140,41 +140,36 @@ const styles = stylex.create({
     gap: sizes.spacing2,
   },
   technicianCard: {
-    backgroundColor: marigoldColors.background,
+    backgroundColor: marigoldColors.backgroundData, // very light gray/stone
+    color: marigoldColors.textAccent, // strong marigold or dark text
+    border: `1px solid ${marigoldColors.borderSubtle}`,
+    fontWeight: fonts.weight6,
     borderRadius: borders.radius2,
-    border: `1px solid ${marigoldColors.leaf}`,
     padding: `${sizes.spacing1} ${sizes.spacing3}`,
     minWidth: 120,
     display: 'inline-block',
-    fontWeight: fonts.weight6,
-    color: marigoldColors.pansy,
-    textDecoration: 'none',
-    transition: 'background 0.2s',
-    ':hover': {
-      backgroundColor: marigoldColors.flowerYellow,
-      color: marigoldColors.flowerRed,
-    },
+    marginBottom: sizes.spacing2,
   },
   noTech: {
-    color: marigoldColors.flowerRed,
+    color: marigoldColors.textMuted,
     fontWeight: fonts.weight5,
     fontSize: fonts.size1,
   },
   detailsSection: {
     backgroundColor: marigoldColors.backgroundDetails,
     borderRadius: borders.radius2,
-    border: `1px solid ${marigoldColors.pansy}`,
+    border: `1px solid ${marigoldColors.borderSubtle}`,
     padding: sizes.spacing5,
     marginTop: sizes.spacing6,
     width: '100%',
     boxSizing: 'border-box',
     gridColumn: '1 / -1',
-    color: marigoldColors.foreground,
+    color: marigoldColors.textPrimary,
   },
   detailsTitle: {
     fontSize: fonts.size1,
     fontWeight: fonts.weight6,
-    color: marigoldColors.leaf,
+    color: marigoldColors.textAccent,
     marginBottom: sizes.spacing2,
     textTransform: 'uppercase',
     letterSpacing: 0.5,

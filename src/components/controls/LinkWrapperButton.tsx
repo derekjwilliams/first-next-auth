@@ -14,14 +14,12 @@ const button = stylex.create({
     fontSize: fonts.sizeFluid1,
     fontWeight: fonts.weight7,
     paddingInline: sizes.spacing6,
-    paddingBlock: sizes.spacing3,
+    paddingBlock: sizes.spacing2,
     color: {
       default: marigoldColors.foregroundLinkButton,
       ':hover': marigoldColors.foregroundHoverLinkButton,
       ':focus': marigoldColors.foregroundHoverLinkButton,
     },
-    borderWidth: borders.size2,
-    borderStyle: 'solid',
     borderColor: marigoldColors.foregroundLinkButton,
     backgroundColor: {
       default: 'transparent',
@@ -44,7 +42,11 @@ interface LinkButtonProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> 
 
 const LinkButton = forwardRef<HTMLAnchorElement, LinkButtonProps>(({ onClick, children, className, ...props }, ref) => {
   return (
-    <a onClick={onClick} ref={ref} className={className} {...props}>
+    <a
+      onClick={onClick}
+      ref={ref}
+      className={className}
+      {...props}>
       {children}
     </a>
   )
@@ -67,7 +69,11 @@ const LinkWrapperButton = ({
   const combinedClassName = classNames(defaultClassName || '', className || '')
 
   return (
-    <Link href={href} passHref className={combinedClassName} {...props}>
+    <Link
+      href={href}
+      passHref
+      className={combinedClassName}
+      {...props}>
       {children}
     </Link>
   )

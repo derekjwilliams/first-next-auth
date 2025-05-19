@@ -28,14 +28,14 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 const styles = stylex.create({
   editorContainer: {
     margin: '10px auto 10px auto',
-    borderRadius: '2px',
+    borderRadius: '0px',
     color: '#000',
     position: 'relative',
     lineHeight: '20px',
     fontWeight: 400,
     textAlign: 'left',
-    borderTopLeftRadius: '10px',
-    borderTopRightRadius: '10px',
+    borderTopLeftRadius: '2px',
+    borderTopRightRadius: '2px',
     border: '1px solid rgb(188,188,188)',
   },
   editorInput: {
@@ -47,7 +47,8 @@ const styles = stylex.create({
     tabSize: 1,
     outline: '0',
     padding: sizes.spacing2,
-    backgroundColor: 'rgb(248, 249, 250)',
+    backgroundColor: '#FFF',
+    marginTop: '0px',
     // padding: '15px 10px',
   },
   editorInner: {
@@ -55,7 +56,7 @@ const styles = stylex.create({
     position: 'relative',
   },
   editorPlaceholder: {
-    color: '#999',
+    color: '#FFF',
     overflow: 'hidden',
     position: 'absolute',
     textOverflow: 'ellipsis',
