@@ -28,6 +28,8 @@ export const marigoldColors = stylex.defineVars({
   pansy: { default: pansy, [DARK]: pansyDark },
   tableBorder: { default: pansy, [DARK]: pansyDark },
   slate,
+  backgroundTextarea: { default: 'rgb(245,245,245)', [DARK]: 'rgb(40, 40, 40)' },
+  navigationLink: { default: pansy, [DARK]: environmentBrown },
 
   // Page backgrounds
   background: { default: 'rgb(222 222 222)', [DARK]: darkPage },
