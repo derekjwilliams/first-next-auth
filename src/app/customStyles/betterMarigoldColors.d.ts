@@ -1,5 +1,4 @@
 // betterMarigoldColors.d.ts
-
 import type { VarGroup } from '@stylexjs/stylex/lib/StyleXTypes'
 import type { ColorPrimitives } from './colorPrimitives'
 
@@ -13,6 +12,8 @@ type BackgroundColors = Readonly<{
   buttonHover: string
   linkButton: string
   hoverLinkButton: string
+  accent: string
+  shadow: string
 }>
 
 type TextColors = Readonly<{
@@ -23,15 +24,21 @@ type TextColors = Readonly<{
   button: string
   linkButton: string
   hoverLinkButton: string
+  accent: string
   primaryText: string
 }>
 
 type BorderColors = Readonly<{
   table: string
+  accent: string
+  subtle: string
 }>
 
 type IconColors = Readonly<{
   primary: string
+  accent: string
+  success: string
+  error: string
 }>
 
 type StateColors = Readonly<{
@@ -39,6 +46,8 @@ type StateColors = Readonly<{
   primaryDark: string
   error: string
   success: string
+  warning: string
+  info: string
 }>
 
 type Primitives = ColorPrimitives
