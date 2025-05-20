@@ -293,7 +293,8 @@ export default function ToolbarPlugin() {
     editor.dispatchCommand(INSERT_IMAGE_COMMAND, payload)
   }
 
-  const $updateToolbar = useCallback(() => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const $updateToolbar = () => {
     const selection = $getSelection()
     if ($isRangeSelection(selection)) {
       const anchorNode = selection.anchor.getNode()
@@ -323,7 +324,7 @@ export default function ToolbarPlugin() {
       // const parent = anchorNode.getTopLevelElementOrThrow()
       // setBlockType(parent.getType() || 'paragraph')
     }
-  }, [])
+  }
 
   useEffect(() => {
     return mergeRegister(
@@ -383,20 +384,17 @@ export default function ToolbarPlugin() {
     )
   }, [editor, $updateToolbar])
 
-  const codeLanguges = useMemo(() => getCodeLanguages(), [])
-  const onCodeLanguageSelect = useCallback(
-    (e: { target: { value: string } }) => {
-      editor.update(() => {
-        if (selectedElementKey !== null) {
-          const node = $getNodeByKey(selectedElementKey)
-          if ($isCodeNode(node)) {
-            node.setLanguage(e.target.value)
-          }
+  const codeLanguges = getCodeLanguages()
+  const onCodeLanguageSelect = (e: { target: { value: string } }) => {
+    editor.update(() => {
+      if (selectedElementKey !== null) {
+        const node = $getNodeByKey(selectedElementKey)
+        if ($isCodeNode(node)) {
+          node.setLanguage(e.target.value)
         }
-      })
-    },
-    [editor, selectedElementKey],
-  )
+      }
+    })
+  }
 
   return (
     <>

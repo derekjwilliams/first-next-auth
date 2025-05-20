@@ -182,7 +182,9 @@ export default async function Page() {
           {...stylex.props(serviceCard.newRequest)}>
           <Plus size={20} />
         </Link>
-        <Link href={`/servicetypes/${snakeCaseKey}`} {...stylex.props(serviceCard.linkOverlay)}>
+        <Link
+          href={`/servicetypes/${snakeCaseKey}`}
+          {...stylex.props(serviceCard.linkOverlay)}>
           <Image
             draggable={false}
             height={160}
@@ -196,7 +198,10 @@ export default async function Page() {
     )
   })
   serviceLinks.push(
-    <Link key='all' href={`/servicerequests`} {...stylex.props(serviceCard.base)}>
+    <Link
+      key='all'
+      href={`/servicerequests`}
+      {...stylex.props(serviceCard.base)}>
       All
     </Link>,
   )

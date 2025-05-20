@@ -10,7 +10,6 @@ import { colors } from '@derekjwilliams/stylextras-open-props-pr/colors.stylex'
 import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
 import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
 import { borders } from '@derekjwilliams/stylextras-open-props-pr/borders.stylex'
-import { useCallback, useMemo } from 'react'
 import { parseIncludeArchivedFromURL, parsePaginationFromURL, parseSortingFromURL } from '../utils/serviceRequestUtils'
 import Link from 'next/link'
 
@@ -90,76 +89,69 @@ export default function ServiceRequestTableContainer({
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
-  const sorting = useMemo(() => parseSortingFromURL(searchParams), [searchParams])
-  const pagination = useMemo(() => parsePaginationFromURL(searchParams), [searchParams])
-  const includeArchived = useMemo(() => parseIncludeArchivedFromURL(searchParams), [searchParams])
+  const sorting = parseSortingFromURL(searchParams)
+  const pagination = parsePaginationFromURL(searchParams)
+  const includeArchived = parseIncludeArchivedFromURL(searchParams)
 
-  const handleStateChange = useCallback(
-    (newState: { sorting?: SortingState; pagination?: PaginationState; includeArchived?: boolean }) => {
-      const params = new URLSearchParams(searchParams.toString())
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleStateChange = (newState: {
+    sorting?: SortingState
+    pagination?: PaginationState
+    includeArchived?: boolean
+  }) => {
+    const params = new URLSearchParams(searchParams.toString())
 
-      if (newState.sorting !== undefined) {
-        if (newState.sorting.length > 0) {
-          const { id, desc } = newState.sorting[0]
-          params.set('sort', id)
-          params.set('order', desc ? 'desc' : 'asc')
-        } else {
-          params.delete('sort')
-          params.delete('order')
-        }
+    if (newState.sorting !== undefined) {
+      if (newState.sorting.length > 0) {
+        const { id, desc } = newState.sorting[0]
+        params.set('sort', id)
+        params.set('order', desc ? 'desc' : 'asc')
+      } else {
+        params.delete('sort')
+        params.delete('order')
       }
+    }
 
-      if (newState.pagination !== undefined) {
-        params.set('page', (newState.pagination.pageIndex + 1).toString())
-        params.set('pageSize', newState.pagination.pageSize.toString())
+    if (newState.pagination !== undefined) {
+      params.set('page', (newState.pagination.pageIndex + 1).toString())
+      params.set('pageSize', newState.pagination.pageSize.toString())
+    }
+
+    if (newState.includeArchived !== undefined) {
+      if (newState.includeArchived) {
+        params.set('includeArchived', 'true')
+      } else {
+        params.delete('includeArchived')
       }
+    }
 
-      if (newState.includeArchived !== undefined) {
-        if (newState.includeArchived) {
-          params.set('includeArchived', 'true')
-        } else {
-          params.delete('includeArchived')
-        }
-      }
+    const newUrl = `${pathname}?${params.toString()}`
+    router.replace(newUrl, { scroll: false })
+  }
 
-      const newUrl = `${pathname}?${params.toString()}`
-      router.replace(newUrl, { scroll: false })
-    },
-    [pathname, router, searchParams],
-  )
+  const handleSortingChange = (newSorting: SortingState) => {
+    handleStateChange({
+      sorting: newSorting,
+      pagination: {
+        pageIndex: 0,
+        pageSize: getCurrentPageSize(pagination),
+      },
+    })
+  }
 
-  const handleSortingChange = useCallback(
-    (newSorting: SortingState) => {
-      handleStateChange({
-        sorting: newSorting,
-        pagination: {
-          pageIndex: 0,
-          pageSize: getCurrentPageSize(pagination),
-        },
-      })
-    },
-    [handleStateChange, pagination],
-  )
+  const handlePaginationChange = (newPagination: PaginationState) => {
+    handleStateChange({ pagination: newPagination })
+  }
 
-  const handlePaginationChange = useCallback(
-    (newPagination: PaginationState) => {
-      handleStateChange({ pagination: newPagination })
-    },
-    [handleStateChange],
-  )
-
-  const handleIncludeArchivedToggle = useCallback(
-    (newIncludeArchivedValue: boolean) => {
-      handleStateChange({
-        includeArchived: newIncludeArchivedValue,
-        pagination: {
-          pageIndex: 0,
-          pageSize: getCurrentPageSize(pagination),
-        },
-      })
-    },
-    [handleStateChange, pagination],
-  )
+  const handleIncludeArchivedToggle = (newIncludeArchivedValue: boolean) => {
+    handleStateChange({
+      includeArchived: newIncludeArchivedValue,
+      pagination: {
+        pageIndex: 0,
+        pageSize: getCurrentPageSize(pagination),
+      },
+    })
+  }
 
   // Use the query hook passed as a prop
   const {
