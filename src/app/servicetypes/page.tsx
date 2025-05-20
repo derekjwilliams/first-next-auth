@@ -184,6 +184,7 @@ export default async function Page() {
         </Link>
         <Link
           href={`/servicetypes/${snakeCaseKey}`}
+          key={`new-request-${snakeCaseKey}`}
           {...stylex.props(serviceCard.linkOverlay)}>
           <Image
             draggable={false}
