@@ -8,6 +8,7 @@ import { marigoldColors } from '../app/customStyles/betterMarigoldColors.stylex'
 import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
 import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
 import { borders } from '@derekjwilliams/stylextras-open-props-pr/borders.stylex'
+import { spacingPatterns } from '../app/customStyles/spacingPatterns.stylex'
 
 import Link from 'next/link'
 import LinkWrapperButton from './controls/LinkWrapperButton'
@@ -15,35 +16,64 @@ import { RichTextEditor } from '@/components/lexical/RichTextEditor'
 
 const bp = '@media (min-width: 900px)'
 
-const styles = stylex.create({
-  container: {
-    padding: sizes.spacing5,
-    backgroundColor: marigoldColors.backgroundPage,
-    minHeight: '100vh',
+// Extract common style patterns
+const baseStyles = {
+  flexRow: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  flexColumn: {
     display: 'flex',
     flexDirection: 'column',
+  },
+  card: {
+    backgroundColor: marigoldColors.backgroundCard,
+    border: `1px solid ${marigoldColors.borderTable}`,
+    borderRadius: borders.radius3,
+    gap: spacingPatterns.gapTiny,
+  },
+  infoContainer: {
+    backgroundColor: marigoldColors.backgroundDetails,
+    borderRadius: borders.radius2,
+    border: `1px solid ${marigoldColors.borderSubtle}`,
+  },
+  sectionHeading: {
+    fontSize: fonts.size1,
+    fontWeight: fonts.weight6,
+    color: marigoldColors.textAccent,
+    marginBottom: sizes.spacing2,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  },
+}
+
+// Main styles - organized by logical sections
+const styles = stylex.create({
+  // Layout containers
+  container: {
+    ...baseStyles.flexColumn,
+    padding: sizes.spacing5, // 1.5rem padding
+    backgroundColor: marigoldColors.backgroundPage,
+    minHeight: '100vh',
     alignItems: 'center',
   },
   card: {
+    ...baseStyles.card,
     width: '100%',
     maxWidth: '1400px',
-    backgroundColor: marigoldColors.backgroundCard,
-    border: `1px solid ${marigoldColors.borderTable}`,
     color: marigoldColors.textPrimary,
-    borderRadius: borders.radius3,
     boxShadow: '0 2px 12px 0 rgba(0,0,0,0.07)',
-    marginBottom: sizes.spacing6,
-    padding: sizes.spacing6,
-    display: 'flex',
-    flexDirection: 'column',
-    gap: sizes.spacing6,
+    marginBottom: sizes.spacing7, // 2rem - consistent larger spacing
+    padding: sizes.spacing7, // 2rem - consistent larger spacing
+    gap: spacingPatterns.gapLarge,
   },
+
+  // Header section
   headerRow: {
-    display: 'flex',
-    flexDirection: 'row',
+    ...baseStyles.flexRow,
     alignItems: 'flex-start',
     justifyContent: 'space-between',
-    gap: sizes.spacing3,
+    gap: spacingPatterns.gapMedium,
     flexWrap: 'wrap',
   },
   title: {
@@ -54,59 +84,50 @@ const styles = stylex.create({
     lineHeight: 1.2,
   },
   statusEditGroup: {
-    display: 'flex',
-    flexDirection: 'row',
+    ...baseStyles.flexRow,
     alignItems: 'center',
-    gap: sizes.spacing3,
+    gap: spacingPatterns.gapMedium,
   },
   status: {
     color: '#fff',
-    backgroundColor: marigoldColors.textAccent, // strong marigold
+    backgroundColor: marigoldColors.textAccent,
     fontWeight: fonts.weight7,
     borderRadius: borders.radius2,
-    padding: `${sizes.spacing1} ${sizes.spacing3}`,
+    padding: `${sizes.spacing1} ${sizes.spacing3}`, // .25rem vertical, 1rem horizontal
     textTransform: 'uppercase',
     letterSpacing: 1,
     fontSize: fonts.size1,
   },
   editBtn: {
-    marginLeft: sizes.spacing2,
+    marginLeft: sizes.spacing2, // .5rem consistent margin
   },
+
+  // Info row & cards
   infoRow: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: sizes.spacing4,
+    ...baseStyles.flexColumn,
+    gap: spacingPatterns.gapMedium,
     [bp]: {
       flexDirection: 'row',
-      gap: sizes.spacing5,
+      gap: sizes.spacing5, // 1.5rem for wider screens
     },
   },
   infoCard: {
+    ...baseStyles.infoContainer,
     flex: 1,
     minWidth: 220,
-    backgroundColor: marigoldColors.backgroundDetails,
-    borderRadius: borders.radius2,
-    border: `1px solid ${marigoldColors.borderSubtle}`,
-    padding: sizes.spacing5,
-    display: 'flex',
-    flexDirection: 'column',
-    gap: sizes.spacing2,
+    padding: sizes.spacing5, // 1.5rem consistent padding
+    ...baseStyles.flexColumn,
+    gap: spacingPatterns.gapSmall,
     color: marigoldColors.textPrimary,
   },
-  sectionTitle: {
-    fontSize: fonts.size1,
-    fontWeight: fonts.weight6,
-    color: marigoldColors.textAccent,
-    marginBottom: sizes.spacing2,
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
-  },
+  sectionTitle: baseStyles.sectionHeading,
+
+  // Field styles
   fieldRow: {
-    display: 'flex',
-    flexDirection: 'row',
-    gap: sizes.spacing2,
+    ...baseStyles.flexRow,
+    gap: spacingPatterns.gapSmall,
     fontSize: fonts.size1,
-    marginBottom: sizes.spacing1,
+    marginBottom: sizes.spacing1, // .25rem consistent margin
   },
   fieldLabel: {
     fontWeight: fonts.weight5,
@@ -117,10 +138,11 @@ const styles = stylex.create({
     color: marigoldColors.textPrimary,
     wordBreak: 'break-word',
   },
+
+  // Cost section
   costList: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: sizes.spacing1,
+    ...baseStyles.flexColumn,
+    gap: spacingPatterns.gapTiny,
   },
   costItem: {
     display: 'flex',
@@ -131,49 +153,43 @@ const styles = stylex.create({
     fontWeight: fonts.weight7,
     color: marigoldColors.textAccent,
     borderTop: `1px solid ${marigoldColors.borderAccent}`,
-    paddingTop: sizes.spacing1,
-    marginTop: sizes.spacing1,
+    paddingTop: sizes.spacing1, // .25rem consistent padding
+    marginTop: sizes.spacing1, // .25rem consistent margin
   },
+
+  // Technician section
   technicianList: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: sizes.spacing2,
+    ...baseStyles.flexColumn,
+    gap: spacingPatterns.gapSmall,
   },
   technicianCard: {
-    backgroundColor: marigoldColors.backgroundData, // very light gray/stone
-    color: marigoldColors.textAccent, // strong marigold or dark text
+    backgroundColor: marigoldColors.backgroundData,
+    color: marigoldColors.textAccent,
     border: `1px solid ${marigoldColors.borderSubtle}`,
     fontWeight: fonts.weight6,
     borderRadius: borders.radius2,
-    padding: `${sizes.spacing1} ${sizes.spacing3}`,
+    padding: `${sizes.spacing1} ${sizes.spacing3}`, // .25rem vertical, 1rem horizontal
     minWidth: 120,
     display: 'inline-block',
-    marginBottom: sizes.spacing2,
+    marginBottom: sizes.spacing2, // .5rem consistent margin
   },
   noTech: {
     color: marigoldColors.textMuted,
     fontWeight: fonts.weight5,
     fontSize: fonts.size1,
   },
+
+  // Details section
   detailsSection: {
-    backgroundColor: marigoldColors.backgroundDetails,
-    borderRadius: borders.radius2,
-    border: `1px solid ${marigoldColors.borderSubtle}`,
-    padding: sizes.spacing5,
-    marginTop: sizes.spacing6,
+    ...baseStyles.infoContainer,
+    padding: sizes.spacing5, // 1.5rem consistent padding
+    marginTop: sizes.spacing7, // 2rem consistent larger spacing
     width: '100%',
     boxSizing: 'border-box',
     gridColumn: '1 / -1',
     color: marigoldColors.textPrimary,
   },
-  detailsTitle: {
-    fontSize: fonts.size1,
-    fontWeight: fonts.weight6,
-    color: marigoldColors.textAccent,
-    marginBottom: sizes.spacing2,
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
-  },
+  detailsTitle: baseStyles.sectionHeading,
 })
 
 export default function ServiceRequestDetail({ id }: { id: string | null }) {
