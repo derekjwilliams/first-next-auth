@@ -1,6 +1,5 @@
 // marigoldColors.d.ts
-import type { VarGroup } from '@stylexjs/stylex/lib/StyleXTypes'
-import type { ColorPrimitives } from './colorPrimitives'
+import * as stylex from '@stylexjs/stylex'
 
 export type ColorPrimitives = Readonly<{
   // Brights
@@ -93,4 +92,4 @@ export type MarigoldColors = Readonly<{
   // primitives: ColorPrimitives
 }>
 
-export declare const marigoldColors: VarGroup<MarigoldColors>
+export declare const marigoldColors: stylex.VarGroup<MarigoldColors>

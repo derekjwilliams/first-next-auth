@@ -1,63 +1,64 @@
-// spacingPatterns.stylex.d.ts
+import * as stylex from '@stylexjs/stylex'
 
-interface SpacingPatterns {
-  // Gap patterns
-  gapTiny: string | number
-  gapSmall: string | number
-  gapMedium: string | number
-  gapLarge: string | number
-  gapXLarge: string | number
+/**
+ * Spacing patterns for consistent spacing across the application
+ * These patterns use the design system's spacing tokens and provide
+ * semantic meaning to different spacing contexts.
+ */
+export declare const spacingPatterns: stylex.VarGroup<{
+  // Gap patterns - for consistent spacing between flex and grid items
+  gapTiny: string
+  gapSmall: string
+  gapMedium: string
+  gapLarge: string
+  gapXLarge: string
 
-  // Padding patterns
-  paddingNone: number
-  paddingTiny: string | number
-  paddingSmall: string | number
-  paddingMedium: string | number
-  paddingLarge: string | number
-  paddingXLarge: string | number
-  paddingCard: string | number
-  paddingCardLarge: string | number
-  paddingSection: string | number
+  // Padding patterns - for consistent internal spacing
+  paddingNone: string
+  paddingTiny: string
+  paddingSmall: string
+  paddingMedium: string
+  paddingLarge: string
+  paddingXLarge: string
+  paddingCard: string
+  paddingCardLarge: string
+  paddingSection: string
 
   // Asymmetric padding
-  paddingAsymmetricSmallVerticalTop: string | number
-  paddingAsymmetricSmallVerticalBottom: string | number
-  paddingAsymmetricSmallHorizontalLeft: string | number
-  paddingAsymmetricSmallHorizontalRight: string | number
-  paddingButtonTop: string | number
-  paddingButtonBottom: string | number
-  paddingButtonLeft: string | number
-  paddingButtonRight: string | number
-  paddingTagTop: string | number
-  paddingTagBottom: string | number
-  paddingTagLeft: string | number
-  paddingTagRight: string | number
+  paddingAsymmetricSmallVerticalTop: string
+  paddingAsymmetricSmallVerticalBottom: string
+  paddingAsymmetricSmallHorizontalLeft: string
+  paddingAsymmetricSmallHorizontalRight: string
+  paddingButtonTop: string
+  paddingButtonBottom: string
+  paddingButtonLeft: string
+  paddingButtonRight: string
+  paddingTagTop: string
+  paddingTagBottom: string
+  paddingTagLeft: string
+  paddingTagRight: string
 
-  // Margin patterns
-  marginNone: number
-  marginTiny: string | number
-  marginSmall: string | number
-  marginMedium: string | number
-  marginLarge: string | number
-  marginXLarge: string | number
+  // Margin patterns - for consistent external spacing
+  marginNone: string
+  marginTiny: string
+  marginSmall: string
+  marginMedium: string
+  marginLarge: string
+  marginXLarge: string
 
   // Directional margins
-  marginBottomTiny: string | number
-  marginBottomSmall: string | number
-  marginBottomMedium: string | number
-  marginBottomLarge: string | number
-  marginBottomXLarge: string | number
-  marginTopSmall: string | number
-  marginLeftSmall: string | number
-  marginRightSmall: string | number
+  marginBottomTiny: string
+  marginBottomSmall: string
+  marginBottomMedium: string
+  marginBottomLarge: string
+  marginBottomXLarge: string
+  marginTopSmall: string
+  marginLeftSmall: string
+  marginRightSmall: string
 
-  // Layout patterns
-  layoutSectionSpacing: string | number
-  layoutSubsectionSpacing: string | number
-  layoutContentSpacing: string | number
-  layoutCardSpacing: string | number
-}
-
-declare const spacingPatterns: SpacingPatterns
-
-export default spacingPatterns
+  // Layout patterns - for consistent layout spacing
+  layoutSectionSpacing: string
+  layoutSubsectionSpacing: string
+  layoutContentSpacing: string
+  layoutCardSpacing: string
+}>

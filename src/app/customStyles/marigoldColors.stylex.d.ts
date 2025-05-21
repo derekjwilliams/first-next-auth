@@ -1,4 +1,4 @@
-import type { VarGroup } from '@stylexjs/stylex/lib/StyleXTypes'
+import * as stylex from '@stylexjs/stylex'
 
 type TColors = Readonly<{
   flowerYellow: string
@@ -26,4 +26,4 @@ type TColors = Readonly<{
   link: string
   navigationLink: string
 }>
-export declare const marigoldColors: VarGroup<TColors>
+export declare const marigoldColors: stylex.VarGroup<TColors>
