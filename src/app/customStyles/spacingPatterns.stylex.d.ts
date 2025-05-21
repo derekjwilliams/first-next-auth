@@ -1,3 +1,5 @@
+// spacingPatterns.stylex.d.ts
+
 interface SpacingPatterns {
   // Gap patterns
   gapTiny: string | number

@@ -73,13 +73,14 @@ const styles = stylex.create({
     ...baseStyles.flexRow,
     alignItems: 'flex-start',
     justifyContent: 'space-between',
-    gap: spacingPatterns.gapMedium,
+    gap: sizes.spacing3,
     flexWrap: 'wrap',
   },
   title: {
     fontSize: fonts.sizeFluid2,
     fontWeight: fonts.weight7,
     color: marigoldColors.textPrimary,
+    padding: sizes.spacing3,
     margin: 0,
     lineHeight: 1.2,
   },
@@ -162,6 +163,9 @@ const styles = stylex.create({
     ...baseStyles.flexColumn,
     gap: spacingPatterns.gapSmall,
   },
+  email: {
+    marginLeft: sizes.spacing1,
+  },
   technicianCard: {
     backgroundColor: marigoldColors.backgroundData,
     color: marigoldColors.textAccent,
@@ -233,13 +237,21 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
           <section {...stylex.props(styles.infoCard)}>
             <div {...stylex.props(styles.sectionTitle)}>Location</div>
             <div {...stylex.props(styles.fieldRow)}>
-              <span {...stylex.props(styles.fieldLabel)}>Address:</span>
-              <span {...stylex.props(styles.fieldValue)}>
-                {serviceRequest.locations?.street_address}
-                {serviceRequest.locations?.unit_number ? `, Unit ${serviceRequest.locations.unit_number}` : ''}
-              </span>
+              {/* <span {...stylex.props(styles.fieldLabel)}>Address:</span> */}
+              <div>
+                <div {...stylex.props(styles.fieldValue)}>
+                  {serviceRequest.locations?.street_address}
+                  {serviceRequest.locations?.unit_number && serviceRequest.locations?.unit_number != ''
+                    ? `, Unit ${serviceRequest.locations.unit_number}`
+                    : ''}
+                  <div {...stylex.props(styles.fieldValue)}>
+                    {serviceRequest.locations?.city ? `${serviceRequest.locations.city}` : ''}
+                    {serviceRequest.locations?.state_province ? ` ${serviceRequest.locations.state_province}` : ''}
+                    {serviceRequest.locations?.postal_code ? ` ${serviceRequest.locations.postal_code}` : ''}
+                  </div>
+                </div>
+              </div>
             </div>
-            {/* Add more location fields here */}
           </section>
 
           {/* Costs */}
@@ -269,12 +281,17 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
             ) : (
               <div {...stylex.props(styles.technicianList)}>
                 {serviceRequest.technicians.map((technician: any) => (
-                  <Link
-                    key={technician.id}
-                    {...stylex.props(styles.technicianCard)}
-                    href={`/technicians/${technician.id}`}>
-                    {technician.name}
-                  </Link>
+                  <div {...stylex.props(styles.technicianCard)}>
+                    <Link
+                      key={technician.id}
+                      href={`/technicians/${technician.id}`}>
+                      {`${technician.name}`}
+                    </Link>
+                    <Link
+                      key={technician.id}
+                      {...stylex.props(styles.email)}
+                      href={`mailto:${technician.email}`}>{`${technician.email}`}</Link>
+                  </div>
                 ))}
               </div>
             )}

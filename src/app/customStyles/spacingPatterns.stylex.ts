@@ -1,11 +1,11 @@
 import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
-
+import * as stylex from '@stylexjs/stylex'
 /**
  * Spacing patterns for consistent spacing across the application
  * These patterns use the design system's spacing tokens and provide
  * semantic meaning to different spacing contexts.
  */
-export const spacingPatterns = {
+export const spacingPatterns = stylex.defineVars({
   // Gap patterns - for consistent spacing between flex and grid items
   gapTiny: sizes.spacing1, // .25rem - for minimal spacing
   gapSmall: sizes.spacing2, // .5rem - for tight spacing
@@ -14,7 +14,7 @@ export const spacingPatterns = {
   gapXLarge: sizes.spacing7, // 2rem - for extra large spacing
 
   // Padding patterns - for consistent internal spacing
-  paddingNone: 0,
+  paddingNone: '0',
   paddingTiny: sizes.spacing1, // .25rem
   paddingSmall: sizes.spacing2, // .5rem
   paddingMedium: sizes.spacing3, // 1rem
@@ -39,7 +39,7 @@ export const spacingPatterns = {
   paddingTagRight: sizes.spacing2, // .5rem
 
   // Margin patterns - for consistent external spacing
-  marginNone: 0,
+  marginNone: '0',
   marginTiny: sizes.spacing1, // .25rem
   marginSmall: sizes.spacing2, // .5rem
   marginMedium: sizes.spacing3, // 1rem - standard margin
@@ -61,6 +61,6 @@ export const spacingPatterns = {
   layoutSubsectionSpacing: sizes.spacing5, // 1.5rem - spacing between subsections
   layoutContentSpacing: sizes.spacing3, // 1rem - spacing between content blocks
   layoutCardSpacing: sizes.spacing5, // 1.5rem - spacing between cards
-}
+})
 
-export default spacingPatterns
+// export default spacingPatterns
