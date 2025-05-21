@@ -28,7 +28,7 @@ const baseStyles = {
   },
   card: {
     backgroundColor: marigoldColors.backgroundCard,
-    border: `1px solid ${marigoldColors.borderTable}`,
+    border: `1px solid ${marigoldColors.borderSubtle}`,
     borderRadius: borders.radius2,
     gap: spacingPatterns.gapTiny,
   },
@@ -67,8 +67,7 @@ const styles = stylex.create({
     maxWidth: '1400px',
     margin: '0 auto', // Center the card
     color: marigoldColors.textPrimary,
-    boxShadow: '0 2px 12px 0 rgba(0,0,0,0.07)',
-
+    boxShadow: '0 2px 12px 0 rgba(0,0,0,0.2)',
     padding: {
       default: spacingPatterns.gapMedium,
       [bpmax]: spacingPatterns.gapSmall,
@@ -118,6 +117,7 @@ const styles = stylex.create({
     },
   },
   infoCard: {
+    boxShadow: '0 2px 12px 0 rgba(0,0,0,0.2)',
     ...baseStyles.infoContainer,
     flex: 1,
     minWidth: 220,
