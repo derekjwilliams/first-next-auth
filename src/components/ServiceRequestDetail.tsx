@@ -185,6 +185,7 @@ const styles = stylex.create({
     ...baseStyles.infoContainer,
     padding: spacingPatterns.gapLarge,
     marginTop: spacingPatterns.gapMedium,
+    boxShadow: '0 2px 12px 0 rgba(0,0,0,0.2)',
     width: '100%',
     boxSizing: 'border-box',
     gridColumn: '1 / -1',
