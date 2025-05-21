@@ -6,7 +6,6 @@ import useServiceRequestQuery from '../hooks/useServiceRequestQuery'
 import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/betterMarigoldColors.stylex'
 import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
-import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
 import { borders } from '@derekjwilliams/stylextras-open-props-pr/borders.stylex'
 import { spacingPatterns } from '../app/customStyles/spacingPatterns.stylex'
 
@@ -14,7 +13,7 @@ import Link from 'next/link'
 import LinkWrapperButton from './controls/LinkWrapperButton'
 import { RichTextEditor } from '@/components/lexical/RichTextEditor'
 
-const bp = '@media (min-width: 900px)'
+const bp = '@media (min-width: 1100px)'
 
 // Extract common style patterns
 const baseStyles = {
@@ -41,7 +40,7 @@ const baseStyles = {
     fontSize: fonts.size1,
     fontWeight: fonts.weight6,
     color: marigoldColors.textAccent,
-    marginBottom: sizes.spacing2,
+    marginBottom: spacingPatterns.gapSmall,
     textTransform: 'uppercase',
     letterSpacing: 0.5,
   },
@@ -52,35 +51,38 @@ const styles = stylex.create({
   // Layout containers
   container: {
     ...baseStyles.flexColumn,
-    padding: sizes.spacing5, // 1.5rem padding
+    padding: spacingPatterns.gapLarge,
     backgroundColor: marigoldColors.backgroundPage,
     minHeight: '100vh',
     alignItems: 'center',
+    width: '100%', // Ensure full width
+    boxSizing: 'border-box', // Include padding in width calculation
   },
   card: {
     ...baseStyles.card,
-    width: '100%',
+    marginLeft: spacingPatterns.gapLarge,
+    marginRight: spacingPatterns.gapLarge,
+    width: 'calc(100% - 3rem)',
     maxWidth: '1400px',
+    margin: '0 auto', // Center the card
     color: marigoldColors.textPrimary,
     boxShadow: '0 2px 12px 0 rgba(0,0,0,0.07)',
-    marginBottom: sizes.spacing7, // 2rem - consistent larger spacing
-    padding: sizes.spacing7, // 2rem - consistent larger spacing
+    padding: spacingPatterns.gapXLarge,
     gap: spacingPatterns.gapLarge,
+    boxSizing: 'border-box',
   },
-
-  // Header section
   headerRow: {
     ...baseStyles.flexRow,
     alignItems: 'flex-start',
     justifyContent: 'space-between',
-    gap: sizes.spacing3,
+    gap: spacingPatterns.gapMedium,
     flexWrap: 'wrap',
   },
   title: {
     fontSize: fonts.sizeFluid2,
     fontWeight: fonts.weight7,
     color: marigoldColors.textPrimary,
-    padding: sizes.spacing3,
+    padding: spacingPatterns.gapMedium,
     margin: 0,
     lineHeight: 1.2,
   },
@@ -94,41 +96,38 @@ const styles = stylex.create({
     backgroundColor: marigoldColors.textAccent,
     fontWeight: fonts.weight7,
     borderRadius: borders.radius2,
-    padding: `${sizes.spacing1} ${sizes.spacing3}`, // .25rem vertical, 1rem horizontal
+    padding: `${spacingPatterns.gapTiny} ${spacingPatterns.gapMedium}`,
     textTransform: 'uppercase',
     letterSpacing: 1,
     fontSize: fonts.size1,
   },
   editBtn: {
-    marginLeft: sizes.spacing2, // .5rem consistent margin
+    marginLeft: spacingPatterns.gapSmall,
   },
-
-  // Info row & cards
   infoRow: {
     ...baseStyles.flexColumn,
     gap: spacingPatterns.gapMedium,
     [bp]: {
       flexDirection: 'row',
-      gap: sizes.spacing5, // 1.5rem for wider screens
+      gap: spacingPatterns.gapLarge,
     },
   },
   infoCard: {
     ...baseStyles.infoContainer,
     flex: 1,
     minWidth: 220,
-    padding: sizes.spacing5, // 1.5rem consistent padding
+    padding: spacingPatterns.gapLarge,
     ...baseStyles.flexColumn,
     gap: spacingPatterns.gapSmall,
     color: marigoldColors.textPrimary,
   },
   sectionTitle: baseStyles.sectionHeading,
 
-  // Field styles
   fieldRow: {
     ...baseStyles.flexRow,
     gap: spacingPatterns.gapSmall,
     fontSize: fonts.size1,
-    marginBottom: sizes.spacing1, // .25rem consistent margin
+    marginBottom: spacingPatterns.gapSmall,
   },
   fieldLabel: {
     fontWeight: fonts.weight5,
@@ -139,8 +138,6 @@ const styles = stylex.create({
     color: marigoldColors.textPrimary,
     wordBreak: 'break-word',
   },
-
-  // Cost section
   costList: {
     ...baseStyles.flexColumn,
     gap: spacingPatterns.gapTiny,
@@ -154,17 +151,15 @@ const styles = stylex.create({
     fontWeight: fonts.weight7,
     color: marigoldColors.textAccent,
     borderTop: `1px solid ${marigoldColors.borderAccent}`,
-    paddingTop: sizes.spacing1, // .25rem consistent padding
-    marginTop: sizes.spacing1, // .25rem consistent margin
+    paddingTop: spacingPatterns.gapTiny,
+    marginTop: spacingPatterns.gapTiny,
   },
-
-  // Technician section
   technicianList: {
     ...baseStyles.flexColumn,
     gap: spacingPatterns.gapSmall,
   },
   email: {
-    marginLeft: sizes.spacing1,
+    marginLeft: spacingPatterns.gapTiny,
   },
   technicianCard: {
     backgroundColor: marigoldColors.backgroundData,
@@ -172,22 +167,20 @@ const styles = stylex.create({
     border: `1px solid ${marigoldColors.borderSubtle}`,
     fontWeight: fonts.weight6,
     borderRadius: borders.radius2,
-    padding: `${sizes.spacing1} ${sizes.spacing3}`, // .25rem vertical, 1rem horizontal
+    padding: `${spacingPatterns.gapTiny} ${spacingPatterns.gapMedium}`,
     minWidth: 120,
     display: 'inline-block',
-    marginBottom: sizes.spacing2, // .5rem consistent margin
+    marginBottom: spacingPatterns.gapSmall,
   },
   noTech: {
     color: marigoldColors.textMuted,
     fontWeight: fonts.weight5,
     fontSize: fonts.size1,
   },
-
-  // Details section
   detailsSection: {
     ...baseStyles.infoContainer,
-    padding: sizes.spacing5, // 1.5rem consistent padding
-    marginTop: sizes.spacing7, // 2rem consistent larger spacing
+    padding: spacingPatterns.gapLarge,
+    marginTop: spacingPatterns.gapXLarge,
     width: '100%',
     boxSizing: 'border-box',
     gridColumn: '1 / -1',
@@ -282,15 +275,19 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
               <div {...stylex.props(styles.technicianList)}>
                 {serviceRequest.technicians.map((technician: any) => (
                   <div {...stylex.props(styles.technicianCard)}>
-                    <Link
-                      key={technician.id}
-                      href={`/technicians/${technician.id}`}>
-                      {`${technician.name}`}
-                    </Link>
-                    <Link
-                      key={technician.id}
-                      {...stylex.props(styles.email)}
-                      href={`mailto:${technician.email}`}>{`${technician.email}`}</Link>
+                    <div>
+                      <Link
+                        key={technician.id}
+                        href={`/technicians/${technician.id}`}>
+                        {`${technician.name}`}
+                      </Link>
+                    </div>
+                    <div>
+                      <Link
+                        key={technician.id}
+                        {...stylex.props(styles.email)}
+                        href={`mailto:${technician.email}`}>{`${technician.email}`}</Link>
+                    </div>
                   </div>
                 ))}
               </div>
