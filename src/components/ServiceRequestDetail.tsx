@@ -51,7 +51,7 @@ const styles = stylex.create({
   // Layout containers
   container: {
     ...baseStyles.flexColumn,
-    padding: spacingPatterns.gapLarge,
+    padding: spacingPatterns.gapSmall,
     backgroundColor: marigoldColors.backgroundPage,
     minHeight: '100vh',
     alignItems: 'center',
@@ -60,14 +60,14 @@ const styles = stylex.create({
   },
   card: {
     ...baseStyles.card,
-    marginLeft: spacingPatterns.gapLarge,
-    marginRight: spacingPatterns.gapLarge,
-    width: 'calc(100% - 3rem)',
+    marginLeft: spacingPatterns.gapSmall,
+    marginRight: spacingPatterns.gapSmall,
+    width: 'calc(100% - 0.5rem)',
     maxWidth: '1400px',
     margin: '0 auto', // Center the card
     color: marigoldColors.textPrimary,
     boxShadow: '0 2px 12px 0 rgba(0,0,0,0.07)',
-    padding: spacingPatterns.gapXLarge,
+    padding: spacingPatterns.gapMedium,
     gap: spacingPatterns.gapLarge,
     boxSizing: 'border-box',
   },
@@ -82,14 +82,14 @@ const styles = stylex.create({
     fontSize: fonts.sizeFluid2,
     fontWeight: fonts.weight7,
     color: marigoldColors.textPrimary,
-    padding: spacingPatterns.gapMedium,
+    padding: spacingPatterns.gapSmall,
     margin: 0,
     lineHeight: 1.2,
   },
   statusEditGroup: {
     ...baseStyles.flexRow,
     alignItems: 'center',
-    gap: spacingPatterns.gapMedium,
+    gap: spacingPatterns.gapSmall,
   },
   status: {
     color: '#fff',
@@ -109,14 +109,14 @@ const styles = stylex.create({
     gap: spacingPatterns.gapMedium,
     [bp]: {
       flexDirection: 'row',
-      gap: spacingPatterns.gapLarge,
+      gap: spacingPatterns.gapMedium,
     },
   },
   infoCard: {
     ...baseStyles.infoContainer,
     flex: 1,
     minWidth: 220,
-    padding: spacingPatterns.gapLarge,
+    padding: spacingPatterns.gapMedium,
     ...baseStyles.flexColumn,
     gap: spacingPatterns.gapSmall,
     color: marigoldColors.textPrimary,
@@ -170,7 +170,6 @@ const styles = stylex.create({
     padding: `${spacingPatterns.gapTiny} ${spacingPatterns.gapMedium}`,
     minWidth: 120,
     display: 'inline-block',
-    marginBottom: spacingPatterns.gapSmall,
   },
   noTech: {
     color: marigoldColors.textMuted,
@@ -180,7 +179,7 @@ const styles = stylex.create({
   detailsSection: {
     ...baseStyles.infoContainer,
     padding: spacingPatterns.gapLarge,
-    marginTop: spacingPatterns.gapXLarge,
+    marginTop: spacingPatterns.gapMedium,
     width: '100%',
     boxSizing: 'border-box',
     gridColumn: '1 / -1',
