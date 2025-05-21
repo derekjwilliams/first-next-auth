@@ -29,12 +29,12 @@ const baseStyles = {
   card: {
     backgroundColor: marigoldColors.backgroundCard,
     border: `1px solid ${marigoldColors.borderTable}`,
-    borderRadius: borders.radius3,
+    borderRadius: borders.radius2,
     gap: spacingPatterns.gapTiny,
   },
   infoContainer: {
     backgroundColor: marigoldColors.backgroundDetails,
-    borderRadius: borders.radius2,
+    borderRadius: borders.radius1,
     border: `1px solid ${marigoldColors.borderSubtle}`,
   },
   sectionHeading: {
@@ -100,7 +100,7 @@ const styles = stylex.create({
     color: '#fff',
     backgroundColor: marigoldColors.textAccent,
     fontWeight: fonts.weight7,
-    borderRadius: borders.radius2,
+    borderRadius: borders.radius1,
     padding: `${spacingPatterns.gapTiny} ${spacingPatterns.gapMedium}`,
     textTransform: 'uppercase',
     letterSpacing: 1,
@@ -171,7 +171,7 @@ const styles = stylex.create({
     color: marigoldColors.textAccent,
     border: `1px solid ${marigoldColors.borderSubtle}`,
     fontWeight: fonts.weight6,
-    borderRadius: borders.radius2,
+    borderRadius: borders.radius1,
     padding: `${spacingPatterns.gapTiny} ${spacingPatterns.gapMedium}`,
     minWidth: 120,
     display: 'inline-block',
