@@ -14,6 +14,7 @@ import LinkWrapperButton from './controls/LinkWrapperButton'
 import { RichTextEditor } from '@/components/lexical/RichTextEditor'
 
 const bp = '@media (min-width: 1100px)'
+const bpmax = '@media (max-width: 1100px)'
 
 // Extract common style patterns
 const baseStyles = {
@@ -67,7 +68,11 @@ const styles = stylex.create({
     margin: '0 auto', // Center the card
     color: marigoldColors.textPrimary,
     boxShadow: '0 2px 12px 0 rgba(0,0,0,0.07)',
-    padding: spacingPatterns.gapMedium,
+
+    padding: {
+      default: spacingPatterns.gapMedium,
+      [bpmax]: spacingPatterns.gapSmall,
+    },
     gap: spacingPatterns.gapLarge,
     boxSizing: 'border-box',
   },
@@ -109,7 +114,7 @@ const styles = stylex.create({
     gap: spacingPatterns.gapMedium,
     [bp]: {
       flexDirection: 'row',
-      gap: spacingPatterns.gapMedium,
+      gap: spacingPatterns.gapLarge,
     },
   },
   infoCard: {
