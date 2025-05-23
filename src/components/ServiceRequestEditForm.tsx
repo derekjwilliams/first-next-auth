@@ -16,9 +16,16 @@ import RadioSet from './controls/RadioSet'
 import { RichTextEditor } from '@/components/lexical/RichTextEditor'
 import './lexicalstyles.css'
 import React, { useState } from 'react'
-import { colorPrimitives } from '@/app/customStyles/colorPrimitives.stylex'
 
 const form = stylex.create({
+  sectionHeading: {
+    fontSize: fonts.size1,
+    fontWeight: fonts.weight6,
+    color: marigoldColors.textAccent,
+    marginBottom: spacingPatterns.gapSmall,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  },
   textareaWrapper: {
     marginBottom: spacingPatterns.gapMedium,
     marginRight: spacingPatterns.gapSmall,
@@ -131,6 +138,7 @@ const request = stylex.create({
     backgroundColor: colors.gray1,
     borderRadius: borders.radius2,
     gap: spacingPatterns.gapMedium,
+    background: marigoldColors.cardBackground,
   },
   h1: {
     fontSize: fonts.size2,
@@ -151,9 +159,10 @@ const request = stylex.create({
     alignItems: 'center',
     marginBottom: spacingPatterns.gapSmall,
   },
-  technicianLabel: {
+  label: {
     fontSize: fonts.size3,
     marginLeft: spacingPatterns.gapSmall,
+    color: marigoldColors.label,
   },
   technicianName: {
     fontWeight: 'normal',
@@ -263,7 +272,7 @@ export default function ServiceRequestEditForm({
           {/* Service Request Description */}
           <div>
             <label htmlFor='description'>
-              <h1 {...stylex.props(request.h1)}>Description</h1>
+              <h1 {...stylex.props(form.sectionHeading)}>Description</h1>
             </label>
             <div {...stylex.props(form.textareaWrapper)}>
               <textarea
@@ -282,7 +291,7 @@ export default function ServiceRequestEditForm({
                 key={field.id}
                 {...stylex.props(form.costInputGroup)}>
                 <label htmlFor={field.id}>
-                  <h1 {...stylex.props(request.h1)}>{field.label}</h1>
+                  <h1 {...stylex.props(form.sectionHeading)}>{field.label}</h1>
                 </label>
                 <input
                   {...stylex.props(form.input, form.costInput)}
@@ -301,7 +310,7 @@ export default function ServiceRequestEditForm({
           </div>
           <div>
             <label htmlFor='details'>
-              <h1 {...stylex.props(request.h1)}>Details</h1>
+              <h1 {...stylex.props(form.sectionHeading)}>Details</h1>
             </label>
 
             <RichTextEditor
@@ -313,7 +322,7 @@ export default function ServiceRequestEditForm({
           </div>
           {/* Technicians Checkboxes, TODO use react-select for improved UX */}
           <div {...stylex.props(request.technicians)}>
-            <h1 {...stylex.props(request.h1)}>Service Technicians</h1>
+            <h1 {...stylex.props(form.sectionHeading)}>Service Technicians</h1>
             <div>
               {availableTechnicians.map((technician) => (
                 <div
@@ -330,7 +339,7 @@ export default function ServiceRequestEditForm({
                     </Checkbox.Indicator>
                   </Checkbox.Root>
                   <label
-                    {...stylex.props(request.technicianLabel)}
+                    {...stylex.props(request.label)}
                     htmlFor={technician.id}>
                     <span {...stylex.props(request.technicianName)}>{technician.name}</span>
                   </label>
@@ -342,7 +351,7 @@ export default function ServiceRequestEditForm({
           <div {...stylex.props(request.selectsContainer)}>
             {/* Service Type Select */}
             <div {...stylex.props(request.selectWrapper)}>
-              <h1 {...stylex.props(request.h1)}>Service Type</h1>
+              <h1 {...stylex.props(form.sectionHeading)}>Service Type</h1>
               <select
                 {...stylex.props(select.base, select.autoWidth)}
                 id='service_types'
@@ -364,7 +373,7 @@ export default function ServiceRequestEditForm({
             </div>
             {/* Location Select */}
             <div {...stylex.props(request.selectWrapper)}>
-              <h1 {...stylex.props(request.h1)}>Location</h1>
+              <h1 {...stylex.props(form.sectionHeading)}>Location</h1>
               <select
                 {...stylex.props(select.base, select.autoWidth)}
                 id='locations'

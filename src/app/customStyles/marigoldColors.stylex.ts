@@ -32,6 +32,9 @@ export const marigoldColors = stylex.defineVars({
   backgroundTextarea: { default: 'rgb(245,245,245)', [DARK]: 'rgb(40, 40, 40)' },
   navigationLink: { default: pansy, [DARK]: environmentBrown },
 
+  // Label
+  label: { default: colorPrimitives.marigoldStoneMid, [DARK]: colorPrimitives.marigoldStoneLight },
+
   // Text input
   textInputBorder: { default: colorPrimitives.marigoldStoneMid, [DARK]: colorPrimitives.marigoldStoneLight },
   textInputBackground: { default: colorPrimitives.marigoldStoneLighter, [DARK]: colorPrimitives.marigoldStoneDarker },
@@ -64,6 +67,7 @@ export const marigoldColors = stylex.defineVars({
   backgroundCard: { default: 'rgb(255,255,255)', [DARK]: darkCard }, // new
 
   // Text
+  textAccent: { default: colorPrimitives.marigoldRust, [DARK]: colorPrimitives.marigoldRustDesaturated },
   foreground: { default: 'rgb(16 16 16)', [DARK]: darkText },
   foregroundMuted: { default: 'rgb(90,90,90)', [DARK]: darkMuted }, // new
   foregroundLink: { default: pansy, [DARK]: 'rgb(221, 216, 247)' },
@@ -83,4 +87,5 @@ export const marigoldColors = stylex.defineVars({
   primary: { default: flowerYellow, [DARK]: environmentBrown },
   primaryDark: { default: flowerGold, [DARK]: 'rgb(180 90 0)' },
   primaryText: { default: colors.gray9, [DARK]: leafHighlight },
+  cardBackground: { default: colorPrimitives.marigoldStoneLight, [DARK]: colorPrimitives.marigoldEggplant },
 })

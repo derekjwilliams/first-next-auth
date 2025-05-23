@@ -7,12 +7,13 @@ import { sizes } from '@derekjwilliams/stylextras-open-props-pr/lib/sizes.stylex
 import { colors } from '@derekjwilliams/stylextras-open-props-pr/lib/colors.stylex'
 import { borders } from '@derekjwilliams/stylextras-open-props-pr/lib/borders.stylex'
 import { marigoldColors } from '../../app/customStyles/marigoldColors.stylex'
+import { spacingPatterns } from '../../app/customStyles/spacingPatterns.stylex'
 
 const styles = stylex.create({
   label: {
-    fontSize: fonts.size2,
-    lineHeight: fonts.lineHeight0,
-    paddingLeft: sizes.spacing3,
+    fontSize: fonts.size1,
+    marginLeft: spacingPatterns.gapSmall,
+    color: marigoldColors.label,
   },
   root: {
     display: 'flex',
