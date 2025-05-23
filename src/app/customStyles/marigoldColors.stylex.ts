@@ -1,5 +1,6 @@
 import { colors } from '@derekjwilliams/stylextras-open-props-pr/lib/colors.stylex'
 import * as stylex from '@stylexjs/stylex'
+import { colorPrimitives } from './colorPrimitives.stylex'
 
 const DARK = '@media (prefers-color-scheme: dark)'
 const environmentBrown = 'rgb(214 122 0)'
@@ -30,6 +31,29 @@ export const marigoldColors = stylex.defineVars({
   slate,
   backgroundTextarea: { default: 'rgb(245,245,245)', [DARK]: 'rgb(40, 40, 40)' },
   navigationLink: { default: pansy, [DARK]: environmentBrown },
+
+  // Text input
+  textInputBorder: { default: colorPrimitives.marigoldStoneMid, [DARK]: colorPrimitives.marigoldStoneLight },
+  textInputBackground: { default: colorPrimitives.marigoldStoneLighter, [DARK]: colorPrimitives.marigoldStoneDarker },
+  textInputColor: { default: colorPrimitives.marigoldStoneDarker, [DARK]: colorPrimitives.marigoldStoneLight },
+
+  // Select input
+  selectInputBorder: { default: colorPrimitives.marigoldStoneMid, [DARK]: colorPrimitives.marigoldStoneLight },
+  selectBackground: { default: colorPrimitives.marigoldStoneLightest, [DARK]: colorPrimitives.marigoldStoneDarker },
+  selectInputColor: { default: colorPrimitives.marigoldStoneDarker, [DARK]: colorPrimitives.marigoldStoneLight },
+
+  // Checkbox input
+  checkboxInputBorder: { default: colorPrimitives.marigoldStoneDark, [DARK]: colorPrimitives.marigoldStoneLight },
+  checkboxIcon: { default: colorPrimitives.marigoldStoneDarker, [DARK]: colorPrimitives.marigoldStoneLight },
+  checkboxInputBackground: {
+    default: colorPrimitives.marigoldStoneLighter,
+    [DARK]: colorPrimitives.marigoldStoneDarker,
+  },
+
+  // Text area
+  textAreaBorder: { default: colorPrimitives.marigoldStoneMid, [DARK]: colorPrimitives.marigoldStoneLight },
+  textAreaBackground: { default: colorPrimitives.marigoldStoneLighter, [DARK]: colorPrimitives.marigoldStoneDarker },
+  textAreaColor: { default: colorPrimitives.marigoldStoneDarker, [DARK]: colorPrimitives.marigoldStoneLight },
 
   // Page backgrounds
   background: { default: 'rgb(222 222 222)', [DARK]: darkPage },

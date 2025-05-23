@@ -16,21 +16,18 @@ import RadioSet from './controls/RadioSet'
 import { RichTextEditor } from '@/components/lexical/RichTextEditor'
 import './lexicalstyles.css'
 import React, { useState } from 'react'
+import { colorPrimitives } from '@/app/customStyles/colorPrimitives.stylex'
 
 const form = stylex.create({
   textareaWrapper: {
     marginBottom: spacingPatterns.gapMedium,
     marginRight: spacingPatterns.gapSmall,
-    // marginBottom: sizes.spacing4,
-    // marginRight: sizes.spacing3,
   },
   costContainer: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))',
     gap: spacingPatterns.gapTiny,
-    // gap: sizes.spacing2,
     marginBottom: spacingPatterns.gapSmall,
-    //marginBottom: sizes.spacing3,
     alignItems: 'start',
     width: '400px',
   },
@@ -43,32 +40,34 @@ const form = stylex.create({
     width: '100%',
     minHeight: spacingPatterns.gapMedium,
     padding: spacingPatterns.gapSmall,
-    borderWidth: borders.size1,
-    borderColor: colors.gray5,
+    // borderWidth: borders.size1,s
+    borderColor: marigoldColors.textAreaBorder,
     borderRadius: borders.radius1,
     fontFamily: fonts.sans,
     fontSize: fonts.size1,
-    backgroundColor: colors.gray0,
+    backgroundColor: marigoldColors.textAreaBackground,
     ':focus': {
       outline: 'none',
+      borderWidth: '1px',
       borderColor: marigoldColors.primary,
-      boxShadow: `0 0 0 2px ${marigoldColors.primary}33`,
     },
+    color: marigoldColors.textAreaColor,
   },
   input: {
     width: '100%',
     padding: spacingPatterns.gapSmall,
     borderWidth: borders.size1,
-    borderColor: colors.gray5,
+    borderColor: marigoldColors.textInputBorder, //colors.marigoldStoneDark,
     borderRadius: borders.radius1,
     fontFamily: fonts.sans,
     fontSize: fonts.size1,
-    backgroundColor: colors.gray0,
+    backgroundColor: marigoldColors.textInputBackground,
     ':focus': {
       outline: 'none',
       borderColor: marigoldColors.primary,
       boxShadow: `0 0 0 2px ${marigoldColors.primary}33`,
     },
+    color: marigoldColors.textInputColor,
   },
   costInput: {
     maxWidth: spacingPatterns.layoutNumericInputSize,
@@ -81,20 +80,20 @@ const checkbox = stylex.create({
     height: spacingPatterns.layoutCheckboxInputSize,
     borderWidth: borders.size1,
     borderStyle: 'solid',
-    borderColor: colors.gray10,
+    borderColor: marigoldColors.checkboxInputBorder,
     borderRadius: borders.radius1,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: spacingPatterns.gapSmall,
-    backgroundColor: 'white',
+    backgroundColor: marigoldColors.checkboxInputBackground,
     ':checked': {
       backgroundColor: marigoldColors.primary,
       borderColor: marigoldColors.primary,
     },
   },
   icon: {
-    color: colors.gray8,
+    color: marigoldColors.checkboxIcon,
     width: spacingPatterns.layoutIconSize,
     height: spacingPatterns.layoutIconSize,
   },
@@ -105,12 +104,12 @@ const select = stylex.create({
     width: '100%',
     padding: spacingPatterns.gapSmall,
     borderWidth: borders.size1,
-    borderColor: colors.gray5,
+    borderColor: marigoldColors.selectInputBorder,
     borderRadius: borders.radius1,
     fontFamily: fonts.sans,
     fontSize: fonts.size1,
-    backgroundColor: colors.gray0,
-    color: colors.gray9,
+    backgroundColor: marigoldColors.selectBackground,
+    color: marigoldColors.selectInputColor,
     ':focus': {
       outline: 'none',
       borderColor: marigoldColors.primary,

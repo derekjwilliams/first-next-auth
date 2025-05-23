@@ -19,6 +19,8 @@ export const colorPrimitives = stylex.defineVars({
   marigoldSky: 'rgb(120, 180, 235)',
   marigoldCloud: 'rgb(240, 245, 250)',
   marigoldPath: 'rgb(130, 130, 130)',
+  marigoldStoneLightest: '#FEFDFF',
+  marigoldStoneLighter: '#FBFAFC',
   marigoldStoneLight: '#F7F8FA',
   marigoldStone: '#ECEFF1',
   marigoldStoneMid: '#D3D6DA',
