@@ -5,9 +5,10 @@ import { updateServiceRequest } from '../lib/actions'
 import { Tables } from '../utils/database.types'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { Check } from 'lucide-react'
-import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
+// import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
 import { colors } from '@derekjwilliams/stylextras-open-props-pr/colors.stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
+import { spacingPatterns } from '../app/customStyles/spacingPatterns.stylex'
 import stylex from '@stylexjs/stylex'
 import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
 import { borders } from '@derekjwilliams/stylextras-open-props-pr/borders.stylex'
@@ -18,26 +19,30 @@ import React, { useState } from 'react'
 
 const form = stylex.create({
   textareaWrapper: {
-    marginBottom: sizes.spacing4,
-    marginRight: sizes.spacing3,
+    marginBottom: spacingPatterns.gapMedium,
+    marginRight: spacingPatterns.gapSmall,
+    // marginBottom: sizes.spacing4,
+    // marginRight: sizes.spacing3,
   },
   costContainer: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))',
-    gap: sizes.spacing2,
-    marginBottom: sizes.spacing3,
+    gap: spacingPatterns.gapTiny,
+    // gap: sizes.spacing2,
+    marginBottom: spacingPatterns.gapSmall,
+    //marginBottom: sizes.spacing3,
     alignItems: 'start',
     width: '400px',
   },
   costInputGroup: {
     display: 'flex',
     flexDirection: 'column',
-    gap: sizes.spacing1,
+    gap: spacingPatterns.gapTiny,
   },
   textarea: {
     width: '100%',
-    minHeight: sizes.spacing3,
-    padding: sizes.spacing2,
+    minHeight: spacingPatterns.gapMedium,
+    padding: spacingPatterns.gapSmall,
     borderWidth: borders.size1,
     borderColor: colors.gray5,
     borderRadius: borders.radius1,
@@ -52,7 +57,7 @@ const form = stylex.create({
   },
   input: {
     width: '100%',
-    padding: sizes.spacing2,
+    padding: spacingPatterns.gapSmall,
     borderWidth: borders.size1,
     borderColor: colors.gray5,
     borderRadius: borders.radius1,
@@ -66,14 +71,14 @@ const form = stylex.create({
     },
   },
   costInput: {
-    maxWidth: sizes.spacing12,
+    maxWidth: spacingPatterns.layoutNumericInputSize,
   },
 })
 
 const checkbox = stylex.create({
   checkboxRoot: {
-    width: sizes.spacing4,
-    height: sizes.spacing4,
+    width: spacingPatterns.layoutCheckboxInputSize,
+    height: spacingPatterns.layoutCheckboxInputSize,
     borderWidth: borders.size1,
     borderStyle: 'solid',
     borderColor: colors.gray10,
@@ -81,7 +86,7 @@ const checkbox = stylex.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: sizes.spacing2,
+    marginRight: spacingPatterns.gapSmall,
     backgroundColor: 'white',
     ':checked': {
       backgroundColor: marigoldColors.primary,
@@ -90,15 +95,15 @@ const checkbox = stylex.create({
   },
   icon: {
     color: colors.gray8,
-    width: sizes.spacing3,
-    height: sizes.spacing3,
+    width: spacingPatterns.layoutIconSize,
+    height: spacingPatterns.layoutIconSize,
   },
 })
 
 const select = stylex.create({
   base: {
     width: '100%',
-    padding: sizes.spacing2,
+    padding: spacingPatterns.gapSmall,
     borderWidth: borders.size1,
     borderColor: colors.gray5,
     borderRadius: borders.radius1,
@@ -123,33 +128,33 @@ const select = stylex.create({
 
 const request = stylex.create({
   base: {
-    padding: sizes.spacing4,
+    padding: spacingPatterns.gapLarge,
     backgroundColor: colors.gray1,
     borderRadius: borders.radius2,
-    gap: sizes.spacing3,
+    gap: spacingPatterns.gapMedium,
   },
   h1: {
     fontSize: fonts.size2,
     fontWeight: fonts.weight6,
     color: colors.gray9,
-    marginBottom: sizes.spacing2,
+    marginBottom: spacingPatterns.gapSmall,
     letterSpacing: fonts.letterSpacing1,
   },
   technicians: {
-    marginBlock: sizes.spacing4,
-    paddingBlock: sizes.spacing3,
+    marginBlock: spacingPatterns.gapLarge,
+    paddingBlock: spacingPatterns.gapMedium,
     borderTopWidth: borders.size1,
     borderTopColor: colors.gray3,
-    gap: sizes.spacing2,
+    gap: spacingPatterns.gapSmall,
   },
   technicianItem: {
     display: 'flex',
     alignItems: 'center',
-    marginBottom: sizes.spacing2,
+    marginBottom: spacingPatterns.gapSmall,
   },
   technicianLabel: {
     fontSize: fonts.size3,
-    marginLeft: sizes.spacing2,
+    marginLeft: spacingPatterns.gapSmall,
   },
   technicianName: {
     fontWeight: 'normal',
@@ -183,14 +188,14 @@ const request = stylex.create({
   requestButton: {
     backgroundColor: marigoldColors.primary,
     color: colors.gray9,
-    paddingBlock: sizes.spacing2,
-    paddingInline: sizes.spacing5,
+    paddingBlock: spacingPatterns.gapSmall,
+    paddingInline: spacingPatterns.gapXLarge,
     borderRadius: borders.radius2,
     border: 'none',
     cursor: 'pointer',
     fontWeight: fonts.weight6,
     fontSize: fonts.size1,
-    marginTop: sizes.spacing4,
+    marginTop: spacingPatterns.gapMedium,
     transition: 'background-color 0.2s ease',
     ':hover': {
       backgroundColor: marigoldColors.primaryDark,

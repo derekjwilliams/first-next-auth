@@ -61,6 +61,11 @@ export const spacingPatterns = stylex.defineVars({
   layoutSubsectionSpacing: sizes.spacing5, // 1.5rem - spacing between subsections
   layoutContentSpacing: sizes.spacing3, // 1rem - spacing between content blocks
   layoutCardSpacing: sizes.spacing5, // 1.5rem - spacing between cards
+
+  // Element sizes
+  layoutNumericInputSize: sizes.spacing10, // 5 rem
+  layoutCheckboxInputSize: sizes.spacing4, // 1.25 rem
+  layoutIconSize: sizes.spacing4,
 })
 
 // export default spacingPatterns

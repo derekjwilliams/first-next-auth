@@ -34,7 +34,9 @@ export default function ServiceTypeDetails({ serviceType }: ServiceTypeDetailsPr
   return (
     <form>
       <div {...stylex.props(requests.base)}>
-        <h3 key={serviceType.id} {...stylex.props(requestCard.base)}>
+        <h3
+          key={serviceType.id}
+          {...stylex.props(requestCard.base)}>
           {`${serviceTypeDisplayName} Service Requests`}
         </h3>
       </div>
