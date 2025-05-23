@@ -165,6 +165,10 @@ const styles = stylex.create({
   },
   email: {
     marginLeft: spacingPatterns.gapTiny,
+    color: marigoldColors.textLinkButtonSecondary,
+  },
+  technician: {
+    color: marigoldColors.textLinkButton,
   },
   technicianCard: {
     backgroundColor: marigoldColors.backgroundData,
@@ -283,7 +287,8 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
                     <div>
                       <Link
                         key={technician.id}
-                        href={`/technicians/${technician.id}`}>
+                        href={`/technicians/${technician.id}`}
+                        {...stylex.props(styles.technician)}>
                         {`${technician.name}`}
                       </Link>
                     </div>
