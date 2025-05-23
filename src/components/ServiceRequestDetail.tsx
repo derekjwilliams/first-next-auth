@@ -4,7 +4,7 @@
 import useServiceRequestQuery from '../hooks/useServiceRequestQuery'
 
 import * as stylex from '@stylexjs/stylex'
-import { marigoldColors } from '../app/customStyles/betterMarigoldColors.stylex'
+import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
 import { borders } from '@derekjwilliams/stylextras-open-props-pr/borders.stylex'
 import { spacingPatterns } from '../app/customStyles/spacingPatterns.stylex'

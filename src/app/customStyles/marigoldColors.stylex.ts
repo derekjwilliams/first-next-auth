@@ -33,7 +33,7 @@ export const marigoldColors = stylex.defineVars({
   navigationLink: { default: pansy, [DARK]: environmentBrown },
 
   // Label
-  label: { default: colorPrimitives.marigoldStoneMid, [DARK]: colorPrimitives.marigoldStoneLight },
+  label: { default: colorPrimitives.marigoldStoneDarker, [DARK]: colorPrimitives.marigoldStoneLight },
 
   // Text input
   textInputBorder: { default: colorPrimitives.marigoldStoneMid, [DARK]: colorPrimitives.marigoldStoneLight },
@@ -88,4 +88,29 @@ export const marigoldColors = stylex.defineVars({
   primaryDark: { default: flowerGold, [DARK]: 'rgb(180 90 0)' },
   primaryText: { default: colors.gray9, [DARK]: leafHighlight },
   cardBackground: { default: colorPrimitives.marigoldStoneLight, [DARK]: colorPrimitives.marigoldEggplant },
+  borderSubtle: {
+    default: colorPrimitives.marigoldStoneDark,
+    [DARK]: colorPrimitives.marigoldSlate,
+  },
+  textPrimary: { default: colorPrimitives.marigoldStoneDarker, [DARK]: colorPrimitives.marigoldMist },
+  textMuted: {
+    default: colorPrimitives.marigoldStoneDarker,
+    [DARK]: colorPrimitives.marigoldFog,
+  },
+  backgroundPage: {
+    default: colorPrimitives.marigoldStoneLight,
+    [DARK]: colorPrimitives.marigoldEggplant,
+  },
+  borderAccent: {
+    default: colorPrimitives.marigoldAmber,
+    [DARK]: colorPrimitives.marigoldAmberDesaturated,
+  },
+  textLinkButton: {
+    default: colorPrimitives.marigoldBrown,
+    [DARK]: colorPrimitives.marigoldLeafLightDesaturated,
+  },
+  textLinkButtonSecondary: {
+    default: colorPrimitives.marigoldCenter,
+    [DARK]: colorPrimitives.marigoldGoldDesaturated,
+  },
 })

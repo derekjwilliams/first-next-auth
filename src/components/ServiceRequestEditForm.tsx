@@ -26,6 +26,9 @@ const form = stylex.create({
     textTransform: 'uppercase',
     letterSpacing: 0.5,
   },
+  sectionWrapper: {
+    marginTop: spacingPatterns.gapXLarge,
+  },
   textareaWrapper: {
     marginBottom: spacingPatterns.gapMedium,
     marginRight: spacingPatterns.gapSmall,
@@ -140,16 +143,9 @@ const request = stylex.create({
     gap: spacingPatterns.gapMedium,
     background: marigoldColors.cardBackground,
   },
-  h1: {
-    fontSize: fonts.size2,
-    fontWeight: fonts.weight6,
-    color: colors.gray9,
-    marginBottom: spacingPatterns.gapSmall,
-    letterSpacing: fonts.letterSpacing1,
-  },
   technicians: {
-    marginBlock: spacingPatterns.gapLarge,
-    paddingBlock: spacingPatterns.gapMedium,
+    marginBlock: spacingPatterns.gapMedium,
+    paddingBlock: spacingPatterns.gapSmall,
     borderTopWidth: borders.size1,
     borderTopColor: colors.gray3,
     gap: spacingPatterns.gapSmall,
@@ -172,7 +168,6 @@ const request = stylex.create({
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    gap: '1rem',
 
     // Media query for screens wider than 600px
     '@media (min-width: 600px)': {
@@ -308,7 +303,7 @@ export default function ServiceRequestEditForm({
               </div>
             ))}
           </div>
-          <div>
+          <div {...stylex.props(form.sectionWrapper)}>
             <label htmlFor='details'>
               <h1 {...stylex.props(form.sectionHeading)}>Details</h1>
             </label>
@@ -395,8 +390,8 @@ export default function ServiceRequestEditForm({
             </div>
           </div>
           {/* Status Radio Group */}
-          <div>
-            <h1 {...stylex.props(request.h1)}>Status</h1>
+          <div {...stylex.props(form.sectionWrapper)}>
+            <h1 {...stylex.props(form.sectionHeading)}>Status</h1>
             <RadioSet
               options={options}
               value={serviceRequest.status_id ?? ''}
