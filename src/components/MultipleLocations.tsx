@@ -6,6 +6,7 @@ import { Check } from 'lucide-react'
 
 import * as Form from '@radix-ui/react-form'
 import * as stylex from '@stylexjs/stylex'
+import { colorPrimitives } from '../app/customStyles/colorPrimitives.stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import { colors } from '@derekjwilliams/stylextras-open-props-pr/colors.stylex'
 import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
@@ -52,7 +53,7 @@ const form = stylex.create({
     backgroundColor: colors.gray0,
     borderColor: {
       default: colors.gray12,
-      ':hover': marigoldColors.flowerYellow,
+      ':hover': colorPrimitives.marigoldYellow,
     },
   },
   textarea: {
@@ -73,7 +74,7 @@ const form = stylex.create({
     padding: sizes.spacing2,
     backgroundColor: {
       default: colors.gray2,
-      ':hover': marigoldColors.flowerYellow,
+      ':hover': colorPrimitives.marigoldYellow,
     },
     transitionDuration: '500ms',
     transitionProperty: 'backgroundColor',
@@ -139,60 +140,101 @@ function AddLocation() {
   return (
     <>
       <h1 {...stylex.props(header.base)}>Add Property</h1>
-      <Form.Root {...stylex.props(form.root)} onSubmit={onCreateLocation}>
-        <Form.Field className='FormField' name='street_address'>
+      <Form.Root
+        {...stylex.props(form.root)}
+        onSubmit={onCreateLocation}>
+        <Form.Field
+          className='FormField'
+          name='street_address'>
           <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
             <Form.Label className='FormLabel'>Street Address</Form.Label>
-            <Form.Message className='FormMessage' match='valueMissing'>
+            <Form.Message
+              className='FormMessage'
+              match='valueMissing'>
               Please enter street address
             </Form.Message>
           </div>
           <Form.Control asChild>
-            <input className='Input' type='text' required />
+            <input
+              className='Input'
+              type='text'
+              required
+            />
           </Form.Control>
         </Form.Field>
-        <Form.Field className='FormField' name='unit_number'>
+        <Form.Field
+          className='FormField'
+          name='unit_number'>
           <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
             <Form.Label className='FormLabel'>Unit</Form.Label>
-            <Form.Message className='FormMessage' match='valueMissing'>
+            <Form.Message
+              className='FormMessage'
+              match='valueMissing'>
               Please enter unit number if applicable
             </Form.Message>
           </div>
           <Form.Control asChild>
-            <input className='Input' type='text' />
+            <input
+              className='Input'
+              type='text'
+            />
           </Form.Control>
         </Form.Field>
-        <Form.Field className='FormField' name='city'>
+        <Form.Field
+          className='FormField'
+          name='city'>
           <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
             <Form.Label className='FormLabel'>City</Form.Label>
-            <Form.Message className='FormMessage' match='valueMissing'>
+            <Form.Message
+              className='FormMessage'
+              match='valueMissing'>
               Please enter city
             </Form.Message>
           </div>
           <Form.Control asChild>
-            <input className='Input' type='text' required />
+            <input
+              className='Input'
+              type='text'
+              required
+            />
           </Form.Control>
         </Form.Field>
-        <Form.Field className='FormField' name='state_province'>
+        <Form.Field
+          className='FormField'
+          name='state_province'>
           <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
             <Form.Label className='FormLabel'>State</Form.Label>
-            <Form.Message className='FormMessage' match='valueMissing'>
+            <Form.Message
+              className='FormMessage'
+              match='valueMissing'>
               Please enter state
             </Form.Message>
           </div>
           <Form.Control asChild>
-            <input className='Input' type='text' required />
+            <input
+              className='Input'
+              type='text'
+              required
+            />
           </Form.Control>
         </Form.Field>
-        <Form.Field className='FormField' name='postal_code'>
+        <Form.Field
+          className='FormField'
+          name='postal_code'>
           <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
             <Form.Label className='FormLabel'>Zip Code</Form.Label>
-            <Form.Message className='FormMessage' match='valueMissing'>
+            <Form.Message
+              className='FormMessage'
+              match='valueMissing'>
               Please enter zip code
             </Form.Message>
           </div>
           <Form.Control asChild>
-            <input className='Input' type='text' required />
+            <input
+              className='Input'
+              type='text'
+              required
+            />
           </Form.Control>
         </Form.Field>
         <Form.Submit asChild>
@@ -219,8 +261,12 @@ export default function MultipleLocations() {
     <div {...stylex.props(items.base)}>
       <form {...stylex.props(items.list)}>
         {locations.map((location: any) => (
-          <div key={location.id} {...stylex.props(card.base)}>
-            <Checkbox.Root {...stylex.props(card.checkboxRoot)} id={location.id}>
+          <div
+            key={location.id}
+            {...stylex.props(card.base)}>
+            <Checkbox.Root
+              {...stylex.props(card.checkboxRoot)}
+              id={location.id}>
               <Checkbox.Indicator {...stylex.props(card.checkboxIndicator)}>
                 <Check {...stylex.props(card.icon)} />
               </Checkbox.Indicator>

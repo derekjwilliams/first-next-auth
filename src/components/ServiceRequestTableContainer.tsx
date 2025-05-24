@@ -32,45 +32,93 @@ interface ServiceRequestTableContainerProps {
   statusOptions?: { id: string; name: string }[]
   locationOptions?: { id: string; name: string }[]
   technicianOptions?: { id: string; name: string }[]
-  entityType: 'location' | 'serviceType' | 'technician' // required to determine context
+  entityType: 'location' | 'serviceType' | 'technician'
 }
 
 const styles = stylex.create({
   serviceRequestsWrapper: {
-    padding: '20px',
+    width: '100%',
+    maxWidth: '100vw',
+    boxSizing: 'border-box',
+    padding: {
+      default: sizes.spacing4,
+      '@media (max-width: 768px)': sizes.spacing2,
+    },
+    backgroundColor: marigoldColors.backgroundPage,
+    overflow: 'hidden',
   },
   headerContainer: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: '16px',
+    marginBottom: sizes.spacing4,
+    width: '100%',
+    boxSizing: 'border-box',
   },
   createButton: {
-    padding: {
-      default: `${sizes.spacing2} ${sizes.spacing4}`,
-      '@media (max-width: 600px)': `${sizes.spacing2} ${sizes.spacing3}`,
+    paddingTop: {
+      default: sizes.spacing2,
+      '@media (max-width: 600px)': sizes.spacing2,
+    },
+    paddingBottom: {
+      default: sizes.spacing2,
+      '@media (max-width: 600px)': sizes.spacing2,
+    },
+    paddingLeft: {
+      default: sizes.spacing4,
+      '@media (max-width: 600px)': sizes.spacing3,
+    },
+    paddingRight: {
+      default: sizes.spacing4,
+      '@media (max-width: 600px)': sizes.spacing3,
     },
     borderRadius: borders.radius2,
-    border: `1px solid ${colors.stone3}`,
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: marigoldColors.borderSubtle,
     backgroundColor: {
-      default: marigoldColors.leafHighlight,
-      ':hover': marigoldColors.flowerGold,
+      default: marigoldColors.backgroundButton,
+      ':hover': marigoldColors.backgroundHoverButton,
     },
-    color: marigoldColors.foregroundButton,
+    color: {
+      default: marigoldColors.foregroundButton,
+      ':hover': marigoldColors.foregroundHoverButton,
+    },
     cursor: 'pointer',
     fontSize: fonts.size1,
     textDecoration: 'none',
+    fontWeight: fonts.weight5,
     minWidth: {
       '@media (max-width: 600px)': sizes.spacing8,
     },
     ':disabled': {
-      background: colors.stone0,
+      backgroundColor: marigoldColors.backgroundButton,
+      color: marigoldColors.textMuted,
+      borderColor: marigoldColors.borderSubtle,
       cursor: 'not-allowed',
+      opacity: 0.6,
     },
-    placeItems: 'center',
-    display: 'grid',
-    transitionDuration: '500ms',
-    transitionProperty: 'backgroundColor',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    transition: 'all 0.2s ease',
+    whiteSpace: 'nowrap',
+    boxShadow: {
+      default: '0 1px 2px rgba(0, 0, 0, 0.05)',
+      ':hover': '0 2px 4px rgba(0, 0, 0, 0.1)',
+    },
+    ':focus-visible': {
+      outlineWidth: 2,
+      outlineStyle: 'solid',
+      outlineColor: marigoldColors.textAccent,
+      outlineOffset: '2px',
+    },
+  },
+  tableContainer: {
+    width: '100%',
+    maxWidth: '100%',
+    overflow: 'hidden',
+    boxSizing: 'border-box',
   },
 })
 
@@ -93,7 +141,6 @@ export default function ServiceRequestTableContainer({
   const pagination = parsePaginationFromURL(searchParams)
   const includeArchived = parseIncludeArchivedFromURL(searchParams)
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleStateChange = (newState: {
     sorting?: SortingState
     pagination?: PaginationState
@@ -153,7 +200,6 @@ export default function ServiceRequestTableContainer({
     })
   }
 
-  // Use the query hook passed as a prop
   const {
     data: serviceRequestsData,
     isLoading: isLoadingServiceRequests,
@@ -176,7 +222,6 @@ export default function ServiceRequestTableContainer({
   return (
     <div {...stylex.props(styles.serviceRequestsWrapper)}>
       <div {...stylex.props(styles.headerContainer)}>
-        {/* <h2>Service Requests</h2> */}
         <Link
           href={`/servicerequests/new?${
             entityType === 'location'
@@ -191,22 +236,24 @@ export default function ServiceRequestTableContainer({
           New Service Request
         </Link>
       </div>
-      {isErrorServiceRequests ? (
-        <div>Error loading service requests: {errorServiceRequests?.message || 'An unknown error occurred.'}</div>
-      ) : (
-        <SimpleServiceRequestsTable
-          serviceRequests={serviceRequests}
-          totalCount={totalCount}
-          sorting={sorting}
-          onSortingChange={handleSortingChange}
-          pagination={pagination}
-          onPaginationChange={handlePaginationChange}
-          includeArchived={includeArchived}
-          onIncludeArchivedChange={handleIncludeArchivedToggle}
-          isLoading={isLoadingServiceRequests || isStatusMapLoading}
-          statusMap={statusMap}
-        />
-      )}
+      <div {...stylex.props(styles.tableContainer)}>
+        {isErrorServiceRequests ? (
+          <div>Error loading service requests: {errorServiceRequests?.message || 'An unknown error occurred.'}</div>
+        ) : (
+          <SimpleServiceRequestsTable
+            serviceRequests={serviceRequests}
+            totalCount={totalCount}
+            sorting={sorting}
+            onSortingChange={handleSortingChange}
+            pagination={pagination}
+            onPaginationChange={handlePaginationChange}
+            includeArchived={includeArchived}
+            onIncludeArchivedChange={handleIncludeArchivedToggle}
+            isLoading={isLoadingServiceRequests || isStatusMapLoading}
+            statusMap={statusMap}
+          />
+        )}
+      </div>
     </div>
   )
 }

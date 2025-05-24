@@ -7,6 +7,7 @@ import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
 import { borders } from '@derekjwilliams/stylextras-open-props-pr/borders.stylex'
 import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
 import { marigoldColors } from '../../../app/customStyles/marigoldColors.stylex'
+import { colorPrimitives } from '../../../app/customStyles/colorPrimitives.stylex'
 
 const imageSize = 240
 const aspectRatio = 1.6 // puts width at 384px
@@ -14,7 +15,7 @@ const space = sizes.spacing3
 
 const rental = stylex.create({
   logo: {
-    backgroundColor: marigoldColors.flowerYellow,
+    backgroundColor: colorPrimitives.marigoldYellow,
     padding: sizes.spacing3,
   },
   propertyInformation: {
@@ -108,7 +109,9 @@ export default async function Page({ params }: { params: Params }) {
   const listingImages = listing?.listing_images?.map(async (image) => {
     const blur = await getPlaceholderImage(image.url)
     return (
-      <div key={image.id} {...stylex.props(rental.mediaElement)}>
+      <div
+        key={image.id}
+        {...stylex.props(rental.mediaElement)}>
         <Image
           draggable={false}
           {...stylex.props(rental.image)}

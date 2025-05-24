@@ -5,6 +5,7 @@ import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
 import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
 import React, { useState } from 'react'
+import { colorPrimitives } from '../app/customStyles/colorPrimitives.stylex'
 
 const menuStyles = stylex.create({
   showNav: (display) => ({
@@ -39,18 +40,19 @@ const styles = stylex.create({
   header: {
     display: 'inline-flex',
     // width: '100%',
+    backgroundColor: colorPrimitives.marigoldYellow,
   },
   navigationList: {
     listStyle: 'none',
     paddingLeft: 0,
     marginTop: '28px',
-    backgroundColor: marigoldColors.flowerYellow,
+    backgroundColor: colorPrimitives.marigoldYellow,
   },
 
   item: {
     margin: '5px',
     whiteSpace: 'nowrap',
-    backgroundColor: marigoldColors.flowerYellow,
+    backgroundColor: colorPrimitives.marigoldYellow,
     textDecoration: 'none',
     display: {
       default: 'inline-block',
@@ -114,33 +116,55 @@ export default function Navigation() {
           aria-controls='primary-navigation'
           onClick={toggleMenu}>
           <div {...stylex.props(styles.iconHamburger, menuStyles.showHamburger(hamburger))}>
-            <img src='/images/icon-hamburger.svg' alt=''></img>
+            <img
+              src='/images/icon-hamburger.svg'
+              alt=''></img>
           </div>
           <div {...stylex.props(styles.iconClosedBurger, menuStyles.showClosedBurger(closedBurger))}>
-            <img src='/images/icon-close.svg' alt=''></img>
+            <img
+              src='/images/icon-close.svg'
+              alt=''></img>
           </div>
           <span {...stylex.props(styles.visuallyHidden)}>Menu</span>
         </button>
       </div>
-      <nav id='primary-navigation' {...stylex.props(styles.base, menuStyles.showNav(closedBurger))}>
+      <nav
+        id='primary-navigation'
+        {...stylex.props(styles.base, menuStyles.showNav(closedBurger))}>
         <ul {...stylex.props(styles.navigationList)}>
-          <li key='properties' {...stylex.props(styles.item)}>
-            <Link {...stylex.props(styles.link)} href='/properties'>
+          <li
+            key='properties'
+            {...stylex.props(styles.item)}>
+            <Link
+              {...stylex.props(styles.link)}
+              href='/properties'>
               Properties
             </Link>
           </li>
-          <li key='servicerequests' {...stylex.props(styles.item)}>
-            <Link {...stylex.props(styles.link)} href='/servicetypes'>
+          <li
+            key='servicerequests'
+            {...stylex.props(styles.item)}>
+            <Link
+              {...stylex.props(styles.link)}
+              href='/servicetypes'>
               Service Requests
             </Link>
           </li>
-          <li key='technicians' {...stylex.props(styles.item)}>
-            <Link {...stylex.props(styles.link)} href='/technicians'>
+          <li
+            key='technicians'
+            {...stylex.props(styles.item)}>
+            <Link
+              {...stylex.props(styles.link)}
+              href='/technicians'>
               Technicians
             </Link>
           </li>
-          <li key='rentals' {...stylex.props(styles.item)}>
-            <Link {...stylex.props(styles.link)} href='/rentals'>
+          <li
+            key='rentals'
+            {...stylex.props(styles.item)}>
+            <Link
+              {...stylex.props(styles.link)}
+              href='/rentals'>
               Available Rentals
             </Link>
           </li>

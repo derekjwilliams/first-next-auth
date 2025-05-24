@@ -1,10 +1,9 @@
 import AuthButton from '../../components/AuthButton'
 import { createClient } from '../../lib/supabase/client'
 import Header from '../../components/Header'
-import { redirect } from 'next/navigation'
 import * as stylex from '@stylexjs/stylex'
 import { colors } from '@derekjwilliams/stylextras-open-props-pr/colors.stylex'
-import { marigoldColors } from '../customStyles/marigoldColors.stylex'
+import { colorPrimitives } from '../customStyles/colorPrimitives.stylex'
 
 const message = stylex.create({
   base: {
@@ -16,7 +15,7 @@ const message = stylex.create({
     alignItems: 'center',
     fontSize: '1rem',
     color: colors.gray1,
-    backgroundColor: marigoldColors.flowerRed,
+    backgroundColor: colorPrimitives.marigoldRed,
   },
 })
 

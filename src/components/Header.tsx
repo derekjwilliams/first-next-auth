@@ -1,5 +1,6 @@
 import * as stylex from '@stylexjs/stylex'
 import Image from 'next/image'
+import { colorPrimitives } from '../app/customStyles/colorPrimitives.stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 
 const headerColors = stylex.create({
@@ -36,28 +37,34 @@ const headerSwatch = stylex.create({
     maxWidth: '4rem',
   },
   flower_yellow: {
-    backgroundColor: marigoldColors.flowerYellow,
+    backgroundColor: colorPrimitives.marigoldYellow,
   },
   flower_gold: {
-    backgroundColor: marigoldColors.flowerGold,
+    backgroundColor: colorPrimitives.marigoldGold,
   },
   flower_red: {
-    backgroundColor: marigoldColors.flowerRed,
+    backgroundColor: colorPrimitives.marigoldRed,
   },
   environment_brown: {
-    backgroundColor: marigoldColors.environmentBrown,
+    backgroundColor: colorPrimitives.environmentBrown,
   },
   leaf: {
-    backgroundColor: marigoldColors.leaf,
+    backgroundColor: colorPrimitives.marigoldLeaf,
   },
   pansy: {
-    backgroundColor: marigoldColors.pansy,
+    backgroundColor: colorPrimitives.pansy,
   },
 })
 export default function Header() {
   return (
     <div {...stylex.props(headerContainer.base)}>
-      <Image alt='simple logo' width={492 / 4} height={492 / 4} src='/simple_logo.png' priority={true} />
+      <Image
+        alt='simple logo'
+        width={492 / 4}
+        height={492 / 4}
+        src='/simple_logo.png'
+        priority={true}
+      />
       <div {...stylex.props(headerColors.base)}>
         <div {...stylex.props(headerSwatch.base, headerSwatch.flower_yellow)}></div>
         <div {...stylex.props(headerSwatch.base, headerSwatch.flower_gold)}></div>

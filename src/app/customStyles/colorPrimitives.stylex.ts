@@ -2,10 +2,13 @@ import * as stylex from '@stylexjs/stylex'
 export const colorPrimitives = stylex.defineVars({
   // Brights
   marigoldPetal: 'rgb(255, 153, 18)',
+  marigoldYellow: 'rgb(255 213 95)',
   marigoldGold: 'rgb(255, 194, 0)',
   marigoldAmber: 'rgb(232, 104, 14)',
   marigoldRust: 'rgb(200, 60, 0)',
   marigoldRed: 'rgb(247, 70, 0)',
+  pansy: 'rgb(168, 0, 173)',
+  pansyDark: 'rgb(160, 90, 170)',
 
   // Darks
   marigoldCenter: 'rgb(168, 80, 0)',
@@ -14,6 +17,7 @@ export const colorPrimitives = stylex.defineVars({
   marigoldLeafLight: 'rgb(189, 219, 163)',
   marigoldStem: 'rgb(44, 120, 60)',
   marigoldSlate: 'rgb(68, 68, 68)',
+  environmentBrown: 'rgb(214, 122, 0)',
 
   // Neutrals
   marigoldSky: 'rgb(120, 180, 235)',

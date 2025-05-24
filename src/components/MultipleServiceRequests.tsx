@@ -5,6 +5,7 @@ import useMultipleServiceRequestsQuery from '../hooks/useMultipleServiceRequests
 import * as Form from '@radix-ui/react-form'
 import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
+import { colorPrimitives } from '../app/customStyles/colorPrimitives.stylex'
 import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
 import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
 import { borders } from '@derekjwilliams/stylextras-open-props-pr/borders.stylex'
@@ -47,7 +48,7 @@ const form = stylex.create({
     backgroundColor: marigoldColors.backgroundData,
     borderColor: {
       default: marigoldColors.foreground,
-      ':hover': marigoldColors.flowerYellow,
+      ':hover': colorPrimitives.marigoldYellow,
     },
   },
 
@@ -82,7 +83,7 @@ const form = stylex.create({
     padding: sizes.spacing2,
     backgroundColor: {
       default: marigoldColors.backgroundButton,
-      ':hover': marigoldColors.flowerYellow,
+      ':hover': colorPrimitives.marigoldYellow,
     },
     color: {
       default: marigoldColors.foregroundButton,
@@ -98,7 +99,7 @@ const select = stylex.create({
   base: {
     display: 'block',
     fontSize: fonts.size1,
-    color: marigoldColors.slate,
+    color: colorPrimitives.marigoldSlate,
     lineHeight: fonts.lineHeight2,
     padding: '0.6em 1.4em 0.5em 0.8em',
     maxWidth: '100%',
@@ -186,27 +187,50 @@ function AddServiceRequest({ locations, serviceTypeId, serviceDisplayName }: Mul
   return (
     <>
       <h1 {...stylex.props(form.h1)}>Create Service Request for {serviceDisplayName} Issue </h1>
-      <Form.Root {...stylex.props(form.root)} onSubmit={onCreateServiceRequest}>
-        <Form.Field {...stylex.props(form.field)} name='description'>
+      <Form.Root
+        {...stylex.props(form.root)}
+        onSubmit={onCreateServiceRequest}>
+        <Form.Field
+          {...stylex.props(form.field)}
+          name='description'>
           <div>
             <Form.Label {...stylex.props(form.h2)}>Description</Form.Label>
-            <Form.Message className='FormMessage' match='valueMissing'>
+            <Form.Message
+              className='FormMessage'
+              match='valueMissing'>
               Please enter a description
             </Form.Message>
           </div>
-          <Form.Control asChild {...stylex.props(form.textareaWrapper)}>
-            <textarea {...stylex.props(form.input, form.textarea)} autoCapitalize='sentences' rows={4} required />
+          <Form.Control
+            asChild
+            {...stylex.props(form.textareaWrapper)}>
+            <textarea
+              {...stylex.props(form.input, form.textarea)}
+              autoCapitalize='sentences'
+              rows={4}
+              required
+            />
           </Form.Control>
         </Form.Field>
-        <Form.Field {...stylex.props(form.field)} name='details'>
+        <Form.Field
+          {...stylex.props(form.field)}
+          name='details'>
           <div>
             <Form.Label {...stylex.props(form.h2)}>Details</Form.Label>
-            <Form.Message className='FormMessage' match='valueMissing'>
+            <Form.Message
+              className='FormMessage'
+              match='valueMissing'>
               details
             </Form.Message>
           </div>
-          <Form.Control asChild {...stylex.props(form.textareaWrapper)}>
-            <textarea {...stylex.props(form.input, form.textarea)} autoCapitalize='sentences' rows={6} />
+          <Form.Control
+            asChild
+            {...stylex.props(form.textareaWrapper)}>
+            <textarea
+              {...stylex.props(form.input, form.textarea)}
+              autoCapitalize='sentences'
+              rows={6}
+            />
           </Form.Control>
         </Form.Field>
         <div>
@@ -217,11 +241,15 @@ function AddServiceRequest({ locations, serviceTypeId, serviceDisplayName }: Mul
             id='locations'
             name='locations'
             onChange={handleSelectChange}>
-            <option value='' disabled>
+            <option
+              value=''
+              disabled>
               Select a location
             </option>
             {locations.map((location) => (
-              <option key={location.id} value={location.id}>
+              <option
+                key={location.id}
+                value={location.id}>
                 {`${location.street_address} ${location.unit_number ? location.unit_number : ''}`}
               </option>
             ))}
@@ -277,7 +305,9 @@ export default function MultipleServiceRequests({
       <div {...stylex.props(requests.list)}>
         <h2 {...stylex.props(form.h2)}>Existing {serviceDisplayName} Service Requests</h2>
         {serviceRequests.map((serviceRequest: any) => (
-          <div key={serviceRequest.id} {...stylex.props(requestCard.base)}>
+          <div
+            key={serviceRequest.id}
+            {...stylex.props(requestCard.base)}>
             <label htmlFor={serviceRequest.id}>
               <div>
                 {serviceRequest.locations && (

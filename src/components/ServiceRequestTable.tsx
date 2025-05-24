@@ -1,3 +1,4 @@
+// src/components/ServiceRequestTable.tsx
 'use client'
 import React from 'react'
 import { ColumnDef, useReactTable, getCoreRowModel, flexRender } from '@tanstack/react-table'
@@ -12,6 +13,7 @@ import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
 import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
 import { colors } from '@derekjwilliams/stylextras-open-props-pr/colors.stylex'
+import { borders } from '@derekjwilliams/stylextras-open-props-pr/borders.stylex'
 import ServiceRequestDropdownMenu from './ServiceRequestDropdownMenu'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { Check } from 'lucide-react'
@@ -30,7 +32,7 @@ const styles = stylex.create({
     paddingTop: '20px',
     display: 'grid',
     placeItems: 'center',
-    backgroundColor: marigoldColors.background,
+    backgroundColor: marigoldColors.backgroundPage,
   },
   dataWrapper: {
     display: 'grid',
@@ -49,40 +51,51 @@ const styles = stylex.create({
     width: 'auto',
     maxWidth: '100%',
     borderCollapse: 'collapse',
-    backgroundColor: `${marigoldColors.backgroundData}`,
+    backgroundColor: marigoldColors.backgroundCard,
     tableLayout: 'fixed',
     borderWidth: '2px',
-    borderColor: marigoldColors.tableBorder,
+    borderColor: marigoldColors.borderSubtle,
     borderStyle: 'solid',
+    borderRadius: borders.radius1,
+    boxShadow: '0 2px 12px 0 rgba(0,0,0,0.1)',
   },
   tableRow: {
-    backgroundColor: marigoldColors.background,
+    backgroundColor: {
+      default: marigoldColors.backgroundCard,
+      ':hover': marigoldColors.backgroundDetails,
+    },
     borderWidth: '1px',
     borderStyle: 'solid',
-    borderColor: marigoldColors.background,
+    borderColor: marigoldColors.borderSubtle,
+    transition: 'background-color 0.2s ease',
   },
   tableHeaderRow: {
     borderWidth: '1px',
     borderStyle: 'solid',
-    borderColor: marigoldColors.background,
+    borderColor: marigoldColors.borderSubtle,
     height: sizes.spacing8,
-    color: marigoldColors.foreground,
+    color: marigoldColors.textPrimary,
     textAlign: 'left',
-    fontWeight: 'bold',
+    fontWeight: fonts.weight6,
     fontSize: fonts.size2,
     padding: sizes.spacing1,
-    backgroundColor: marigoldColors.background,
+    backgroundColor: marigoldColors.backgroundDetails,
   },
   tableHead: {
     textAlign: 'left',
     paddingLeft: sizes.spacing1,
+    color: marigoldColors.textAccent,
+    fontWeight: fonts.weight6,
+    textTransform: 'uppercase',
+    letterSpacing: '0.5px',
+    fontSize: fonts.size1,
   },
   tableData: {
     textAlign: 'left',
     borderWidth: '1px',
     borderStyle: 'solid',
-    borderColor: marigoldColors.background,
-    color: marigoldColors.foreground,
+    borderColor: marigoldColors.borderSubtle,
+    color: marigoldColors.textPrimary,
     padding: sizes.spacing1,
     paddingTop: sizes.spacing2,
     paddingBottom: sizes.spacing2,
@@ -94,9 +107,10 @@ const styles = stylex.create({
   tableDataLink: {
     textDecoration: 'none',
     color: {
-      default: marigoldColors.foregroundLink,
-      ':hover': marigoldColors.foregroundHoverLink,
+      default: marigoldColors.textLinkButton,
+      ':hover': marigoldColors.textAccent,
     },
+    transition: 'color 0.2s ease',
   },
   tableCheckboxData: {
     minWidth: 'auto',
@@ -117,16 +131,35 @@ const styles = stylex.create({
   },
   dataDate: {
     whiteSpace: 'nowrap',
+    color: marigoldColors.textPrimary,
   },
   dataTime: {
     marginLeft: '0.5rem',
     whiteSpace: 'nowrap',
+    color: marigoldColors.textMuted,
   },
   tableDropdownData: {
     width: 'auto',
     minWidth: 'auto',
   },
+  statusBadge: {
+    display: 'inline-block',
+    padding: `${sizes.spacing1} ${sizes.spacing2}`,
+    borderRadius: borders.radius1,
+    fontSize: fonts.size1,
+    fontWeight: fonts.weight6,
+    textTransform: 'uppercase',
+    letterSpacing: '0.5px',
+    backgroundColor: marigoldColors.textAccent,
+    color: '#fff',
+  },
+  noAssigned: {
+    color: marigoldColors.textMuted,
+    fontStyle: 'italic',
+    fontSize: fonts.size1,
+  },
 })
+
 const requestCard = stylex.create({
   base: {
     margin: sizes.spacing2,
@@ -134,23 +167,27 @@ const requestCard = stylex.create({
     alignItems: 'center',
   },
   checkboxRoot: {
-    backgroundColor: { default: 'white', ':hover': marigoldColors.flowerYellow },
+    backgroundColor: {
+      default: marigoldColors.backgroundCard,
+      ':hover': marigoldColors.backgroundDetails,
+    },
     width: 25,
     height: 25,
-    borderRadius: '4px',
+    borderRadius: borders.radius1,
     padding: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: colors.gray6,
+    borderColor: marigoldColors.borderSubtle,
     borderStyle: 'solid',
     borderWidth: 2,
+    transition: 'all 0.2s ease',
+    cursor: 'pointer',
   },
-
   checkboxIndicator: {
     padding: 0,
   },
   icon: {
-    color: '#1d2496',
+    color: marigoldColors.textAccent,
     height: '100%',
     width: '100%',
   },
@@ -245,7 +282,9 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
             <thead>
               {table.getHeaderGroups().map((headerGroup: any) => {
                 return (
-                  <tr key={headerGroup.id} {...stylex.props(styles.tableHeaderRow)}>
+                  <tr
+                    key={headerGroup.id}
+                    {...stylex.props(styles.tableHeaderRow)}>
                     <th {...stylex.props(styles.tableHead)}></th>
                     {headerGroup.headers.map((header: any) => {
                       return (
@@ -254,20 +293,17 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                           id={header.id}
                           {...stylex.props(styles.tableHead)}
                           style={{
-                            cursor: `${header.id !== 'technicians' ? 'pointer' : ''}`,
+                            cursor: `${header.id !== 'technicians' ? 'pointer' : 'default'}`,
                           }}
                           onClick={() => handleSort(header.id)}>
                           {flexRender(header.column.columnDef.header, header.getContext())}
-                          {sortColumn === header.id ? (sortDirection === 'asc' ? '↑' : '↓') : ''}
+                          {sortColumn === header.id ? (sortDirection === 'asc' ? ' ↑' : ' ↓') : ''}
                         </th>
                       )
                     })}
                     <th
                       key='dropdown_menu'
-                      {...stylex.props(styles.tableHead)}
-                      style={{
-                        cursor: 'pointer',
-                      }}>
+                      {...stylex.props(styles.tableHead)}>
                       <ServiceRequestDropdownMenu></ServiceRequestDropdownMenu>
                     </th>
                   </tr>
@@ -279,7 +315,9 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
               {table.getRowModel().rows.map((row: any) => {
                 const serviceRequestId = row.getValue('id') as string
                 return (
-                  <tr key={row.id}>
+                  <tr
+                    key={row.id}
+                    {...stylex.props(styles.tableRow)}>
                     <td {...stylex.props(styles.tableData, styles.tableCheckboxData)}>
                       <Checkbox.Root
                         {...stylex.props(requestCard.checkboxRoot)}
@@ -294,8 +332,10 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                       if (cell.column.id === 'statuses') {
                         const status = cell.getValue() as Tables<'statuses'>
                         return (
-                          <td key={cell.id} {...stylex.props(styles.tableData, styles.tableStatusData)}>
-                            {status ? status.status_name : ''}
+                          <td
+                            key={cell.id}
+                            {...stylex.props(styles.tableData, styles.tableStatusData)}>
+                            {status ? <span {...stylex.props(styles.statusBadge)}>{status.status_name}</span> : ''}
                           </td>
                         )
                       }
@@ -305,10 +345,12 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                         if (locations) {
                           const link = `/properties/${locations.id}`
                           return (
-                            <td key={cell.id} {...stylex.props(styles.tableData, styles.tableTechnicianData)}>
-                              <Link {...stylex.props(styles.tableDataLink)} href={link}>{`${locations.street_address} ${
-                                locations.unit_number || ''
-                              }`}</Link>
+                            <td
+                              key={cell.id}
+                              {...stylex.props(styles.tableData, styles.tableTechnicianData)}>
+                              <Link
+                                {...stylex.props(styles.tableDataLink)}
+                                href={link}>{`${locations.street_address} ${locations.unit_number || ''}`}</Link>
                             </td>
                           )
                         }
@@ -316,8 +358,12 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                       if (cell.column.id === 'description') {
                         const link = `/servicerequests/${serviceRequestId}`
                         return (
-                          <td key={cell.id} {...stylex.props(styles.tableData, styles.tableDescriptionData)}>
-                            <Link {...stylex.props(styles.tableDataLink)} href={link}>
+                          <td
+                            key={cell.id}
+                            {...stylex.props(styles.tableData, styles.tableDescriptionData)}>
+                            <Link
+                              {...stylex.props(styles.tableDataLink)}
+                              href={link}>
                               {flexRender(cell.column.columnDef.cell, cell.getContext())}
                             </Link>
                           </td>
@@ -330,8 +376,12 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                           ? serviceTypes?.get(serviceType.service_name)?.displayName || ''
                           : ''
                         return (
-                          <td key={cell.id} {...stylex.props(styles.tableData)}>
-                            <Link {...stylex.props(styles.tableDataLink)} href={link}>
+                          <td
+                            key={cell.id}
+                            {...stylex.props(styles.tableData)}>
+                            <Link
+                              {...stylex.props(styles.tableDataLink)}
+                              href={link}>
                               {displayName}
                             </Link>
                           </td>
@@ -339,15 +389,21 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                       }
                       if (cell.column.id === 'tenants') {
                         const tenant = cell.getValue() as Tables<'tenants'>
-                        return <td key={cell.id}>{tenant.name}</td>
+                        return (
+                          <td
+                            key={cell.id}
+                            {...stylex.props(styles.tableData)}>
+                            {tenant.name}
+                          </td>
+                        )
                       }
                       if (cell.column.id === 'date_created') {
-                        const formattedDate = dayjs(cell.getValue()).format('MM/DD/YYYY') // US style date
+                        const formattedDate = dayjs(cell.getValue()).format('MM/DD/YYYY')
                         const formattedTime = dayjs(cell.getValue()).format('HH:mm A')
-                        // formattedTime.replace(' ', '&nbsp')
-                        // const formattedDate = dayjs(cell.getValue()).toDate().toLocaleString('en-US')
                         return (
-                          <td key={cell.id} {...stylex.props(styles.tableData, styles.tableDateData)}>
+                          <td
+                            key={cell.id}
+                            {...stylex.props(styles.tableData, styles.tableDateData)}>
                             <span {...stylex.props(styles.dataDate)}>{formattedDate}</span>
                             {/* <span {...stylex.props(styles.dataTime)}>{formattedTime}</span> */}
                           </td>
@@ -358,14 +414,20 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
 
                         if (technicians.length) {
                           return (
-                            <td key={cell.id} {...stylex.props(styles.tableData, styles.tableTechnicianData)}>
+                            <td
+                              key={cell.id}
+                              {...stylex.props(styles.tableData, styles.tableTechnicianData)}>
                               {technicians.map((technician) => {
                                 return (
                                   <Link
                                     key={technician.id}
                                     href={`technicians/${technician.id}`}
                                     {...stylex.props(styles.tableDataLink)}
-                                    style={{ paddingRight: '5px', display: 'inlineBlock', whiteSpace: 'pre' }}>
+                                    style={{
+                                      paddingRight: '5px',
+                                      display: 'inlineBlock',
+                                      whiteSpace: 'pre',
+                                    }}>
                                     {technician.name}
                                   </Link>
                                 )
@@ -374,18 +436,24 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
                           )
                         }
                         return (
-                          <td key={cell.id} {...stylex.props(styles.tableData)}>
-                            None Assigned
+                          <td
+                            key={cell.id}
+                            {...stylex.props(styles.tableData)}>
+                            <span {...stylex.props(styles.noAssigned)}>None Assigned</span>
                           </td>
                         )
                       }
                       return (
-                        <td key={cell.id} {...stylex.props(styles.tableData)}>
+                        <td
+                          key={cell.id}
+                          {...stylex.props(styles.tableData)}>
                           {flexRender(cell.column.columnDef.cell, cell.getContext())}
                         </td>
                       )
                     })}
-                    <td key={`dropdown_menu_${row.id}`} {...stylex.props(styles.tableData, styles.tableDropdownData)}>
+                    <td
+                      key={`dropdown_menu_${row.id}`}
+                      {...stylex.props(styles.tableData, styles.tableDropdownData)}>
                       <ServiceRequestDropdownMenu></ServiceRequestDropdownMenu>
                     </td>
                   </tr>
@@ -394,7 +462,10 @@ const ServiceRequestTable: React.FC<ServiceRequestTableProps> = ({
             </tbody>
           </table>
         </div>
-        <Pagination currentPage={currentPage} totalPages={totalPages} />
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+        />
       </div>
     </div>
   )

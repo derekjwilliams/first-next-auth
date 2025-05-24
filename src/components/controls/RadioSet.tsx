@@ -8,6 +8,7 @@ import { colors } from '@derekjwilliams/stylextras-open-props-pr/lib/colors.styl
 import { borders } from '@derekjwilliams/stylextras-open-props-pr/lib/borders.stylex'
 import { marigoldColors } from '../../app/customStyles/marigoldColors.stylex'
 import { spacingPatterns } from '../../app/customStyles/spacingPatterns.stylex'
+import { colorPrimitives } from '../../app/customStyles/colorPrimitives.stylex'
 
 const styles = stylex.create({
   label: {
@@ -30,7 +31,7 @@ const styles = stylex.create({
     borderColor: colors.gray8,
     backgroundColor: {
       default: 'white',
-      ':hover': marigoldColors.flowerYellow,
+      ':hover': colorPrimitives.marigoldYellow,
       ':active': 'darkblue',
     },
     borderWidth: borders.size1,

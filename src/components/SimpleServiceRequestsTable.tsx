@@ -16,6 +16,10 @@ import {
 import { Tables } from '@/utils/database.types'
 import { ServiceRequestRow } from '../types'
 import { ArrowUpDown, SortAsc, SortDesc } from 'lucide-react'
+import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
+import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
+import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
+import { borders } from '@derekjwilliams/stylextras-open-props-pr/borders.stylex'
 
 const DEFAULT_PAGE_SIZE = process.env.NEXT_PUBLIC_DEFAULT_SERVICE_REQUEST_PAGE_SIZE
   ? parseInt(process.env.NEXT_PUBLIC_DEFAULT_SERVICE_REQUEST_PAGE_SIZE, 5)
@@ -30,77 +34,152 @@ interface SimpleServiceRequestsTableProps {
   onSortingChange: (sorting: SortingState) => void
   pagination: PaginationState
   onPaginationChange: (pagination: PaginationState) => void
-  includeArchived: boolean // <-- New prop
+  includeArchived: boolean
   onIncludeArchivedChange: (includeArchived: boolean) => void
   isLoading: boolean
   statusMap: Record<string, string>
 }
 
-// Define styles
+// Define styles with marigoldColors theme
 const styles = stylex.create({
   container: {
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
+    maxWidth: '100%',
+    boxSizing: 'border-box',
+    overflow: 'hidden', // Prevent container overflow
   },
   tableContainer: {
-    overflowX: 'auto',
     width: '100%',
+    maxWidth: '100%',
+    overflowX: 'auto',
     position: 'relative',
+    backgroundColor: marigoldColors.backgroundCard,
+    boxSizing: 'border-box',
   },
   table: {
     width: '100%',
+    minWidth: '800px',
     borderCollapse: 'collapse',
+    tableLayout: 'auto',
   },
   headerCell: {
-    padding: '12px 16px',
+    paddingTop: sizes.spacing3,
+    paddingBottom: sizes.spacing3,
+    paddingLeft: sizes.spacing2,
+    paddingRight: sizes.spacing2,
     textAlign: 'left',
-    fontWeight: 600,
-    borderBottom: '1px solid #e2e8f0',
+    fontWeight: fonts.weight6,
+    fontSize: fonts.size1,
+    color: marigoldColors.tableHeaderText,
+    backgroundColor: marigoldColors.tableHeaderBackground,
     cursor: 'pointer',
     userSelect: 'none',
-  },
-  sortIndicator: {
-    marginLeft: '4px',
-  },
-  row: {
+    textTransform: 'uppercase',
+    letterSpacing: '0.05em',
+    whiteSpace: 'nowrap', // Prevent header text wrapping
     ':hover': {
-      backgroundColor: '#f7fafc',
+      backgroundColor: marigoldColors.tableRowHover,
     },
+    transition: 'background-color 0.15s ease',
   },
   cell: {
-    padding: '12px 16px',
-    borderBottom: '1px solid #e2e8f0',
+    padding: sizes.spacing2, // Reduced padding
+    color: marigoldColors.textPrimary,
+    fontSize: fonts.size1, // Slightly smaller font
+    verticalAlign: 'top',
+    lineHeight: 1.4,
+    maxWidth: '200px', // Set max width for cells
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+  paginationControls: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: sizes.spacing2, // Reduced gap
+    marginTop: sizes.spacing3,
+    marginBottom: sizes.spacing3,
+    padding: sizes.spacing3,
+    backgroundColor: marigoldColors.backgroundCard,
+    flexWrap: 'wrap',
+    boxSizing: 'border-box',
+    '@media (max-width: 768px)': {
+      flexDirection: 'column',
+      gap: sizes.spacing2,
+    },
+  },
+  headerCellNonSortable: {
+    cursor: 'default',
+    ':hover': {
+      backgroundColor: marigoldColors.tableHeaderBackground,
+    },
+  },
+  sortIndicator: {
+    marginLeft: sizes.spacing1,
+    color: marigoldColors.textAccent,
+    display: 'inline-flex',
+    alignItems: 'center',
+  },
+  row: {
+    backgroundColor: marigoldColors.backgroundCard,
+    borderBottomWidth: 1,
+    borderBottomStyle: 'solid',
+    borderBottomColor: marigoldColors.borderSubtle,
+    ':hover': {
+      backgroundColor: marigoldColors.tableRowHover,
+    },
+    transition: 'background-color 0.15s ease',
   },
   descriptionLink: {
-    color: '#3182ce',
+    color: marigoldColors.textLinkButton,
     textDecoration: 'none',
+    fontWeight: fonts.weight5,
     ':hover': {
+      color: marigoldColors.textAccent,
       textDecoration: 'underline',
     },
+    transition: 'color 0.15s ease',
   },
   techniciansList: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '4px',
+    gap: sizes.spacing1,
   },
   technicianLink: {
-    color: '#3182ce',
+    color: marigoldColors.textLinkButton,
     textDecoration: 'none',
+    fontSize: fonts.size1,
     ':hover': {
+      color: marigoldColors.textAccent,
       textDecoration: 'underline',
     },
+    transition: 'color 0.15s ease',
+  },
+  unassignedText: {
+    color: marigoldColors.textMuted,
+    fontStyle: 'italic',
+    fontSize: fonts.size1,
   },
   emptyState: {
-    padding: '24px',
+    paddingTop: sizes.spacing6,
+    paddingBottom: sizes.spacing6,
+    paddingLeft: sizes.spacing4,
+    paddingRight: sizes.spacing4,
     textAlign: 'center',
-    color: '#718096',
+    color: marigoldColors.textMuted,
+    fontSize: fonts.size3,
+    fontWeight: fonts.weight5,
   },
   footer: {
-    padding: '12px 16px',
+    padding: `${sizes.spacing3} ${sizes.spacing4}`,
     textAlign: 'right',
-    color: '#718096',
-    fontSize: '14px',
+    color: marigoldColors.textMuted,
+    fontSize: fonts.size1,
+    backgroundColor: marigoldColors.backgroundCard,
+    borderTop: `1px solid ${marigoldColors.borderSubtle}`,
+    borderRadius: `0 0 ${borders.radius2} ${borders.radius2}`,
   },
   loadingOverlay: {
     position: 'absolute',
@@ -108,79 +187,120 @@ const styles = stylex.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: 10,
+    color: marigoldColors.textPrimary,
+    fontSize: fonts.size3,
+    fontWeight: fonts.weight6,
+    borderRadius: borders.radius2,
   },
-  paginationControls: {
+  paginationNavigation: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
-    gap: '1rem',
-    marginTop: '1rem',
-    marginBottom: '1rem',
-    padding: '0.5rem',
-    backgroundColor: 'white',
-    borderRadius: '8px',
-    boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+    gap: sizes.spacing3,
   },
-
   paginationButton: {
-    padding: '0.5rem 1rem',
-    border: '1px solid #e2e8f0',
-    borderRadius: '6px',
-    backgroundColor: '#f8fafc',
-    color: '#334155',
+    paddingTop: sizes.spacing2,
+    paddingBottom: sizes.spacing2,
+    paddingLeft: sizes.spacing4,
+    paddingRight: sizes.spacing4,
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: marigoldColors.borderSubtle,
+    borderRadius: borders.radius1,
+    backgroundColor: marigoldColors.backgroundButton,
+    color: marigoldColors.foregroundButton,
     cursor: 'pointer',
-    fontWeight: 500,
+    fontWeight: fonts.weight5,
+    fontSize: fonts.size1,
     transition: 'all 0.2s ease',
     ':hover': {
-      backgroundColor: '#e2e8f0',
-      borderColor: '#cbd5e1',
+      backgroundColor: marigoldColors.backgroundHoverButton,
+      borderColor: marigoldColors.textAccent,
     },
     ':disabled': {
       opacity: 0.5,
       cursor: 'not-allowed',
-      backgroundColor: '#f1f5f9',
-    },
-    ':focus-visible': {
-      outline: '2px solid #3b82f6',
-      outlineOffset: '2px',
+      backgroundColor: marigoldColors.backgroundButton,
+      ':hover': {
+        backgroundColor: marigoldColors.backgroundButton,
+        borderColor: marigoldColors.borderSubtle,
+      },
     },
   },
-
   pageInfo: {
-    margin: '0 0.5rem',
-    color: '#475569',
-    fontSize: '0.875rem',
-    fontWeight: 500,
+    margin: `0 ${sizes.spacing2}`,
+    color: marigoldColors.textPrimary,
+    fontSize: fonts.size1,
+    fontWeight: fonts.weight5,
+    whiteSpace: 'nowrap',
   },
   pageSizeSelect: {
-    padding: '0.5rem 0.75rem',
-    border: '1px solid #e2e8f0',
-    borderRadius: '6px',
-    backgroundColor: '#f8fafc',
-    color: '#334155',
-    fontSize: '0.875rem',
+    paddingTop: sizes.spacing2,
+    paddingBottom: sizes.spacing2,
+    paddingLeft: sizes.spacing3,
+    paddingRight: sizes.spacing3,
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: marigoldColors.borderSubtle,
+    borderRadius: borders.radius1,
+    backgroundColor: marigoldColors.selectBackground,
+    color: marigoldColors.selectInputColor,
+    fontSize: fonts.size1,
     cursor: 'pointer',
     transition: 'all 0.2s ease',
     ':hover': {
-      borderColor: '#cbd5e1',
-    },
-    ':focus': {
-      outline: '2px solid #3b82f6',
-      outlineOffset: '2px',
+      borderColor: marigoldColors.textAccent,
     },
   },
   costCell: {
-    textAlign: 'right', // Align currency to the right
+    textAlign: 'right',
+    fontWeight: fonts.weight5,
+    fontFamily: 'monospace',
   },
   archivedCheckboxContainer: {
     display: 'flex',
     alignItems: 'center',
-    gap: '8px',
+    gap: sizes.spacing2,
+    color: marigoldColors.textPrimary,
+    fontSize: fonts.size1,
+  },
+  archivedCheckbox: {
+    width: 16,
+    height: 16,
+    cursor: 'pointer',
+  },
+  archivedLabel: {
+    cursor: 'pointer',
+    fontWeight: fonts.weight5,
+    color: marigoldColors.textPrimary,
+  },
+  statusBadge: {
+    display: 'inline-block',
+    paddingTop: sizes.spacing1,
+    paddingBottom: sizes.spacing1,
+    paddingLeft: sizes.spacing2,
+    paddingRight: sizes.spacing2,
+    borderRadius: borders.radius1,
+    fontSize: fonts.size0,
+    fontWeight: fonts.weight6,
+    textTransform: 'uppercase',
+    letterSpacing: '0.025em',
+    color: '#ffffff',
+    minWidth: '60px',
+    textAlign: 'center',
+  },
+  statusOpen: {
+    backgroundColor: marigoldColors.statusOpen,
+  },
+  statusClosed: {
+    backgroundColor: marigoldColors.statusClosed,
+  },
+  statusInProgress: {
+    backgroundColor: marigoldColors.statusInProgress,
   },
 })
 
@@ -198,10 +318,17 @@ export default function SimpleServiceRequestsTable({
 }: SimpleServiceRequestsTableProps): React.JSX.Element {
   const formatCurrency = (value: number | null | undefined) => {
     if (value === null || typeof value === 'undefined') {
-      return 'N/A' // Or '-' or an empty string if preferred
+      return 'N/A'
     }
-    // Basic number formatting with currency symbol
     return `${CURRENCY_SYMBOL}${value.toFixed(2)}`
+  }
+
+  const getStatusBadgeStyle = (statusName: string) => {
+    const status = statusName?.toLowerCase()
+    if (status === 'open') return [styles.statusBadge, styles.statusOpen]
+    if (status === 'closed') return [styles.statusBadge, styles.statusClosed]
+    if (status === 'in progress' || status === 'in_progress') return [styles.statusBadge, styles.statusInProgress]
+    return [styles.statusBadge, styles.statusClosed] // default
   }
 
   const columns: ColumnDef<ServiceRequestRow>[] = [
@@ -210,9 +337,10 @@ export default function SimpleServiceRequestsTable({
       header: 'Status',
       cell: (info) => {
         const statusId = info.getValue() as string
-        return statusMap[statusId] ?? 'Unknown'
+        const statusName = statusMap[statusId] ?? 'Unknown'
+        return <span {...stylex.props(...getStatusBadgeStyle(statusName))}>{statusName}</span>
       },
-      // enableSorting: true, // You might want to enable sorting by status
+      enableSorting: true,
     },
     {
       accessorKey: 'description',
@@ -224,30 +352,32 @@ export default function SimpleServiceRequestsTable({
           {getValue() as string}
         </Link>
       ),
-      // enableSorting: true, // Sorting by description is often useful
+      enableSorting: true,
     },
     {
       accessorFn: (row) => row.service_types?.service_name || 'Unnamed Service',
       id: 'service_type',
       header: 'Type',
       cell: (info) => info.getValue() as string,
-      // enableSorting: true,
+      enableSorting: true,
     },
     {
-      accessorKey: 'material_cost', // New Column
+      accessorKey: 'material_cost',
       header: 'Material Cost',
       cell: (info) => formatCurrency(info.getValue() as number | null),
       meta: {
         cellStyle: styles.costCell,
       },
+      enableSorting: true,
     },
     {
-      accessorKey: 'labor_cost', // New Column
+      accessorKey: 'labor_cost',
       header: 'Labor Cost',
       cell: (info) => formatCurrency(info.getValue() as number | null),
       meta: {
         cellStyle: styles.costCell,
       },
+      enableSorting: true,
     },
     {
       accessorKey: 'technicians',
@@ -255,7 +385,7 @@ export default function SimpleServiceRequestsTable({
       cell: ({ getValue }) => {
         const technicians = getValue() as Array<Tables<'technicians'>>
         if (!technicians?.length) {
-          return <div>Unassigned</div>
+          return <div {...stylex.props(styles.unassignedText)}>Unassigned</div>
         }
 
         return (
@@ -271,7 +401,7 @@ export default function SimpleServiceRequestsTable({
           </div>
         )
       },
-      enableSorting: false, // Typically false for multi-value fields unless handled specially
+      enableSorting: false,
     },
   ]
 
@@ -284,17 +414,12 @@ export default function SimpleServiceRequestsTable({
     } else if (!currentSort.desc) {
       newSorting = [{ id: columnId, desc: true }]
     } else {
-      // Cycle back to unsorted or to ascending, depending on preference
-      // For simplicity, cycling back to ascending:
       newSorting = [{ id: columnId, desc: false }]
-      // Or to remove sorting for this column:
-      // newSorting = sorting.filter(s => s.id !== columnId);
     }
     onSortingChange(newSorting)
   }
 
   const handleSortingChange: OnChangeFn<SortingState> = (updaterOrValue) => {
-    // TanStack Table can pass a value or an updater function
     const newSorting = typeof updaterOrValue === 'function' ? updaterOrValue(sorting) : updaterOrValue
     onSortingChange(newSorting)
   }
@@ -337,7 +462,7 @@ export default function SimpleServiceRequestsTable({
                   <th
                     key={header.id}
                     scope='col'
-                    {...stylex.props(styles.headerCell)}
+                    {...stylex.props(styles.headerCell, !header.column.getCanSort() && styles.headerCellNonSortable)}
                     onClick={() => header.column.getCanSort() && handleHeaderClick(header.column.id)}
                     style={{
                       cursor: header.column.getCanSort() ? 'pointer' : 'default',
@@ -367,22 +492,40 @@ export default function SimpleServiceRequestsTable({
             ))}
           </thead>
           <tbody>
-            {table.getRowModel().rows.map((row) => (
-              <tr
-                key={row.id}
-                {...stylex.props(styles.row)}>
-                {row.getVisibleCells().map((cell) => (
-                  <td
-                    key={cell.id}
-                    {...stylex.props(styles.cell)}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                ))}
+            {table.getRowModel().rows.length === 0 ? (
+              <tr>
+                <td
+                  colSpan={columns.length}
+                  {...stylex.props(styles.emptyState)}>
+                  No service requests found
+                </td>
               </tr>
-            ))}
+            ) : (
+              table.getRowModel().rows.map((row) => (
+                <tr
+                  key={row.id}
+                  {...stylex.props(styles.row)}>
+                  {row.getVisibleCells().map((cell) => (
+                    <td
+                      key={cell.id}
+                      {...stylex.props(
+                        styles.cell,
+                        cell.column.id === 'material_cost' && styles.costCell,
+                        cell.column.id === 'labor_cost' && styles.costCell,
+                      )}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </td>
+                  ))}
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
+        <div {...stylex.props(styles.footer)}>
+          Showing {table.getRowModel().rows.length} of {totalCount} service requests
+        </div>
       </div>
+
       <div {...stylex.props(styles.paginationControls)}>
         <div {...stylex.props(styles.archivedCheckboxContainer)}>
           <input
@@ -390,10 +533,16 @@ export default function SimpleServiceRequestsTable({
             type='checkbox'
             checked={includeArchived}
             onChange={handleIncludeArchivedChange}
+            {...stylex.props(styles.archivedCheckbox)}
           />
-          <label htmlFor='include-archived'>Include Archived</label>
+          <label
+            htmlFor='include-archived'
+            {...stylex.props(styles.archivedLabel)}>
+            Include Archived
+          </label>
         </div>
-        <div>
+
+        <div {...stylex.props(styles.paginationNavigation)}>
           <button
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
@@ -410,6 +559,7 @@ export default function SimpleServiceRequestsTable({
             Next
           </button>
         </div>
+
         <select
           value={table.getState().pagination.pageSize}
           onChange={(e) => {
@@ -424,10 +574,6 @@ export default function SimpleServiceRequestsTable({
             </option>
           ))}
         </select>
-      </div>
-
-      <div {...stylex.props(styles.footer)}>
-        Showing {table.getRowModel().rows.length} of {totalCount} service requests
       </div>
     </div>
   )

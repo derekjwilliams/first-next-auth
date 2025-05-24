@@ -4,6 +4,7 @@
 import { useState, useEffect } from 'react'
 import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
+import { colorPrimitives } from '../app/customStyles/colorPrimitives.stylex'
 import { colors } from '@derekjwilliams/stylextras-open-props-pr/colors.stylex'
 import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
 import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
@@ -15,7 +16,6 @@ import useSupabase from 'src/hooks/useSupabase'
 import { addServiceRequestMutation } from 'src/queries/addServiceRequest'
 import { serviceTypes } from '../utils/serviceTypes'
 import { useRouter } from 'next/navigation'
-import Link from 'next/link'
 
 interface CreateServiceRequestFormProps {
   locationId?: string
@@ -145,8 +145,8 @@ const styles = stylex.create({
     borderRadius: borders.radius2,
     border: `1px solid ${colors.stone3}`,
     backgroundColor: {
-      default: marigoldColors.leafHighlight,
-      ':hover': marigoldColors.flowerGold,
+      default: colorPrimitives.marigoldLeafLight,
+      ':hover': colorPrimitives.marigoldGold,
     },
     color: marigoldColors.foregroundButton,
     cursor: 'pointer',

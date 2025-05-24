@@ -9,7 +9,7 @@ import { ReactQueryClientProvider } from '@/components/ReactQueryClientProvider'
 import Image from 'next/image'
 import Navigation from '../components/Navigation'
 import Link from 'next/link'
-import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
+import { colorPrimitives } from '../app/customStyles/colorPrimitives.stylex'
 import { NextSSRPlugin } from '@uploadthing/react/next-ssr-plugin'
 import { extractRouterConfig } from 'uploadthing/server'
 import { ourFileRouter } from './api/uploadthing/core'
@@ -42,7 +42,7 @@ const styles = stylex.create({
   },
   top: {
     width: '100%',
-    backgroundColor: marigoldColors.flowerYellow,
+    backgroundColor: colorPrimitives.marigoldYellow,
     paddingLeft: sizes.spacing2,
     paddingTop: sizes.spacing2,
     display: 'flex',
@@ -54,7 +54,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const header = (
     <div {...stylex.props(styles.top)}>
       <Link href='/'>
-        <Image alt='simple logo' width={logoSize} height={logoSize} src='/simple_logo.png' priority={true} />
+        <Image
+          alt='simple logo'
+          width={logoSize}
+          height={logoSize}
+          src='/simple_logo.png'
+          priority={true}
+        />
       </Link>
       <Navigation></Navigation>
     </div>
@@ -62,8 +68,15 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang='en'>
       <head>
-        <link rel='preconnect' href='https://fonts.googleapis.com' />
-        <link rel='preconnect' href='https://fonts.gstatic.com' crossOrigin='anonymous' />
+        <link
+          rel='preconnect'
+          href='https://fonts.googleapis.com'
+        />
+        <link
+          rel='preconnect'
+          href='https://fonts.gstatic.com'
+          crossOrigin='anonymous'
+        />
       </head>
       <body {...stylex.props(styles.reset, styles.body)}>
         {/* <PermissionsProvider initialUser={userAttributes}> */}

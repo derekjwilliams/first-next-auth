@@ -1,13 +1,6 @@
 import * as stylex from '@stylexjs/stylex'
 
 type TColors = Readonly<{
-  flowerYellow: string
-  flowerGold: string
-  flowerRed: string
-  environmentBrown: string
-  leaf: string
-  pansy: string
-  slate: string
   backgroundDetails: string
   background: string
   backgroundData: string

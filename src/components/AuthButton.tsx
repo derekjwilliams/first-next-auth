@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
+import { colorPrimitives } from '../app/customStyles/colorPrimitives.stylex'
 import { colors } from '@derekjwilliams/stylextras-open-props-pr/colors.stylex'
 import { borders } from '@derekjwilliams/stylextras-open-props-pr/borders.stylex'
 import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
@@ -13,7 +14,7 @@ const authButtonWrapper = stylex.create({
     alignItems: 'center',
     gap: '1rem',
     width: '20%',
-    color: marigoldColors.slate,
+    color: colorPrimitives.marigoldSlate,
   },
 })
 const authButton = stylex.create({
@@ -24,7 +25,7 @@ const authButton = stylex.create({
     padding: sizes.spacing2,
     backgroundColor: {
       default: colors.gray0,
-      ':hover': marigoldColors.flowerYellow,
+      ':hover': colorPrimitives.marigoldYellow,
     },
     transitionDuration: '500ms',
     transitionProperty: 'backgroundColor',
@@ -55,7 +56,9 @@ export default async function AuthButton() {
       </form>
     </div>
   ) : (
-    <Link href='/login' {...stylex.props(authButton.base)}>
+    <Link
+      href='/login'
+      {...stylex.props(authButton.base)}>
       Login
     </Link>
   )

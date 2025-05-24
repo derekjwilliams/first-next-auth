@@ -4,6 +4,7 @@ import AuthButton from '../../components/AuthButton'
 import { createClient } from '../../lib/supabase/client'
 import Link from 'next/link'
 import { marigoldColors } from '../customStyles/marigoldColors.stylex'
+import { colorPrimitives } from '../customStyles/colorPrimitives.stylex'
 import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
 import { borders } from '@derekjwilliams/stylextras-open-props-pr/borders.stylex'
 import { colors } from '@derekjwilliams/stylextras-open-props-pr/colors.stylex'
@@ -45,7 +46,7 @@ const serviceCard = stylex.create({
     padding: sizes.spacing2,
     backgroundColor: {
       default: marigoldColors.background,
-      ':hover': marigoldColors.flowerYellow,
+      ':hover': colorPrimitives.marigoldYellow,
     },
     transitionDuration: '500ms',
     transitionProperty: 'backgroundColor',
@@ -56,7 +57,7 @@ const serviceCard = stylex.create({
     // border: `2px solid ${colors.stone5}`,
     backgroundColor: {
       default: marigoldColors.backgroundButton,
-      ':hover': marigoldColors.flowerGold,
+      ':hover': colorPrimitives.marigoldYellow,
     },
     color: marigoldColors.foregroundButton,
     cursor: 'pointer',
@@ -178,7 +179,7 @@ export default async function Page() {
         {/* Updated link to point to the new service request page with serviceTypeName parameter */}
         <Link
           href={`/servicerequests/new?serviceTypeName=${snakeCaseKey}`}
-          key={`new-request-${snakeCaseKey}`}
+          key={`new-request-${snakeCaseKey}-create`}
           {...stylex.props(serviceCard.newRequest)}>
           <Plus size={20} />
         </Link>

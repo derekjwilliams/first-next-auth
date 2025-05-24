@@ -6,6 +6,7 @@ import { Check } from 'lucide-react'
 import * as Form from '@radix-ui/react-form'
 import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
+import { colorPrimitives } from '../app/customStyles/colorPrimitives.stylex'
 import { colors } from '@derekjwilliams/stylextras-open-props-pr/colors.stylex'
 import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
 import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
@@ -51,7 +52,7 @@ const form = stylex.create({
     backgroundColor: colors.gray0,
     borderColor: {
       default: colors.gray12,
-      ':hover': marigoldColors.flowerYellow,
+      ':hover': colorPrimitives.marigoldYellow,
     },
   },
   textarea: {
@@ -72,7 +73,7 @@ const form = stylex.create({
     padding: sizes.spacing2,
     backgroundColor: {
       default: colors.gray0,
-      ':hover': marigoldColors.flowerYellow,
+      ':hover': colorPrimitives.marigoldYellow,
     },
     transitionDuration: '500ms',
     transitionProperty: 'backgroundColor',
@@ -133,30 +134,50 @@ function AddTechnician() {
   return (
     <>
       <h1 {...stylex.props(header.base)}>Add Technician </h1>
-      <Form.Root {...stylex.props(form.root)} onSubmit={onCreateTechnician}>
-        <Form.Field className='FormField' name='technician_name'>
+      <Form.Root
+        {...stylex.props(form.root)}
+        onSubmit={onCreateTechnician}>
+        <Form.Field
+          className='FormField'
+          name='technician_name'>
           <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
             <Form.Label className='FormLabel'>Name</Form.Label>
-            <Form.Message className='FormMessage' match='valueMissing'>
+            <Form.Message
+              className='FormMessage'
+              match='valueMissing'>
               Please enter technician name
             </Form.Message>
           </div>
           <Form.Control asChild>
-            <input className='Input' type='text' required />
+            <input
+              className='Input'
+              type='text'
+              required
+            />
           </Form.Control>
         </Form.Field>
-        <Form.Field className='FormField' name='email'>
+        <Form.Field
+          className='FormField'
+          name='email'>
           <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
             <Form.Label className='FormLabel'>Email</Form.Label>
-            <Form.Message className='FormMessage' match='valueMissing'>
+            <Form.Message
+              className='FormMessage'
+              match='valueMissing'>
               Please enter your email
             </Form.Message>
-            <Form.Message className='FormMessage' match='typeMismatch'>
+            <Form.Message
+              className='FormMessage'
+              match='typeMismatch'>
               Please provide a valid email
             </Form.Message>
           </div>
           <Form.Control asChild>
-            <input className='Input' type='email' required />
+            <input
+              className='Input'
+              type='email'
+              required
+            />
           </Form.Control>
         </Form.Field>
         <Form.Submit asChild>
@@ -184,8 +205,12 @@ export default function MultipleTechnicians() {
       <AddTechnician></AddTechnician>
       <form {...stylex.props(items.list)}>
         {technicians.map((technician: any) => (
-          <div key={technician.id} {...stylex.props(card.base)}>
-            <Checkbox.Root {...stylex.props(card.checkboxRoot)} id={technician.id}>
+          <div
+            key={technician.id}
+            {...stylex.props(card.base)}>
+            <Checkbox.Root
+              {...stylex.props(card.checkboxRoot)}
+              id={technician.id}>
               <Checkbox.Indicator {...stylex.props(card.checkboxIndicator)}>
                 <Check {...stylex.props(card.icon)} />
               </Checkbox.Indicator>
