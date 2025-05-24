@@ -64,6 +64,29 @@ const styles = stylex.create({
     borderCollapse: 'collapse',
     tableLayout: 'auto',
   },
+  costColumn: {
+    width: '160px',
+    minWidth: '160px',
+    maxWidth: '120px',
+  },
+  typeColumn: {
+    width: '140px',
+    minWidth: '140px',
+    maxWidth: '140px',
+  },
+  statusColumn: {
+    width: '100px',
+    minWidth: '100px',
+    maxWidth: '100px',
+  },
+  technicianColumn: {
+    minWidth: '150px',
+    maxWidth: '200px',
+  },
+  descriptionColumn: {
+    minWidth: '200px',
+    // Let description take remaining space
+  },
   headerCell: {
     paddingTop: sizes.spacing3,
     paddingBottom: sizes.spacing3,
@@ -462,7 +485,17 @@ export default function SimpleServiceRequestsTable({
                   <th
                     key={header.id}
                     scope='col'
-                    {...stylex.props(styles.headerCell, !header.column.getCanSort() && styles.headerCellNonSortable)}
+                    {...stylex.props(
+                      styles.headerCell,
+                      !header.column.getCanSort() && styles.headerCellNonSortable,
+                      // Add column-specific width styles
+                      header.column.id === 'status_id' && styles.statusColumn,
+                      header.column.id === 'service_type' && styles.typeColumn,
+                      header.column.id === 'material_cost' && styles.costColumn,
+                      header.column.id === 'labor_cost' && styles.costColumn,
+                      header.column.id === 'technicians' && styles.technicianColumn,
+                      header.column.id === 'description' && styles.descriptionColumn,
+                    )}
                     onClick={() => header.column.getCanSort() && handleHeaderClick(header.column.id)}
                     style={{
                       cursor: header.column.getCanSort() ? 'pointer' : 'default',
