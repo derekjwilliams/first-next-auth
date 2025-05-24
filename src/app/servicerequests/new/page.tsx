@@ -54,10 +54,20 @@ export default function NewServiceRequestPage() {
   }))
 
   // Format location options
-  const locationOptions = locations.map((loc) => ({
-    id: loc.id,
-    name: loc.location_name || loc.street_address || `Location ${loc.id}`,
-  }))
+  const locationOptions = locations.map((loc) => {
+    let locationDisplay
+    if (loc.location_name) {
+      locationDisplay = loc.location_name
+    } else if (loc.street_address) {
+      locationDisplay = loc.street_address + (loc.unit_number ? ', Unit ' + loc.unit_number : '')
+    } else {
+      locationDisplay = `Location ${loc.id}`
+    }
+    return {
+      id: loc.id,
+      name: locationDisplay,
+    }
+  })
 
   // Format service type options
   const serviceTypeOptions = serviceTypes.map((type) => ({
