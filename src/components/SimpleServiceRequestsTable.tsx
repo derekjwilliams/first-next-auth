@@ -12,9 +12,9 @@ import {
   type SortingState,
   type OnChangeFn,
   type PaginationState,
+  CellContext,
 } from '@tanstack/react-table'
-import { Tables } from '@/utils/database.types'
-import { ServiceRequestRow } from '../types'
+import { Database, Tables } from '@/utils/database.types'
 import { ArrowUpDown, SortAsc, SortDesc } from 'lucide-react'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
@@ -27,6 +27,10 @@ const DEFAULT_PAGE_SIZE = process.env.NEXT_PUBLIC_DEFAULT_SERVICE_REQUEST_PAGE_S
 
 const CURRENCY_SYMBOL = '$'
 
+type ServiceRequestRow = Database['public']['Tables']['service_requests']['Row'] & {
+  location: Database['public']['Tables']['locations']['Row']
+}
+
 interface SimpleServiceRequestsTableProps {
   serviceRequests: ServiceRequestRow[]
   totalCount: number
@@ -38,6 +42,7 @@ interface SimpleServiceRequestsTableProps {
   onIncludeArchivedChange: (includeArchived: boolean) => void
   isLoading: boolean
   statusMap: Record<string, string>
+  entityType: 'location' | 'serviceType' | 'technician'
 }
 
 // Define styles with marigoldColors theme
@@ -48,8 +53,10 @@ const styles = stylex.create({
     width: '100%',
     maxWidth: '100%',
     boxSizing: 'border-box',
-    overflow: 'hidden', // Prevent container overflow
+    overflow: 'hidden',
   },
+
+  // Table styles
   tableContainer: {
     width: '100%',
     maxWidth: '100%',
@@ -75,17 +82,20 @@ const styles = stylex.create({
     maxWidth: '140px',
   },
   statusColumn: {
-    width: '100px',
-    minWidth: '100px',
-    maxWidth: '100px',
+    width: '150px',
+    minWidth: '150px',
+    maxWidth: '150px',
   },
   technicianColumn: {
     minWidth: '150px',
     maxWidth: '200px',
   },
+  locationColumn: {
+    minWidth: '150px',
+    maxWidth: '200px',
+  },
   descriptionColumn: {
     minWidth: '200px',
-    // Let description take remaining space
   },
   headerCell: {
     paddingTop: sizes.spacing3,
@@ -107,6 +117,16 @@ const styles = stylex.create({
     },
     transition: 'background-color 0.15s ease',
   },
+  row: {
+    backgroundColor: marigoldColors.backgroundCard,
+    borderBottomWidth: 1,
+    borderBottomStyle: 'solid',
+    borderBottomColor: marigoldColors.borderSubtle,
+    ':hover': {
+      backgroundColor: marigoldColors.tableRowHover,
+    },
+    transition: 'background-color 0.15s ease',
+  },
   cell: {
     padding: sizes.spacing2, // Reduced padding
     color: marigoldColors.textPrimary,
@@ -117,6 +137,7 @@ const styles = stylex.create({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
+  // Pagination styles
   paginationControls: {
     display: 'flex',
     alignItems: 'center',
@@ -144,16 +165,6 @@ const styles = stylex.create({
     color: marigoldColors.textAccent,
     display: 'inline-flex',
     alignItems: 'center',
-  },
-  row: {
-    backgroundColor: marigoldColors.backgroundCard,
-    borderBottomWidth: 1,
-    borderBottomStyle: 'solid',
-    borderBottomColor: marigoldColors.borderSubtle,
-    ':hover': {
-      backgroundColor: marigoldColors.tableRowHover,
-    },
-    transition: 'background-color 0.15s ease',
   },
   descriptionLink: {
     color: marigoldColors.textLinkButton,
@@ -338,6 +349,7 @@ export default function SimpleServiceRequestsTable({
   onIncludeArchivedChange,
   isLoading = false,
   statusMap,
+  entityType,
 }: SimpleServiceRequestsTableProps): React.JSX.Element {
   const formatCurrency = (value: number | null | undefined) => {
     if (value === null || typeof value === 'undefined') {
@@ -377,13 +389,46 @@ export default function SimpleServiceRequestsTable({
       ),
       enableSorting: true,
     },
-    {
-      accessorFn: (row) => row.service_types?.service_name || 'Unnamed Service',
-      id: 'service_type',
-      header: 'Type',
-      cell: (info) => info.getValue() as string,
-      enableSorting: true,
-    },
+    ...(entityType !== 'location'
+      ? [
+          {
+            accessorKey: 'location',
+            header: 'Property',
+            cell: (
+              info: CellContext<
+                Tables<'service_requests'> & {
+                  location: Tables<'locations'>
+                },
+                unknown
+              >,
+            ) => {
+              const location = info.getValue() as Tables<'locations'>
+              const unitSuffix = location.unit_number ? `, Unit ${location.unit_number}` : ''
+              return (
+                <Link
+                  href={`/properties/${location.id}`}
+                  {...stylex.props(styles.descriptionLink)}>
+                  <span>{`${location.street_address} ${unitSuffix}`}</span>
+                </Link>
+              )
+            },
+            enableSorting: true,
+          },
+        ]
+      : []),
+    ...(entityType !== 'serviceType'
+      ? [
+          {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            accessorFn: (row: any) => row.service_types?.service_name || 'Unnamed Service',
+            id: 'service_type',
+            header: 'Type',
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            cell: (info: any) => info.getValue() as string,
+            enableSorting: true,
+          },
+        ]
+      : []),
     {
       accessorKey: 'material_cost',
       header: 'Material Cost',
@@ -495,6 +540,7 @@ export default function SimpleServiceRequestsTable({
                       header.column.id === 'labor_cost' && styles.costColumn,
                       header.column.id === 'technicians' && styles.technicianColumn,
                       header.column.id === 'description' && styles.descriptionColumn,
+                      header.column.id === 'location' && styles.locationColumn,
                     )}
                     onClick={() => header.column.getCanSort() && handleHeaderClick(header.column.id)}
                     style={{

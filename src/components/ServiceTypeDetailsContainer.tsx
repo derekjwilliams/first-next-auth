@@ -23,7 +23,6 @@ const styles = stylex.create({
 export default function ServiceTypeDetailsContainer({ serviceTypeIdentifier }: ServiceTypeDetailsContainerProps) {
   const [serviceTypeId, setServiceTypeId] = useState<string | null>(null)
   const [isLoadingIdentifier, setIsLoadingIdentifier] = useState(!isUUID(serviceTypeIdentifier))
-
   // If identifier is a UUID, use it directly
   const isIdDirectlyUsable = isUUID(serviceTypeIdentifier)
 

@@ -34,7 +34,8 @@ export async function getServiceRequests(
       *,
       service_types(*),
       status:statuses(*),
-      technicians(*)
+      technicians(*),
+      location:locations(id, street_address, unit_number)
     `,
   )
 
@@ -53,7 +54,6 @@ export async function getServiceRequests(
   if (!options.includeArchived && options.archivedStatusId) {
     query = query.not('status_id', 'eq', options.archivedStatusId)
   }
-
   // Apply sorting if provided
   if (options.sorting && options.sorting.length > 0) {
     const sort = options.sorting[0] // Use the first sort criteria

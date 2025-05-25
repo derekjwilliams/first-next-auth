@@ -6,7 +6,6 @@ import { type SortingState, type PaginationState } from '@tanstack/react-table'
 import SimpleServiceRequestsTable from './SimpleServiceRequestsTable'
 import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
-import { colors } from '@derekjwilliams/stylextras-open-props-pr/colors.stylex'
 import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
 import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
 import { borders } from '@derekjwilliams/stylextras-open-props-pr/borders.stylex'
@@ -251,6 +250,7 @@ export default function ServiceRequestTableContainer({
             onIncludeArchivedChange={handleIncludeArchivedToggle}
             isLoading={isLoadingServiceRequests || isStatusMapLoading}
             statusMap={statusMap}
+            entityType={entityType}
           />
         )}
       </div>
