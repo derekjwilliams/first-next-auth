@@ -407,7 +407,7 @@ export default function SimpleServiceRequestsTable({
               const unitSuffix = location.unit_number ? `, Unit ${location.unit_number}` : ''
               return (
                 <Link
-                  href={`/properties/`}
+                  href={`/properties/${location.id}`}
                   {...stylex.props(styles.locationLink)}>
                   {`${location.street_address} ${unitSuffix}`}
                 </Link>
