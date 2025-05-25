@@ -24,7 +24,6 @@ export type ServiceRequestMutationInput = Partial<Tables<'service_requests'>>
 export type ServiceRequestRow = Tables<'service_requests'> & {
   service_types: Tables<'service_types'> | null
   technicians: Tables<'technicians'>[]
-  locations: Tables<'locations'>
 }
 
 export interface ServiceRequestsResult {

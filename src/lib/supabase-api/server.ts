@@ -88,10 +88,7 @@ export async function getCurrentUserAttributes(): Promise<UserAttributes | null>
 
   // 5. Handle profile fetching results and map to UserAttributes
   if (profileError) {
-    console.error(
-      `Error fetching profile for user ${user.id}, this can happen if there is no profile for the user:`,
-      profileError.message,
-    )
+    console.error(`Error fetching profile for user ${user.id}:`, profileError.message)
     return { id: user.id, roles: [], department: null } // Example fallback
   }
   if (!profile) {

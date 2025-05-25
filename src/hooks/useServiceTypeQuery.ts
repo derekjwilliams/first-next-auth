@@ -4,10 +4,12 @@ import { getServiceTypeById } from '../queries/getServiceTypeById'
 
 export function useServiceTypeById(serviceTypeId: string) {
   const client = useSupabase()
-  const queryKey = ['serviceType', 'byId', , serviceTypeId]
+  const id = serviceTypeId
+  const queryKey = ['serviceType', 'byId', , id]
+
   const queryFn = async () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return getServiceTypeById(client, serviceTypeId!)?.then((result: { data: any }) => result.data)
+    return getServiceTypeById(client, id!)?.then((result: { data: any }) => result.data)
   }
   return useQuery({ queryKey, queryFn })
 }

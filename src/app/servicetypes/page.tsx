@@ -175,9 +175,7 @@ export default async function Page() {
     const snakeCaseKey = pascalToSnakeCase(key)
 
     serviceLinks.push(
-      <div
-        {...stylex.props(serviceCard.base)}
-        key={`new-request-${snakeCaseKey}`}>
+      <div {...stylex.props(serviceCard.base)}>
         {/* Updated link to point to the new service request page with serviceTypeName parameter */}
         <Link
           href={`/servicerequests/new?serviceTypeName=${snakeCaseKey}`}
@@ -187,7 +185,7 @@ export default async function Page() {
         </Link>
         <Link
           href={`/servicetypes/${snakeCaseKey}`}
-          key={`new-request-${snakeCaseKey}-display`}
+          key={`new-request-${snakeCaseKey}`}
           {...stylex.props(serviceCard.linkOverlay)}>
           <Image
             draggable={false}
