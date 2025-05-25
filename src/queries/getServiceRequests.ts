@@ -34,7 +34,8 @@ export async function getServiceRequests(
       *,
       service_types(*),
       status:statuses(*),
-      technicians(*)
+      technicians(*),
+      locations(*)
     `,
   )
 

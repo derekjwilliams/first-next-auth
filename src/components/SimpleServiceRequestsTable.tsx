@@ -38,6 +38,18 @@ interface SimpleServiceRequestsTableProps {
   onIncludeArchivedChange: (includeArchived: boolean) => void
   isLoading: boolean
   statusMap: Record<string, string>
+  entityType: 'location' | 'serviceType' | 'technician'
+}
+
+const commonLinkProperties = {
+  color: marigoldColors.textLinkButton,
+  textDecoration: 'none',
+  fontWeight: fonts.weight5,
+  ':hover': {
+    color: marigoldColors.textAccent,
+    textDecoration: 'underline',
+  },
+  transition: 'color 0.15s ease',
 }
 
 // Define styles with marigoldColors theme
@@ -67,7 +79,9 @@ const styles = stylex.create({
   costColumn: {
     width: '160px',
     minWidth: '160px',
-    maxWidth: '120px',
+    maxWidth: '160px',
+    textAlign: 'right',
+    paddingRight: sizes.spacing2,
   },
   typeColumn: {
     width: '140px',
@@ -75,11 +89,15 @@ const styles = stylex.create({
     maxWidth: '140px',
   },
   statusColumn: {
-    width: '100px',
-    minWidth: '100px',
-    maxWidth: '100px',
+    width: '150px',
+    minWidth: '150px',
+    maxWidth: '150px',
   },
   technicianColumn: {
+    minWidth: '150px',
+    maxWidth: '200px',
+  },
+  locationColumn: {
     minWidth: '150px',
     maxWidth: '200px',
   },
@@ -102,6 +120,16 @@ const styles = stylex.create({
     textTransform: 'uppercase',
     letterSpacing: '0.05em',
     whiteSpace: 'nowrap', // Prevent header text wrapping
+    ':hover': {
+      backgroundColor: marigoldColors.tableRowHover,
+    },
+    transition: 'background-color 0.15s ease',
+  },
+  row: {
+    backgroundColor: marigoldColors.backgroundCard,
+    borderBottomWidth: 1,
+    borderBottomStyle: 'solid',
+    borderBottomColor: marigoldColors.borderSubtle,
     ':hover': {
       backgroundColor: marigoldColors.tableRowHover,
     },
@@ -145,25 +173,11 @@ const styles = stylex.create({
     display: 'inline-flex',
     alignItems: 'center',
   },
-  row: {
-    backgroundColor: marigoldColors.backgroundCard,
-    borderBottomWidth: 1,
-    borderBottomStyle: 'solid',
-    borderBottomColor: marigoldColors.borderSubtle,
-    ':hover': {
-      backgroundColor: marigoldColors.tableRowHover,
-    },
-    transition: 'background-color 0.15s ease',
-  },
   descriptionLink: {
-    color: marigoldColors.textLinkButton,
-    textDecoration: 'none',
-    fontWeight: fonts.weight5,
-    ':hover': {
-      color: marigoldColors.textAccent,
-      textDecoration: 'underline',
-    },
-    transition: 'color 0.15s ease',
+    ...commonLinkProperties,
+  },
+  locationLink: {
+    ...commonLinkProperties,
   },
   techniciansList: {
     display: 'flex',
@@ -283,6 +297,7 @@ const styles = stylex.create({
     textAlign: 'right',
     fontWeight: fonts.weight5,
     fontFamily: 'monospace',
+    paddingRight: sizes.spacing8,
   },
   archivedCheckboxContainer: {
     display: 'flex',
@@ -338,6 +353,7 @@ export default function SimpleServiceRequestsTable({
   onIncludeArchivedChange,
   isLoading = false,
   statusMap,
+  entityType,
 }: SimpleServiceRequestsTableProps): React.JSX.Element {
   const formatCurrency = (value: number | null | undefined) => {
     if (value === null || typeof value === 'undefined') {
@@ -377,13 +393,43 @@ export default function SimpleServiceRequestsTable({
       ),
       enableSorting: true,
     },
-    {
-      accessorFn: (row) => row.service_types?.service_name || 'Unnamed Service',
-      id: 'service_type',
-      header: 'Type',
-      cell: (info) => info.getValue() as string,
-      enableSorting: true,
-    },
+
+    ...(entityType !== 'location'
+      ? [
+          {
+            accessorKey: 'locations',
+            header: 'Property',
+            cell: (info: any) => {
+              const location = info.getValue() as Tables<'locations'>
+              if (!location) {
+                return <div {...stylex.props(styles.unassignedText)}>None</div>
+              }
+              const unitSuffix = location.unit_number ? `, Unit ${location.unit_number}` : ''
+              return (
+                <Link
+                  href={`/properties/`}
+                  {...stylex.props(styles.locationLink)}>
+                  {`${location.street_address} ${unitSuffix}`}
+                </Link>
+              )
+            },
+            enableSorting: true,
+          },
+        ]
+      : []),
+    ...(entityType !== 'serviceType'
+      ? [
+          {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            accessorFn: (row: any) => row.service_types?.service_name || 'Unnamed Service',
+            id: 'service_type',
+            header: 'Type',
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            cell: (info: any) => info.getValue() as string,
+            enableSorting: true,
+          },
+        ]
+      : []),
     {
       accessorKey: 'material_cost',
       header: 'Material Cost',

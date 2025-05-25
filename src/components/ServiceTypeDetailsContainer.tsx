@@ -90,7 +90,6 @@ export default function ServiceTypeDetailsContainer({ serviceTypeIdentifier }: S
           serviceTypeOptions={serviceTypeOptions}
           statusOptions={statusOptions}
           entityType='serviceType'
-          //          entityType='location'
         />
       )}
     </div>
