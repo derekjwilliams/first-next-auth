@@ -341,6 +341,13 @@ const styles = stylex.create({
     backgroundColor: marigoldColors.statusInProgress,
   },
 })
+const pascalToSpacedTerm = (value: string) => {
+  let result = ''
+  if (value) {
+    result = value.replace(/(([a-z])(?=[A-Z][a-zA-Z])|([A-Z])(?=[A-Z][a-z]))/g, '$1 ')
+  }
+  return result
+}
 
 export default function SimpleServiceRequestsTable({
   serviceRequests = [],
@@ -425,7 +432,7 @@ export default function SimpleServiceRequestsTable({
             id: 'service_type',
             header: 'Type',
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            cell: (info: any) => info.getValue() as string,
+            cell: (info: any) => pascalToSpacedTerm(info.getValue() as string),
             enableSorting: true,
           },
         ]

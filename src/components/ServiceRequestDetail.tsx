@@ -105,6 +105,16 @@ const styles = stylex.create({
     letterSpacing: 1,
     fontSize: fonts.size1,
   },
+  serviceType: {
+    color: '#fff',
+    backgroundColor: marigoldColors.foreground,
+    fontWeight: fonts.weight7,
+    borderRadius: borders.radius1,
+    padding: `${spacingPatterns.gapTiny} ${spacingPatterns.gapMedium}`,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
+    fontSize: fonts.size1,
+  },
   editBtn: {
     marginLeft: spacingPatterns.gapSmall,
   },
@@ -218,6 +228,13 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
     }).format(amount)
   }
   const totalCost = (serviceRequest.material_cost || 0) + (serviceRequest.labor_cost || 0)
+  const pascalToSpacedTerm = (value: string) => {
+    let result = ''
+    if (value) {
+      result = value.replace(/(([a-z])(?=[A-Z][a-zA-Z])|([A-Z])(?=[A-Z][a-z]))/g, '$1 ')
+    }
+    return result
+  }
 
   return (
     <div {...stylex.props(styles.container)}>
@@ -225,6 +242,9 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
         <div {...stylex.props(styles.headerRow)}>
           <h1 {...stylex.props(styles.title)}>{serviceRequest.description || 'Service Request'}</h1>
           <div {...stylex.props(styles.statusEditGroup)}>
+            <span {...stylex.props(styles.serviceType)}>
+              {pascalToSpacedTerm(serviceRequest.service_types.service_name)}
+            </span>
             <span {...stylex.props(styles.status)}>{serviceRequest.statuses?.status_name}</span>
             <div {...stylex.props(styles.editBtn)}>
               <LinkWrapperButton href={`/servicerequests/${id}/edit`}>Edit</LinkWrapperButton>
@@ -240,17 +260,19 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
             <div {...stylex.props(styles.fieldRow)}>
               {/* <span {...stylex.props(styles.fieldLabel)}>Address:</span> */}
               <div>
-                <div {...stylex.props(styles.fieldValue)}>
-                  {serviceRequest.locations?.street_address}
-                  {serviceRequest.locations?.unit_number && serviceRequest.locations?.unit_number != ''
-                    ? `, Unit ${serviceRequest.locations.unit_number}`
-                    : ''}
+                <Link href={`/properties/${serviceRequest.locations.id}`}>
                   <div {...stylex.props(styles.fieldValue)}>
-                    {serviceRequest.locations?.city ? `${serviceRequest.locations.city}` : ''}
-                    {serviceRequest.locations?.state_province ? ` ${serviceRequest.locations.state_province}` : ''}
-                    {serviceRequest.locations?.postal_code ? ` ${serviceRequest.locations.postal_code}` : ''}
+                    {serviceRequest.locations?.street_address}
+                    {serviceRequest.locations?.unit_number && serviceRequest.locations?.unit_number != ''
+                      ? `, Unit ${serviceRequest.locations.unit_number}`
+                      : ''}
+                    <div {...stylex.props(styles.fieldValue)}>
+                      {serviceRequest.locations?.city ? `${serviceRequest.locations.city}` : ''}
+                      {serviceRequest.locations?.state_province ? ` ${serviceRequest.locations.state_province}` : ''}
+                      {serviceRequest.locations?.postal_code ? ` ${serviceRequest.locations.postal_code}` : ''}
+                    </div>
                   </div>
-                </div>
+                </Link>
               </div>
             </div>
           </section>

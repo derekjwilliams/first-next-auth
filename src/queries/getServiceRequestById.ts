@@ -3,7 +3,9 @@ import { TypedSupabaseClient } from '@/lib/supabase/supabase'
 export function getServiceRequestById(client: TypedSupabaseClient, id: string) {
   return client
     ?.from('service_requests')
-    .select('id, description, details, labor_cost, material_cost, technicians(id, name, email), statuses(*), locations(*)')
+    .select(
+      'id, description, details, labor_cost, material_cost, technicians(id, name, email), statuses(*), locations(*), service_types(*)',
+    )
     .eq(`id`, id)
     .throwOnError()
     .single()
