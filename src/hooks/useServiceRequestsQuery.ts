@@ -35,7 +35,7 @@ function useServiceRequestsQuery(
   const archivedStatusId = useMemo(() => findArchivedStatusId(statusMap), [statusMap])
 
   const queryKey = [
-    'serviceRequests',
+    'multipleServiceRequests',
     JSON.stringify(filters),
     JSON.stringify(sorting?.map((s) => ({ id: s.id, desc: s.desc })) ?? []),
     JSON.stringify(pagination ?? {}),

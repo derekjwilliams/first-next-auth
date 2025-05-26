@@ -276,7 +276,7 @@ export default function ServiceRequestEditForm({
     },
     onSuccess: (result) => {
       // Update the caches
-      queryClient.invalidateQueries({ queryKey: ['serviceRequests'] }) // For the table of all service_requests
+      queryClient.invalidateQueries({ queryKey: ['multipleServiceRequests'], refetchType: 'inactive' }) // For the table of all service_requests
       queryClient.setQueryData(['service_requests'], (old: any[] = []) =>
         old.map((sr) => (sr.id === result.serviceRequest.id ? result.serviceRequest : sr)),
       )
