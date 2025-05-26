@@ -240,7 +240,6 @@ export default function CreateServiceRequestForm({
     }))
   }, [locationId, serviceTypeId, technicianId])
 
-  // Extended mutation function to handle technician assignments
   const mutation = useMutation({
     mutationFn: async (data: ServiceRequestMutationInput & { technician_ids?: string[] }) => {
       // First create the service request
@@ -256,16 +255,15 @@ export default function CreateServiceRequestForm({
             technician_id: techId,
           })),
         )
-
         if (error) {
           throw error
         }
       }
-
       return newServiceRequest
     },
     onSuccess: (newServiceRequest) => {
       // Invalidate all service request queries
+      queryClient.invalidateQueries({ queryKey: ['multipleServiceRequests'], refetchType: 'inactive' }) // invalidate query for table
       queryClient.invalidateQueries({
         predicate: (query) => {
           return Array.isArray(query.queryKey) && query.queryKey[0] === 'serviceRequests'
