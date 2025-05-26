@@ -106,8 +106,9 @@ const styles = stylex.create({
     fontSize: fonts.size1,
   },
   serviceType: {
-    color: '#fff',
-    backgroundColor: marigoldColors.foreground,
+    backgroundColor: marigoldColors.backgroundLinkButton,
+    color: marigoldColors.foregroundLinkButton,
+    textDecoration: 'none',
     fontWeight: fonts.weight7,
     borderRadius: borders.radius1,
     padding: `${spacingPatterns.gapTiny} ${spacingPatterns.gapMedium}`,
