@@ -5,7 +5,6 @@ import { updateServiceRequest } from '../lib/actions'
 import { Tables } from '../utils/database.types'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { Check } from 'lucide-react'
-import { colors } from '@derekjwilliams/stylextras-open-props-pr/colors.stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import { spacingPatterns } from '../app/customStyles/spacingPatterns.stylex'
 import stylex from '@stylexjs/stylex'
@@ -51,7 +50,6 @@ const form = stylex.create({
     width: '100%',
     minHeight: spacingPatterns.gapMedium,
     padding: spacingPatterns.gapSmall,
-    // borderWidth: borders.size1,s
     borderColor: marigoldColors.textAreaBorder,
     borderRadius: borders.radius1,
     fontFamily: fonts.sans,
@@ -68,7 +66,7 @@ const form = stylex.create({
     width: '100%',
     padding: spacingPatterns.gapSmall,
     borderWidth: borders.size1,
-    borderColor: marigoldColors.textInputBorder, //colors.marigoldStoneDark,
+    borderColor: marigoldColors.textInputBorder,
     borderRadius: borders.radius1,
     fontFamily: fonts.sans,
     fontSize: fonts.size1,
@@ -139,7 +137,6 @@ const select = stylex.create({
 const request = stylex.create({
   base: {
     padding: spacingPatterns.gapLarge,
-    backgroundColor: colors.gray1,
     borderRadius: borders.radius2,
     gap: spacingPatterns.gapMedium,
     background: marigoldColors.cardBackground,
@@ -147,9 +144,6 @@ const request = stylex.create({
   technicians: {
     marginBlock: spacingPatterns.gapMedium,
     paddingBlock: spacingPatterns.gapSmall,
-    borderTopWidth: borders.size1,
-    borderTopColor: colors.gray3,
-    gap: spacingPatterns.gapSmall,
   },
   technicianItem: {
     display: 'flex',
@@ -190,8 +184,8 @@ const request = stylex.create({
     },
   },
   requestButton: {
-    backgroundColor: marigoldColors.primary,
-    color: colors.gray9,
+    backgroundColor: marigoldColors.backgroundButton,
+    color: marigoldColors.foregroundButton,
     paddingBlock: spacingPatterns.gapSmall,
     paddingInline: spacingPatterns.gapXLarge,
     borderRadius: borders.radius2,
@@ -202,7 +196,8 @@ const request = stylex.create({
     marginTop: spacingPatterns.gapMedium,
     transition: 'background-color 0.2s ease',
     ':hover': {
-      backgroundColor: marigoldColors.primaryDark,
+      backgroundColor: marigoldColors.backgroundHoverButton,
+      color: marigoldColors.foregroundHoverButton,
     },
   },
 })

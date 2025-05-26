@@ -30,8 +30,8 @@ const serviceCard = stylex.create({
     cursor: 'pointer',
     textDecoration: 'none',
     color: {
-      default: marigoldColors.foreground,
-      ':hover': marigoldColors.foregroundButton,
+      default: marigoldColors.foregroundImageButton,
+      ':hover': marigoldColors.foregroundHoverImageButton,
     },
     fontSize: 16,
     boxShadow: {
@@ -45,8 +45,8 @@ const serviceCard = stylex.create({
     minHeight: 200,
     padding: sizes.spacing2,
     backgroundColor: {
-      default: marigoldColors.background,
-      ':hover': colorPrimitives.marigoldYellow,
+      default: marigoldColors.backgroundImageButton,
+      ':hover': marigoldColors.backgroundHoverImageButton,
     },
     transitionDuration: '500ms',
     transitionProperty: 'backgroundColor',
@@ -54,12 +54,15 @@ const serviceCard = stylex.create({
   newRequest: {
     padding: `${sizes.spacing1}`,
     borderRadius: borders.radius6,
-    // border: `2px solid ${colors.stone5}`,
+    border: `1px solid ${marigoldColors.borderSubtler}`,
     backgroundColor: {
       default: marigoldColors.backgroundButton,
-      ':hover': colorPrimitives.marigoldYellow,
+      ':hover': marigoldColors.backgroundHoverButton,
     },
-    color: marigoldColors.foregroundButton,
+    color: {
+      default: marigoldColors.foregroundButton,
+      ':hover': marigoldColors.foregroundHoverButton,
+    },
     cursor: 'pointer',
     fontSize: fonts.size1,
     textDecoration: 'none',

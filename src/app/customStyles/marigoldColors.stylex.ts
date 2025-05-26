@@ -3,16 +3,6 @@ import * as stylex from '@stylexjs/stylex'
 import { colorPrimitives } from './colorPrimitives.stylex'
 
 const DARK = '@media (prefers-color-scheme: dark)'
-// const environmentBrown = 'rgb(214 122 0)'
-// const pansy = 'rgb(168 0 173)'
-// const pansyDark = 'rgb(160 90 170)'
-// const flowerYellow = 'rgb(255 213 95)'
-// const leaf = 'rgb(0 81 69)'
-// const leafHighlight = 'rgb(189 219 163)'
-// const flowerGold = 'rgb(255 194 0)'
-// const flowerRed = 'rgb(247 70 0)'
-// const slate = 'rgb(68, 68, 68)'
-
 // New/adjusted colors for better dark mode
 const darkCard = 'rgb(36, 36, 40)' // Card background in dark mode
 const darkPage = 'rgb(24, 24, 28)' // Page background in dark mode
@@ -21,14 +11,6 @@ const lightText = 'rgb(20, 20, 20)' // Light text for dark mode
 const darkMuted = 'rgb(180, 180, 200)' // Muted text for dark mode
 
 export const marigoldColors = stylex.defineVars({
-  // flowerYellow,
-  // flowerGold,
-  // flowerRed,
-  // environmentBrown,
-  // leafHighlight,
-  // slate,
-  // leaf: { default: leaf, [DARK]: leafHighlight },
-  // pansy: { default: pansy, [DARK]: pansyDark },
   tableBorder: { default: colorPrimitives.pansy, [DARK]: colorPrimitives.pansyDark },
   backgroundTextarea: { default: 'rgb(245,245,245)', [DARK]: 'rgb(40, 40, 40)' },
   navigationLink: { default: colorPrimitives.pansy, [DARK]: colorPrimitives.environmentBrown },
@@ -68,7 +50,7 @@ export const marigoldColors = stylex.defineVars({
   backgroundCard: { default: 'rgb(255,255,255)', [DARK]: darkCard }, // new
 
   // Text
-  textAccent: { default: colorPrimitives.marigoldRust, [DARK]: colorPrimitives.marigoldRustDesaturated },
+  textAccent: { default: colorPrimitives.marigoldRust, [DARK]: colorPrimitives.marigoldAmberDesaturated },
   foreground: { default: 'rgb(16 16 16)', [DARK]: darkText },
   foregroundMuted: { default: 'rgb(90,90,90)', [DARK]: darkMuted }, // new
   foregroundLink: { default: colorPrimitives.pansy, [DARK]: 'rgb(221, 216, 247)' },
@@ -79,10 +61,37 @@ export const marigoldColors = stylex.defineVars({
   backgroundLinkButton: { default: 'transparent', [DARK]: 'transparent' },
   foregroundHoverLinkButton: { default: 'rgb(16 16 16)', [DARK]: 'rgb(16 16 16)' },
   backgroundHoverLinkButton: { default: colorPrimitives.marigoldYellow, [DARK]: colorPrimitives.marigoldYellow },
-  foregroundButton: { default: 'rgb(16,16,16)', [DARK]: darkText },
-  foregroundHoverButton: { default: 'rgb(16,16,16)', [DARK]: 'lightText' },
-  backgroundButton: { default: colorPrimitives.marigoldLeafLight, [DARK]: darkCard },
+
+  foregroundButton: {
+    default: colorPrimitives.marigoldStoneDarker,
+    [DARK]: colorPrimitives.marigoldStoneLight,
+  },
+  backgroundButton: {
+    default: colorPrimitives.marigoldLeafLight,
+    [DARK]: colorPrimitives.marigoldStem,
+  },
+  foregroundHoverButton: {
+    default: colorPrimitives.marigoldStoneDarker,
+    [DARK]: colorPrimitives.marigoldStoneDarker,
+  },
   backgroundHoverButton: { default: colorPrimitives.marigoldYellow, [DARK]: colorPrimitives.marigoldGold },
+
+  foregroundImageButton: {
+    default: colorPrimitives.marigoldStoneDarker,
+    [DARK]: colorPrimitives.marigoldStoneLight,
+  },
+  backgroundImageButton: {
+    default: colorPrimitives.marigoldStoneMid,
+    [DARK]: colorPrimitives.marigoldStoneDarker,
+  },
+  foregroundHoverImageButton: {
+    default: colorPrimitives.marigoldStoneDarker,
+    [DARK]: colorPrimitives.marigoldStoneDarker,
+  },
+  backgroundHoverImageButton: {
+    default: colorPrimitives.marigoldGold,
+    [DARK]: colorPrimitives.marigoldPetal,
+  },
 
   // Misc
   link: { default: colorPrimitives.pansy, [DARK]: colorPrimitives.marigoldLeafLight },
@@ -93,6 +102,10 @@ export const marigoldColors = stylex.defineVars({
   borderSubtle: {
     default: colorPrimitives.marigoldStoneDark,
     [DARK]: colorPrimitives.marigoldSlate,
+  },
+  borderSubtler: {
+    default: colorPrimitives.marigoldStoneDark,
+    [DARK]: colorPrimitives.marigoldStoneDark,
   },
   textPrimary: { default: colorPrimitives.marigoldStoneDarker, [DARK]: colorPrimitives.marigoldMist },
   textMuted: {

@@ -47,7 +47,7 @@ const baseStyles = {
   },
 }
 
-// Main styles - organized by logical sections
+// Main styles
 const styles = stylex.create({
   // Layout containers
   container: {
@@ -154,7 +154,6 @@ const styles = stylex.create({
   },
   costTotal: {
     fontWeight: fonts.weight7,
-    color: marigoldColors.textAccent,
     borderTop: `1px solid ${marigoldColors.borderAccent}`,
     paddingTop: spacingPatterns.gapTiny,
     marginTop: spacingPatterns.gapTiny,
