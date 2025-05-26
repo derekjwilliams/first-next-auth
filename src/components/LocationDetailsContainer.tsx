@@ -8,6 +8,7 @@ import { useLocationQuery } from '../hooks/useLocationQuery'
 import { useStatusMapQuery } from 'src/hooks/useStatusMapQuery'
 import { useServiceRequestsByLocationId } from '../hooks/useServiceRequestsQuery'
 import { useServiceTypesQuery } from 'src/hooks/useServiceTypeQuery'
+import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 
 interface LocationDetailsContainerProps {
   locationId: string
@@ -16,6 +17,7 @@ interface LocationDetailsContainerProps {
 const styles = stylex.create({
   detailsWrapper: {
     margin: '20px',
+    color: marigoldColors.foreground,
   },
 })
 
