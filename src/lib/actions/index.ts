@@ -38,9 +38,7 @@ export async function updateServiceRequest(
   // Handle cost fields
   const materialCostString = formData.get('material_cost') as string
   const laborCostString = formData.get('labor_cost') as string
-  const parsedMaterialCost = materialCostString
-    ? parseFloat(materialCostString)
-    : null
+  const parsedMaterialCost = materialCostString ? parseFloat(materialCostString) : null
   const parsedLaborCost = laborCostString ? parseFloat(laborCostString) : null
 
   // Extract selected technician IDs from FormData
@@ -76,49 +74,43 @@ export async function updateServiceRequest(
       serviceRequestUpdatePayload.status_id = statusId
     }
 
-    const { error: serviceRequestUpdateError } = await supabase
+    const { data: updatedServiceRequest, error: serviceRequestUpdateError } = await supabase
       .from('service_requests')
       .update(serviceRequestUpdatePayload)
       .eq('id', id)
+      .select('*')
+      .single()
 
     if (serviceRequestUpdateError) {
-      console.error(
-        `Error updating service request (ID: ${id}):`,
-        serviceRequestUpdateError,
-      )
+      console.error(`Error updating service request (ID: ${id}):`, serviceRequestUpdateError)
       throw serviceRequestUpdateError // Propagate error for client-side handling
     }
 
     // 2. Manage technician assignments (Upsert selected, Delete unselected)
+    let updatedTechnicians: any[] = []
 
-    // Upsert selected technicians
     if (selectedTechnicianIds.length > 0) {
-      const techniciansToUpsert = selectedTechnicianIds.map(
-        (technicianId) => ({
-          service_request_id: id,
-          technician_id: technicianId,
-        }),
-      )
-      const { error: upsertError } = await supabase
+      const techniciansToUpsert = selectedTechnicianIds.map((technicianId) => ({
+        service_request_id: id,
+        technician_id: technicianId,
+      }))
+      const { data: upsertedTechnicians, error: upsertError } = await supabase
         .from('service_request_technicians')
         .upsert(techniciansToUpsert, {
           onConflict: 'service_request_id, technician_id', // Assumes a unique constraint
           ignoreDuplicates: false, // Default, but explicit
         })
+        .select('*') // Get the upserted rows
 
       if (upsertError) {
-        console.error(
-          `Error upserting technicians for service request (ID: ${id}):`,
-          upsertError,
-        )
+        console.error(`Error upserting technicians for service request (ID: ${id}):`, upsertError)
         throw upsertError
       }
+      updatedTechnicians = upsertedTechnicians || []
     }
 
     // Delete technicians who were previously available/assigned but are no longer selected
-    const technicianIdsToDelete = availableTechnicianIds.filter(
-      (availId) => !selectedTechnicianIds.includes(availId),
-    )
+    const technicianIdsToDelete = availableTechnicianIds.filter((availId) => !selectedTechnicianIds.includes(availId))
 
     if (technicianIdsToDelete.length > 0) {
       const { error: deleteError } = await supabase
@@ -128,29 +120,27 @@ export async function updateServiceRequest(
         .eq('service_request_id', id)
 
       if (deleteError) {
-        console.error(
-          `Error deleting technicians from service request (ID: ${id}):`,
-          deleteError,
-        )
+        console.error(`Error deleting technicians from service request (ID: ${id}):`, deleteError)
         throw deleteError
       }
     }
 
-    // 3. Revalidate paths and redirect on successful update
+    // 3. Optionally revalidate server-rendered pages
     revalidatePath(`/servicerequests/${id}`) // Revalidate the specific service request page
     revalidatePath('/servicerequests') // Revalidate the list page (if you have one)
-    // Potentially revalidate other related paths if necessary
 
-    redirect(`/servicerequests/${id}`)
+    // 4. Return the updated data for React Query cache update
+    return {
+      serviceRequest: updatedServiceRequest,
+      technicians: updatedTechnicians,
+      deletedTechnicianIds: technicianIdsToDelete,
+    }
+    //    redirect(`/servicerequests/${id}`)
   } else {
     // If service_type_id is empty, the update cannot proceed as per the original logic.
     // Throw an error that can be caught by a try/catch block on the client-side
     // in your form submission handler to display a user-friendly message.
-    console.warn(
-      `Service request update skipped for ID ${id} due to empty service type.`,
-    )
-    throw new Error(
-      'Service Type is required and cannot be empty. Please select a service type.',
-    )
+    console.warn(`Service request update skipped for ID ${id} due to empty service type.`)
+    throw new Error('Service Type is required and cannot be empty. Please select a service type.')
   }
 }

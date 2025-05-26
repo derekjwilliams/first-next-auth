@@ -5,7 +5,6 @@ import { updateServiceRequest } from '../lib/actions'
 import { Tables } from '../utils/database.types'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { Check } from 'lucide-react'
-// import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
 import { colors } from '@derekjwilliams/stylextras-open-props-pr/colors.stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import { spacingPatterns } from '../app/customStyles/spacingPatterns.stylex'
@@ -16,6 +15,8 @@ import RadioSet from './controls/RadioSet'
 import { RichTextEditor } from '@/components/lexical/RichTextEditor'
 import './lexicalstyles.css'
 import React, { useState } from 'react'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useRouter } from 'next/navigation'
 
 const form = stylex.create({
   sectionHeading: {
@@ -260,9 +261,42 @@ export default function ServiceRequestEditForm({
   ]
 
   const updateServiceRequestWithId = updateServiceRequest.bind(null, serviceRequest.id, availableTechnicianIds, details)
+
+  const queryClient = useQueryClient()
+  const router = useRouter()
+
+  const mutation = useMutation({
+    mutationFn: async (formData: FormData) => {
+      return await updateServiceRequest(
+        serviceRequest.id,
+        availableTechnicians.map((t) => t.id),
+        details,
+        formData,
+      )
+    },
+    onSuccess: (result) => {
+      // Update the caches
+      queryClient.invalidateQueries({ queryKey: ['serviceRequests'] }) // For the table of all service_requests
+      queryClient.setQueryData(['service_requests'], (old: any[] = []) =>
+        old.map((sr) => (sr.id === result.serviceRequest.id ? result.serviceRequest : sr)),
+      )
+      queryClient.setQueryData(['service_request', result.serviceRequest.id], result.serviceRequest)
+      // Navigate to the detail page
+      router.push(`/servicerequests/${result.serviceRequest.id}`)
+    },
+  })
+
+  // Form submit handler
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const formData = new FormData(e.currentTarget)
+    mutation.mutate(formData)
+  }
+
   return (
     <div>
-      <form action={updateServiceRequestWithId}>
+      <form onSubmit={handleSubmit}>
+        {/* <form action={updateServiceRequestWithId}> */}
         <div {...stylex.props(request.base)}>
           {/* Service Request Description */}
           <div>
