@@ -5,38 +5,23 @@
    style="background:#fff;font-family:sans-serif"
    version="1.1"
    id="svg71"
-   sodipodi:docname="palette.svg"
-   inkscape:version="1.4 (e7c3feb1, 2024-10-09)"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
      id="defs71" />
-  <sodipodi:namedview
-     id="namedview71"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="0.99576147"
-     inkscape:cx="-656.28167"
-     inkscape:cy="503.63467"
-     inkscape:window-width="2480"
-     inkscape:window-height="1186"
-     inkscape:window-x="0"
-     inkscape:window-y="25"
-     inkscape:window-maximized="0"
-     inkscape:current-layer="svg71" />
   <style
      id="style1">
     .label { font-size: 14px; fill: #222; }
     .hex { font-size: 12px; fill: #555; }
     .title { font-size: 18px; font-weight: bold; fill: #222; }
   </style>
+  <rect
+     style="font-family:sans-serif;fill:#f9f9f9;fill-opacity:1;stroke:#c8beb7;stroke-width:1.88976;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:28;paint-order:markers stroke fill"
+     id="rect1-6"
+     width="1241.2611"
+     height="891.96594"
+     x="-2.0509372"
+     y="7.8704467" />
   <!-- Titles -->
   <text
      x="20.166624"
