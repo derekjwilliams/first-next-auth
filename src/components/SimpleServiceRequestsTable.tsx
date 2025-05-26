@@ -450,7 +450,7 @@ export default function SimpleServiceRequestsTable({
     },
     {
       accessorKey: 'technicians',
-      header: 'Assigned Technicians',
+      header: 'Technicians',
       cell: ({ getValue }) => {
         const technicians = getValue() as Array<Tables<'technicians'>>
         if (!technicians?.length) {

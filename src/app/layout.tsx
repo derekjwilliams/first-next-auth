@@ -16,6 +16,7 @@ import { ourFileRouter } from './api/uploadthing/core'
 // TODO import { PermissionsProvider } from '@/context/PermissionsContext'
 // import LoginButtons from '@/components/LoginButtons'; // Keep or modify as needed
 import { getCurrentUserAttributes } from '@/lib/supabase-api/server' // Use the new helper
+import { marigoldColors } from './customStyles/marigoldColors.stylex'
 
 // import { Analytics } from '@vercel/analytics/react'
 
@@ -39,6 +40,7 @@ const styles = stylex.create({
   },
   body: {
     fontFamily: `-apple-system, BlinkMacSystemFont, Arial`,
+    background: marigoldColors.backgroundCard,
   },
   top: {
     width: '100%',
@@ -50,7 +52,7 @@ const styles = stylex.create({
 })
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const userAttributes = await getCurrentUserAttributes()
+  // const userAttributes = await getCurrentUserAttributes()
   const header = (
     <div {...stylex.props(styles.top)}>
       <Link href='/'>
