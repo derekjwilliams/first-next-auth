@@ -235,6 +235,13 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
     }
     return result
   }
+  const pascalToSnakeCase = (value: string) => {
+    let result = ''
+    if (value) {
+      result = value.replace(/(([a-z])(?=[A-Z][a-zA-Z])|([A-Z])(?=[A-Z][a-z]))/g, '$1_').toLowerCase()
+    }
+    return result
+  }
 
   return (
     <div {...stylex.props(styles.container)}>
@@ -242,9 +249,11 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
         <div {...stylex.props(styles.headerRow)}>
           <h1 {...stylex.props(styles.title)}>{serviceRequest.description || 'Service Request'}</h1>
           <div {...stylex.props(styles.statusEditGroup)}>
-            <span {...stylex.props(styles.serviceType)}>
-              {pascalToSpacedTerm(serviceRequest.service_types.service_name)}
-            </span>
+            <Link href={`/servicetypes/${pascalToSnakeCase(serviceRequest.service_types.service_name)}`}>
+              <span {...stylex.props(styles.serviceType)}>
+                {pascalToSpacedTerm(serviceRequest.service_types.service_name)}
+              </span>
+            </Link>
             <span {...stylex.props(styles.status)}>{serviceRequest.statuses?.status_name}</span>
             <div {...stylex.props(styles.editBtn)}>
               <LinkWrapperButton href={`/servicerequests/${id}/edit`}>Edit</LinkWrapperButton>
