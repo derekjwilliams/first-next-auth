@@ -21,9 +21,19 @@ export const marigoldColors = stylex.defineVars({
     default: colorPrimitives.marigoldLeaf,
     [DARK]: colorPrimitives.marigoldLeaf,
   },
+
   successBackground: {
     default: colorPrimitives.marigoldLeafLight,
     [DARK]: colorPrimitives.marigoldLeafLight,
+  },
+
+  error: {
+    default: colorPrimitives.marigoldRed,
+    [DARK]: colorPrimitives.marigoldRed,
+  },
+  errorBackground: {
+    default: colorPrimitives.marigoldAmber,
+    [DARK]: colorPrimitives.marigoldAmber,
   },
   // Label
   label: { default: colorPrimitives.marigoldStoneDarker, [DARK]: colorPrimitives.marigoldStoneLight },

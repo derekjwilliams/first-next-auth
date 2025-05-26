@@ -5,8 +5,6 @@ import { useState, useEffect } from 'react'
 import * as stylex from '@stylexjs/stylex'
 import { spacingPatterns } from '../app/customStyles/spacingPatterns.stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
-import { colorPrimitives } from '../app/customStyles/colorPrimitives.stylex'
-import { colors } from '@derekjwilliams/stylextras-open-props-pr/colors.stylex'
 import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
 import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
 import { borders } from '@derekjwilliams/stylextras-open-props-pr/borders.stylex'
@@ -164,40 +162,31 @@ const styles = stylex.create({
   },
   submitButton: {
     padding: {
-      default: `${sizes.spacing2} ${sizes.spacing4}`,
+      default: `${spacingPatterns.gapSmall} ${spacingPatterns.gapMedium}`,
       '@media (max-width: 600px)': `${sizes.spacing2} ${spacingPatterns.gapMedium}`,
     },
     borderRadius: borders.radius2,
-    border: `transparent`,
+    border: `1px solid ${marigoldColors.backgroundButton}`,
+    background: marigoldColors.backgroundButton,
+    cursor: 'pointer',
+    fontSize: fonts.size1,
+    minWidth: {
+      '@media (max-width: 600px)': sizes.spacing8,
+    },
     ':hover': {
       background: marigoldColors.backgroundHoverButton,
       color: marigoldColors.foregroundHoverButton,
     },
-    backgroundColor: marigoldColors.backgroundButton,
     color: marigoldColors.foregroundButton,
-    cursor: 'pointer',
-    fontSize: fonts.size1,
-    textDecoration: 'none',
-    minWidth: {
-      '@media (max-width: 600px)': sizes.spacing8,
-    },
-    ':disabled': {
-      background: colors.stone0,
-      cursor: 'not-allowed',
-    },
-    placeItems: 'center',
-    display: 'grid',
-    transitionDuration: '500ms',
-    transitionProperty: 'backgroundColor',
   },
   errorMessage: {
-    color: colors.red9,
+    color: marigoldColors.error,
     fontSize: fonts.size1,
     marginTop: spacingPatterns.gapTiny,
     padding: spacingPatterns.gapMedium,
-    backgroundColor: colors.red2,
+    backgroundColor: marigoldColors.errorBackground,
     borderRadius: borders.radius1,
-    border: `1px solid ${colors.red3}`,
+    border: `1px solid ${marigoldColors.error}`,
   },
   successMessage: {
     color: marigoldColors.success,
