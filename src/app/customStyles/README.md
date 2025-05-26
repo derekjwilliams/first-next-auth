@@ -40,6 +40,7 @@ card: {
 Do **not** do this
 
 ```TypeScript
+card: {
     backgroundColor: colorPrimitives.marigoldStoneLight,
     border: `1px solid ${colorPrimitives.marigoldStoneMedium}`,
     borderRadius: borders.radius2,
@@ -49,7 +50,7 @@ Do **not** do this
 
 #### Examples
 
-The StyleX definitions from `ServiceRequestDetail.tsx` are show below, and include many use cases.
+The StyleX definitions from `ServiceRequestDetail.tsx` are shown below, and include many use cases.
 
 ```TypeScript
 const bp = '@media (min-width: 1100px)'
