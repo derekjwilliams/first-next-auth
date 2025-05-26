@@ -348,6 +348,12 @@ const pascalToSpacedTerm = (value: string) => {
   }
   return result
 }
+const pascalToSnakeCase = (value: string) => {
+  if (value) {
+    return value.replace(/(([a-z])(?=[A-Z][a-zA-Z])|([A-Z])(?=[A-Z][a-z]))/g, '$1_').toLowerCase()
+  }
+  return ''
+}
 
 export default function SimpleServiceRequestsTable({
   serviceRequests = [],
@@ -432,7 +438,13 @@ export default function SimpleServiceRequestsTable({
             id: 'service_type',
             header: 'Type',
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            cell: (info: any) => pascalToSpacedTerm(info.getValue() as string),
+            cell: (info: any) => (
+              <Link
+                {...stylex.props(styles.descriptionLink)}
+                href={`/servicetypes/${pascalToSnakeCase(info.getValue() as string)}`}>
+                {pascalToSpacedTerm(info.getValue() as string)}
+              </Link>
+            ),
             enableSorting: true,
           },
         ]
