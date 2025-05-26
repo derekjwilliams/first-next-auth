@@ -3,6 +3,7 @@
 
 import { useState, useEffect } from 'react'
 import * as stylex from '@stylexjs/stylex'
+import { spacingPatterns } from '../app/customStyles/spacingPatterns.stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import { colorPrimitives } from '../app/customStyles/colorPrimitives.stylex'
 import { colors } from '@derekjwilliams/stylextras-open-props-pr/colors.stylex'
@@ -34,6 +35,8 @@ const styles = stylex.create({
   container: {
     maxWidth: '800px',
     margin: '0 auto',
+    backgroundColor: marigoldColors.backgroundTextarea,
+    color: marigoldColors.foreground,
     padding: {
       default: sizes.spacing6,
       '@media (max-width: 600px)': sizes.spacing4,
@@ -50,9 +53,10 @@ const styles = stylex.create({
     flexDirection: 'column',
     gap: {
       default: sizes.spacing4,
-      '@media (max-width: 600px)': sizes.spacing3,
+      '@media (max-width: 600px)': spacingPatterns.gapMedium,
     },
-    background: colors.stone1,
+    backgroundColor: marigoldColors.backgroundTextarea,
+
     padding: {
       default: sizes.spacing6,
       '@media (max-width: 600px)': sizes.spacing4,
@@ -73,43 +77,62 @@ const styles = stylex.create({
     },
   },
   input: {
-    padding: {
-      default: `${sizes.spacing2} ${sizes.spacing3}`,
-      '@media (max-width: 600px)': sizes.spacing2,
-    },
-    borderRadius: borders.radius2,
-    border: `1px solid ${colors.stone3}`,
-    fontSize: fonts.size1,
     width: '100%',
-    boxSizing: 'border-box',
+    padding: spacingPatterns.gapSmall,
+    borderWidth: borders.size1,
+    borderColor: marigoldColors.textInputBorder,
+    // borderRadius: borders.radius1,
+    fontFamily: fonts.sans,
+    fontSize: fonts.size1,
+    border: `1px solid ${marigoldColors.textInputBackground}`,
+    backgroundColor: marigoldColors.textInputBackground,
+    ':focus': {
+      outline: 'none',
+      borderColor: marigoldColors.primary,
+      boxShadow: `0 0 0 2px ${marigoldColors.primary}33`,
+    },
+    color: marigoldColors.textInputColor,
   },
   textarea: {
     padding: {
-      default: `${sizes.spacing2} ${sizes.spacing3}`,
+      default: `${sizes.spacing2} ${spacingPatterns.gapMedium}`,
       '@media (max-width: 600px)': sizes.spacing2,
     },
+    ':focus': {
+      outline: 'none',
+      borderColor: marigoldColors.primary,
+      boxShadow: `0 0 0 2px ${marigoldColors.primary}33`,
+    },
     borderRadius: borders.radius2,
-    border: `1px solid ${colors.stone3}`,
+    border: `1px solid ${marigoldColors.textInputBackground}`,
     fontSize: fonts.size1,
     minHeight: {
-      default: sizes.spacing12,
-      '@media (max-width: 600px)': sizes.spacing10,
+      default: '2rem',
+      '@media (max-width: 600px)': '2rem',
     },
     resize: 'vertical',
     width: '100%',
     boxSizing: 'border-box',
+    background: marigoldColors.textInputBackground,
+    color: marigoldColors.textInputColor,
   },
   select: {
     padding: {
-      default: `${sizes.spacing2} ${sizes.spacing3}`,
-      '@media (max-width: 600px)': sizes.spacing2,
+      default: spacingPatterns.gapSmall,
+      '@media (max-width: 600px)': spacingPatterns.gapSmall,
+    },
+    ':focus': {
+      outline: 'none',
+      borderColor: marigoldColors.primary,
+      boxShadow: `0 0 0 2px ${marigoldColors.primary}33`,
     },
     borderRadius: borders.radius2,
-    border: `1px solid ${colors.stone3}`,
+    border: `1px solid ${marigoldColors.textInputBackground}`,
     fontSize: fonts.size1,
     width: '100%',
     boxSizing: 'border-box',
-    background: colors.stone1,
+    background: marigoldColors.textInputBackground,
+    color: marigoldColors.textInputColor,
   },
   buttonGroup: {
     display: 'flex',
@@ -117,16 +140,16 @@ const styles = stylex.create({
       default: 'flex-end',
       '@media (max-width: 600px)': 'space-between',
     },
-    gap: sizes.spacing3,
-    marginTop: sizes.spacing4,
+    gap: spacingPatterns.gapMedium,
+    marginTop: spacingPatterns.gapLarge,
   },
   cancelButton: {
     padding: {
-      default: `${sizes.spacing2} ${sizes.spacing4}`,
-      '@media (max-width: 600px)': `${sizes.spacing2} ${sizes.spacing3}`,
+      default: `${spacingPatterns.gapSmall} ${spacingPatterns.gapMedium}`,
+      '@media (max-width: 600px)': `${sizes.spacing2} ${spacingPatterns.gapMedium}`,
     },
     borderRadius: borders.radius2,
-    border: `1px solid ${colors.stone3}`,
+    border: `1px solid ${marigoldColors.backgroundButton}`,
     background: 'transparent',
     cursor: 'pointer',
     fontSize: fonts.size1,
@@ -134,20 +157,23 @@ const styles = stylex.create({
       '@media (max-width: 600px)': sizes.spacing8,
     },
     ':hover': {
-      background: colors.stone2,
+      background: marigoldColors.backgroundHoverButton,
+      color: marigoldColors.foregroundHoverButton,
     },
+    color: marigoldColors.foregroundButton,
   },
   submitButton: {
     padding: {
       default: `${sizes.spacing2} ${sizes.spacing4}`,
-      '@media (max-width: 600px)': `${sizes.spacing2} ${sizes.spacing3}`,
+      '@media (max-width: 600px)': `${sizes.spacing2} ${spacingPatterns.gapMedium}`,
     },
     borderRadius: borders.radius2,
-    border: `1px solid ${colors.stone3}`,
-    backgroundColor: {
-      default: colorPrimitives.marigoldLeafLight,
-      ':hover': colorPrimitives.marigoldGold,
+    border: `transparent`,
+    ':hover': {
+      background: marigoldColors.backgroundHoverButton,
+      color: marigoldColors.foregroundHoverButton,
     },
+    backgroundColor: marigoldColors.backgroundButton,
     color: marigoldColors.foregroundButton,
     cursor: 'pointer',
     fontSize: fonts.size1,
@@ -167,31 +193,31 @@ const styles = stylex.create({
   errorMessage: {
     color: colors.red9,
     fontSize: fonts.size1,
-    marginTop: sizes.spacing1,
-    padding: sizes.spacing3,
+    marginTop: spacingPatterns.gapTiny,
+    padding: spacingPatterns.gapMedium,
     backgroundColor: colors.red2,
     borderRadius: borders.radius1,
     border: `1px solid ${colors.red3}`,
   },
   successMessage: {
-    color: colors.green9,
+    color: marigoldColors.success,
     fontSize: fonts.size1,
-    marginTop: sizes.spacing1,
-    padding: sizes.spacing3,
-    backgroundColor: colors.green2,
+    marginTop: spacingPatterns.gapTiny,
+    padding: spacingPatterns.gapMedium,
+    backgroundColor: marigoldColors.successBackground,
     borderRadius: borders.radius1,
-    border: `1px solid ${colors.green3}`,
+    border: `1px solid ${marigoldColors.success}`,
   },
   techniciansList: {
     display: 'flex',
     flexDirection: 'column',
-    gap: sizes.spacing2,
-    marginTop: sizes.spacing2,
+    gap: spacingPatterns.gapSmall,
+    marginTop: spacingPatterns.gapSmall,
   },
   technicianItem: {
     display: 'flex',
     alignItems: 'center',
-    gap: sizes.spacing2,
+    gap: spacingPatterns.gapSmall,
   },
 })
 
@@ -378,14 +404,6 @@ export default function CreateServiceRequestForm({
   const serviceType = serviceTypeOptions.find((e) => e.id === formData.service_type_id)
   const serviceTypeName = serviceType ? serviceType.name : ''
   const serviceTypeDisplayName = serviceTypes.get(serviceTypeName)?.displayName ?? serviceTypeName
-
-  // Determine back link based on context
-  const getBackLink = () => {
-    if (locationId) return `/locations/${locationId}`
-    if (serviceTypeId) return `/servicetypes/${serviceTypeId}`
-    if (technicianId) return `/technicians/${technicianId}`
-    return '/servicerequests'
-  }
 
   const locationLabel = locationOptions.find((lo) => lo.id === locationId)?.name
   const technicialLabel = technicianOptions.find((v) => v.id === technicianId)?.name

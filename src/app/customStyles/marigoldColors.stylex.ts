@@ -15,6 +15,16 @@ export const marigoldColors = stylex.defineVars({
   backgroundTextarea: { default: 'rgb(245,245,245)', [DARK]: 'rgb(40, 40, 40)' },
   navigationLink: { default: colorPrimitives.pansy, [DARK]: colorPrimitives.environmentBrown },
 
+  // success and error
+
+  success: {
+    default: colorPrimitives.marigoldLeaf,
+    [DARK]: colorPrimitives.marigoldLeaf,
+  },
+  successBackground: {
+    default: colorPrimitives.marigoldLeafLight,
+    [DARK]: colorPrimitives.marigoldLeafLight,
+  },
   // Label
   label: { default: colorPrimitives.marigoldStoneDarker, [DARK]: colorPrimitives.marigoldStoneLight },
 
