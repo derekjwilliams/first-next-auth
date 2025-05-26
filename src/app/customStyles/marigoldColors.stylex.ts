@@ -89,6 +89,22 @@ export const marigoldColors = stylex.defineVars({
     [DARK]: colorPrimitives.marigoldStoneDarker,
   },
   backgroundHoverImageButton: {
+    default: colorPrimitives.marigoldYellow,
+    [DARK]: colorPrimitives.marigoldYellow,
+  },
+  foregroundImageSubButton: {
+    default: colorPrimitives.marigoldStoneDarker,
+    [DARK]: colorPrimitives.marigoldStoneLight,
+  },
+  backgroundImageSubButton: {
+    default: colorPrimitives.marigoldStoneLight,
+    [DARK]: colorPrimitives.marigoldStoneDark,
+  },
+  foregroundHoverImageSubButton: {
+    default: colorPrimitives.marigoldStoneDarker,
+    [DARK]: colorPrimitives.marigoldStoneDarker,
+  },
+  backgroundHoverImageSubButton: {
     default: colorPrimitives.marigoldGold,
     [DARK]: colorPrimitives.marigoldPetal,
   },

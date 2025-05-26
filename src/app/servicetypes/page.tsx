@@ -54,14 +54,13 @@ const serviceCard = stylex.create({
   newRequest: {
     padding: `${sizes.spacing1}`,
     borderRadius: borders.radius6,
-    border: `1px solid ${marigoldColors.borderSubtler}`,
     backgroundColor: {
-      default: marigoldColors.backgroundButton,
-      ':hover': marigoldColors.backgroundHoverButton,
+      default: marigoldColors.backgroundImageSubButton,
+      ':hover': marigoldColors.backgroundHoverImageSubButton,
     },
     color: {
-      default: marigoldColors.foregroundButton,
-      ':hover': marigoldColors.foregroundHoverButton,
+      default: marigoldColors.foregroundImageSubButton,
+      ':hover': marigoldColors.foregroundHoverImageSubButton,
     },
     cursor: 'pointer',
     fontSize: fonts.size1,
