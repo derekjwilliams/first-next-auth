@@ -20,6 +20,7 @@ import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
 import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
 import { borders } from '@derekjwilliams/stylextras-open-props-pr/borders.stylex'
+import dayjs from 'dayjs'
 
 const DEFAULT_PAGE_SIZE = process.env.NEXT_PUBLIC_DEFAULT_SERVICE_REQUEST_PAGE_SIZE
   ? parseInt(process.env.NEXT_PUBLIC_DEFAULT_SERVICE_REQUEST_PAGE_SIZE, 5)
@@ -77,9 +78,9 @@ const styles = stylex.create({
     tableLayout: 'auto',
   },
   costColumn: {
-    width: '160px',
-    minWidth: '160px',
-    maxWidth: '160px',
+    width: '110px',
+    minWidth: '110px',
+    maxWidth: '110px',
     textAlign: 'right',
     paddingRight: sizes.spacing2,
   },
@@ -87,6 +88,11 @@ const styles = stylex.create({
     width: '140px',
     minWidth: '140px',
     maxWidth: '140px',
+  },
+  dateTimeColumn: {
+    width: '120px',
+    minWidth: '120px',
+    maxWidth: '100px',
   },
   statusColumn: {
     width: '150px',
@@ -450,8 +456,17 @@ export default function SimpleServiceRequestsTable({
         ]
       : []),
     {
+      accessorKey: 'date_created',
+      header: 'Created',
+      cell: (info) => dayjs(info.getValue<Date>()).format('MM/DD/YYYY'),
+      meta: {
+        cellStyle: styles.dateTimeColumn,
+      },
+      enableSorting: true,
+    },
+    {
       accessorKey: 'material_cost',
-      header: 'Material Cost',
+      header: 'Material',
       cell: (info) => formatCurrency(info.getValue() as number | null),
       meta: {
         cellStyle: styles.costCell,
@@ -460,7 +475,7 @@ export default function SimpleServiceRequestsTable({
     },
     {
       accessorKey: 'labor_cost',
-      header: 'Labor Cost',
+      header: 'Labor',
       cell: (info) => formatCurrency(info.getValue() as number | null),
       meta: {
         cellStyle: styles.costCell,
