@@ -5,6 +5,10 @@
    style="font-family:sans-serif"
    version="1.1"
    id="svg71"
+   sodipodi:docname="palette.svg"
+   inkscape:version="1.4 (e7c3feb1, 2024-10-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
@@ -16,6 +20,24 @@
        height="174.57214"
        id="rect72" />
   </defs>
+  <sodipodi:namedview
+     id="namedview71"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.4082194"
+     inkscape:cx="462.99604"
+     inkscape:cy="276.59043"
+     inkscape:window-width="2480"
+     inkscape:window-height="1186"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg71" />
   <style
      id="style1">
     .label { font-size: 14px; fill: #222; }
@@ -28,7 +50,9 @@
      width="798.11023"
      height="523.11023"
      x="63.221699"
-     y="8.4616261" />
+     y="8.4616261"
+     inkscape:transform-center-x="256.35101"
+     inkscape:transform-center-y="114.84822" />
   <text
      x="88.070168"
      y="32.50708"

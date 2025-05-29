@@ -2,12 +2,10 @@
 
 import useMultipleTechniciansQuery from '../hooks/useMultipleTechniciansQuery'
 import * as Checkbox from '@radix-ui/react-checkbox'
-import { Check } from 'lucide-react'
+import { CheckIcon } from 'lucide-react'
 import * as Form from '@radix-ui/react-form'
 import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
-import { colorPrimitives } from '../app/customStyles/colorPrimitives.stylex'
-import { colors } from '@derekjwilliams/stylextras-open-props-pr/colors.stylex'
 import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
 import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
 import { borders } from '@derekjwilliams/stylextras-open-props-pr/borders.stylex'
@@ -29,7 +27,7 @@ const items = stylex.create({
 
 const header = stylex.create({
   base: {
-    fontSize: `${fonts.size2}`,
+    fontSize: `${fonts.size4}`,
   },
 })
 
@@ -42,26 +40,42 @@ const form = stylex.create({
     marginBottom: sizes.spacing5,
   },
   input: {
-    width: '100%',
+    borderStyle: 'solid',
+    marginTop: sizes.spacing2,
+    marginBottom: sizes.spacing2,
+    padding: sizes.spacing2,
+    width: '400px',
+    flex: '1',
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: sizes.spacing00,
-    fontSize: fonts.size8,
-    color: colors.gray10,
-    backgroundColor: colors.gray0,
+    fontSize: fonts.size2,
+    color: marigoldColors.textInputColor,
+    backgroundColor: marigoldColors.textInputBackground,
     borderColor: {
-      default: colors.gray12,
-      ':hover': colorPrimitives.marigoldYellow,
+      default: marigoldColors.foreground,
+      ':hover': marigoldColors.borderAccent,
     },
   },
-  textarea: {
-    padding: '10px',
-    width: '500px',
-    height: '200px',
+  link: {
+    marginLeft: sizes.spacing2,
+    fontSize: fonts.size2,
+    textDecoration: 'none',
+    color: {
+      default: marigoldColors.foregroundLink,
+      ':hover': marigoldColors.foregroundHoverLink,
+    },
+  },
+  label: {
+    color: marigoldColors.foreground,
+    fontSize: {
+      default: fonts.size2,
+      '@media (max-width: 600px)': fonts.size1,
+    },
   },
 
-  requestButton: {
+  submitButton: {
     cursor: 'pointer',
     textDecoration: 'none',
     color: 'black',
@@ -72,8 +86,8 @@ const form = stylex.create({
     minWidth: 200,
     padding: sizes.spacing2,
     backgroundColor: {
-      default: colors.gray0,
-      ':hover': colorPrimitives.marigoldYellow,
+      default: marigoldColors.backgroundButton,
+      ':hover': marigoldColors.backgroundHoverButton,
     },
     transitionDuration: '500ms',
     transitionProperty: 'backgroundColor',
@@ -88,25 +102,27 @@ const card = stylex.create({
     alignItems: 'center',
   },
   checkboxRoot: {
-    backgroundColor: 'white',
-    width: 25,
-    height: 25,
+    width: '25px',
+    height: '25px',
     borderRadius: '4px',
-    padding: 0,
+    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: colors.gray6,
-    borderStyle: 'solid',
-    borderWidth: 2,
-    marginRight: sizes.spacing2,
+    boxShadow: '0 2px 10px var(--black-a7)',
+    backgroundColor: {
+      default: marigoldColors.checkboxInputBackground,
+      ':hover': marigoldColors.backgroundHoverButton,
+    },
   },
+
   checkboxIndicator: {
-    padding: 0,
+    color: marigoldColors.checkboxIcon,
   },
   icon: {
-    color: '#1d2496',
-    height: '100%',
-    width: '100%',
+    color: marigoldColors.checkboxIcon,
+    height: sizes.fluid2,
+    width: sizes.fluid2,
+    paddingTop: sizes.spacing1,
   },
 })
 
@@ -138,9 +154,12 @@ function AddTechnician() {
         {...stylex.props(form.root)}
         onSubmit={onCreateTechnician}>
         <Form.Field
+          {...stylex.props(form.field)}
           className='FormField'
           name='technician_name'>
-          <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
+          <div
+            {...stylex.props(form.label)}
+            style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
             <Form.Label className='FormLabel'>Name</Form.Label>
             <Form.Message
               className='FormMessage'
@@ -150,7 +169,7 @@ function AddTechnician() {
           </div>
           <Form.Control asChild>
             <input
-              className='Input'
+              {...stylex.props(form.input)}
               type='text'
               required
             />
@@ -159,7 +178,9 @@ function AddTechnician() {
         <Form.Field
           className='FormField'
           name='email'>
-          <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
+          <div
+            {...stylex.props(form.label)}
+            style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
             <Form.Label className='FormLabel'>Email</Form.Label>
             <Form.Message
               className='FormMessage'
@@ -174,14 +195,14 @@ function AddTechnician() {
           </div>
           <Form.Control asChild>
             <input
-              className='Input'
+              {...stylex.props(form.input)}
               type='email'
               required
             />
           </Form.Control>
         </Form.Field>
         <Form.Submit asChild>
-          <button {...stylex.props(form.requestButton)}>Add Technician</button>
+          <button {...stylex.props(form.submitButton)}>Add Technician</button>
         </Form.Submit>
       </Form.Root>
     </>
@@ -212,10 +233,12 @@ export default function MultipleTechnicians() {
               {...stylex.props(card.checkboxRoot)}
               id={technician.id}>
               <Checkbox.Indicator {...stylex.props(card.checkboxIndicator)}>
-                <Check {...stylex.props(card.icon)} />
+                <CheckIcon {...stylex.props(card.icon)} />
               </Checkbox.Indicator>
             </Checkbox.Root>
-            <Link href={`/technicians/${technician.id}`}>
+            <Link
+              {...stylex.props(form.link)}
+              href={`/technicians/${technician.id}`}>
               {technician.name} {technician.email}
             </Link>
           </div>

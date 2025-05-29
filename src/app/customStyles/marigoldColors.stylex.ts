@@ -39,9 +39,12 @@ export const marigoldColors = stylex.defineVars({
   label: { default: colorPrimitives.marigoldStoneDarker, [DARK]: colorPrimitives.marigoldStoneLight },
 
   // Text input
+  // backgroundData: { default: 'rgb(240 240 240)', [DARK]: darkCard },
   textInputBorder: { default: colorPrimitives.marigoldStoneMid, [DARK]: colorPrimitives.marigoldStoneLight },
   textInputBackground: { default: colorPrimitives.marigoldStoneLighter, [DARK]: colorPrimitives.marigoldStoneDarker },
   textInputColor: { default: colorPrimitives.marigoldStoneDarker, [DARK]: colorPrimitives.marigoldStoneLight },
+  foregroundHoverTextInput: { default: 'rgb(16 16 16)', [DARK]: 'rgb(16 16 16)' },
+  backgroundHoverTextInput: { default: colorPrimitives.marigoldYellow, [DARK]: colorPrimitives.marigoldYellow },
 
   // Select input
   selectInputBorder: { default: colorPrimitives.marigoldStoneMid, [DARK]: colorPrimitives.marigoldStoneLight },
@@ -55,6 +58,7 @@ export const marigoldColors = stylex.defineVars({
     default: colorPrimitives.marigoldStoneLighter,
     [DARK]: colorPrimitives.marigoldStoneDarker,
   },
+  checkboxInputBackgroundHover: { default: colorPrimitives.marigoldYellow, [DARK]: colorPrimitives.marigoldGold },
 
   // Text area
   textAreaBorder: { default: colorPrimitives.marigoldStoneMid, [DARK]: colorPrimitives.marigoldStoneLight },
