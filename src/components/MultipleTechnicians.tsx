@@ -27,7 +27,8 @@ const items = stylex.create({
 
 const header = stylex.create({
   base: {
-    fontSize: `${fonts.size4}`,
+    fontSize: fonts.size4,
+    color: marigoldColors.foreground,
   },
 })
 

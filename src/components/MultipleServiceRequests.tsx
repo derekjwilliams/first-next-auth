@@ -20,6 +20,7 @@ const requests = stylex.create({
   base: {
     padding: sizes.spacing5,
     backgroundColor: marigoldColors.background,
+    color: marigoldColors.foreground,
   },
   list: {
     marginTop: sizes.spacing5,
