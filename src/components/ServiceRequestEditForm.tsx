@@ -255,7 +255,7 @@ export default function ServiceRequestEditForm({
     },
   ]
 
-  const updateServiceRequestWithId = updateServiceRequest.bind(null, serviceRequest.id, availableTechnicianIds, details)
+  // const updateServiceRequestWithId = updateServiceRequest.bind(null, serviceRequest.id, availableTechnicianIds, details)
 
   const queryClient = useQueryClient()
   const router = useRouter()
@@ -436,4 +436,7 @@ export default function ServiceRequestEditForm({
       </form>
     </div>
   )
+}
+function setIsClient(arg0: boolean) {
+  throw new Error('Function not implemented.')
 }
