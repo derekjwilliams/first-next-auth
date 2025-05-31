@@ -20,8 +20,6 @@ const nextConfig = {
   },
   reactStrictMode: true,
   pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
-  // Add transpilePackages for StyleX dependencies
-  transpilePackages: ['@stylexjs/open-props', '@derekjwilliams/stylextras-open-props-pr'],
   images: {
     remotePatterns: [
       {
@@ -54,20 +52,19 @@ const nextConfig = {
 }
 
 module.exports = stylexPlugin({
-  rootDir,
+  // Add any StyleX options here
   rsOptions: {
     aliases: {
-      '@/*': [path.join(rootDir, 'src/*')],
+      '@/*': [path.join(rootDir, '*')],
     },
     unstable_moduleResolution: {
       type: 'commonJS',
-      rootDir,
     },
+    logLevel: 'debug',
   },
-  // Extract CSS in production, keep inline in development to reduce hydration mismatches
-  extractCSS: process.env.NODE_ENV === 'production',
-  // Add development-specific options to reduce hydration issues
-  dev: process.env.NODE_ENV === 'development',
-  // Ensure consistent style generation between server and client
-  unstable_transformCSSModules: true,
-})(nextConfig)
+  extractCSS: true, //process.env.NODE_ENV === 'development' ? true : false
+})({
+  ...nextConfig,
+  // transpilePackages: ['@stylexjs/open-props'],
+  // Optionally, add any other Next.js config below, e.g.
+})

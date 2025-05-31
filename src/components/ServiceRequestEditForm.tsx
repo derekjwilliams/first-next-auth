@@ -16,6 +16,7 @@ import './lexicalstyles.css'
 import React, { useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
+import { sizes } from '@derekjwilliams/stylextras-open-props-pr/lib/sizes.stylex'
 
 const form = stylex.create({
   sectionHeading: {
@@ -50,31 +51,39 @@ const form = stylex.create({
     width: '100%',
     minHeight: spacingPatterns.gapMedium,
     padding: spacingPatterns.gapSmall,
-    borderColor: marigoldColors.textAreaBorder,
+    borderColor: {
+      default: marigoldColors.textAreaBorder,
+      ':focus': marigoldColors.primary,
+    },
     borderRadius: borders.radius1,
     fontFamily: fonts.sans,
     fontSize: fonts.size1,
     backgroundColor: marigoldColors.textAreaBackground,
-    ':focus': {
-      outline: 'none',
-      borderWidth: '1px',
-      borderColor: marigoldColors.primary,
+    outline: {
+      ':focus': 'none',
+    },
+    borderWidth: {
+      ':focus': '1px',
     },
     color: marigoldColors.textAreaColor,
   },
   input: {
     width: '100%',
     padding: spacingPatterns.gapSmall,
-    borderWidth: borders.size1,
-    borderColor: marigoldColors.textInputBorder,
+    borderColor: {
+      default: marigoldColors.textInputBorder,
+      ':focus': marigoldColors.primary,
+    },
     borderRadius: borders.radius1,
     fontFamily: fonts.sans,
     fontSize: fonts.size1,
     backgroundColor: marigoldColors.textInputBackground,
-    ':focus': {
-      outline: 'none',
-      borderColor: marigoldColors.primary,
-      boxShadow: `0 0 0 2px ${marigoldColors.primary}33`,
+    outline: {
+      ':focus': 'none',
+    },
+    borderWidth: {
+      default: borders.size1,
+      ':focus': '1px',
     },
     color: marigoldColors.textInputColor,
   },
@@ -89,16 +98,18 @@ const checkbox = stylex.create({
     height: spacingPatterns.layoutCheckboxInputSize,
     borderWidth: borders.size1,
     borderStyle: 'solid',
-    borderColor: marigoldColors.checkboxInputBorder,
+    borderColor: {
+      default: marigoldColors.checkboxInputBorder,
+      ':checked': marigoldColors.primary,
+    },
     borderRadius: borders.radius1,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: spacingPatterns.gapSmall,
-    backgroundColor: marigoldColors.checkboxInputBackground,
-    ':checked': {
-      backgroundColor: marigoldColors.primary,
-      borderColor: marigoldColors.primary,
+    backgroundColor: {
+      default: marigoldColors.checkboxInputBackground,
+      ':checked': marigoldColors.primary,
     },
   },
   icon: {
@@ -113,23 +124,23 @@ const select = stylex.create({
     width: '100%',
     padding: spacingPatterns.gapSmall,
     borderWidth: borders.size1,
-    borderColor: marigoldColors.selectInputBorder,
+    borderColor: {
+      default: marigoldColors.selectInputBorder,
+      ':focus': marigoldColors.primary,
+    },
+    outline: {
+      ':focus': 'none',
+    },
     borderRadius: borders.radius1,
     fontFamily: fonts.sans,
     fontSize: fonts.size1,
     backgroundColor: marigoldColors.selectBackground,
     color: marigoldColors.selectInputColor,
-    ':focus': {
-      outline: 'none',
-      borderColor: marigoldColors.primary,
-      boxShadow: `0 0 0 2px ${marigoldColors.primary}33`,
-    },
   },
   autoWidth: {
-    width: '100%', // Takes full width on mobile
-
-    '@media (min-width: 600px)': {
-      width: '100%', // Fill the parent container on desktop
+    width: {
+      default: '100%', // Takes full width on mobile
+      '@media (min-width: 600px)': '100%',
     },
   },
 })
@@ -162,30 +173,40 @@ const request = stylex.create({
   selectsContainer: {
     width: '100%',
     display: 'flex',
-    flexDirection: 'column',
-
-    // Media query for screens wider than 600px
-    '@media (min-width: 600px)': {
-      flexDirection: 'row',
-      justifyContent: 'flex-start', // Changed from space-between
-      gap: '2rem', // Explicit gap between selects
-      alignItems: 'flex-start',
+    flexDirection: {
+      default: 'column',
+      '@media (min-width: 600px)': 'row',
+    },
+    justifyContent: {
+      '@media (min-width: 600px)': 'flex-start',
+    },
+    gap: {
+      '@media (min-width: 600px)': sizes.spacing4,
+    },
+    alignItems: {
+      '@media (min-width: 600px)': 'flex-start',
     },
   },
 
   // Individual select wrapper divs
   selectWrapper: {
-    width: '100%',
-
-    // Media query for screens wider than 600px
-    '@media (min-width: 600px)': {
-      width: 'auto', // Let content determine width
-      maxWidth: '45%', // Prevent taking too much space
+    width: {
+      default: '100%',
+      '@media (min-width: 600px)': 'auto',
+    },
+    maxWidth: {
+      '@media (min-width: 600px)': '45%',
     },
   },
   requestButton: {
-    backgroundColor: marigoldColors.backgroundButton,
-    color: marigoldColors.foregroundButton,
+    backgroundColor: {
+      default: marigoldColors.backgroundButton,
+      ':hover': marigoldColors.backgroundHoverButton,
+    },
+    color: {
+      default: marigoldColors.foregroundButton,
+      ':hover': marigoldColors.foregroundHoverButton,
+    },
     paddingBlock: spacingPatterns.gapSmall,
     paddingInline: spacingPatterns.gapXLarge,
     borderRadius: borders.radius2,
@@ -195,10 +216,6 @@ const request = stylex.create({
     fontSize: fonts.size1,
     marginTop: spacingPatterns.gapMedium,
     transition: 'background-color 0.2s ease',
-    ':hover': {
-      backgroundColor: marigoldColors.backgroundHoverButton,
-      color: marigoldColors.foregroundHoverButton,
-    },
   },
 })
 
