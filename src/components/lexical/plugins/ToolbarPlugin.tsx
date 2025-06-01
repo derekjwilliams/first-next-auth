@@ -44,12 +44,16 @@ import {
   REDO_COMMAND,
   SELECTION_CHANGE_COMMAND,
   UNDO_COMMAND,
+  $createTextNode,
+  $insertNodes,
 } from 'lexical'
+
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import stylex from '@stylexjs/stylex'
 import { $isCodeNode, getDefaultCodeLanguage, getCodeLanguages } from '@lexical/code'
 import BlockOptionsDropdownList from '@/components/BlockOptionsDropdownList'
+import LinkDialog from '../plugins/LinkDialog' // Adjust import path as needed
 
 const LowPriority = 1
 
@@ -403,12 +407,18 @@ export default function ToolbarPlugin() {
     const [editor] = useLexicalComposerContext()
     const [isLink, setIsLink] = useState(false)
     const [linkUrl, setLinkUrl] = useState('')
+    const [isDialogOpen, setIsDialogOpen] = useState(false)
+    const [selectedText, setSelectedText] = useState('')
 
     const updateToolbar = useCallback(() => {
       const selection = $getSelection()
       if ($isRangeSelection(selection)) {
         const node = selection.getNodes()[0]
         const parent = node.getParent()
+
+        // Store selected text for the dialog
+        setSelectedText(selection.getTextContent())
+
         if ($isLinkNode(node)) {
           setIsLink(true)
           setLinkUrl(node.getURL())
@@ -440,12 +450,44 @@ export default function ToolbarPlugin() {
       )
     }, [editor, updateToolbar])
 
-    const insertLink = useCallback(() => {
-      const url = prompt('Enter URL:', linkUrl)
-      if (url !== null) {
-        editor.dispatchCommand(TOGGLE_LINK_COMMAND, url)
-      }
-    }, [editor, linkUrl])
+    const handleLinkInsert = useCallback(() => {
+      setIsDialogOpen(true)
+    }, [])
+
+    const handleLinkConfirm = useCallback(
+      (url: string, text: string) => {
+        editor.update(() => {
+          const selection = $getSelection()
+          if ($isRangeSelection(selection)) {
+            if (text && text !== selectedText) {
+              // If custom text is provided and different from selected text
+              // Remove selected content and insert new link with custom text
+              selection.removeText()
+              const linkNode = $createLinkNode(url)
+              linkNode.append($createTextNode(text))
+              $insertNodes([linkNode])
+            } else {
+              // Use existing selection or URL as text
+              if (selection.isCollapsed() && !text) {
+                // No selection and no custom text, use URL as text
+                const linkNode = $createLinkNode(url)
+                linkNode.append($createTextNode(url))
+                $insertNodes([linkNode])
+              } else {
+                // Use selected text or custom text
+                editor.dispatchCommand(TOGGLE_LINK_COMMAND, url)
+              }
+            }
+          }
+        })
+        setIsDialogOpen(false)
+      },
+      [editor, selectedText],
+    )
+
+    const handleLinkCancel = useCallback(() => {
+      setIsDialogOpen(false)
+    }, [])
 
     const removeLink = useCallback(() => {
       editor.dispatchCommand(TOGGLE_LINK_COMMAND, null)
@@ -455,7 +497,7 @@ export default function ToolbarPlugin() {
       <>
         <button
           type='button'
-          onClick={insertLink}
+          onClick={handleLinkInsert}
           className={`toolbar-item ${isLink ? 'active' : ''}`}
           aria-label='Insert link'>
           <Link {...stylex.props(styles.icon)} />
@@ -469,6 +511,13 @@ export default function ToolbarPlugin() {
             <Unlink {...stylex.props(styles.icon)} />
           </button>
         )}
+        <LinkDialog
+          isOpen={isDialogOpen}
+          initialUrl={linkUrl}
+          initialText={selectedText}
+          onConfirm={handleLinkConfirm}
+          onCancel={handleLinkCancel}
+        />
       </>
     )
   }
