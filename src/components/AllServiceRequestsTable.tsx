@@ -358,7 +358,7 @@ const pascalToSpacedTerm = (value: string) => {
   return value.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/\b\w/g, (c) => c.toUpperCase())
 }
 
-export default function ServiceRequestsTable({
+export default function AllServiceRequestsTable({
   serviceRequests = [],
   totalCount = 0,
   sorting = [],

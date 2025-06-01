@@ -1,10 +1,9 @@
 'use client'
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useState, useEffect } from 'react'
-import ServiceRequestsTable from './ServiceRequestsTable'
+import { useState } from 'react'
+import AllServiceRequestsTable from './AllServiceRequestsTable'
 import { useStatusMapQuery } from '../hooks/useStatusMapQuery'
-// import { useAllServiceRequests } from '../hooks/useAllServiceRequests'
 import { type SortingState, type PaginationState } from '@tanstack/react-table'
 import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
@@ -50,21 +49,24 @@ const styles = stylex.create({
   },
   createButton: {
     padding: '10px 15px',
-    // backgroundColor: marigoldColors.buttonBackgroundColor,
-    color: 'white',
+    color: {
+      default: marigoldColors.foregroundButton,
+      ':hover': marigoldColors.foregroundHoverButton,
+    },
+    backgroundColor: {
+      default: marigoldColors.backgroundButton,
+      ':hover': marigoldColors.backgroundHoverButton,
+    },
     borderRadius: '4px',
     textDecoration: 'none',
     fontWeight: 'bold',
-    ':hover': {
-      // backgroundColor: marigoldColors.buttonPrimaryHover,
-    },
   },
   tableContainer: {
     position: 'relative',
   },
 })
 
-export default function AllServiceRequestsPage() {
+export default function AllServiceRequestsTableContainer() {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -168,7 +170,7 @@ export default function AllServiceRequestsPage() {
         {isErrorServiceRequests ? (
           <div>Error loading service requests: {errorServiceRequests?.message || 'An unknown error occurred.'}</div>
         ) : (
-          <ServiceRequestsTable
+          <AllServiceRequestsTable
             serviceRequests={serviceRequests}
             totalCount={totalCount}
             sorting={sorting}

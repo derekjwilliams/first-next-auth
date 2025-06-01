@@ -400,7 +400,12 @@ export default function CreateServiceRequestForm({
     <div {...stylex.props(styles.container)}>
       <div {...stylex.props(styles.header)}>
         <h1>
-          Create Service Request for {locationLabel} {technicialLabel} {serviceTypeDisplayName}
+          {(locationLabel || technicialLabel || serviceTypeDisplayName) && (
+            <span>
+              Create Service Request for {locationLabel} {technicialLabel} {serviceTypeDisplayName}
+            </span>
+          )}
+          {!(locationLabel || technicialLabel || serviceTypeDisplayName) && <span>Create Service Request</span>}
         </h1>
       </div>
 

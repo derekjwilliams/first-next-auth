@@ -161,10 +161,10 @@ export function useAllServiceRequests({
       let query = supabase
         .from('service_requests')
         .select(
-          `status_id, description, date_created, material_cost, labor_cost,
-          technicians(name),
-          service_types(service_name),
-          locations(location_name, street_address, unit_number),
+          `id, status_id, description, date_created, material_cost, labor_cost,
+          technicians(id, name),
+          service_types(id, service_name),
+          locations(id, location_name, street_address, unit_number),
           status:statuses(*)`,
           {
             count: 'exact',
@@ -178,8 +178,6 @@ export function useAllServiceRequests({
       }
 
       const { data, error, count } = await query
-
-      console.log(JSON.stringify(archivedStatusId))
 
       if (error) {
         throw new Error(error.message)
