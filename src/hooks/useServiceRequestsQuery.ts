@@ -5,6 +5,7 @@ import useSupabase from './useSupabase'
 import { getServiceRequests, FilterParams } from '../queries/getServiceRequests'
 import { ServiceRequestsResult } from '../types'
 import { useMemo } from 'react'
+import { ServiceRequestRow } from '../types'
 
 export interface QueryOptions {
   sorting?: SortingState
@@ -129,6 +130,68 @@ function useServiceRequestsQuery(
 
 export default useServiceRequestsQuery
 
+interface UseAllServiceRequestsOptions {
+  sorting?: SortingState
+  pagination?: PaginationState
+  includeArchived?: boolean
+  statusMap?: Record<string, string> | undefined
+  statusMapLoading?: boolean
+}
+
+export function useAllServiceRequests({
+  sorting = [],
+  pagination = { pageIndex: 0, pageSize: 10 },
+  includeArchived = false,
+  statusMap,
+  statusMapLoading,
+}: UseAllServiceRequestsOptions = {}) {
+  const archivedStatusId = useMemo(() => findArchivedStatusId(statusMap), [statusMap])
+
+  const supabase = useSupabase()
+  return useQuery<ServiceRequestsResult, Error>({
+    queryKey: ['serviceRequests', 'all', { sorting, pagination, includeArchived }],
+    enabled: !statusMapLoading,
+    placeholderData: (prev) => prev,
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    queryFn: async () => {
+      const { pageIndex, pageSize } = pagination
+      const sortedBy = sorting.length > 0 ? sorting[0].id : 'date_created'
+      const sortDirection = sorting.length > 0 ? (sorting[0].desc ? 'desc' : 'asc') : 'asc'
+
+      let query = supabase
+        .from('service_requests')
+        .select(
+          `status_id, description, date_created, material_cost, labor_cost,
+          technicians(name),
+          service_types(service_name),
+          locations(location_name, street_address, unit_number),
+          status:statuses(*)`,
+          {
+            count: 'exact',
+          },
+        )
+        .order(sortedBy, { ascending: sortDirection === 'asc' })
+        .range(pageIndex * pageSize, (pageIndex + 1) * pageSize - 1)
+
+      if (!includeArchived && archivedStatusId) {
+        query = query.not('status_id', 'eq', archivedStatusId)
+      }
+
+      const { data, error, count } = await query
+
+      console.log(JSON.stringify(archivedStatusId))
+
+      if (error) {
+        throw new Error(error.message)
+      }
+
+      return {
+        data: data as unknown as ServiceRequestRow[],
+        totalCount: count || 0,
+      }
+    },
+  })
+}
 // For backward compatibility and convenience, create specialized hooks
 export function useServiceRequestsByLocationId(
   locationId: string,

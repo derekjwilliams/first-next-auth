@@ -72,7 +72,9 @@ export default async function Page({ searchParams }: { searchParams: SearchParam
   const totalPages = Math.ceil(serviceRequestsCount / pageSize)
   return (
     <div {...stylex.props(styles.tableWrapper)}>
-      <Suspense key={'' + currentPage + sortDirection + sortedBy} fallback={<ServiceRequestTableSkeleton />}>
+      <Suspense
+        key={'' + currentPage + sortDirection + sortedBy}
+        fallback={<ServiceRequestTableSkeleton />}>
         <ServiceRequestTable
           data={serviceRequests || []}
           currentPage={currentPage}
