@@ -24,6 +24,8 @@ import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
 import { useState } from 'react'
 import { $createTextNode, $getRoot } from 'lexical'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
+import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin'
+import { AutoLinkPlugin } from '@lexical/react/LexicalAutoLinkPlugin'
 
 const styles = stylex.create({
   editorContainer: {
@@ -73,6 +75,24 @@ function onError(error: any) {
   console.error(error)
 }
 
+const URL_MATCHER =
+  /((https?:\/\/(www\.)?)|(www\.))[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/
+
+const MATCHERS = [
+  (text: string) => {
+    const match = URL_MATCHER.exec(text)
+    if (match === null) {
+      return null
+    }
+    const fullMatch = match[0]
+    return {
+      index: match.index,
+      length: fullMatch.length,
+      text: fullMatch,
+      url: fullMatch.startsWith('http') ? fullMatch : `https://${fullMatch}`,
+    }
+  },
+]
 interface RichTextEditorProps {
   value: string
   onChange: (value: string) => void
@@ -157,6 +177,8 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange,
             />
             {markdownMode && <MarkdownShortcutPlugin transformers={TRANSFORMERS} />}
             <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
+            <LinkPlugin />
+            <AutoLinkPlugin matchers={MATCHERS} />
             <ImagesPlugin />
             <HistoryPlugin />
             <AutoFocusPlugin />
@@ -183,6 +205,8 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange,
               placeholder={<div>Enter some text...</div>}
               ErrorBoundary={LexicalErrorBoundary}
             />
+            <LinkPlugin />
+            <AutoLinkPlugin matchers={MATCHERS} />
             <ImagesPlugin />
             <HistoryPlugin />
             <AutoFocusPlugin />

@@ -1,3 +1,5 @@
+import { $createLinkNode, $isLinkNode, TOGGLE_LINK_COMMAND } from '@lexical/link'
+import { Link, Unlink } from 'lucide-react'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 import { $isHeadingNode } from '@lexical/rich-text'
 import {
@@ -55,6 +57,7 @@ export function ImageURLPrompt() {
   const sourcePrompt = prompt('Enter the URL of the image:', '')
   return sourcePrompt
 }
+// Add this to your existing toolbar component
 
 const styles = stylex.create({
   icon: {
@@ -396,6 +399,80 @@ export default function ToolbarPlugin() {
     })
   }
 
+  function LinkButton() {
+    const [editor] = useLexicalComposerContext()
+    const [isLink, setIsLink] = useState(false)
+    const [linkUrl, setLinkUrl] = useState('')
+
+    const updateToolbar = useCallback(() => {
+      const selection = $getSelection()
+      if ($isRangeSelection(selection)) {
+        const node = selection.getNodes()[0]
+        const parent = node.getParent()
+        if ($isLinkNode(node)) {
+          setIsLink(true)
+          setLinkUrl(node.getURL())
+        } else if (parent && $isLinkNode(parent)) {
+          setIsLink(true)
+          setLinkUrl(parent.getURL())
+        } else {
+          setIsLink(false)
+          setLinkUrl('')
+        }
+      }
+    }, [])
+
+    useEffect(() => {
+      return mergeRegister(
+        editor.registerUpdateListener(({ editorState }) => {
+          editorState.read(() => {
+            updateToolbar()
+          })
+        }),
+        editor.registerCommand(
+          SELECTION_CHANGE_COMMAND,
+          () => {
+            updateToolbar()
+            return false
+          },
+          1,
+        ),
+      )
+    }, [editor, updateToolbar])
+
+    const insertLink = useCallback(() => {
+      const url = prompt('Enter URL:', linkUrl)
+      if (url !== null) {
+        editor.dispatchCommand(TOGGLE_LINK_COMMAND, url)
+      }
+    }, [editor, linkUrl])
+
+    const removeLink = useCallback(() => {
+      editor.dispatchCommand(TOGGLE_LINK_COMMAND, null)
+    }, [editor])
+
+    return (
+      <>
+        <button
+          type='button'
+          onClick={insertLink}
+          className={`toolbar-item ${isLink ? 'active' : ''}`}
+          aria-label='Insert link'>
+          <Link {...stylex.props(styles.icon)} />
+        </button>
+        {isLink && (
+          <button
+            type='button'
+            onClick={removeLink}
+            className='toolbar-item'
+            aria-label='Remove link'>
+            <Unlink {...stylex.props(styles.icon)} />
+          </button>
+        )}
+      </>
+    )
+  }
+
   return (
     <>
       <div
@@ -480,6 +557,7 @@ export default function ToolbarPlugin() {
           aria-label='Redo'>
           <RotateCw {...stylex.props(styles.icon)} />
         </button>
+        <LinkButton />
         <button
           type='button'
           onClick={() =>
