@@ -26,6 +26,7 @@ import { $createTextNode, $getRoot } from 'lexical'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin'
 import { AutoLinkPlugin } from '@lexical/react/LexicalAutoLinkPlugin'
+import { marigoldColors } from '../../app/customStyles/marigoldColors.stylex'
 
 const styles = stylex.create({
   editorContainer: {
@@ -39,6 +40,12 @@ const styles = stylex.create({
     borderTopLeftRadius: '2px',
     borderTopRightRadius: '2px',
     border: '1px solid rgb(188,188,188)',
+    ':focus': {
+      border: '5px solid rgb(188,188,188)',
+      outline: 'none',
+      borderColor: marigoldColors.primary,
+      boxShadow: `0 0 0 2px ${marigoldColors.primary}33`,
+    },
   },
   editorInput: {
     minHeight: '150px',
@@ -51,7 +58,15 @@ const styles = stylex.create({
     padding: sizes.spacing2,
     backgroundColor: '#FFF',
     marginTop: '0px',
-    // padding: '15px 10px',
+    borderStyle: 'solid',
+    borderColor: 'transparent',
+    borderWidth: '2px ',
+    boxSizing: 'border-box',
+    ':focus': {
+      borderStyle: 'solid',
+      borderWidth: '2px',
+      borderColor: marigoldColors.primary,
+    },
   },
   editorInner: {
     background: '#fff',
