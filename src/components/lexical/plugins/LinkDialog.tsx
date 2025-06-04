@@ -56,6 +56,9 @@ const styles = stylex.create({
     color: marigoldColors.label,
   },
   input: {
+    '::placeholder': {
+      color: '#999',
+    },
     width: '100%',
     borderColor: marigoldColors.textInputBorder,
     padding: spacingPatterns.gapSmall,
