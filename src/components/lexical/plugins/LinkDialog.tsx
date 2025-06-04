@@ -35,7 +35,15 @@ const styles = stylex.create({
     borderStyle: 'solid',
     borderColor: marigoldColors.borderSubtle,
     borderWidth: '1px',
-    minWidth: '400px',
+    minWidth: {
+      default: '300px',
+      '@media (min-width: 600px)': '600px',
+    },
+    maxWidth: {
+      default: '300px',
+      '@media (min-width: 600px)': '800px',
+    },
+
     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
   },
   title: {
