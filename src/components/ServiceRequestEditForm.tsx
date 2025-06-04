@@ -60,7 +60,7 @@ const form = stylex.create({
     fontSize: fonts.size1,
     backgroundColor: marigoldColors.textAreaBackground,
     outline: {
-      ':focus': '1px solid ' + marigoldColors.primary,
+      ':focus': '2px solid ' + marigoldColors.primary,
     },
     borderWidth: {
       ':focus': '1px',
