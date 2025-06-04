@@ -44,7 +44,7 @@ const styles = stylex.create({
       border: '5px solid rgb(188,188,188)',
       outline: 'none',
       borderColor: marigoldColors.primary,
-      boxShadow: `0 0 0 2px ${marigoldColors.primary}33`,
+      boxShadow: '0 0 0 2px ' + marigoldColors.primary,
     },
   },
   editorInput: {
