@@ -5,6 +5,7 @@ import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../../../app/customStyles/marigoldColors.stylex'
 import { spacingPatterns } from '../../../app/customStyles/spacingPatterns.stylex'
 import { borders } from '@derekjwilliams/stylextras-open-props-pr/lib/borders.stylex'
+import { fonts } from '@derekjwilliams/stylextras-open-props-pr/lib/fonts.stylex'
 
 interface LinkDialogProps {
   isOpen: boolean
@@ -28,7 +29,7 @@ const styles = stylex.create({
     zIndex: 1000,
   },
   dialog: {
-    backgroundColor: marigoldColors.backgroundCard,
+    backgroundColor: marigoldColors.cardBackground,
     padding: '24px',
     borderRadius: '8px',
     borderStyle: 'solid',
@@ -38,7 +39,8 @@ const styles = stylex.create({
     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
   },
   title: {
-    margin: '0 0 16px 0',
+    margin: 0,
+    marginBottom: spacingPatterns.gapMedium,
     color: marigoldColors.foreground,
   },
   inputGroup: {
@@ -55,15 +57,19 @@ const styles = stylex.create({
   },
   input: {
     width: '100%',
+    borderColor: marigoldColors.textInputBorder,
     padding: spacingPatterns.gapSmall,
-    border: `1px solid ${marigoldColors.textInputBorder}`,
+    borderStyle: 'solid',
     borderRadius: borders.radius2,
     boxSizing: 'border-box',
     backgroundColor: marigoldColors.textInputBackground,
     color: marigoldColors.textInputColor,
+    fontFamily: fonts.sans,
+    fontSize: fonts.size1,
     ':focus': {
-      outline: `2px solid ${marigoldColors.primary}`,
-      outlineOffset: '1px',
+      outline: '2px solid ' + marigoldColors.primary,
+      outlineOffset: '-2px',
+      borderColor: 'transparent',
     },
   },
   buttonContainer: {
@@ -71,29 +77,25 @@ const styles = stylex.create({
     gap: spacingPatterns.gapSmall,
     justifyContent: 'flex-end',
   },
-  cancelButton: {
-    padding: `${spacingPatterns.gapSmall} ${spacingPatterns.gapLarge}`,
-    border: `1px solid ${marigoldColors.textInputBorder}`,
+  button: {
+    padding: spacingPatterns.gapSmall,
+    paddingLeft: spacingPatterns.gapLarge,
+    paddingRight: spacingPatterns.gapLarge,
+    border: '1px solid ' + marigoldColors.textInputBorder,
     borderRadius: borders.radius2,
     backgroundColor: marigoldColors.backgroundCard,
-    color: marigoldColors.foreground,
+    color: marigoldColors.foregroundButton,
     cursor: 'pointer',
     ':hover': {
       backgroundColor: marigoldColors.backgroundHoverLinkButton,
       color: marigoldColors.foregroundHoverLinkButton,
     },
   },
+  cancelButton: {
+    backgroundColor: marigoldColors.backgroundCard,
+  },
   confirmButton: {
-    padding: `${spacingPatterns.gapSmall} ${spacingPatterns.gapLarge}`,
-    border: 'none',
-    borderRadius: borders.radius2,
     backgroundColor: marigoldColors.backgroundButton,
-    color: marigoldColors.foregroundButton,
-    cursor: 'pointer',
-    ':hover': {
-      backgroundColor: marigoldColors.backgroundHoverButton,
-      color: marigoldColors.foregroundHoverButton,
-    },
   },
   confirmButtonDisabled: {
     backgroundColor: marigoldColors.borderSubtle,
@@ -202,14 +204,14 @@ export default function LinkDialog({
           <button
             type='button'
             onClick={onCancel}
-            {...stylex.props(styles.cancelButton)}>
+            {...stylex.props(styles.button, styles.cancelButton)}>
             Cancel
           </button>
           <button
             type='button'
             onClick={handleConfirm}
             disabled={!isUrlValid}
-            {...stylex.props(styles.confirmButton, !isUrlValid && styles.confirmButtonDisabled)}>
+            {...stylex.props(styles.button, styles.confirmButton, !isUrlValid && styles.confirmButtonDisabled)}>
             Insert Link
           </button>
         </div>

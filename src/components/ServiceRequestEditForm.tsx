@@ -55,12 +55,12 @@ const form = stylex.create({
       default: marigoldColors.textAreaBorder,
       ':focus': marigoldColors.primary,
     },
-    borderRadius: borders.radius1,
+    borderRadius: borders.radius2,
     fontFamily: fonts.sans,
     fontSize: fonts.size1,
     backgroundColor: marigoldColors.textAreaBackground,
     outline: {
-      ':focus': 'none',
+      ':focus': '1px solid ' + marigoldColors.primary,
     },
     borderWidth: {
       ':focus': '1px',
@@ -68,24 +68,20 @@ const form = stylex.create({
     color: marigoldColors.textAreaColor,
   },
   input: {
-    width: '100%',
+    borderColor: marigoldColors.textInputBorder,
     padding: spacingPatterns.gapSmall,
-    borderColor: {
-      default: marigoldColors.textInputBorder,
-      ':focus': marigoldColors.primary,
-    },
-    borderRadius: borders.radius1,
+    borderStyle: 'solid',
+    borderRadius: borders.radius2,
+    boxSizing: 'border-box',
+    backgroundColor: marigoldColors.textInputBackground,
+    color: marigoldColors.textInputColor,
     fontFamily: fonts.sans,
     fontSize: fonts.size1,
-    backgroundColor: marigoldColors.textInputBackground,
-    outline: {
-      ':focus': 'none',
+    ':focus': {
+      outline: '2px solid ' + marigoldColors.primary,
+      outlineOffset: '-2px',
+      borderColor: 'transparent',
     },
-    borderWidth: {
-      default: borders.size1,
-      ':focus': '1px',
-    },
-    color: marigoldColors.textInputColor,
   },
   costInput: {
     maxWidth: spacingPatterns.layoutNumericInputSize,
