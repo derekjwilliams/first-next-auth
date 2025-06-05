@@ -1,4 +1,4 @@
-// src/components/SimpleServiceRequestsTable.tsx
+// src/components/ServiceRequestsTable.tsx
 'use client'
 'use no memo' // needed for react compiler with Tanstack table
 
@@ -21,15 +21,13 @@ import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
 import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
 import { borders } from '@derekjwilliams/stylextras-open-props-pr/borders.stylex'
 import dayjs from 'dayjs'
-import { pascalToSnakeCase, pascalToSpacedTerm } from '@/utils/stringUtils'
+import { formatCurrency, pascalToSnakeCase, pascalToSpacedTerm } from '@/utils/stringUtils'
 
 const DEFAULT_PAGE_SIZE = process.env.NEXT_PUBLIC_DEFAULT_SERVICE_REQUEST_PAGE_SIZE
   ? parseInt(process.env.NEXT_PUBLIC_DEFAULT_SERVICE_REQUEST_PAGE_SIZE, 5)
   : 5
 
-const CURRENCY_SYMBOL = '$'
-
-interface SimpleServiceRequestsTableProps {
+interface ServiceRequestsTableProps {
   serviceRequests: ServiceRequestRow[]
   totalCount: number
   sorting: SortingState
@@ -348,7 +346,137 @@ const styles = stylex.create({
   },
 })
 
-export default function SimpleServiceRequestsTable({
+const getStatusBadgeStyle = (statusName: string) => {
+  const status = statusName?.toLowerCase()
+  if (status === 'open') return [styles.statusBadge, styles.statusOpen]
+  if (status === 'closed') return [styles.statusBadge, styles.statusClosed]
+  if (status === 'in progress' || status === 'in_progress') return [styles.statusBadge, styles.statusInProgress]
+  return [styles.statusBadge, styles.statusClosed] // default
+}
+
+const getColumns = (
+  entityType: ServiceRequestsTableProps['entityType'],
+  statusMap: ServiceRequestsTableProps['statusMap'],
+): ColumnDef<ServiceRequestRow>[] => [
+  {
+    accessorKey: 'status_id',
+    header: 'Status',
+    cell: (info) => {
+      const statusId = info.getValue() as string
+      const statusName = statusMap[statusId] ?? 'Unknown'
+      return <span {...stylex.props(...getStatusBadgeStyle(statusName))}>{statusName}</span>
+    },
+    enableSorting: true,
+  },
+  {
+    accessorKey: 'description',
+    header: 'Description',
+    cell: ({ row, getValue }) => (
+      <Link
+        href={`/servicerequests/${row.original.id}`}
+        {...stylex.props(styles.descriptionLink)}>
+        {getValue() as string}
+      </Link>
+    ),
+    enableSorting: true,
+  },
+
+  ...(entityType !== 'location'
+    ? [
+        {
+          accessorKey: 'locations',
+          header: 'Property',
+          cell: (info: any) => {
+            const location = info.getValue() as Tables<'locations'>
+            if (!location) {
+              return <div {...stylex.props(styles.unassignedText)}>None</div>
+            }
+            const unitSuffix = location.unit_number ? `, Unit ${location.unit_number}` : ''
+            return (
+              <Link
+                href={`/properties/${location.id}`}
+                {...stylex.props(styles.locationLink)}>
+                {`${location.street_address} ${unitSuffix}`}
+              </Link>
+            )
+          },
+          enableSorting: true,
+        },
+      ]
+    : []),
+  ...(entityType !== 'serviceType'
+    ? [
+        {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          accessorFn: (row: any) => row.service_types?.service_name || 'Unnamed Service',
+          id: 'service_type',
+          header: 'Type',
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          cell: (info: any) => (
+            <Link
+              {...stylex.props(styles.descriptionLink)}
+              href={`/servicetypes/${pascalToSnakeCase(info.getValue() as string)}`}>
+              {pascalToSpacedTerm(info.getValue() as string)}
+            </Link>
+          ),
+          enableSorting: true,
+        },
+      ]
+    : []),
+  {
+    accessorKey: 'date_created',
+    header: 'Created',
+    cell: (info) => dayjs(info.getValue<Date>()).format('MM/DD/YYYY'),
+    meta: {
+      cellStyle: styles.dateTimeColumn,
+    },
+    enableSorting: true,
+  },
+  {
+    accessorKey: 'material_cost',
+    header: 'Material',
+    cell: (info) => formatCurrency(info.getValue() as number | null),
+    meta: {
+      cellStyle: styles.costCell,
+    },
+    enableSorting: true,
+  },
+  {
+    accessorKey: 'labor_cost',
+    header: 'Labor',
+    cell: (info) => formatCurrency(info.getValue() as number | null),
+    meta: {
+      cellStyle: styles.costCell,
+    },
+    enableSorting: true,
+  },
+  {
+    accessorKey: 'technicians',
+    header: 'Technicians',
+    cell: ({ getValue }) => {
+      const technicians = getValue() as Array<Tables<'technicians'>>
+      if (!technicians?.length) {
+        return <div {...stylex.props(styles.unassignedText)}>Unassigned</div>
+      }
+
+      return (
+        <div {...stylex.props(styles.techniciansList)}>
+          {technicians.map((tech) => (
+            <Link
+              key={tech.id}
+              href={`/technicians/${tech.id}`}
+              {...stylex.props(styles.technicianLink)}>
+              {tech.name}
+            </Link>
+          ))}
+        </div>
+      )
+    },
+    enableSorting: false,
+  },
+]
+
+export default function ServiceRequestsTable({
   serviceRequests = [],
   totalCount = 0,
   sorting = [],
@@ -360,140 +488,8 @@ export default function SimpleServiceRequestsTable({
   isLoading = false,
   statusMap,
   entityType,
-}: SimpleServiceRequestsTableProps): React.JSX.Element {
-  const formatCurrency = (value: number | null | undefined) => {
-    if (value === null || typeof value === 'undefined') {
-      return 'N/A'
-    }
-    return `${CURRENCY_SYMBOL}${value.toFixed(2)}`
-  }
-
-  const getStatusBadgeStyle = (statusName: string) => {
-    const status = statusName?.toLowerCase()
-    if (status === 'open') return [styles.statusBadge, styles.statusOpen]
-    if (status === 'closed') return [styles.statusBadge, styles.statusClosed]
-    if (status === 'in progress' || status === 'in_progress') return [styles.statusBadge, styles.statusInProgress]
-    return [styles.statusBadge, styles.statusClosed] // default
-  }
-
-  const columns: ColumnDef<ServiceRequestRow>[] = [
-    {
-      accessorKey: 'status_id',
-      header: 'Status',
-      cell: (info) => {
-        const statusId = info.getValue() as string
-        const statusName = statusMap[statusId] ?? 'Unknown'
-        return <span {...stylex.props(...getStatusBadgeStyle(statusName))}>{statusName}</span>
-      },
-      enableSorting: true,
-    },
-    {
-      accessorKey: 'description',
-      header: 'Description',
-      cell: ({ row, getValue }) => (
-        <Link
-          href={`/servicerequests/${row.original.id}`}
-          {...stylex.props(styles.descriptionLink)}>
-          {getValue() as string}
-        </Link>
-      ),
-      enableSorting: true,
-    },
-
-    ...(entityType !== 'location'
-      ? [
-          {
-            accessorKey: 'locations',
-            header: 'Property',
-            cell: (info: any) => {
-              const location = info.getValue() as Tables<'locations'>
-              if (!location) {
-                return <div {...stylex.props(styles.unassignedText)}>None</div>
-              }
-              const unitSuffix = location.unit_number ? `, Unit ${location.unit_number}` : ''
-              return (
-                <Link
-                  href={`/properties/${location.id}`}
-                  {...stylex.props(styles.locationLink)}>
-                  {`${location.street_address} ${unitSuffix}`}
-                </Link>
-              )
-            },
-            enableSorting: true,
-          },
-        ]
-      : []),
-    ...(entityType !== 'serviceType'
-      ? [
-          {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            accessorFn: (row: any) => row.service_types?.service_name || 'Unnamed Service',
-            id: 'service_type',
-            header: 'Type',
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            cell: (info: any) => (
-              <Link
-                {...stylex.props(styles.descriptionLink)}
-                href={`/servicetypes/${pascalToSnakeCase(info.getValue() as string)}`}>
-                {pascalToSpacedTerm(info.getValue() as string)}
-              </Link>
-            ),
-            enableSorting: true,
-          },
-        ]
-      : []),
-    {
-      accessorKey: 'date_created',
-      header: 'Created',
-      cell: (info) => dayjs(info.getValue<Date>()).format('MM/DD/YYYY'),
-      meta: {
-        cellStyle: styles.dateTimeColumn,
-      },
-      enableSorting: true,
-    },
-    {
-      accessorKey: 'material_cost',
-      header: 'Material',
-      cell: (info) => formatCurrency(info.getValue() as number | null),
-      meta: {
-        cellStyle: styles.costCell,
-      },
-      enableSorting: true,
-    },
-    {
-      accessorKey: 'labor_cost',
-      header: 'Labor',
-      cell: (info) => formatCurrency(info.getValue() as number | null),
-      meta: {
-        cellStyle: styles.costCell,
-      },
-      enableSorting: true,
-    },
-    {
-      accessorKey: 'technicians',
-      header: 'Technicians',
-      cell: ({ getValue }) => {
-        const technicians = getValue() as Array<Tables<'technicians'>>
-        if (!technicians?.length) {
-          return <div {...stylex.props(styles.unassignedText)}>Unassigned</div>
-        }
-
-        return (
-          <div {...stylex.props(styles.techniciansList)}>
-            {technicians.map((tech) => (
-              <Link
-                key={tech.id}
-                href={`/technicians/${tech.id}`}
-                {...stylex.props(styles.technicianLink)}>
-                {tech.name}
-              </Link>
-            ))}
-          </div>
-        )
-      },
-      enableSorting: false,
-    },
-  ]
+}: ServiceRequestsTableProps): React.JSX.Element {
+  const columns = getColumns(entityType, statusMap)
 
   const handleHeaderClick = (columnId: string) => {
     const currentSort = sorting.find((sort) => sort.id === columnId)

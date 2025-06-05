@@ -3,7 +3,7 @@
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { type SortingState, type PaginationState } from '@tanstack/react-table'
-import SimpleServiceRequestsTable from './SimpleServiceRequestsTable'
+import ServiceRequestsTable from './ServiceRequestsTable'
 import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
@@ -239,7 +239,7 @@ export default function ServiceRequestTableContainer({
         {isErrorServiceRequests ? (
           <div>Error loading service requests: {errorServiceRequests?.message || 'An unknown error occurred.'}</div>
         ) : (
-          <SimpleServiceRequestsTable
+          <ServiceRequestsTable
             serviceRequests={serviceRequests}
             totalCount={totalCount}
             sorting={sorting}
