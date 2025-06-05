@@ -12,6 +12,7 @@ import { spacingPatterns } from '../app/customStyles/spacingPatterns.stylex'
 import Link from 'next/link'
 import LinkWrapperButton from './controls/LinkWrapperButton'
 import { RichTextEditor } from '@/components/lexical/RichTextEditor'
+import { pascalToSnakeCase, pascalToSpacedTerm } from '@/utils/stringUtils'
 
 const bp = '@media (min-width: 1100px)'
 const bpmax = '@media (max-width: 1100px)'
@@ -28,14 +29,14 @@ const baseStyles = {
   },
   card: {
     backgroundColor: marigoldColors.backgroundCard,
-    border: `1px solid ${marigoldColors.borderSubtle}`,
+    border: '1px solid ' + marigoldColors.borderSubtle,
     borderRadius: borders.radius2,
     gap: spacingPatterns.gapTiny,
   },
   infoContainer: {
     backgroundColor: marigoldColors.backgroundDetails,
     borderRadius: borders.radius1,
-    border: `1px solid ${marigoldColors.borderSubtle}`,
+    border: '1px solid ' + marigoldColors.borderSubtle,
   },
   sectionHeading: {
     fontSize: fonts.size1,
@@ -100,7 +101,7 @@ const styles = stylex.create({
     backgroundColor: marigoldColors.textAccent,
     fontWeight: fonts.weight7,
     borderRadius: borders.radius1,
-    padding: `${spacingPatterns.gapTiny} ${spacingPatterns.gapMedium}`,
+    padding: [spacingPatterns.gapTiny, spacingPatterns.gapMedium].join(' '),
     textTransform: 'uppercase',
     letterSpacing: 1,
     fontSize: fonts.size1,
@@ -111,7 +112,7 @@ const styles = stylex.create({
     textDecoration: 'none',
     fontWeight: fonts.weight7,
     borderRadius: borders.radius1,
-    padding: `${spacingPatterns.gapTiny} ${spacingPatterns.gapMedium}`,
+    padding: [spacingPatterns.gapTiny, spacingPatterns.gapMedium].join(' '),
     textTransform: 'uppercase',
     letterSpacing: 1,
     fontSize: fonts.size1,
@@ -165,7 +166,7 @@ const styles = stylex.create({
   },
   costTotal: {
     fontWeight: fonts.weight7,
-    borderTop: `1px solid ${marigoldColors.borderAccent}`,
+    borderTop: '1px solid ' + marigoldColors.borderAccent,
     paddingTop: spacingPatterns.gapTiny,
     marginTop: spacingPatterns.gapTiny,
   },
@@ -183,10 +184,10 @@ const styles = stylex.create({
   technicianCard: {
     backgroundColor: marigoldColors.backgroundData,
     color: marigoldColors.textAccent,
-    border: `1px solid ${marigoldColors.borderSubtle}`,
+    border: '1px solid ' + marigoldColors.borderSubtle,
     fontWeight: fonts.weight6,
     borderRadius: borders.radius1,
-    padding: `${spacingPatterns.gapTiny} ${spacingPatterns.gapMedium}`,
+    padding: [spacingPatterns.gapTiny, spacingPatterns.gapMedium].join(' '),
     minWidth: 120,
     display: 'inline-block',
   },
@@ -229,21 +230,6 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
     }).format(amount)
   }
   const totalCost = (serviceRequest.material_cost || 0) + (serviceRequest.labor_cost || 0)
-  const pascalToSpacedTerm = (value: string) => {
-    let result = ''
-    if (value) {
-      result = value.replace(/(([a-z])(?=[A-Z][a-zA-Z])|([A-Z])(?=[A-Z][a-z]))/g, '$1 ')
-    }
-    return result
-  }
-  const pascalToSnakeCase = (value: string) => {
-    let result = ''
-    if (value) {
-      result = value.replace(/(([a-z])(?=[A-Z][a-zA-Z])|([A-Z])(?=[A-Z][a-z]))/g, '$1_').toLowerCase()
-    }
-    return result
-  }
-
   return (
     <div {...stylex.props(styles.container)}>
       <div {...stylex.props(styles.card)}>

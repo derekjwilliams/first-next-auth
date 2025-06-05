@@ -14,6 +14,7 @@ import Image from 'next/image'
 import { serviceTypes } from '../../utils/serviceTypes'
 import { JSX } from 'react'
 import { Plus } from 'lucide-react'
+import { pascalToSnakeCase } from '@/utils/stringUtils'
 
 const serviceCard = stylex.create({
   linkOverlay: {
@@ -163,14 +164,6 @@ export default async function Page() {
       })
     }
   })
-
-  // From https://stackoverflow.com/questions/54246477/how-to-convert-camelcase-to-snake-case
-  const pascalToSnakeCase = (value: string) => {
-    if (value) {
-      return value.replace(/(([a-z])(?=[A-Z][a-zA-Z])|([A-Z])(?=[A-Z][a-z]))/g, '$1_').toLowerCase()
-    }
-    return 'no_match'
-  }
 
   const serviceLinks: JSX.Element[] = []
   serviceTypes.forEach((serviceType: any, key: any) => {

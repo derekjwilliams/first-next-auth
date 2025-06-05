@@ -21,6 +21,7 @@ import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
 import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
 import { borders } from '@derekjwilliams/stylextras-open-props-pr/borders.stylex'
 import dayjs from 'dayjs'
+import { pascalToSnakeCase, pascalToSpacedTerm } from '@/utils/stringUtils'
 
 const DEFAULT_PAGE_SIZE = process.env.NEXT_PUBLIC_DEFAULT_SERVICE_REQUEST_PAGE_SIZE
   ? parseInt(process.env.NEXT_PUBLIC_DEFAULT_SERVICE_REQUEST_PAGE_SIZE, 5)
@@ -61,7 +62,7 @@ const styles = stylex.create({
     width: '100%',
     maxWidth: '100%',
     boxSizing: 'border-box',
-    overflow: 'hidden', // Prevent container overflow
+    overflow: 'hidden',
   },
   tableContainer: {
     width: '100%',
@@ -77,12 +78,15 @@ const styles = stylex.create({
     borderCollapse: 'collapse',
     tableLayout: 'auto',
   },
+  column: {
+    textAlign: 'left',
+    paddingRight: sizes.spacing2,
+  },
   costColumn: {
     width: '110px',
     minWidth: '110px',
     maxWidth: '110px',
     textAlign: 'right',
-    paddingRight: sizes.spacing2,
   },
   typeColumn: {
     width: '140px',
@@ -109,7 +113,6 @@ const styles = stylex.create({
   },
   descriptionColumn: {
     minWidth: '200px',
-    // Let description take remaining space
   },
   headerCell: {
     paddingTop: sizes.spacing3,
@@ -125,7 +128,7 @@ const styles = stylex.create({
     userSelect: 'none',
     textTransform: 'uppercase',
     letterSpacing: '0.05em',
-    whiteSpace: 'nowrap', // Prevent header text wrapping
+    whiteSpace: 'nowrap',
     ':hover': {
       backgroundColor: marigoldColors.tableRowHover,
     },
@@ -142,12 +145,12 @@ const styles = stylex.create({
     transition: 'background-color 0.15s ease',
   },
   cell: {
-    padding: sizes.spacing2, // Reduced padding
+    padding: sizes.spacing2,
     color: marigoldColors.textPrimary,
-    fontSize: fonts.size1, // Slightly smaller font
+    fontSize: fonts.size1,
     verticalAlign: 'top',
     lineHeight: 1.4,
-    maxWidth: '200px', // Set max width for cells
+    maxWidth: '200px',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
@@ -155,7 +158,7 @@ const styles = stylex.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: sizes.spacing2, // Reduced gap
+    gap: sizes.spacing2,
     marginTop: sizes.spacing3,
     marginBottom: sizes.spacing3,
     padding: sizes.spacing3,
@@ -216,13 +219,10 @@ const styles = stylex.create({
     fontWeight: fonts.weight5,
   },
   footer: {
-    padding: `${sizes.spacing3} ${sizes.spacing4}`,
+    padding: [sizes.spacing3, sizes.spacing4].join(' '),
     textAlign: 'right',
     color: marigoldColors.textMuted,
-    fontSize: fonts.size1,
     backgroundColor: marigoldColors.backgroundCard,
-    borderTop: `1px solid ${marigoldColors.borderSubtle}`,
-    borderRadius: `0 0 ${borders.radius2} ${borders.radius2}`,
   },
   loadingOverlay: {
     position: 'absolute',
@@ -246,13 +246,13 @@ const styles = stylex.create({
     gap: sizes.spacing3,
   },
   paginationButton: {
+    borderColor: marigoldColors.borderSubtle,
     paddingTop: sizes.spacing2,
     paddingBottom: sizes.spacing2,
     paddingLeft: sizes.spacing4,
     paddingRight: sizes.spacing4,
     borderWidth: 1,
     borderStyle: 'solid',
-    borderColor: marigoldColors.borderSubtle,
     borderRadius: borders.radius1,
     backgroundColor: marigoldColors.backgroundButton,
     color: marigoldColors.foregroundButton,
@@ -275,7 +275,7 @@ const styles = stylex.create({
     },
   },
   pageInfo: {
-    margin: `0 ${sizes.spacing2}`,
+    margin: '0 ' + sizes.spacing2,
     color: marigoldColors.textPrimary,
     fontSize: fonts.size1,
     fontWeight: fonts.weight5,
@@ -347,19 +347,6 @@ const styles = stylex.create({
     backgroundColor: marigoldColors.statusInProgress,
   },
 })
-const pascalToSpacedTerm = (value: string) => {
-  let result = ''
-  if (value) {
-    result = value.replace(/(([a-z])(?=[A-Z][a-zA-Z])|([A-Z])(?=[A-Z][a-z]))/g, '$1 ')
-  }
-  return result
-}
-const pascalToSnakeCase = (value: string) => {
-  if (value) {
-    return value.replace(/(([a-z])(?=[A-Z][a-zA-Z])|([A-Z])(?=[A-Z][a-z]))/g, '$1_').toLowerCase()
-  }
-  return ''
-}
 
 export default function SimpleServiceRequestsTable({
   serviceRequests = [],

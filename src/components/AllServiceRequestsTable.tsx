@@ -20,6 +20,7 @@ import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
 import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
 import { borders } from '@derekjwilliams/stylextras-open-props-pr/borders.stylex'
+import { pascalToSnakeCase, pascalToSpacedTerm } from '@/utils/stringUtils'
 
 const DEFAULT_PAGE_SIZE = process.env.NEXT_PUBLIC_DEFAULT_SERVICE_REQUEST_PAGE_SIZE
   ? parseInt(process.env.NEXT_PUBLIC_DEFAULT_SERVICE_REQUEST_PAGE_SIZE, 5)
@@ -344,18 +345,6 @@ interface ServiceRequestsTableProps {
   onIncludeArchivedChange: (includeArchived: boolean) => void
   isLoading: boolean
   statusMap: Record<string, string>
-}
-
-const pascalToSnakeCase = (value: string) => {
-  if (value) {
-    return value.replace(/(([a-z])(?=[A-Z][a-zA-Z])|([A-Z])(?=[A-Z][a-z]))/g, '$1_').toLowerCase()
-  }
-  return ''
-}
-
-const pascalToSpacedTerm = (value: string) => {
-  if (!value) return ''
-  return value.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/\b\w/g, (c) => c.toUpperCase())
 }
 
 export default function AllServiceRequestsTable({
