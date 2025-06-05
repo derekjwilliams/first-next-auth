@@ -64,7 +64,7 @@ export async function getServiceRequests(
         ascending: !sort.desc,
       })
     } else if (sort.id === 'locations') {
-      query = query.order('locations(street_address)', {
+      query = query.order('locations(street_address), locations(unit_number)', {
         ascending: !sort.desc,
       })
     } else {

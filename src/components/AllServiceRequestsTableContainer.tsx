@@ -114,6 +114,7 @@ export default function AllServiceRequestsTableContainer() {
 
   const handleSortingChange = (newSorting: SortingState) => {
     setSorting(newSorting)
+    setPagination((old) => ({ ...old, pageIndex: 0 }))
     handleStateChange({
       sorting: newSorting,
       pagination: {

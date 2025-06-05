@@ -174,7 +174,6 @@ export default function ServiceRequestTableContainer({
     const newUrl = `${pathname}?${params.toString()}`
     router.replace(newUrl, { scroll: false })
   }
-
   const handleSortingChange = (newSorting: SortingState) => {
     handleStateChange({
       sorting: newSorting,
