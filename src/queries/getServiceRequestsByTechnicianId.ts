@@ -59,12 +59,15 @@ export async function getServiceRequestsByTechnicianId(
   if (!options.includeArchived && options.archivedStatusId) {
     query = query.not('status_id', 'eq', options.archivedStatusId)
   }
-
   // Apply sorting
   if (options.sorting && options.sorting.length > 0) {
     const sort = options.sorting[0] // Use the first sort criteria
     if (sort.id === 'service_type') {
       query = query.order('service_types(service_name)', {
+        ascending: !sort.desc,
+      })
+    } else if (sort.id === 'locations') {
+      query = query.order('locations(street_address)', {
         ascending: !sort.desc,
       })
     } else {

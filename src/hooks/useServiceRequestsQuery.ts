@@ -146,7 +146,6 @@ export function useAllServiceRequests({
   statusMapLoading,
 }: UseAllServiceRequestsOptions = {}) {
   const archivedStatusId = useMemo(() => findArchivedStatusId(statusMap), [statusMap])
-
   const supabase = useSupabase()
   return useQuery<ServiceRequestsResult, Error>({
     queryKey: ['serviceRequests', 'all', { sorting, pagination, includeArchived }],
@@ -155,23 +154,33 @@ export function useAllServiceRequests({
     staleTime: 5 * 60 * 1000, // 5 minutes
     queryFn: async () => {
       const { pageIndex, pageSize } = pagination
-      const sortedBy = sorting.length > 0 ? sorting[0].id : 'date_created'
-      const sortDirection = sorting.length > 0 ? (sorting[0].desc ? 'desc' : 'asc') : 'asc'
-
-      let query = supabase
-        .from('service_requests')
-        .select(
-          `id, status_id, description, date_created, material_cost, labor_cost,
-          technicians(id, name),
-          service_types(id, service_name),
-          locations(id, location_name, street_address, unit_number),
+      let query = supabase.from('service_requests').select(
+        `id, status_id, description, date_created, material_cost, labor_cost,
+          technicians(*),
+          service_types(*),
+          locations(*),
           status:statuses(*)`,
-          {
-            count: 'exact',
-          },
-        )
-        .order(sortedBy, { ascending: sortDirection === 'asc' })
-        .range(pageIndex * pageSize, (pageIndex + 1) * pageSize - 1)
+        {
+          count: 'exact',
+        },
+      )
+      if (sorting && sorting.length > 0) {
+        const sort = sorting[0]
+
+        if (sort.id === 'service_type') {
+          query = query.order('service_types(service_name)', {
+            ascending: !sort.desc,
+          })
+        } else if (sort.id === 'locations') {
+          query = query.order('locations(street_address)', {
+            ascending: !sort.desc,
+          })
+        } else {
+          query = query.order(sort.id, { ascending: !sort.desc })
+        }
+      }
+
+      query = query.range(pageIndex * pageSize, (pageIndex + 1) * pageSize - 1)
 
       if (!includeArchived && archivedStatusId) {
         query = query.not('status_id', 'eq', archivedStatusId)

@@ -59,12 +59,14 @@ export async function getServiceRequests(
   if (options.sorting && options.sorting.length > 0) {
     const sort = options.sorting[0] // Use the first sort criteria
 
-    // Handle special cases for relations
     if (sort.id === 'service_type') {
-      query = query.order('service_types(service_name)', { ascending: !sort.desc })
-    } else if (sort.id === 'technicians') {
-      // Sorting by technicians might be complex - you may need a different approach
-      console.warn('Sorting by technicians is not supported')
+      query = query.order('service_types(service_name)', {
+        ascending: !sort.desc,
+      })
+    } else if (sort.id === 'locations') {
+      query = query.order('locations(street_address)', {
+        ascending: !sort.desc,
+      })
     } else {
       query = query.order(sort.id, { ascending: !sort.desc })
     }
