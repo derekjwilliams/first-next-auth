@@ -172,9 +172,8 @@ export function useAllServiceRequests({
             ascending: !sort.desc,
           })
         } else if (sort.id === 'locations') {
-          query = query.order('locations(street_address), locations(unit_number)', {
-            ascending: !sort.desc,
-          })
+          query = query.order('locations(street_address)', { ascending: !sort.desc })
+          query = query.order('locations(unit_number)', { ascending: !sort.desc })
         } else {
           query = query.order(sort.id, { ascending: !sort.desc })
         }
