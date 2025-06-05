@@ -38,7 +38,7 @@ interface ServiceRequestsTableProps {
   onIncludeArchivedChange: (includeArchived: boolean) => void
   isLoading: boolean
   statusMap: Record<string, string>
-  entityType: 'location' | 'serviceType' | 'technician'
+  entityType: 'location' | 'serviceType' | 'technician' | ''
 }
 
 const commonLinkProperties = {
@@ -85,6 +85,7 @@ const styles = stylex.create({
     minWidth: '110px',
     maxWidth: '110px',
     textAlign: 'right',
+    paddingRight: sizes.spacing2,
   },
   typeColumn: {
     width: '140px',

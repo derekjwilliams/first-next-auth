@@ -2,13 +2,13 @@
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
-import AllServiceRequestsTable from './AllServiceRequestsTable'
 import { useStatusMapQuery } from '../hooks/useStatusMapQuery'
 import { type SortingState, type PaginationState } from '@tanstack/react-table'
 import * as stylex from '@stylexjs/stylex'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
 import Link from 'next/link'
 import { useAllServiceRequests } from 'src/hooks/useServiceRequestsQuery'
+import ServiceRequestsTable from './ServiceRequestsTable'
 
 // Utility functions (same as in ServiceRequestTableContainer)
 const parseSortingFromURL = (searchParams: URLSearchParams): SortingState => {
@@ -170,7 +170,7 @@ export default function AllServiceRequestsTableContainer() {
         {isErrorServiceRequests ? (
           <div>Error loading service requests: {errorServiceRequests?.message || 'An unknown error occurred.'}</div>
         ) : (
-          <AllServiceRequestsTable
+          <ServiceRequestsTable
             serviceRequests={serviceRequests}
             totalCount={totalCount}
             sorting={sorting}
@@ -181,6 +181,7 @@ export default function AllServiceRequestsTableContainer() {
             onIncludeArchivedChange={handleIncludeArchivedToggle}
             isLoading={isLoadingServiceRequests}
             statusMap={statusMap}
+            entityType=''
           />
         )}
       </div>
