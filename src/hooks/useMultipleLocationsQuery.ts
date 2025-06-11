@@ -1,3 +1,4 @@
+// src/hooks/useMultipleLocationsQuery.ts
 import { useQuery } from '@tanstack/react-query'
 import useSupabase from './useSupabase'
 import { getMultipleLocations } from '../queries/getMultipleLocations'
