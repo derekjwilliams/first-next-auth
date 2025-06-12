@@ -6,6 +6,7 @@ import { redirect } from 'next/navigation'
 import { SubmitButton } from './submit-button'
 import * as stylex from '@stylexjs/stylex'
 import OAuthForm from '../auth/components/OAuthForm'
+import { spacingPatterns } from '../customStyles/spacingPatterns.stylex'
 
 // export const dynamic = 'force-dynamic'
 
@@ -14,7 +15,7 @@ const loginContainer = stylex.create({
     display: 'flex',
     flexDirection: 'column',
     flex: '1 1 0%',
-    padding: `0 ${sizes.spacing5}`,
+    padding: '0 ' + spacingPatterns.gapLarge,
     maxWidth: sizes.spacing14,
     fontFamily: 'Verdana, Geneva, Tahoma, sans-serif',
   },
@@ -26,21 +27,21 @@ const loginForm = stylex.create({
     fontFamily: 'Figtree, Verdana, Geneva, Tahoma, sans-serif',
     flexDirection: 'column',
     flex: '1 1 0%',
-    gap: sizes.spacing2,
+    gap: spacingPatterns.gapMedium,
     justifyContent: 'center',
     width: '100%',
-    marginTop: sizes.spacing8,
+    marginTop: spacingPatterns.gapXLarge,
   },
   input: {},
   button: {
-    padding: `${sizes.spacing2} ${sizes.spacing3}`,
+    padding: [spacingPatterns.gapSmall, spacingPatterns.gapMedium].join(' '),
     borderRadius: borders.radius2,
     borderWidth: borders.size1,
-    marginBottom: sizes.spacing2,
+    marginBottom: spacingPatterns.gapSmall,
   },
   searchButton: {
-    padding: sizes.spacing3,
-    marginTop: sizes.spacing3,
+    padding: spacingPatterns.gapMedium,
+    marginTop: spacingPatterns.gapMedium,
     textAlign: 'center',
   },
 })
@@ -97,13 +98,31 @@ export default async function Login({
     <div {...stylex.props(loginContainer.base)}>
       <form {...stylex.props(loginForm.base)}>
         <label htmlFor='email'>Email</label>
-        <input {...stylex.props(loginForm.input)} type='text' name='email' placeholder='you@example.com' required />
+        <input
+          {...stylex.props(loginForm.input)}
+          type='text'
+          name='email'
+          placeholder='you@example.com'
+          required
+        />
         <label htmlFor='password'>Password</label>
-        <input {...stylex.props(loginForm.input)} type='password' name='password' placeholder='••••••••' required />
-        <SubmitButton formAction={signIn} {...stylex.props(loginForm.button)} pendingText='Signing In...'>
+        <input
+          {...stylex.props(loginForm.input)}
+          type='password'
+          name='password'
+          placeholder='••••••••'
+          required
+        />
+        <SubmitButton
+          formAction={signIn}
+          {...stylex.props(loginForm.button)}
+          pendingText='Signing In...'>
           Login with Email and Password
         </SubmitButton>
-        <SubmitButton formAction={signUp} {...stylex.props(loginForm.button)} pendingText='Signing Up...'>
+        <SubmitButton
+          formAction={signUp}
+          {...stylex.props(loginForm.button)}
+          pendingText='Signing Up...'>
           Sign Up
         </SubmitButton>
 

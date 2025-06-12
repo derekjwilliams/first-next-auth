@@ -1,11 +1,8 @@
 import './uploadthing.css'
 import './globals.css'
 import * as stylex from '@stylexjs/stylex'
-// import { fonts } from './globalTokens.stylex'
-import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
+import { spacingPatterns } from '../app/customStyles/spacingPatterns.stylex'
 import { ReactQueryClientProvider } from '@/components/ReactQueryClientProvider'
-// import toast, { Toaster } from 'react-hot-toast'
-// import { SpeedInsights } from '@vercel/speed-insights/next'
 import Image from 'next/image'
 import Navigation from '../components/Navigation'
 import Link from 'next/link'
@@ -15,7 +12,6 @@ import { extractRouterConfig } from 'uploadthing/server'
 import { ourFileRouter } from './api/uploadthing/core'
 // TODO import { PermissionsProvider } from '@/context/PermissionsContext'
 // import LoginButtons from '@/components/LoginButtons'; // Keep or modify as needed
-import { getCurrentUserAttributes } from '@/lib/supabase-api/server' // Use the new helper
 import { marigoldColors } from './customStyles/marigoldColors.stylex'
 
 // import { Analytics } from '@vercel/analytics/react'
@@ -45,8 +41,8 @@ const styles = stylex.create({
   top: {
     width: '100%',
     backgroundColor: colorPrimitives.marigoldYellow,
-    paddingLeft: sizes.spacing2,
-    paddingTop: sizes.spacing2,
+    paddingLeft: spacingPatterns.gapSmall,
+    paddingTop: spacingPatterns.gapSmall,
     display: 'flex',
   },
 })

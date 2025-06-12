@@ -9,7 +9,7 @@ import { useTechniciansQuery } from 'src/hooks/useTechnicianQuery'
 import { useServiceTypesQuery } from 'src/hooks/useServiceTypeQuery'
 import { snakeToPascalCase } from 'src/utils/stringUtils'
 import * as stylex from '@stylexjs/stylex'
-import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
+import { spacingPatterns } from '../../../app/customStyles/spacingPatterns.stylex'
 
 const styles = stylex.create({
   loadingContainer: {
@@ -17,10 +17,10 @@ const styles = stylex.create({
     justifyContent: 'center',
     alignItems: 'center',
     minHeight: '50vh',
-    padding: sizes.spacing6,
+    padding: spacingPatterns.gapLarge,
   },
   errorContainer: {
-    padding: sizes.spacing6,
+    padding: spacingPatterns.gapLarge,
     maxWidth: '800px',
     margin: '0 auto',
     color: 'red',

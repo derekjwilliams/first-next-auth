@@ -2,19 +2,19 @@ import AuthButton from '../components/AuthButton'
 import { createClient } from '../lib/supabase/client'
 import Header from '../components/Header'
 import stylex from '@stylexjs/stylex'
-import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
+// import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
 import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
 import { borders } from '@derekjwilliams/stylextras-open-props-pr/borders.stylex'
-import Navigation from '../components/Navigation'
 import React from 'react'
 import { marigoldColors } from '../app/customStyles/marigoldColors.stylex'
+import { spacingPatterns } from './customStyles/spacingPatterns.stylex'
 
 const pageStyle = stylex.create({
   base: {
     display: 'flex',
     flexDirection: 'column',
     flex: '1 1 0%',
-    gap: sizes.spacing10,
+    gap: spacingPatterns.gapXLarge,
     alignItems: 'center',
     width: '100%',
     color: marigoldColors.foreground,
@@ -33,7 +33,7 @@ const pageNav = stylex.create({
 const pageNavContent = stylex.create({
   base: {
     display: 'flex',
-    padding: sizes.spacing3,
+    padding: spacingPatterns.gapMedium,
     justifyContent: 'space-between',
     maxWidth: '56rem',
     alignItems: 'flex-end',
@@ -43,11 +43,11 @@ const pageNavContent = stylex.create({
 const pageHeaderContainer = stylex.create({
   base: {
     display: 'flex',
-    paddingLeft: sizes.spacing3,
-    paddingRight: sizes.spacing3,
+    paddingLeft: spacingPatterns.gapMedium,
+    paddingRight: spacingPatterns.gapMedium,
     flexDirection: 'column',
     flex: '1 1 0%',
-    gap: sizes.spacing10,
+    gap: spacingPatterns.gapXLarge,
     maxWidth: '56rem',
   },
 })
@@ -57,14 +57,14 @@ const pageMain = stylex.create({
     display: 'flex',
     flexDirection: 'column',
     flex: '1 1 0%',
-    gap: sizes.spacing5,
+    gap: spacingPatterns.gapLarge,
   },
 })
 
 const pageFooter = stylex.create({
   base: {
     display: 'flex',
-    padding: sizes.spacing8,
+    padding: spacingPatterns.gapXLarge,
     justifyContent: 'center',
     borderTopWidth: borders.size1,
     width: '100%',

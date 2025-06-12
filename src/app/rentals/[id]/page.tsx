@@ -7,31 +7,26 @@ import { sizes } from '@derekjwilliams/stylextras-open-props-pr/sizes.stylex'
 import { borders } from '@derekjwilliams/stylextras-open-props-pr/borders.stylex'
 import { fonts } from '@derekjwilliams/stylextras-open-props-pr/fonts.stylex'
 import { marigoldColors } from '../../../app/customStyles/marigoldColors.stylex'
-import { colorPrimitives } from '../../../app/customStyles/colorPrimitives.stylex'
+import { spacingPatterns } from '../../../app/customStyles/spacingPatterns.stylex'
 
 const imageSize = 240
 const aspectRatio = 1.6 // puts width at 384px
-const space = sizes.spacing3
 
 const rental = stylex.create({
-  logo: {
-    backgroundColor: colorPrimitives.marigoldYellow,
-    padding: sizes.spacing3,
-  },
   propertyInformation: {
     display: 'grid',
     gridTemplateColumns: '[a0] 1fr [a1] 4fr [a2] 1fr [b2] 3fr [a3] 2fr [b3] 2fr [a4] 3fr [b4] 1fr [a5] 4fr [a6]',
     gridColumnGap: sizes.fluid1,
     gridRowGap: sizes.fluid2,
-    margin: space,
-    padding: space,
+    margin: spacingPatterns.gapMedium,
+    padding: spacingPatterns.gapMedium,
     backgroundColor: marigoldColors.background,
     color: marigoldColors.foreground,
   },
   mediaScroller: {
     display: 'grid',
-    gap: `0 ${space} ${space}`,
-    padding: space,
+    gap: [0, spacingPatterns.gapMedium, spacingPatterns.gapMedium].join(' '),
+    padding: spacingPatterns.gapMedium,
     gridAutoFlow: 'column',
     gridAutoColumns: {
       default: '22%',
@@ -45,7 +40,7 @@ const rental = stylex.create({
   mediaElement: {
     display: 'grid',
     gridTemplateRows: 'min-content',
-    margin: `${space} ${sizes.spacing1}`,
+    margin: [spacingPatterns.gapMedium, spacingPatterns.gapTiny].join(' '),
     borderRadius: borders.radius3,
   },
   image: {
@@ -62,30 +57,30 @@ const rental = stylex.create({
     gridColumn: 'a3 / a6',
   },
   description: {
-    margin: space,
+    margin: spacingPatterns.gapMedium,
   },
   legal: {
-    margin: space,
+    margin: spacingPatterns.gapMedium,
     fontSize: fonts.size0,
   },
   rooms: {
-    marginBottom: sizes.spacing6,
+    marginBottom: spacingPatterns.gapLarge,
   },
   heading: {
     fontWeight: fonts.weight7,
-    marginBottom: sizes.spacing6,
+    marginBottom: spacingPatterns.gapLarge,
   },
   address: {
-    marginBottom: sizes.spacing6,
+    marginBottom: spacingPatterns.gapLarge,
     fontWeight: fonts.weight7,
   },
   highlights: {
-    marginBottom: space,
+    marginBottom: spacingPatterns.gapMedium,
   },
   highlightsList: {
     margin: '0',
-    marginLeft: sizes.spacing2,
-    lineHeight: sizes.spacing6,
+    marginLeft: spacingPatterns.gapSmall,
+    lineHeight: spacingPatterns.gapLarge,
     paddingInlineStart: 0,
     overflowWrap: 'break-word',
   },
