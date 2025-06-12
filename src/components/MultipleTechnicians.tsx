@@ -14,14 +14,15 @@ import useSupabase from '../hooks/useSupabase'
 import { addTechnician } from '../queries/addTechnician'
 import { Tables } from '../utils/database.types'
 import Link from 'next/link'
+import { spacingPatterns } from '../app/customStyles/spacingPatterns.stylex'
 
 const items = stylex.create({
   base: {
-    padding: sizes.spacing5,
+    padding: spacingPatterns.gapLarge,
     backgroundColor: marigoldColors.background,
   },
   list: {
-    margin: sizes.spacing5,
+    margin: spacingPatterns.gapLarge,
   },
 })
 
@@ -38,19 +39,19 @@ const form = stylex.create({
   },
   field: {
     display: 'grid',
-    marginBottom: sizes.spacing5,
+    marginBottom: spacingPatterns.gapLarge,
   },
   input: {
     borderStyle: 'solid',
-    marginTop: sizes.spacing2,
-    marginBottom: sizes.spacing2,
-    padding: sizes.spacing2,
+    marginTop: spacingPatterns.gapSmall,
+    marginBottom: spacingPatterns.gapSmall,
+    padding: spacingPatterns.gapSmall,
     width: '400px',
     flex: '1',
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: sizes.spacing00,
+    borderRadius: 0,
     fontSize: fonts.size2,
     color: marigoldColors.textInputColor,
     backgroundColor: marigoldColors.textInputBackground,
@@ -60,7 +61,7 @@ const form = stylex.create({
     },
   },
   link: {
-    marginLeft: sizes.spacing2,
+    marginLeft: spacingPatterns.gapSmall,
     fontSize: fonts.size2,
     textDecoration: 'none',
     color: {
@@ -85,7 +86,7 @@ const form = stylex.create({
     placeItems: 'center',
     display: 'grid',
     minWidth: 200,
-    padding: sizes.spacing2,
+    padding: spacingPatterns.gapSmall,
     backgroundColor: {
       default: marigoldColors.backgroundButton,
       ':hover': marigoldColors.backgroundHoverButton,
@@ -98,7 +99,7 @@ const form = stylex.create({
 
 const card = stylex.create({
   base: {
-    margin: sizes.spacing2,
+    margin: spacingPatterns.gapSmall,
     display: 'flex',
     alignItems: 'center',
   },
@@ -123,7 +124,7 @@ const card = stylex.create({
     color: marigoldColors.checkboxIcon,
     height: sizes.fluid2,
     width: sizes.fluid2,
-    paddingTop: sizes.spacing1,
+    paddingTop: spacingPatterns.gapTiny,
   },
 })
 
