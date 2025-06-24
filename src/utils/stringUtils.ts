@@ -2,6 +2,16 @@
 
 import cronstrue from 'cronstrue'
 import dayjs from 'dayjs'
+import { CronExpressionParser } from 'cron-parser'
+import 'dayjs/plugin/utc'
+import 'dayjs/plugin/timezone'
+
+import relativeTime from 'dayjs/plugin/relativeTime'
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
+dayjs.extend(relativeTime)
+dayjs.extend(utc)
+dayjs.extend(timezone)
 
 const CURRENCY_SYMBOL = '$' //TODO localization in the far future :)
 
@@ -48,4 +58,36 @@ export function formatRecurringDateCron(value: string | null | undefined) {
     return 'N/A'
   }
   return cronstrue.toString(value)
+}
+
+/**
+ * Calculates the next occurrence of a given cron expression.
+ *
+ * @param cronExpression The cron string (e.g., "0 0 * * *").
+ * @param fromDate The date from which to start searching for the next occurrence. Defaults to current time.
+ * @param tz The timezone for cron evaluation (e.g., 'UTC', 'America/New_York'). Defaults to 'UTC'.
+ * @returns A Day.js object representing the next occurrence, or null if invalid or no future occurrences.
+ */
+export function getNextCronOccurrence(
+  cronExpression: string | null | undefined,
+  fromDate: Date | string | dayjs.Dayjs = dayjs(),
+): dayjs.Dayjs | null {
+  if (!cronExpression || cronExpression.trim() === '') {
+    return null
+  }
+
+  try {
+    const options = {
+      currentDate: dayjs(fromDate).toDate(), // Pass a native Date object
+    }
+
+    const interval = CronExpressionParser.parse(cronExpression, options)
+    const next = interval.next().toDate()
+
+    // next.value is a special cron-parser Date object, convert it to native Date then Day.js
+    return dayjs(next)
+  } catch (error: any) {
+    console.error(`Error parsing or getting next occurrence for cron expression "${cronExpression}":`, error.message)
+    return null
+  }
 }

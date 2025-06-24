@@ -16,15 +16,24 @@ import {
 import { Tables } from '@/utils/database.types'
 import { ServiceRequestRow } from '../types'
 import { ArrowUpDown, SortAsc, SortDesc } from 'lucide-react'
-import dayjs from 'dayjs'
 import {
   formatCurrency,
   pascalToSnakeCase,
   pascalToSpacedTerm,
   formatDate,
   formatRecurringDateCron,
+  getNextCronOccurrence,
 } from '@/utils/stringUtils'
 import { styles } from './ServiceRequestsTableStyles'
+
+import relativeTime from 'dayjs/plugin/relativeTime'
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
+import dayjs from 'dayjs'
+
+dayjs.extend(relativeTime)
+dayjs.extend(utc)
+dayjs.extend(timezone)
 const DEFAULT_PAGE_SIZE = process.env.NEXT_PUBLIC_DEFAULT_SERVICE_REQUEST_PAGE_SIZE
   ? parseInt(process.env.NEXT_PUBLIC_DEFAULT_SERVICE_REQUEST_PAGE_SIZE, 5)
   : 5
@@ -140,8 +149,27 @@ const getColumns = (
   },
   {
     accessorKey: 'recurring_date_cron',
+    id: 'recurring_cron_expression',
     header: 'Schedule',
     cell: (info) => formatRecurringDateCron(info.getValue() as string | null),
+    meta: {
+      cellStyle: styles.dateTimeColumn,
+    },
+    enableSorting: false,
+  },
+  {
+    accessorKey: 'recurring_date_cron',
+    id: 'next_recurring_date',
+    header: 'Next Scheduled',
+    cell: (info) => {
+      const cronExpression = info.getValue() as string | null
+      const nextOccurrence = getNextCronOccurrence(cronExpression)
+
+      if (nextOccurrence) {
+        return nextOccurrence.format('YYYY-MM-DD HH:mm A')
+      }
+      return 'N/A'
+    },
     meta: {
       cellStyle: styles.dateTimeColumn,
     },

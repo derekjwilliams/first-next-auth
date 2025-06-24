@@ -12,7 +12,7 @@ import { spacingPatterns } from '../app/customStyles/spacingPatterns.stylex'
 import Link from 'next/link'
 import LinkWrapperButton from './controls/LinkWrapperButton'
 import { RichTextEditor } from '@/components/lexical/RichTextEditor'
-import { pascalToSnakeCase, pascalToSpacedTerm } from '@/utils/stringUtils'
+import { getNextCronOccurrence, pascalToSnakeCase, pascalToSpacedTerm } from '@/utils/stringUtils'
 import dayjs from 'dayjs'
 import cronstrue from 'cronstrue'
 import utc from 'dayjs/plugin/utc'
@@ -262,6 +262,7 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
     }
   }
   const totalCost = (serviceRequest.material_cost || 0) + (serviceRequest.labor_cost || 0)
+  const nextOccurrence = getNextCronOccurrence(serviceRequest.recurring_date_cron)
   return (
     <div {...stylex.props(styles.container)}>
       <div {...stylex.props(styles.card)}>
@@ -344,6 +345,11 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
                 <div {...stylex.props(styles.cronItemValue)}>
                   {serviceRequest.recurring_date_cron
                     ? getHumanReadableCron(serviceRequest.recurring_date_cron)
+                    : 'none'}
+                </div>
+                <div>
+                  {serviceRequest.recurring_date_cron
+                    ? `Next: ${nextOccurrence ? nextOccurrence.format('YYYY-MM-DD HH:mm A [UTC]') : 'N/A'}`
                     : 'none'}
                 </div>
               </div>
