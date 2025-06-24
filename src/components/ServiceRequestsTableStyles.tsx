@@ -31,6 +31,9 @@ export const styles = stylex.create({
     position: 'relative',
     backgroundColor: marigoldColors.backgroundCard,
     boxSizing: 'border-box',
+    maxHeight: 'calc(100vh - 200px)', // adjust based on your layout
+    overflowY: 'auto',
+    marginTop: '20px',
   },
   table: {
     width: '100%',
@@ -94,6 +97,10 @@ export const styles = stylex.create({
       backgroundColor: marigoldColors.tableRowHover,
     },
     transition: 'background-color 0.15s ease',
+    position: 'sticky',
+    top: 0,
+    zIndex: 10,
+    borderBottom: '2px solid #e5e7eb', // remove if not needed
   },
   row: {
     backgroundColor: marigoldColors.backgroundCard,

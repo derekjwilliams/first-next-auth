@@ -63,6 +63,8 @@ const styles = stylex.create({
   },
   tableContainer: {
     position: 'relative',
+    height: '100vh',
+    overflowY: 'auto',
   },
 })
 
