@@ -1,5 +1,8 @@
 // src/utils/stringUtils.ts
 
+import cronstrue from 'cronstrue'
+import dayjs from 'dayjs'
+
 const CURRENCY_SYMBOL = '$' //TODO localization in the far future :)
 
 export function isUUID(str: string): boolean {
@@ -32,4 +35,17 @@ export function formatCurrency(value: number | null | undefined) {
     return 'N/A'
   }
   return `${CURRENCY_SYMBOL}${value.toFixed(2)}`
+}
+
+export function formatDate(value: Date | null | undefined) {
+  if (value === null || typeof value === 'undefined') {
+    return 'N/A'
+  }
+  return dayjs(value).format('MM/DD/YYYY')
+}
+export function formatRecurringDateCron(value: string | null | undefined) {
+  if (value === null || typeof value === 'undefined') {
+    return 'N/A'
+  }
+  return cronstrue.toString(value)
 }

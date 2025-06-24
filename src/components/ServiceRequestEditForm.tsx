@@ -171,7 +171,6 @@ const select = stylex.create({
       ':focus': 'none',
     },
     borderRadius: borders.radius1,
-    fontFamily: fonts.sans,
     fontSize: fonts.size1,
     backgroundColor: marigoldColors.selectBackground,
     color: marigoldColors.selectInputColor,

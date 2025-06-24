@@ -17,7 +17,13 @@ import { Tables } from '@/utils/database.types'
 import { ServiceRequestRow } from '../types'
 import { ArrowUpDown, SortAsc, SortDesc } from 'lucide-react'
 import dayjs from 'dayjs'
-import { formatCurrency, pascalToSnakeCase, pascalToSpacedTerm } from '@/utils/stringUtils'
+import {
+  formatCurrency,
+  pascalToSnakeCase,
+  pascalToSpacedTerm,
+  formatDate,
+  formatRecurringDateCron,
+} from '@/utils/stringUtils'
 import { styles } from './ServiceRequestsTableStyles'
 const DEFAULT_PAGE_SIZE = process.env.NEXT_PUBLIC_DEFAULT_SERVICE_REQUEST_PAGE_SIZE
   ? parseInt(process.env.NEXT_PUBLIC_DEFAULT_SERVICE_REQUEST_PAGE_SIZE, 5)
@@ -123,6 +129,25 @@ const getColumns = (
     },
     enableSorting: true,
   },
+  {
+    accessorKey: 'due_date',
+    header: 'Due',
+    cell: (info) => formatDate(info.getValue() as Date | null),
+    meta: {
+      cellStyle: styles.dateTimeColumn,
+    },
+    enableSorting: true,
+  },
+  {
+    accessorKey: 'recurring_date_cron',
+    header: 'Schedule',
+    cell: (info) => formatRecurringDateCron(info.getValue() as string | null),
+    meta: {
+      cellStyle: styles.dateTimeColumn,
+    },
+    enableSorting: false,
+  },
+
   {
     accessorKey: 'material_cost',
     header: 'Material',
