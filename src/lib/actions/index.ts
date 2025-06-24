@@ -4,6 +4,8 @@
 import { redirect } from 'next/navigation'
 import createSupabaseServerClient from '../supabase/server'
 import { unstable_noStore as noStore, revalidatePath } from 'next/cache'
+import dayjs from 'dayjs'
+import cronstrue from 'cronstrue'
 
 /**
  * Reads the current user session from Supabase.
@@ -41,6 +43,39 @@ export async function updateServiceRequest(
   const parsedMaterialCost = materialCostString ? parseFloat(materialCostString) : null
   const parsedLaborCost = laborCostString ? parseFloat(laborCostString) : null
 
+  const dueDateString = formData.get('due_date') as string | null
+  const recurringDateCron = (formData.get('recurring_date_cron') as string) || null // Store as null if empty string
+
+  // Convert due_date to ISO 8601 string or null
+  // input type="date" gives YYYY-MM-DD. Convert to ISO string for DB.
+  let formattedDueDate: string | null = null
+  if (dueDateString) {
+    try {
+      // Use dayjs to parse and format consistently
+      const date = dayjs(dueDateString)
+      if (date.isValid()) {
+        formattedDueDate = date.toISOString() // Store as ISO 8601 string
+      } else {
+        console.warn(`Invalid due_date string received: ${dueDateString}`)
+        // Optionally throw an error or handle invalid date string
+      }
+    } catch (e) {
+      console.error(`Error processing due_date '${dueDateString}':`, e)
+    }
+  }
+
+  if (recurringDateCron && recurringDateCron.trim() !== '') {
+    try {
+      cronstrue.toString(recurringDateCron) // This will throw if the cron is invalid
+    } catch (error: any) {
+      console.error(
+        `Server-side: Invalid cron expression received for service request ${id}: '${recurringDateCron}' -`,
+        error.message,
+      )
+      // Throw a specific error that the client can catch and display
+      throw new Error(`Invalid recurring schedule format: ${error.message}`)
+    }
+  }
   // Extract selected technician IDs from FormData
   const selectedTechnicianIds: string[] = []
   for (const key of formData.keys()) {
@@ -65,6 +100,8 @@ export async function updateServiceRequest(
       service_type_id: serviceTypeId,
       material_cost: parsedMaterialCost,
       labor_cost: parsedLaborCost,
+      due_date: formattedDueDate,
+      recurring_date_cron: recurringDateCron,
     }
 
     if (locationId) {

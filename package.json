@@ -40,6 +40,7 @@
     "@vercel/analytics": "^1.5.0",
     "@vercel/kv": "^3.0.0",
     "autoprefixer": "^10.4.21",
+    "cronstrue": "^2.61.0",
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.13",
     "lexical": "^0.31.1",

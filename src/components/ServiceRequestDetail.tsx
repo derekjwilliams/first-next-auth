@@ -13,6 +13,13 @@ import Link from 'next/link'
 import LinkWrapperButton from './controls/LinkWrapperButton'
 import { RichTextEditor } from '@/components/lexical/RichTextEditor'
 import { pascalToSnakeCase, pascalToSpacedTerm } from '@/utils/stringUtils'
+import dayjs from 'dayjs'
+import cronstrue from 'cronstrue'
+import utc from 'dayjs/plugin/utc'
+import relativeTime from 'dayjs/plugin/relativeTime'
+
+dayjs.extend(relativeTime)
+dayjs.extend(utc)
 
 const bp = '@media (min-width: 1100px)'
 const bpmax = '@media (max-width: 1100px)'
@@ -170,6 +177,21 @@ const styles = stylex.create({
     paddingTop: spacingPatterns.gapTiny,
     marginTop: spacingPatterns.gapTiny,
   },
+  dateList: {
+    ...baseStyles.flexColumn,
+    gap: spacingPatterns.gapTiny,
+  },
+  cronItem: {
+    fontSize: fonts.size1,
+  },
+  cronItemValue: {
+    marginLeft: spacingPatterns.gapMedium,
+  },
+  dateItem: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    fontSize: fonts.size1,
+  },
   technicianList: {
     ...baseStyles.flexColumn,
     gap: spacingPatterns.gapSmall,
@@ -229,6 +251,16 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
       maximumFractionDigits: 2,
     }).format(amount)
   }
+
+  const getHumanReadableCron = (cronExpression: string) => {
+    try {
+      // By default, it uses English. You can pass a locale as a second argument, e.g., 'es' for Spanish
+      return cronstrue.toString(cronExpression)
+    } catch (error) {
+      console.error('Error parsing cron expression:', cronExpression, error)
+      return 'Invalid cron expression' // Fallback for bad cron strings
+    }
+  }
   const totalCost = (serviceRequest.material_cost || 0) + (serviceRequest.labor_cost || 0)
   return (
     <div {...stylex.props(styles.container)}>
@@ -272,8 +304,7 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
               </div>
             </div>
           </section>
-
-          {/* Costs */}
+          {/* Dates */}
           <section {...stylex.props(styles.infoCard)}>
             <div {...stylex.props(styles.sectionTitle)}>Costs</div>
             <div {...stylex.props(styles.costList)}>
@@ -288,6 +319,33 @@ export default function ServiceRequestDetail({ id }: { id: string | null }) {
               <div {...stylex.props(styles.costItem, styles.costTotal)}>
                 <span>Total</span>
                 <span>{formatCost(totalCost)}</span>
+              </div>
+            </div>
+          </section>
+
+          {/* Costs */}
+          <section {...stylex.props(styles.infoCard)}>
+            <div {...stylex.props(styles.sectionTitle)}>Dates</div>
+            <div {...stylex.props(styles.dateList)}>
+              <div {...stylex.props(styles.dateItem)}>
+                <span>Date Created</span>
+                <span>{serviceRequest.date_created ? dayjs.utc(serviceRequest.date_created).fromNow() : 'n/a'}</span>
+              </div>
+              <div {...stylex.props(styles.dateItem)}>
+                <span>Updated Date</span>
+                <span>{serviceRequest.date_updated ? dayjs.utc(serviceRequest.date_updated).fromNow() : 'n/a'}</span>
+              </div>
+              <div {...stylex.props(styles.dateItem)}>
+                <span>Due Date</span>
+                <span>{serviceRequest.due_date ? dayjs(serviceRequest.due_date).fromNow() : 'none'} </span>
+              </div>
+              <div {...stylex.props(styles.cronItem)}>
+                <div>Recurring times</div>
+                <div {...stylex.props(styles.cronItemValue)}>
+                  {serviceRequest.recurring_date_cron
+                    ? getHumanReadableCron(serviceRequest.recurring_date_cron)
+                    : 'none'}
+                </div>
               </div>
             </div>
           </section>

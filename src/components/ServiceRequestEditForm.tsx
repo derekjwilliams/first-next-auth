@@ -13,10 +13,12 @@ import { borders } from '@derekjwilliams/stylextras-open-props-pr/borders.stylex
 import RadioSet from './controls/RadioSet'
 import { RichTextEditor } from '@/components/lexical/RichTextEditor'
 import './lexicalstyles.css'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { sizes } from '@derekjwilliams/stylextras-open-props-pr/lib/sizes.stylex'
+import dayjs from 'dayjs'
+import cronstrue from 'cronstrue'
 
 const form = stylex.create({
   sectionHeading: {
@@ -85,6 +87,47 @@ const form = stylex.create({
   },
   costInput: {
     maxWidth: spacingPatterns.layoutNumericInputSize,
+  },
+  clearButton: {
+    padding: '0.5rem 1rem',
+    borderRadius: '4px',
+    border: '1px solid #ccc',
+    backgroundColor: '#f0f0f0',
+    cursor: 'pointer',
+    marginTop: '0.5rem',
+    alignSelf: 'flex-start', // Adjust alignment if your inputGroup is a flex column
+    ':hover': {
+      backgroundColor: '#e0e0e0',
+    },
+    // Optional: Add some space if you have other elements beside it
+    marginLeft: '0.5rem',
+  },
+  inputGroup: {
+    // Ensure this is defined for proper layout
+    display: 'flex',
+    flexDirection: 'column', // or 'row' depending on your desired layout
+    gap: '0.5rem',
+    marginBottom: '1rem',
+  },
+  helperText: {
+    fontSize: '0.8rem',
+    color: '#666',
+    marginTop: '-0.25rem', // Adjust as needed
+  },
+  dateInputRow: {
+    display: 'flex',
+    flexDirection: 'row', // Arrange children horizontally
+    alignItems: 'center', // Vertically align items in the middle
+    gap: '0.75rem', // Space between the input and the button
+  },
+  inputError: {
+    borderColor: 'red', // Red border for invalid input
+    outline: 'none',
+  },
+  errorMessage: {
+    color: 'red',
+    fontSize: '0.8rem',
+    marginTop: '0.25rem',
   },
 })
 
@@ -198,16 +241,21 @@ const request = stylex.create({
     backgroundColor: {
       default: marigoldColors.backgroundButton,
       ':hover': marigoldColors.backgroundHoverButton,
+      ':disabled': marigoldColors.backgroundDisabledButton,
     },
     color: {
       default: marigoldColors.foregroundButton,
       ':hover': marigoldColors.foregroundHoverButton,
+      ':disabled': marigoldColors.foregroundDisabledButton,
     },
     paddingBlock: spacingPatterns.gapSmall,
     paddingInline: spacingPatterns.gapXLarge,
     borderRadius: borders.radius2,
     border: 'none',
-    cursor: 'pointer',
+    cursor: {
+      default: 'pointer',
+      ':disabled': 'not-allowed',
+    },
     fontWeight: fonts.weight6,
     fontSize: fonts.size1,
     marginTop: spacingPatterns.gapMedium,
@@ -236,6 +284,38 @@ export default function ServiceRequestEditForm({
   const options = availableStatuses.map((status) => {
     return { value: status.id, label: status.status_name, id: status.id }
   })
+
+  const [localDueDate, setLocalDueDate] = useState<string | null>(
+    serviceRequest.due_date ? dayjs(serviceRequest.due_date).format('YYYY-MM-DD') : null,
+  )
+  const [localRecurringDateCron, setLocalRecurringDateCron] = useState<string | null>(
+    serviceRequest.recurring_date_cron ?? null,
+  )
+  const [cronError, setCronError] = useState<string | null>(null)
+
+  const validateCronExpression = (cronString: string | null): string | null => {
+    if (!cronString || cronString.trim() === '') {
+      return null // An empty or null cron string is considered valid (no recurring schedule)
+    }
+    try {
+      // cronstrue will throw an error for invalid cron expressions
+      cronstrue.toString(cronString)
+      return null // Valid
+    } catch (error: any) {
+      // Return cronstrue's error message or a generic one
+      return error.message || 'Invalid cron expression format.'
+    }
+  }
+
+  const handleRecurringCronChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    setLocalRecurringDateCron(value || null) // Store as null if empty string
+    setCronError(validateCronExpression(value)) // Validate and set error
+  }
+
+  useEffect(() => {
+    setCronError(validateCronExpression(localRecurringDateCron))
+  }, [localRecurringDateCron]) // Re-validate if local state changes (e.g. initial load)
 
   const handleCostChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
@@ -294,10 +374,33 @@ export default function ServiceRequestEditForm({
     },
   })
 
+  const isSubmitDisabled = !!cronError // Disable if there's any cron error
+
   // Form submit handler
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    const currentCronError = validateCronExpression(localRecurringDateCron)
+    setCronError(currentCronError)
+
+    if (currentCronError) {
+      console.error('Form submission blocked: Invalid cron expression.')
+      return
+    }
+
     const formData = new FormData(e.currentTarget)
+
+    if (localDueDate) {
+      formData.set('due_date', localDueDate)
+    } else {
+      formData.set('due_date', '')
+    }
+
+    if (localRecurringDateCron) {
+      formData.set('recurring_date_cron', localRecurringDateCron)
+    } else {
+      formData.set('recurring_date_cron', '')
+    }
+
     mutation.mutate(formData)
   }
 
@@ -356,6 +459,50 @@ export default function ServiceRequestEditForm({
               readOnly={false}
               data={''}
             />
+          </div>
+          <div {...stylex.props(form.sectionWrapper)}>
+            <h1 {...stylex.props(form.sectionHeading)}>Scheduling</h1>
+            {/* Due Date Input */}
+            <div {...stylex.props(form.inputGroup)}>
+              {' '}
+              {/* You might need to define form.inputGroup in your styles */}
+              <label htmlFor='due_date'>Due Date</label>
+              <div {...stylex.props(form.dateInputRow)}>
+                <input
+                  {...stylex.props(form.input)}
+                  type='date'
+                  id='due_date'
+                  name='due_date'
+                  value={localDueDate ?? ''}
+                  onChange={(e) => setLocalDueDate(e.target.value || null)}
+                />
+                <button
+                  type='button'
+                  onClick={() => setLocalDueDate(null)}
+                  {...stylex.props(form.clearButton)}>
+                  Clear Due Date
+                </button>
+              </div>
+            </div>
+
+            {/* Recurring Date Cron Input */}
+            <div {...stylex.props(form.inputGroup)}>
+              <label htmlFor='recurring_date_cron'>Recurring Schedule (Cron)</label>
+              <input
+                {...stylex.props(form.input)}
+                style={cronError ? { borderColor: 'red' } : {}}
+                type='text'
+                id='recurring_date_cron'
+                name='recurring_date_cron'
+                value={localRecurringDateCron ?? ''}
+                onChange={handleRecurringCronChange}
+                placeholder='e.g., 0 0 * * * for daily at midnight'
+              />
+              {cronError && <p {...stylex.props(form.errorMessage)}>{cronError}</p>}
+              <p {...stylex.props(form.helperText)}>
+                Example: `0 0 * * *` (Daily at midnight), `0 9 * * 1-5` (Mon-Fri at 9 AM)
+              </p>
+            </div>
           </div>
           {/* Technicians Checkboxes, TODO use react-select for improved UX */}
           <div {...stylex.props(request.technicians)}>
@@ -441,7 +588,8 @@ export default function ServiceRequestEditForm({
             />
             <button
               type='submit'
-              {...stylex.props(request.requestButton)}>
+              {...stylex.props(request.requestButton)}
+              disabled={isSubmitDisabled || mutation.isPending}>
               Save Changes
             </button>
           </div>
@@ -449,7 +597,4 @@ export default function ServiceRequestEditForm({
       </form>
     </div>
   )
-}
-function setIsClient(arg0: boolean) {
-  throw new Error('Function not implemented.')
 }

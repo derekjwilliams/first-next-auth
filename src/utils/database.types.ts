@@ -637,10 +637,12 @@ export type Database = {
           date_updated: string | null
           description: string | null
           details: string | null
+          due_date: string | null
           id: string
           labor_cost: number | null
           location_id: string | null
           material_cost: number | null
+          recurring_date_cron: string | null
           requested_by: string | null
           rich_details: Json | null
           service_type_id: string | null
@@ -654,10 +656,12 @@ export type Database = {
           date_updated?: string | null
           description?: string | null
           details?: string | null
+          due_date?: string | null
           id?: string
           labor_cost?: number | null
           location_id?: string | null
           material_cost?: number | null
+          recurring_date_cron?: string | null
           requested_by?: string | null
           rich_details?: Json | null
           service_type_id?: string | null
@@ -671,10 +675,12 @@ export type Database = {
           date_updated?: string | null
           description?: string | null
           details?: string | null
+          due_date?: string | null
           id?: string
           labor_cost?: number | null
           location_id?: string | null
           material_cost?: number | null
+          recurring_date_cron?: string | null
           requested_by?: string | null
           rich_details?: Json | null
           service_type_id?: string | null
