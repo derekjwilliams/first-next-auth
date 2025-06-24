@@ -111,6 +111,28 @@ export const marigoldColors = stylex.defineVars({
     [DARK]: colorPrimitives.marigoldSlate,
   },
 
+  backgroundSecondaryButton: {
+    default: colorPrimitives.marigoldStoneLight, // Light grey for default/light theme
+    [DARK]: colorPrimitives.marigoldSlate, // <--- CHANGED: A medium-dark grey for dark theme
+  },
+  backgroundHoverSecondaryButton: {
+    default: colorPrimitives.marigoldStone, // Slightly darker grey on hover for light theme
+    [DARK]: colorPrimitives.marigoldEggplant, // <--- CHANGED: A slightly darker grey for dark theme hover
+  },
+  borderSecondaryButton: {
+    default: colorPrimitives.marigoldStoneMid, // A medium grey for the border
+    [DARK]: colorPrimitives.marigoldStoneDark, // A slightly darker grey for dark theme border
+  },
+  foregroundSecondaryButton: {
+    default: colorPrimitives.marigoldStoneDarker,
+    [DARK]: colorPrimitives.marigoldStoneLight,
+  },
+
+  foregroundHelperText: {
+    default: colorPrimitives.marigoldPath, // A good mid-grey for default (light) theme
+    [DARK]: colorPrimitives.marigoldFog, // A light, muted neutral for dark theme
+  },
+
   foregroundImageButton: {
     default: colorPrimitives.marigoldStoneDarker,
     [DARK]: colorPrimitives.marigoldStoneLight,

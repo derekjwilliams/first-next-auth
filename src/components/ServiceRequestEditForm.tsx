@@ -89,45 +89,45 @@ const form = stylex.create({
     maxWidth: spacingPatterns.layoutNumericInputSize,
   },
   clearButton: {
-    padding: '0.5rem 1rem',
-    borderRadius: '4px',
-    border: '1px solid #ccc',
-    backgroundColor: '#f0f0f0',
-    cursor: 'pointer',
-    marginTop: '0.5rem',
-    alignSelf: 'flex-start', // Adjust alignment if your inputGroup is a flex column
-    ':hover': {
-      backgroundColor: '#e0e0e0',
+    padding: [spacingPatterns.gapSmall, spacingPatterns.gapMedium].join(' '),
+    borderRadius: borders.radius2,
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: marigoldColors.borderSecondaryButton,
+    backgroundColor: {
+      default: marigoldColors.backgroundSecondaryButton,
+      ':hover': marigoldColors.backgroundHoverSecondaryButton,
     },
-    // Optional: Add some space if you have other elements beside it
-    marginLeft: '0.5rem',
+    color: marigoldColors.foregroundSecondaryButton,
+    cursor: 'pointer',
+    marginTop: spacingPatterns.gapTiny,
+    alignSelf: 'flex-start',
+    marginLeft: spacingPatterns.gapMedium,
+    transition: 'background-color 0.2s ease, border-color 0.2s ease',
   },
   inputGroup: {
     // Ensure this is defined for proper layout
     display: 'flex',
     flexDirection: 'column', // or 'row' depending on your desired layout
-    gap: '0.5rem',
-    marginBottom: '1rem',
+    gap: spacingPatterns.gapMedium,
+    marginBottom: spacingPatterns.gapMedium,
   },
+
   helperText: {
-    fontSize: '0.8rem',
-    color: '#666',
-    marginTop: '-0.25rem', // Adjust as needed
+    fontSize: fonts.size0,
+    color: marigoldColors.foregroundHelperText,
+    marginTop: 0,
   },
   dateInputRow: {
     display: 'flex',
-    flexDirection: 'row', // Arrange children horizontally
-    alignItems: 'center', // Vertically align items in the middle
-    gap: '0.75rem', // Space between the input and the button
-  },
-  inputError: {
-    borderColor: 'red', // Red border for invalid input
-    outline: 'none',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacingPatterns.gapMedium,
   },
   errorMessage: {
-    color: 'red',
-    fontSize: '0.8rem',
-    marginTop: '0.25rem',
+    color: marigoldColors.error,
+    fontSize: fonts.size0,
+    marginTop: spacingPatterns.gapSmall,
   },
 })
 
