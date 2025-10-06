@@ -1,11 +1,11 @@
 // src/queries/getServiceTypeById.ts
 
-import { TypedSupabaseClient } from '@/lib/supabase/supabase'
+import { TypedSupabaseClient } from '@/lib/supabase/types'
 import { Tables } from '@/utils/database.types'
 
 export interface ServiceTypeWithDetails extends Tables<'service_types'> {
   service_requests: Array<
-    Tables<'service_requests'> 
+    Tables<'service_requests'>
     // & {
     //   serviceTypes: Array<Tables<'service_types'>>
     // }

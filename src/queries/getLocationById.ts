@@ -1,5 +1,5 @@
 // src/queries/getLocationById.ts
-import { TypedSupabaseClient } from '@/lib/supabase/supabase'
+import { TypedSupabaseClient } from '@/lib/supabase/types'
 import { Tables } from '@/utils/database.types'
 
 import { PostgrestSingleResponse } from '@supabase/supabase-js'

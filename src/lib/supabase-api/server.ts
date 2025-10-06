@@ -5,6 +5,8 @@ import type { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension
 import { Database } from '@/utils/database.types' // Your generated Supabase types
 // import { UserAttributes } from '@supabase/supabase-js'
 import { UserAttributes } from '@/lib/permissions' // Import your ABAC user type
+import { Tables } from '@/utils/database.types' // Your generated Supabase types
+type Profile = Tables<'profiles'>
 
 /**
  * Creates a Supabase client configured for server-side operations
@@ -84,7 +86,7 @@ export async function getCurrentUserAttributes(): Promise<UserAttributes | null>
     .from('profiles') // Adjust table/column names
     .select('roles, department')
     .eq('id', user.id)
-    .single()
+    .single<Profile>()
 
   // 5. Handle profile fetching results and map to UserAttributes
   if (profileError) {

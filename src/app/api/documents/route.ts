@@ -7,6 +7,8 @@ import {
 } from '@/lib/supabase-api/server' // Ensure path is correct
 import { can } from '@/lib/permissions' // Import can for authorization checks
 import { z } from 'zod'
+import { Database } from '@/utils/database.types'
+import { SupabaseClient } from '@supabase/supabase-js'
 
 // Zod schema for creating a document (keep this)
 const createSchema = z.object({
@@ -55,6 +57,7 @@ export async function GET(request: NextRequest) {
 }
 
 // --- POST /api/documents --- (Create Document in Supabase)
+/*
 export async function POST(request: NextRequest) {
   const cookieStore = await cookies()
   // Create a Supabase client for this request context
@@ -102,6 +105,9 @@ export async function POST(request: NextRequest) {
     }
 
     // 5. Perform Supabase Insertion
+
+    type DocumentsInsert = Database['public']['Tables']['documents']['Insert']
+
     const { data: newDocument, error: insertError } = await supabase
       .from('documents')
       .insert(documentToInsert)
@@ -127,6 +133,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
   }
 }
+  */
 
 // // app/api/documents/route.ts
 // import { NextRequest, NextResponse } from 'next/server'

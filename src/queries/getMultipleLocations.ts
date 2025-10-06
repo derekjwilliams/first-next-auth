@@ -1,7 +1,7 @@
-// import { TypedSupabaseClient } from '@/lib/supabase/supabase'
+import { TypedSupabaseClient } from '@/lib/supabase/types'
 import { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@/utils/database.types'
-type TypedSupabaseClient = SupabaseClient<Database>
+// type TypedSupabaseClient = SupabaseClient<Database>
 
 export function getMultipleLocations(client: TypedSupabaseClient) {
   return client
